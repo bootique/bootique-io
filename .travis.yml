@@ -9,7 +9,7 @@ install:
   - nvm install 8
 script:
   - cd ./app && yarn install
-  - hugo
+  - cd ../ && hugo
 deploy:
   provider: pages
   skip_cleanup: true
