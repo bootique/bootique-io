@@ -1,0 +1,36 @@
+{
+  "name": "bootique-io",
+  "version": "1.0.0",
+  "main": "app.ts",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/jquery": "2.0.48",
+    "@types/modernizr": "3.5.0",
+    "autoprefixer": "7.1.2",
+    "css-loader": "0.28.4",
+    "extract-text-webpack-plugin": "3.0.0-rc.2",
+    "file-loader": "0.11.2",
+    "html-webpack-plugin": "2.29.0",
+    "node-sass": "4.5.3",
+    "postcss-loader": "2.0.6",
+    "rimraf": "2.6.1",
+    "sass-loader": "6.0.6",
+    "style-loader": "0.18.2",
+    "ts-loader": "2.2.2",
+    "typescript": "2.4.1",
+    "url-loader": "0.5.9",
+    "webpack": "3.1.0"
+  },
+  "dependencies": {
+    "bootstrap-sass": "3.3.7",
+    "font-awesome": "4.7.0",
+    "jquery": "2.1.4",
+    "purecss-sass": "0.6.0",
+    "roboto-fontface": "0.7.1"
+  },
+  "scripts": {
+    "prebuild": "yarn install && rimraf ../themes/bootique-theme/static/assets/",
+    "build": "webpack -p --env.NODE_ENV production --env.SOURCE_MAP source-map",
+    "build:watch": "webpack --watch --env.NODE_ENV development --env.SOURCE_MAP eval-source-map"
+  }
+}

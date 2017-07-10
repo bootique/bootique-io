@@ -1,2 +1,7 @@
 # Build
-public
+/public
+/themes/bootique-theme/static/assets/
+/themes/bootique-theme/layouts/partials/assets.html
+
+# Dependencies
+/app/node_modules/

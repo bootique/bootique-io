@@ -1,0 +1,301 @@
+/*------------------------------------------------
+
+HELPER CLASSES
+
+------------------------------------------------*/
+
+// BOX MODEL
+// DISPLAY
+.display-table {
+  display: table;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+// PULL
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+// ALIGN
+// VERTICAL
+.valign-wrapper {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+
+.valign {
+  display: table-cell;
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.valign-top {
+  vertical-align: top;
+}
+
+.valign-middle {
+  vertical-align: middle;
+}
+
+.valign-bottom {
+  vertical-align: bottom;
+}
+
+// VERTICAL RWD
+@media screen and (max-width: 991px) {
+  .valign-wrapper-sm {
+    display: table;
+    width: 100%;
+    height: 100%;
+  }
+  .valign-sm {
+    display: table-cell;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+  }
+}
+
+// HORIZONTAL
+.center-block {
+  margin: 0 auto;
+  display: block;
+}
+
+// SCROLL
+// NO SCROLL FOR OVERALL !PAGE
+.ios-no-scroll, // iOS http://stackoverflow.com/questions/3047337/does-overflowhidden-applied-to-body-work-on-iphone-safari
+.no-scroll,
+.ios-no-scroll body,
+.no-scroll body {
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
+
+// HEIGHT
+.full-window-height {
+  height: 100vh;
+
+  &--nav {
+    min-height: 100vh;
+    padding-top: 5.7em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    > div {
+      padding-top: 60px; //6% // 8%        	// we cannot use percents https://bugzilla.mozilla.org/show_bug.cgi?id=958714
+      padding-bottom: 120px; //14% // 8%
+
+      @media (min-width: 1240px) {
+        padding-top: 70px; //6%;
+        padding-bottom: 80px; //6%;
+      }
+    }
+  }
+}
+
+// WIDTH
+// MAX
+.max-w-750 {
+  max-width: 750px;
+}
+
+.max-w-1050 {
+  max-width: 1050px;
+}
+
+// MARGINS & PADDINGS
+.no-hor-gutter {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.no-mb {
+  margin-bottom: 0 !important;
+}
+
+// PERCENT
+// TOP
+.mt-6p {
+  margin-top: 6%;
+}
+
+// TEXT | FONT
+// ALIGN
+.text-center {
+  text-align: center;
+}
+
+// TEXT OVERFLOW
+.text-overflow {
+  overflow: hidden;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// LISTS
+
+// List options
+// [converter] extracted from `.list-unstyled` for libsass compatibility
+@mixin list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+// [converter] extracted as `@mixin list-unstyled` for libsass compatibility
+.list-unstyled {
+  @include list-unstyled;
+}
+
+// Inline turns list items into inline-block
+.list-inline {
+  @include list-unstyled;
+
+  > li {
+    display: inline-block;
+  }
+}
+
+// LIST `,` (comma) divider
+.list-commmas {
+  margin-left: 0;
+
+  li {
+    padding: 0;
+
+    &:after {
+      content: '\002C'; // = ',''
+
+    }
+    &:last-child:after {
+      content: '';
+    }
+  }
+}
+
+// LIST `|` (vert bar) divider
+.list-vertbars {
+  margin-left: -8px;
+
+  li {
+    position: relative;
+    padding: 0 8px;
+    list-style: none;
+
+    &:before {
+      content: '\007C'; // = '|'
+      position: absolute;
+      left: -4px;
+      bottom: 1px;
+    }
+
+    &:first-child:before {
+      content: '';
+    }
+  }
+}
+
+// FONT WEIGHT
+.text-thin {
+  font-weight: 100 !important;
+
+  strong {
+    font-weight: 300 !important;
+  }
+}
+
+.text-light {
+  font-weight: 300 !important;
+
+  strong {
+    font-weight: 400 !important;
+  }
+}
+
+.text-medium {
+  font-weight: 500 !important;
+
+  strong {
+    font-weight: 700 !important;
+  }
+}
+
+.text-normal {
+  font-weight: 400 !important;
+
+  strong {
+    font-weight: 700 !important;
+  }
+}
+
+// FONT SIZE
+.text-16 {
+  font-size: 16px;
+}
+
+.text-18 {
+  font-size: 18px;
+}
+
+.text-20 {
+  font-size: 20px;
+}
+
+.text-40 {
+  font-size: 40px;
+}
+
+// FONT WRAPPING
+.nowrap,
+.nowrap * {
+  white-space: nowrap;
+}
+
+// FONT DECORATION
+.text-underline,
+.link-imitation {
+  text-decoration: underline;
+}
+
+// LINKS
+// FIXED HEADER ANCHOR LINKS OFFSET
+@mixin fixed-header-anchor-offset($header-height: 80px, $offset-from-header: 20px) {
+
+  &:before {
+    content: "";
+    display: block;
+    height: $header-height + $offset-from-header; /* fixed header height*/
+    margin: -($header-height + $offset-from-header) 0 0; /* negative fixed header height */
+  }
+
+}
+
+// SCROLLSPY
+.scrollspy-offset {
+  position: fixed;
+  top: 0;
+  left: 350px;
+  z-index: 5;
+
+  width: 10px;
+  height: 100px;
+
+  background: red;
+}
+
+.scrollspy-1500-pusher {
+  height: 1500px;
+}
