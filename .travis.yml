@@ -8,8 +8,8 @@ install:
   - sudo dpkg -i hugo_0.25.1_Linux-64bit.deb
   - nvm install 8
 script:
-  - hugo
   - cd ./app && yarn install
+  - hugo
 deploy:
   provider: pages
   skip_cleanup: true
