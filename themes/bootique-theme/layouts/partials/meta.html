@@ -1,0 +1,2 @@
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Params.MetaDescription }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
+<meta name="keywords" content="{{ with .Keywords }}{{ . }}{{ else }}{{if .IsPage}}{{ .Params.MetaKeywords }}{{ else }}{{ with .Site.Params.keywords }}{{ . }}{{ end }}{{ end }}{{ end }}">

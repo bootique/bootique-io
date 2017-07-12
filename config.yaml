@@ -1,0 +1,15 @@
+baseURL: "http://bootique.io/"
+languageCode: "en-us"
+title: "Bootique: Minimally Opionated Framework for Runnable Java"
+theme: "bootique-theme"
+
+params:
+  googleAnalytics: "UA-74603008-1"
+  description: >-
+      Bootique is a minimally opinionated platform for runnable Java applications.
+      Provides command-line launcher, dependency injection service, configuration and lots of extension modules.
+  keywords: "Bootique, Bootique project, Guice, Container-less Java, Runnable Jar, Make Jar not War, WYSIWYR"
+
+# URLs for pages under folders page/fixed.
+permalinks:
+  page: ":filename/"

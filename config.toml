@@ -1,4 +1,0 @@
-baseURL = "http://bootique.io/"
-languageCode = "en-us"
-title = "Bootique: Minimally Opionated Framework for Runnable Java"
-theme = "bootique-theme"

@@ -1,15 +1,14 @@
-#language: java
-#jdk:
-#  - oraclejdk8
-dist: trusty
-language: generic
+language: java
+jdk:
+  - oraclejdk8
 install:
   - wget https://github.com/gohugoio/hugo/releases/download/v0.25.1/hugo_0.25.1_Linux-64bit.deb
   - sudo dpkg -i hugo_0.25.1_Linux-64bit.deb
   - nvm install 8
 script:
   - cd ./app && yarn run build
-  - cd ../ && hugo
+  - cd ../ && ./docs.sh
+  - cd hugo
 deploy:
   provider: pages
   skip_cleanup: true
@@ -18,3 +17,5 @@ deploy:
     branch: master
   local_dir: public
   target_branch: gh-pages
+cache:
+  - yarn

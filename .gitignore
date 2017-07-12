@@ -1,5 +1,7 @@
 # Build
+/tmp
 /public
+/static/docs/0/
 /themes/bootique-theme/static/assets/
 /themes/bootique-theme/layouts/partials/assets.html
 

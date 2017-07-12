@@ -2,7 +2,10 @@ const path = require("path");
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const autoprefixer = require("autoprefixer");
+const autoprefixer = require("autoprefixer")({
+  browsers: ["> 1%", "last 2 versions", "Firefox ESR"],
+  remove: false
+});
 
 module.exports = function (options = {}) {
   // Settings
@@ -17,7 +20,7 @@ Build started with following configuration:
 → SOURCE_MAP: ${SOURCE_MAP}
 `);
 
-  const publicPath = "/bootique-io/assets/";
+  const publicPath = "/bootique-io/assets/"; // TODO: Change to /assets/ when will be deployed to bootique.io
   const limit = 65000;
 
   return {
