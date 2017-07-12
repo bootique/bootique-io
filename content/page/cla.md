@@ -4,6 +4,10 @@ title: "Contributor License Agreement"
 url: "cla"
 metaKeywords: "Bootique Contributor License Agreement"
 metaDescription: "Bootique: A Minimally Opinionated Framework for Runnable Java Apps - Contributor License Agreement"
+menu:
+  main:
+    Name: "CLA"
+    Weight: 3
 ---
 ## What is This About?
 
