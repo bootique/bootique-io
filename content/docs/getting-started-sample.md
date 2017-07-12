@@ -3,9 +3,9 @@ title: "Getting Started with Bootique"
 metaKeywords: "Bootique Framework Documentation version 0"
 metaDescription: "Bootique: A Minimally Opinionated Framework for Runnable Java Apps - Documentation version 0"
 ---
-## Part I. Getting Started with Bootique
+# Part I. Getting Started with Bootique
 
-### Chapter 1. Hello World in Bootique
+## Chapter 1. Hello World in Bootique
 
 The goal of this chapter is to write a simple REST app using Bootique. Let's start with a new Java Maven project created in your favorite IDE. Your `pom.xml` in addition to the required project information tags will need to declare a few BOM ("Bill of Material") imports in the `<dependencyManagement/>` section:
 
@@ -136,7 +136,7 @@ Notice that the app did not terminate immediately, and is waiting for user reque
 
 Next we'll talk about configuration...
 
-### Chapter 2. Configuration
+## Chapter 2. Configuration
 
 You can optionally pass a configuration to almost any Bootique app. This is done with a `--config` parameter. An argument to `--config` is either a path to a configuration file or a URL of a service that serves such configuration remotely (imagine an app starting on a cloud that downloads its configuration from a central server). The format of the file is YAML (though, just like everything in Bootique, this can be customized). Let's create a config file that changes Jetty listen port and the app context path. To do this create a file in the app run directory, with an arbitrary name, e.g. `myconfig.yml` with the following contents:
 
@@ -149,7 +149,7 @@ jetty:
 
 Now restart the app with the new set of parameters: `--server --config=myconfig.yml`. After the restart the app would no longer respond at [http://localhost:8080/](http://localhost:8080/), instead you will need to use a new URL: [http://localhost:10001/hello](http://localhost:10001/hello). This is just a taste of what can be done with configuration. Your app can just as easily obtain its own specific configuration in a form of an app-specific object, as described elsewhere in the docs.
 
-### Chapter 3. Injection
+## Chapter 3. Injection
 
 We've mentioned that Bootique is built on Google Guice dependency injection (DI) container. We'll talk more about injection elsewhere. Here we'll provide a simple example. Our simple app already has a number of objects and services working behind the scenes that can be injected. One of them is command-line arguments that were provded to the app on startup. Let's extend our resource to include those arguments in the output:
 
@@ -187,7 +187,7 @@ Now you can restart the app and refresh [http://localhost:10001/hello](http://lo
 
 Next let's discuss how to build and run the app outside the IDE...
 
-### Chapter 4. Packaging
+## Chapter 4. Packaging
 
 Till now we've been running our app from IDE (which also happened to be much easier then running typical container-aware apps). Now let's package our app as a runnable "fat" jar to be able to run it from command line (e.g. in deployment environment). Assembling "fat" jar requires a bit of configuration of the Maven `maven-shade-plugin`. To simplify it, you can set a parent of your `pom.xml` to be a standard Bootique parent:
 
