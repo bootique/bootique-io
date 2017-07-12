@@ -1,0 +1,8 @@
+<ul class="pure-menu-list pull-left">
+  {{ $currentPage := . }}
+  {{ range .Site.Menus.main }}
+  <li class="pure-menu-item"> <!-- pure-menu-selected -->
+    <a class="pure-menu-link" href="{{ .URL | absURL }}">{{ .Name }}</a>
+  </li>
+  {{ end }}
+</ul>

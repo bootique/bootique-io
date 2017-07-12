@@ -6,33 +6,12 @@
   </a>
   <div id="menu" class="nav-menu pure-menu pure-menu-horizontal pure-menu-fixed">
     <!-- Menu Logo -->
-    <a href="/" class="nav-brand center"><img src="/images/logo.svg" alt="Bootique"/></a>
+    <a href="/" class="nav-brand center"><img src="{{ "/images/logo.svg" | absUrl }}" alt="Bootique"/></a>
 
     <div class="container nav">
       <div class="valign-wrapper-sm">
         <div class="valign-sm">
-          <ul class="pure-menu-list pull-left">
-            <li class="pure-menu-item pure-menu-selected"> <!-- TODO: Selected page! -->
-              <a href="/docs/0/getting-started/" class="pure-menu-link">
-                Get started
-              </a>
-            </li>
-            <li class="pure-menu-item">
-              <a href="/docs/" class="pure-menu-link">
-                Documentation
-              </a>
-            </li>
-            <li class="pure-menu-item">
-              <a href="/cla/" class="pure-menu-link">
-                CLA
-              </a>
-            </li>
-            <li class="pure-menu-item">
-              <a href="https://groups.google.com/forum/#!forum/bootique-user" class="pure-menu-link">
-                Forum
-              </a>
-            </li>
-          </ul>
+          {{ partial "main_menu.html" . }}
         </div>
       </div>
       <ul class="pure-menu-list pull-right">

@@ -1,4 +1,4 @@
-baseURL: "http://bootique.io/"
+baseURL: "https://bootique.github.io/bootique-io/"
 languageCode: "en-us"
 title: "Bootique: Minimally Opionated Framework for Runnable Java"
 theme: "bootique-theme"
@@ -13,3 +13,19 @@ params:
 # URLs for pages under folders page/fixed.
 permalinks:
   page: ":filename/"
+
+menu:
+  main:
+    - Name: "Get started"
+      URL: "/docs/0/getting-started/"
+      Weight: 3
+    - Name: "Documentation"
+      URL: "/docs/"
+      Weight: 2
+    - Name: "CLA"
+      URL: "/cla/"
+      Weight: 1
+    - Name: "Forum"
+      URL: "https://groups.google.com/forum/#!forum/bootique-user"
+      Weight: 0
+
