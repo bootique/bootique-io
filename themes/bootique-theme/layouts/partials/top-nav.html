@@ -6,8 +6,8 @@
   </a>
   <div id="menu" class="nav-menu pure-menu pure-menu-horizontal pure-menu-fixed">
     <!-- Menu Logo -->
-    <a href="{{ "/" | absURL }}" class="nav-brand center">
-      <img src="{{ "/images/logo.svg" | absURL }}" alt="Bootique"/>
+    <a href="{{ .Site.BaseURL }}" class="nav-brand center">
+      <img src="{{ "images/logo.svg" | relURL }}" alt="Bootique"/>
     </a>
 
     <div class="container nav">
