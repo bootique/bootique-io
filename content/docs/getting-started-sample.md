@@ -1,7 +1,7 @@
 ---
 title: "Getting Started with Bootique"
-metaKeywords: "Bootique Contributor License Agreement"
-metaDescription: "Bootique: A Minimally Opinionated Framework for Runnable Java Apps - Contributor License Agreement"
+metaKeywords: "Bootique Framework Documentation version 0"
+metaDescription: "Bootique: A Minimally Opinionated Framework for Runnable Java Apps - Documentation version 0"
 ---
 ## Part I. Getting Started with Bootique
 
