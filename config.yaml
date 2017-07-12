@@ -13,6 +13,7 @@ params:
 # URLs for pages under folders page/fixed.
 permalinks:
   page: ":filename/"
+  docs: ":filename/"
 
 menu:
   main:
