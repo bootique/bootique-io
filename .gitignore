@@ -7,3 +7,6 @@
 
 # Dependencies
 /app/node_modules/
+
+# Idea
+.idea
