@@ -1,24 +1,21 @@
 <!doctype html>
 <html class="no-js" lang="en-us">
 {{ partial "header.html" . }}
-<body data-spy="scroll" data-target=".bs-docs-sidebar" data-offset="100">
+<body>
 
 {{ partial "ltie10.html" . }}
 {{ partial "top-nav.html" . }}
 
 <div class="container content docbook">
-  <div class="book" title="{{ .Params.title }}">
-    <div class="titlepage">
-      <h1>
-        {{ .Params.title }}
-      </h1>
-      <hr>
-    </div>
+  <div class="titlepage">
+    <h1>
+      {{ .Params.title }}
+    </h1>
+    <hr>
+  </div>
 
-    <div>
-      {{ .Content }}
-    </div>
-
+  <div>
+    {{ .Content }}
   </div>
 </div>
 {{ partial "footer.html" . }}
