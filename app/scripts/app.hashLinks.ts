@@ -5,7 +5,7 @@ export function applyHashLinks() {
       e.preventDefault();
       $("html, body").animate({
         // + height of fixed header + padding from it
-        scrollTop: $($(this).attr("href")).offset().top - $("#top-nav").height() - 15
+        scrollTop: $($(this).attr("href")).offset().top - $("#top-nav").find("#menu").height() - 40
       }, 300);
     }
   });
