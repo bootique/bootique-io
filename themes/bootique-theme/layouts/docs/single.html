@@ -6,20 +6,19 @@
 {{ partial "ltie10.html" . }}
 {{ partial "top-nav.html" . }}
 
-<div class="container content docbook">
-  <div class="titlepage">
-    <h1>
-      {{ .Params.title }}
-    </h1>
-    <hr>
-  </div>
+<div class="container content docbook bootique-docs">
+  <h1>
+    {{ .Params.title }}
+  </h1>
+  <hr/>
 
-  <div>
+  <article>
     <h2>Table of Contents</h2>
     {{ .TableOfContents }}
+    <hr/>
 
     {{ .Content }}
-  </div>
+  </article>
 </div>
 {{ partial "footer.html" . }}
 {{ partial "google_analytics.html" . }}

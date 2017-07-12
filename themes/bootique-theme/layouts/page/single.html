@@ -7,16 +7,14 @@
 {{ partial "top-nav.html" . }}
 
 <div class="container content docbook">
-  <div class="titlepage">
-    <h1>
-      {{ .Params.title }}
-    </h1>
-    <hr>
-  </div>
+  <h1>
+    {{ .Params.title }}
+  </h1>
+  <hr/>
 
-  <div>
+  <article>
     {{ .Content }}
-  </div>
+  </article>
 </div>
 {{ partial "footer.html" . }}
 {{ partial "google_analytics.html" . }}
