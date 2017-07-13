@@ -12,7 +12,7 @@ git clone https://github.com/bootique/bootique-jetty.git
 
 cd ./bootique/bootique-docs/
 mvn clean package
-cp -R ./target/site/* ../../../static/docs/0/
+cp -R ./target/site/bootique-docs/ ../../../static/docs/0/
 
 cd ../../bootique-logback/bootique-logback-docs/
 mvn clean package
