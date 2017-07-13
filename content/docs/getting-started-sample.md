@@ -3,8 +3,6 @@ title: "Getting Started with Bootique"
 metaKeywords: "Bootique Framework Documentation version 0"
 metaDescription: "Bootique: A Minimally Opinionated Framework for Runnable Java Apps - Documentation version 0"
 ---
-# Part I. Getting Started with Bootique
-
 ## Chapter 1. Hello World in Bootique
 
 The goal of this chapter is to write a simple REST app using Bootique. Let's start with a new Java Maven project created in your favorite IDE. Your `pom.xml` in addition to the required project information tags will need to declare a few BOM ("Bill of Material") imports in the `<dependencyManagement/>` section:
@@ -183,7 +181,7 @@ public class HelloResource {
 
 As you see, we declared a variable of type `String[]` and annotated it with `@Inject` and `@Args`. `@Inject` (must be a `com.google.inject.Inject`, not `javax.inject.Inject`) ensures that the value is initialized via injection, and `@Args` tells Bootique which one of possibly many String[] instances from the DI container we are expecting here.
 
-Now you can restart the app and refresh [http://localhost:10001/hello](http://localhost:10001/hello) in the browser. The new output will be "Hello, world! The app was started with the following arguments: --server --config=myconfig.yml".
+Now you can restart the app and refresh [http://localhost:10001/hello](http://localhost:10001/hello) in the browser. The new output will be "Hello, world! The app was started with the following arguments: `--server --config=myconfig.yml`".
 
 Next let's discuss how to build and run the app outside the IDE...
 
