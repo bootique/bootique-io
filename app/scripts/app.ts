@@ -11,8 +11,10 @@ import {applyGithub} from "./app.github";
 import {applyDocsNav} from "./app.docsNav";
 import {applyHashLinks} from "./app.hashLinks";
 import {applyPureTables} from "./app.pureTables";
+import {applyHighlightJs} from "./app.hljs";
 
 $(document).ready(function () {
+  tryApply(applyHighlightJs);
   tryApply(applySideMenu);
   tryApply(applyModernizr);
   tryApply(applyGithub);

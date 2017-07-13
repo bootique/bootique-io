@@ -4,6 +4,7 @@
   "main": "app.ts",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@types/highlight.js": "9.1.9",
     "@types/jquery": "2.0.48",
     "@types/modernizr": "3.5.0",
     "autoprefixer": "7.1.2",
@@ -24,6 +25,7 @@
   "dependencies": {
     "bootstrap-sass": "3.3.7",
     "font-awesome": "4.7.0",
+    "highlight.js": "9.12.0",
     "jquery": "2.1.4",
     "purecss-sass": "1.0.0",
     "roboto-fontface": "0.7.1"
