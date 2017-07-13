@@ -5,6 +5,9 @@
 /themes/bootique-theme/static/assets/
 /themes/bootique-theme/layouts/partials/assets.html
 
+# Docs
+/content/docs/getting-started.md
+
 # Dependencies
 /app/node_modules/
 
