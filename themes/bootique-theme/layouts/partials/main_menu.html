@@ -1,7 +1,7 @@
 <ul class="pure-menu-list pull-left">
   {{ $currentPage := . }}
   {{ range .Site.Menus.main.ByWeight }}
-  <li class="pure-menu-item {{if $currentPage.IsMenuCurrent "main" . }}pure-menu-selected{{end}}">
+  <li class="pure-menu-item">
     <a class="pure-menu-link" href="{{ .URL }}">{{ .Name }}</a>
   </li>
   {{ end }}

@@ -20,6 +20,12 @@ menu:
     - Name: "Get started"
       URL: "/docs/0/getting-started/"
       Weight: 1
+    - Name: "Documentation"
+      URL: "/docs/"
+      Weight: 2
+    - Name: "CLA"
+      URL: "/cla/"
+      Weight: 3
     - Name: "Forum"
       URL: "https://groups.google.com/forum/#!forum/bootique-user"
       Weight: 4

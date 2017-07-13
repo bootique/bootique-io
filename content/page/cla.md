@@ -3,10 +3,6 @@ date: "2016-09-16T21:02:04+03:00"
 title: "Contributor License Agreement"
 metaKeywords: "Bootique Contributor License Agreement"
 metaDescription: "Bootique: A Minimally Opinionated Framework for Runnable Java Apps - Contributor License Agreement"
-menu:
-  main:
-    Name: "CLA"
-    Weight: 3
 ---
 ## What is This About?
 
