@@ -20,7 +20,7 @@ Build started with following configuration:
 → SOURCE_MAP: ${SOURCE_MAP}
 `);
 
-  const publicPath = "/bootique-io/assets/"; // TODO: Change to /assets/ when will be deployed to bootique.io
+  const publicPath = "/assets/";
   const limit = 65000;
 
   return {
