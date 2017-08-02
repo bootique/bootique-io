@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 mkdir -p ./static/docs/0/
 
 rm -rf ./tmp
