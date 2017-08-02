@@ -10,7 +10,7 @@ params:
       Provides command-line launcher, dependency injection service, configuration and lots of extension modules.
   keywords: "Bootique, Bootique project, Guice, Container-less Java, Runnable Jar, Make Jar not War, WYSIWYR"
 
-# URLs for pages under folders page/fixed.
+# URLs for pages under folders content/page and content/docs.
 permalinks:
   page: ":filename/"
   docs: "docs/0/:filename/"
