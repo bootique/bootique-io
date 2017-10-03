@@ -13,7 +13,7 @@ git clone https://github.com/bootique/bootique-logback.git
 git clone https://github.com/bootique/bootique-jetty.git
 
 mkdir -p ../content/docs/
-cp ./bootique/docs/* ../content/docs/
+cp -R ./bootique/docs/* ../content/docs/
 
 cd ./bootique/bootique-docs/
 mvn clean package
