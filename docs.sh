@@ -15,11 +15,7 @@ git clone https://github.com/bootique/bootique-jetty.git
 mkdir -p ../content/docs/
 cp -R ./bootique/docs/* ../content/docs/
 
-cd ./bootique/bootique-docs/
-mvn clean package
-cp -R ./target/site/bootique-docs/ ../../../static/docs/0/
-
-cd ../../bootique-logback/bootique-logback-docs/
+cd ./bootique-logback/bootique-logback-docs/
 mvn clean package
 cp -R ./target/site/* ../../../static/docs/0/
 
