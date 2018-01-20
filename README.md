@@ -1,6 +1,6 @@
 # Bootique.io Site [![Build Status](https://travis-ci.org/bootique/bootique-io.svg)](https://travis-ci.org/bootique/bootique-io)
 
-[Live Site](http://bootique.io/)
+[Live Site](https://bootique.io/)
 
 ## How to build:
 

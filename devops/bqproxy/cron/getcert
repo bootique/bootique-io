@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Use this script to get/renew letsencrypt certificate
+# https://certbot.eff.org/all-instructions/
+#
+# Use https://www.shellcheck.net/ to check script after editing!
+#
+# Requirements:
+#  "bqproxy" docker container uses 80/443 ports
+#  following files/dirs exist:
+#    - BOOTIQUE_WORKING_DIR/certbot-auto
+#    - BOOTIQUE_WORKING_DIR/cron/getcert
+#    - BOOTIQUE_WORKING_DIR/proxy/
+#
+
+set -e
+
+# pass working dir as parameter, since cron doesn't have same env variable as user(s)
+if [[ -z "${2}" ]]; then
+  (>&2 echo "Pass working dir as second argument!");
+  exit 2;
+fi
+
+BOOTIQUE_WORKING_DIR="${2}"
+
+self="${BOOTIQUE_WORKING_DIR}/cron/getcert";
+
+case "${1}" in
+  pre)
+    docker stop bqproxy;
+    ;;
+  deploy)
+    # copy cert to docker
+    # $RENEWED_LINEAGE - directory with certificates
+    # $RENEWED_LINEAGE will be set by certbot
+    cp "${RENEWED_LINEAGE}/privkey.pem" "${BOOTIQUE_WORKING_DIR}/nginx/";
+    cp "${RENEWED_LINEAGE}/fullchain.pem" "${BOOTIQUE_WORKING_DIR}/nginx/";
+    cp "${RENEWED_LINEAGE}/chain.pem" "${BOOTIQUE_WORKING_DIR}/nginx/";
+    cp "${RENEWED_LINEAGE}/cert.pem" "${BOOTIQUE_WORKING_DIR}/nginx/";
+    ;;
+  post)
+    docker start bqproxy;
+    ;;
+  renew)
+    sudo "${BOOTIQUE_WORKING_DIR}/certbot-auto" renew -n \
+      --pre-hook "${self} pre ${BOOTIQUE_WORKING_DIR}" \
+      --post-hook "${self} post ${BOOTIQUE_WORKING_DIR}" \
+      --deploy-hook "${self} deploy ${BOOTIQUE_WORKING_DIR}";
+    ;;
+  get)
+    # get new cert
+    sudo "${BOOTIQUE_WORKING_DIR}/certbot-auto" --debug certonly --standalone \
+      -d bootique.io \
+      --pre-hook "${self} pre ${BOOTIQUE_WORKING_DIR}" \
+      --post-hook "${self} post ${BOOTIQUE_WORKING_DIR}" \
+      --deploy-hook "${self} deploy ${BOOTIQUE_WORKING_DIR}";
+    ;;
+  *)
+    echo $"Usage: ${self} {pre|deploy|post|renew|get} working_dir";
+    exit 1;
+esac
