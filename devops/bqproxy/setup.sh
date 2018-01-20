@@ -21,3 +21,6 @@ echo 'export BOOTIQUE_WORKING_DIR="/home/ec2-user/bqproxy"' >> ~/.bashrc
 cd "${BOOTIQUE_WORKING_DIR}"
 wget https://dl.eff.org/certbot-auto
 chmod a+x certbot-auto
+
+# Generate dhparams
+openssl dhparam -out "${BOOTIQUE_WORKING_DIR}/nginx/dhparam.pem" 4096
