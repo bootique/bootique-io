@@ -10,7 +10,7 @@
 #  following files/dirs exist:
 #    - BOOTIQUE_WORKING_DIR/certbot-auto
 #    - BOOTIQUE_WORKING_DIR/cron/getcert
-#    - BOOTIQUE_WORKING_DIR/proxy/
+#    - BOOTIQUE_WORKING_DIR/nginx/
 #
 
 set -e
