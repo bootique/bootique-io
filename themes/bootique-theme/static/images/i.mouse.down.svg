@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="19px" height="42.7px" viewBox="0 0 19 42.7" style="enable-background:new 0 0 19 42.7;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;}
+	.st1{fill:none;stroke:#333333;stroke-width:2;}
+	.st2{fill:#333333;}
+	.st3{fill:none;stroke:#333333;}
+	.st4{fill:none;stroke:#FFFFFF;}
+</style>
+<g id="i.Mouse.down" transform="translate(-772 -873)">
+	<g id="Rectangle_197" transform="translate(772 873)">
+		<path class="st0" d="M9.5,0L9.5,0C14.7,0,19,4.3,19,9.5v13c0,5.2-4.3,9.5-9.5,9.5l0,0C4.3,32,0,27.7,0,22.5v-13C0,4.3,4.3,0,9.5,0
+			z"/>
+		<path class="st1" d="M9.5,1L9.5,1C14.2,1,18,4.8,18,9.5v13c0,4.7-3.8,8.5-8.5,8.5l0,0C4.8,31,1,27.2,1,22.5v-13C1,4.8,4.8,1,9.5,1
+			z"/>
+	</g>
+	<g id="Path_11" transform="translate(781.072 881.281)">
+		<path class="st2" d="M0.1,6.2V0.5l1,0v5.7L0.1,6.2z"/>
+		<path class="st2" d="M0.6,5.7L0.6,5.7l0-4.7l0,0V5.7 M-0.4,6.7V0l2,0v6.7L-0.4,6.7z"/>
+	</g>
+	<g id="Rectangle_199" transform="translate(780.7 896.792)">
+		<rect x="0" y="0" class="st0" width="2" height="18.4"/>
+		<rect x="0.5" y="0.5" class="st3" width="1" height="17.4"/>
+	</g>
+	<g id="Rectangle_202" transform="translate(778.689 901.142)">
+		<rect x="0" y="0" class="st0" width="2" height="4"/>
+		<rect x="0.5" y="0.5" class="st4" width="1" height="3"/>
+	</g>
+	<g id="Rectangle_203" transform="translate(782.712 901.142)">
+		<rect x="0" y="0" class="st0" width="2" height="4"/>
+		<rect x="0.5" y="0.5" class="st4" width="1" height="3"/>
+	</g>
+	<g id="Rectangle_200" transform="translate(775.6 910.01) rotate(-45)">
+		<rect x="0" y="0" transform="matrix(-1 2.535182e-06 -2.535182e-06 -1 2.012 8.047)" class="st0" width="2" height="8"/>
+		<rect x="0.5" y="0.5" transform="matrix(-1 2.535182e-06 -2.535182e-06 -1 2.012 8.047)" class="st3" width="1" height="7"/>
+	</g>
+	<g id="Rectangle_201" transform="translate(786.391 908.588) rotate(45)">
+		<rect x="-3" y="3" transform="matrix(2.535182e-06 1 -1 2.535182e-06 5.0295 3.0175)" class="st0" width="8" height="2"/>
+		<rect x="-2.5" y="3.5" transform="matrix(2.535182e-06 1 -1 2.535182e-06 5.0295 3.0175)" class="st3" width="7" height="1"/>
+	</g>
+</g>
+</svg>
