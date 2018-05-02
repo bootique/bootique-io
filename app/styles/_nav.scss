@@ -5,7 +5,7 @@
 }
 
 .nav-brand {
-  display: none;        // !!!!!!!!!!!!!!!!!!!!
+  display: none;
   position: absolute;
   z-index: 5;
   transition: none;
@@ -167,19 +167,6 @@
 .pure-menu-heading {
   padding: 1em;
 }
-
-// .pull-right {
-//   .pure-menu-link,
-//   .pure-menu-disabled,
-//   .pure-menu-heading {
-
-//     & + .pure-menu-link {
-//       padding-left: 0;
-//       padding-right: 0;
-//       margin-right: 2em;
-//     }
-//   }
-// }
 
 
 // Nav social

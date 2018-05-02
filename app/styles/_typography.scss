@@ -5,16 +5,10 @@
 		letter-spacing: normal;
 	}
 
-	/*
-    When setting the primary font stack, apply it to the Pure grid units along
-    with `html`, `button`, `input`, `select`, and `textarea`. Pure Grids use
-    specific font stacks to ensure the greatest OS/browser compatibility.
-    */
-    html, button, input, select, textarea,
-    .pure-g [class *= "pure-u"] {
-      /* Set your content font stack here: */
-      font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    }
+  html, button, input, select, textarea,
+  .pure-g [class *= "pure-u"] {
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
 
 	h1, h2, h3, h4, h5, h6,
 	.h1, .h2, .h3, .h4, .h5, .h6 {
@@ -28,19 +22,6 @@
 			}
 		}
 	}
-
-
-	// h1 {
-	// 	font-weight: 300;
-	// 	text-transform: uppercase;
-	// 	margin: 0;
-	// 	padding: 1.1em 0 .5em;
-	// 	font-size: 40px;
-
-	// 	@media screen and (max-width: 480px) {
-	// 		font-size: 30px;
-	// 	}
-	// }
 
 	h2 {
 	    font-family: 'Roboto', sans-serif;
@@ -59,7 +40,6 @@
 
 	p {
 		margin: 0 0 1em;
-		// font-size: 14px;
 	}
 
 	.text-muted {
