@@ -82,12 +82,6 @@
 				margin-top: 0;
 			}
 
-			// [data-spy="scroll"] & {
-			// 	h2 {
-			// 		@include fixed-header-anchor-offset();
-			// 	}
-			// }
-
 			h3.title {
 				font-size: 20px;
 				font-weight: normal;
@@ -99,10 +93,6 @@
 			.h1, .h2, .h3, .h4, .h5, .h6 {
 				> a[name] {
 					display: block;
-					// debug
-					// background: rebeccapurple;
-					// width: 10px;
-					// height: 10px;
 				}
 			}
 
@@ -167,10 +157,6 @@
 					img {
 						filter: grayscale(100%) opacity(70%);
 						@include addAnimation(all);
-
-						// &:hover {
-						// 	filter: none;
-						// }
 					}
 				}
 
@@ -327,7 +313,5 @@
 				font-weight: normal;
 				text-transform: uppercase;
 				font-size: 12px;
-				// padding: 10px 0;
-				// text-align: left;
 			}
 	}

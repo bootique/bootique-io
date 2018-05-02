@@ -3,47 +3,46 @@
 
 export function setupYT() {
 
-	window["onYouTubePlayerAPIReady"] = onYouTubePlayerAPIReady;
-	
-	let player;
-	const ytEmbeded = $('.yt-video');
-	const playPauseBtn = $(".yt-play-btn");
-	const stopCloseBtn = $(".yt-close-stop-btn");
+  window["onYouTubePlayerAPIReady"] = onYouTubePlayerAPIReady;
 
-	 function onYouTubePlayerAPIReady() {
-		player = new YT.Player('yt-video', {
-			events: {
-				'onReady': onPlayerReady,
-				'onStateChange': onPlayerStateChange
-			}
-		});
-	}
+  let player;
+  const ytEmbeded = $('.yt-video');
+  const playPauseBtn = $(".yt-play-btn");
+  const stopCloseBtn = $(".yt-close-stop-btn");
 
-	function onPlayerReady(event) {
-		playPauseBtn.on('click', function(e) {
-			e.preventDefault();
-			
-			var playerState = player.getPlayerState();
-			if (playerState !== 1 ) {
-				player.playVideo();
-				ytEmbeded.addClass('active')
-			} else {
-				player.pauseVideo();
-			}
-		});
+  function onYouTubePlayerAPIReady() {
+    player = new YT.Player('yt-video', {
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
 
-		stopCloseBtn.on('click', function(e) {
-			e.preventDefault();
-			player.stopVideo();
-			ytEmbeded.removeClass('active');
-		});
-	}
+  function onPlayerReady(event) {
+    playPauseBtn.on('click', function(e) {
+      e.preventDefault();
 
-	function onPlayerStateChange(event) {
-		var playerState = player.getPlayerState();
-		if (playerState === 0) {
-			ytEmbeded.removeClass('active');
-		}
-	}
+      var playerState = player.getPlayerState();
+      if (playerState !== 1) {
+        player.playVideo();
+        ytEmbeded.addClass('active')
+      } else {
+        player.pauseVideo();
+      }
+    });
 
+    stopCloseBtn.on('click', function(e) {
+      e.preventDefault();
+      player.stopVideo();
+      ytEmbeded.removeClass('active');
+    });
+  }
+
+  function onPlayerStateChange(event) {
+    var playerState = player.getPlayerState();
+    if (playerState === 0) {
+      ytEmbeded.removeClass('active');
+    }
+  }
 }
