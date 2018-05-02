@@ -6,23 +6,108 @@
 
 {{ partial "top-nav.html" . }}
 
-<div class="full-window-height--nav">
-  <div class="container content">
-    <h2 class="inline-block center-block text-center slogan">
-      The home of Bootique Project - a minimally opinionated framework for runnable <em>Java</em> apps
-    </h2>
-    <div class="center-block max-w-750">
-      <div class="embed-responsive embed-responsive-16by9">
-        <iframe class="embed-responsive-item" src="//www.youtube.com/embed/a4e8SOX1TAk"></iframe>
+  <section id="intro" class="d-flex flex-column justify-content-center  min-h-100vh">
+    <div class="content text-center">
+      <h1 class="px-3 mb-6">
+        The home of Bootique Project
+        <small class="d-block  mt-3 mt-sm-2">A minimally opinionated framework for runnable <strong>Java</strong> apps</small>
+      </h1>
+      <div class="yt-video  max-w-750" href="#"><!-- http://youtube.com/watch?v=a4e8SOX1TAk -->
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe id="yt-video" class="embed-responsive-item" src="//www.youtube.com/embed/a4e8SOX1TAk?enablejsapi=1&html5=1&controls=1&showinfo=0&fs=1&rel=0&start=1" allowfullscreen></iframe>
+          <div class="embed-responsive-item  yt-video-overlay">
+              <img src="images/logo.svg" class="img-fluid  px-5 mx-auto" alt="Logo Overlay">
+              <a href="#" class="yt-play-btn">Play</a>
+          </div>
+          <a href="#" class="yt-close-stop-btn"><span>Stop &amp; Close</span></a>
+        </div> 
+      </div>
+      <a href="#features" class="d-inline-block mx-auto  mt-4 mb-3"><img src="images/i.mouse.down.svg" alt="Scroll hint" /></a>
+    </div>
+  </section>
+
+  <section id="features" class="slanted -dark--bg">
+    <div class="content text-center">
+      <h2 class="h1  mb-6">Features</h2>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 align-items-center  feature">
+            <div class="rounded-circle"><img src="index/images/features/i.speed.svg" alt="Bootique Speed" /></div>
+            <h4>10x faster than Springboot</h4>
+            <p>Bootique has surpassed similar frameworks in numerous performance tests (see GitHub).</p>
+          </div>
+          <div class="col-lg-6 align-items-center  feature">
+            <div class="rounded-circle"><img src="index/images/features/i.dependencies.svg" alt="Bootique Dependencies" /></div>
+            <h4>Explicit dependencies</h4>
+            <p>With explicit modules and a modular structure, Bootique displays dependencies in plain view. </p>
+          </div>
+          <div class="col-lg-6 align-items-center  feature">
+            <div class="rounded-circle"><img src="index/images/features/i.integration.svg" alt="Bootique Integration" /></div>
+            <h4>lntegrates with any technology</h4>
+            <p>Bootique lets you create any kind of Java applications: web apps, RESTful, real-time streaming and ETL apps, and more. </p>
+          </div>
+          <div class="col-lg-6 align-items-center  feature">
+            <div class="rounded-circle"><img src="index/images/features/i.cli.svg" alt="Bootique CLI" /></div>
+            <h4>CLI dispatch</h4>
+            <p>Bootique offers a unique command dispatch feature that's rarely found in other frameworks. </p>
+          </div>
+        </div>
+      </div>
+      <a href="docs/0/getting-started/" class="btn btn-outline-light btn-rounded text-uppercase"><i class="fa fa-code"></i>Get Started</a>
+    </div>
+  </section>
+
+  <section id="testimonials" class="text-center">
+    <h2 class="h1  mb-4 mb-lg-6 mt-6">What people say</h2>
+    <div class="container">
+      <div class="slider slider-center  d-flex">
+        <div class="card-holder">
+          <div class="card  d-flex">
+            <blockquote class="blockquote card-body  d-flex flex-column align-items-center  mb-0">
+              <img class="rounded-circle" src="index/images/testimonials/ava.dave_burke.jpg" alt="Dave Burke" />
+              <h5 class="my-3 my-lg-4_5">Dave Burke</h5>
+              <p class="text-center  mb-2_5">Emphasizing 2 points @andrus_a made based on my experience w/ @BootiqueProject after 2 yrs of Spring Boot, MUCH faster startup, MUCH smaller apps. It's hard to go back to Spring Boot once you're familiar with Bootique</p>
+              <small class="xsmall text-muted">via Twitter</small>
+            </blockquote>
+          </div>
+        </div>
+
+        <div class="card-holder">
+          <div class="card  d-flex">
+            <blockquote class="blockquote card-body  d-flex flex-column align-items-center  mb-0">
+              <img class="rounded-circle" src="index/images/testimonials/ava.guillaume_polaert.jpg" alt="Guillaume Polaert" />
+              <h5 class="my-3 my-lg-4_5">Guillaume Polaert</h5>
+              <p class="text-center  mb-2_5">The @BootiqueProject speeds up your minimal-runnable-java app.Perfect to create REST services and small job :), <a href="http://bootique.io/">http://bootique.io/</a></p>
+              <small class="xsmall text-muted">via Twitter</small>
+            </blockquote>
+          </div>
+        </div>
+        
+        <div class="card-holder">
+          <div class="card  d-flex">
+            <blockquote class="blockquote card-body  d-flex flex-column align-items-center  mb-0">
+              <img class="rounded-circle" src="index/images/testimonials/ava.rafael_bugajewski.jpg" alt="Rafael Bugajewski" />
+              <h5 class="my-3 my-lg-4_5">Rafael Bugajewski</h5>
+              <p class="text-center  mb-2_5">Bootique is one of my favorite server-side frameworks and it got a lot of improvements and QOL changes recently</p>
+              <small class="xsmall text-muted">via Twitter</small>
+            </blockquote>
+          </div>
+        </div>
+
+        <div class="card-holder">
+          <div class="card  d-flex">
+            <blockquote class="blockquote card-body  d-flex flex-column align-items-center  mb-0">
+              <img class="rounded-circle" src="index/images/testimonials/ava.amir_sedighi.jpg" alt="Amir Sedighi" />
+              <h5 class="my-3 my-lg-4_5">Amir Sedighi</h5>
+              <p class="text-center  mb-2_5">Seems @BootiqueProject is going to be a minialized version of @springboot. Yet another minimalized Microservices framework!</p>
+              <small class="xsmall text-muted">via Twitter</small>
+            </blockquote>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="text-center">
-      <a href="docs/0/getting-started/" class="btn btn-lg btn-white mt-6p">
-        <i class="fa fa-code"></i>Get started
-      </a>
-    </div>
-  </div>
-</div>
+    <a href="docs/0/getting-started/" class="btn btn-outline-dark btn-rounded text-uppercase  mt-4 mt-lg-7 mb-7"><i class="fa fa-code"></i>Get Started</a>
+  </section>
 
 {{ partial "footer.html" . }}
 {{ partial "google_analytics.html" . }}
