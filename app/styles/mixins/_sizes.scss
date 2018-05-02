@@ -1,0 +1,6 @@
+// Sizes
+
+@mixin equal-width-height($round-diameter) {
+	width: $round-diameter;
+	height: $round-diameter;
+}

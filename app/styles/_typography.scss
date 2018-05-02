@@ -1,146 +1,100 @@
 // TYPOGRAPHY
 
-[class*="pure-u"] {
-  font-weight: 400;
-  letter-spacing: normal;
-}
+	[class*="pure-u"]{
+		font-weight: 400;
+		letter-spacing: normal;
+	}
 
-/*
-  When setting the primary font stack, apply it to the Pure grid units along
-  with `html`, `button`, `input`, `select`, and `textarea`. Pure Grids use
-  specific font stacks to ensure the greatest OS/browser compatibility.
-  */
-html, button, input, select, textarea,
-.pure-g [class *= "pure-u"] {
-  /* Set your content font stack here: */
-  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
-  color: $black;
-
-  > a {
-    color: inherit;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-}
-
-h1 {
-  font-weight: 300;
-  text-transform: uppercase;
-  margin: 0;
-  padding: 1.1em 0 .5em;
-  font-size: 40px;
-
-  @media screen and (max-width: 480px) {
-    font-size: 30px;
-  }
-}
-
-h2 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-  font-size: 24px;
-  display: inline-block;
-  margin: 1.1em 0 .8em;
-
-  @media screen and (max-width: 480px) {
-    font-size: 18px;
-  }
-}
-
-p {
-  margin: 0 0 1em;
-  font-size: 14px;
-}
-
-.text-muted {
-  color: #717171;
-}
-
-ul {
-  margin: 0 0 1em;
-  padding: 0 0 0 20px;
-
-  &.itemizedlist {
-    padding-left: 1.34em;
-
-    li.listitem {
-      position: relative;
-      list-style: none;
-
-      &:before {
-        content: '\2022'; // = `•` =  &bull;
-
-        font-size: 20px;
-        line-height: 1.05;
-        color: #616161;
-
-        position: absolute;
-        left: -.88em;
-        top: 0;
-      }
-    }
-  }
-}
-
-code {
-  color: #000;
-  font-weight: 600;
-}
-
-.bootique-docs {
-  p {
-    font-size: 14px;
-  }
-
-  .toc {
-    display: block !important; // overwrite docbook style
-
-    #toctitle {
-      @extend h2;
+	/*
+    When setting the primary font stack, apply it to the Pure grid units along
+    with `html`, `button`, `input`, `select`, and `textarea`. Pure Grids use
+    specific font stacks to ensure the greatest OS/browser compatibility.
+    */
+    html, button, input, select, textarea,
+    .pure-g [class *= "pure-u"] {
+      /* Set your content font stack here: */
+      font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
 
-    ul {
-      margin-top: 5px;
-      margin-bottom: 20px;
-    }
+	h1, h2, h3, h4, h5, h6,
+	.h1, .h2, .h3, .h4, .h5, .h6 {
+		color: $black;
+		
+		> a {
+			color: inherit;
 
-    li {
-      margin-bottom: 5px;
-    }
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
 
-    padding-bottom: 26px;
-    border-bottom: 1px solid #ececec;
-    margin: 20px 0 46px 0;
-  }
 
-  pre code {
-    display: block;
-    font-style: normal;
-    overflow-x: auto;
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    border: 1px dotted #616161;
-    background-color: #f8f8f8;
-    padding: 7px;
-  }
+	// h1 {
+	// 	font-weight: 300;
+	// 	text-transform: uppercase;
+	// 	margin: 0;
+	// 	padding: 1.1em 0 .5em;
+	// 	font-size: 40px;
 
-  ul, ol {
-    font-size: 14px;
-    padding-left: 20px;
-  }
+	// 	@media screen and (max-width: 480px) {
+	// 		font-size: 30px;
+	// 	}
+	// }
 
-  code {
-    color: #161616;
+	h2 {
+	    font-family: 'Roboto', sans-serif;
+	    font-weight: 300;
+	    font-size: 24px;
+	    display: inline-block;
 
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    font-weight: 400;
-    font-size: 14px;
-  }
-}
+	    .docbook & {
+			margin: 1.1em 0 .8em;
+	    }
 
+	    @media screen and (max-width: 480px) {
+			font-size: 18px;
+		}
+	}
+
+	p {
+		margin: 0 0 1em;
+		// font-size: 14px;
+	}
+
+	.text-muted {
+	    color: #717171;
+	}
+
+	ul {
+	    margin: 0 0 1em;
+	    padding: 0 0 0 1.8rem;
+
+	    &.itemizedlist {
+	    	padding-left: 1.34em;
+
+			li.listitem {
+				position: relative;
+				list-style: none;
+
+			    &:before {
+			    	content: '\2022'; // = `•` =  &bull;
+				    
+				    font-size: 20px;
+			        line-height: 1.05;
+				    color: #616161;
+				    
+				    position: absolute;
+				    left: -.88em;
+				    top: 0;
+			    }
+		    }
+	    }
+	}
+
+	code {
+	    color: #000;
+	    font-weight: 600;
+	}
+		
 
