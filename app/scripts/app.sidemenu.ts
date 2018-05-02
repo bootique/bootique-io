@@ -1,6 +1,6 @@
 export function applySideMenu() {
   const menu = $("#menu");
-  const menuLink = $("#menuLink");
+  const menuLink = $("#menuToggle");
   const html = $("html");
 
   menuLink.on("click", function (e) {

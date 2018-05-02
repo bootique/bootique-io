@@ -1,1 +1,32 @@
-<p class="footer-p">&copy; <span class="current-year">{{ now.Year }}</span> ObjectStyle LLC and individual authors</p>
+    <footer>
+      <section id="social" class="slanted-reverse-top -slight-dark--bg">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6  pb-5 pb-lg-8">
+                <h2 class="h1 text-capitalize  mb-5 mb-lg-7">Medium blog</h2>
+                <div id="medium-posts" data-medium-feed-url="https://blog.bootique.io/feed" class="list-group list-group-flush">
+                </div>
+              </div>
+              <div id="twitter-posts" class="d-flex flex-column  offset-lg-1 col-lg-5  pb-7 pb-lg-8">
+                <h2 class="h1 text-capitalize  mb-5 mb-lg-7">Latest tweets</h2>
+                <a class="twitter-timeline" data-chrome="nofooter noborders transparent noscrollbar noheader" data-height="100%" data-tweet-limit="2" href="https://twitter.com/BootiqueProject?ref_src=twsrc%5Etfw">Tweets by BootiqueProject</a>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+              </div>
+            </div>
+
+          </div>
+      </section>
+      <div id="footer-copy" class="container  d-flex flex-column align-items-center flex-lg-row flex-wrap justify-content-between  py-5 py-md-7">
+        <ul class="list-inline nav-double  order-lg-3  mb-0">
+          <li class="list-inline-item  mr-3 mr-lg-5"><a href="/docs/" class="text-uppercase">Documentation</a></li>
+          <li class="list-inline-item  mr-3 mr-lg-5"><a href="https://blog.bootique.io/" class="text-uppercase">Blog</a></li>
+          <li class="list-inline-item"><a href="/cla/" class="text-uppercase">CLA</a></li>
+        </ul>
+        <ul class="list-inline social-icons  order-lg-2  my-3 my-md-4 my-lg-0">
+          <li class="list-inline-item  mr-4_5"><a href="https://github.com/bootique/bootique"><i class="fab fa-github"></i></a></li>
+          <li class="list-inline-item  mr-4_5"><a href="https://twitter.com/BootiqueProject"><i class="fab fa-twitter"></i></a></li>
+          <li class="list-inline-item"><a href="https://blog.bootique.io/"><i class="fab fa-medium-m"></i></a></li>
+        </ul>
+        <p class="order-lg-1  mb-0">&copy; <span class="current-year">{{ now.Year }}</span> ObjectStyle LLC and individual authors</p>
+      </div>
+    </footer>
