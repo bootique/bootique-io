@@ -1,23 +1,23 @@
 // SPACING
-	// MARGIN
-	@mixin mx-($length) {
-		margin-left: $length;
-		margin-right: $length;
-	}
+// MARGIN
+@mixin mx-($length) {
+  margin-left: $length;
+  margin-right: $length;
+}
 
-	@mixin my-($length) {
-		margin-top: $length;
-		margin-bottom: $length;
-	}
+@mixin my-($length) {
+  margin-top: $length;
+  margin-bottom: $length;
+}
 
-	// PADDING
-	@mixin px-($length) {
-		padding-left: $length;
-		padding-right: $length;
-	}
+// PADDING
+@mixin px-($length) {
+  padding-left: $length;
+  padding-right: $length;
+}
 
-	@mixin py-($length) {
-		padding-top: $length;
-		padding-bottom: $length;
-	}
+@mixin py-($length) {
+  padding-top: $length;
+  padding-bottom: $length;
+}
 

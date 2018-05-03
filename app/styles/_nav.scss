@@ -1,5 +1,5 @@
 // NAV
-    
+
 #top-nav {
   position: relative;
 }
@@ -19,7 +19,7 @@
   img {
     max-width: 100px;
   }
-  
+
   &.center {
     top: 50%;
     left: 50%;
@@ -33,89 +33,88 @@
 }
 
 .pure-menu {
-	position: absolute;
-	left: 0;
-	top: 0;
-    border-bottom: none;
-    z-index: 4;
-    padding: 1em 2em;
-    text-align: center;
-    background: #fff;;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-bottom: none;
+  z-index: 4;
+  padding: 1em 2em;
+  text-align: center;
+  background: #fff;;
 
-	@include media-breakpoint-up(lg) {
-	 	text-align: left;
-	}
-	
-	@include media-breakpoint-down(md) {
-	  	overflow: hidden;
-	    padding-bottom: 0;
-	    height: 100%;
-	    padding-top: 81px;
-	    min-height: 81px;
-	    max-height: 81px;
-	    transition: all .3s ease-in-out .1s;
+  @include media-breakpoint-up(lg) {
+    text-align: left;
+  }
 
-	    > .container {
-	      height: 100%;
-	      overflow-x: hidden;
-	      overflow-y: auto; 
-	    }
+  @include media-breakpoint-down(md) {
+    overflow: hidden;
+    padding-bottom: 0;
+    height: 100%;
+    padding-top: 81px;
+    min-height: 81px;
+    max-height: 81px;
+    transition: all .3s ease-in-out .1s;
 
-	    .pure-menu-list.pull-left {
-	      width: 100%;
+    > .container {
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
 
-	      transition-property: all;
-	      transition-duration: .2s;
-	      transition-timing-function: ease-in-out;
-	      transition-delay: 0s;
-	      // PROPERTIES TO ANIMATE: STARTPOINT
-	      opacity: 0;
+    .pure-menu-list.pull-left {
+      width: 100%;
 
-	      .pure-menu-item {
-	        display: block;
-	        height: auto;
-	      }
-	    }
+      transition-property: all;
+      transition-duration: .2s;
+      transition-timing-function: ease-in-out;
+      transition-delay: 0s;
+      // PROPERTIES TO ANIMATE: STARTPOINT
+      opacity: 0;
 
-	    // MENU RWD ACTIVE STATE
-	    &.active {
-	      height: 100vh;
-		  max-height: 100vh;
-	      // ANIMATION ADD. SETTINGS
-	      transition-delay: 0s;
+      .pure-menu-item {
+        display: block;
+        height: auto;
+      }
+    }
 
-	      .pure-menu-list.pull-left {
-	        margin: 0 auto;
-	        
-	        // ANIMATION ADD. SETTINGS
-	      		transition-delay: .2s;
-	        
-	        // PROPERTIES TO ANIMATE: ENDPOINT
-	      		opacity: 1;
-	      }
-	    }
-	}  
+    // MENU RWD ACTIVE STATE
+    &.active {
+      height: 100vh;
+      max-height: 100vh;
+      // ANIMATION ADD. SETTINGS
+      transition-delay: 0s;
+
+      .pure-menu-list.pull-left {
+        margin: 0 auto;
+
+        // ANIMATION ADD. SETTINGS
+        transition-delay: .2s;
+
+        // PROPERTIES TO ANIMATE: ENDPOINT
+        opacity: 1;
+      }
+    }
+  }
 }
 
 // xs
-  // @media screen and (max-width: 480px) {
-  //   .nav-menu > .container {
-  //     margin-left:  -2em;
-  //     margin-right:  -1.5em;
+// @media screen and (max-width: 480px) {
+//   .nav-menu > .container {
+//     margin-left:  -2em;
+//     margin-right:  -1.5em;
 
-  //     .pull-left .pure-menu-item + .pure-menu-item .pure-menu-link {
-  //       padding-left: 0;
-  //     }
-  //   }
-  // }
+//     .pull-left .pure-menu-item + .pure-menu-item .pure-menu-link {
+//       padding-left: 0;
+//     }
+//   }
+// }
 
 // xxs
-  // @media screen and (max-width: 330px) {
-  //   .nav-menu > .container {
-  //     margin-right:  -2em;
-  //   }
-  // }
-
+// @media screen and (max-width: 330px) {
+//   .nav-menu > .container {
+//     margin-right:  -2em;
+//   }
+// }
 
 .pure-menu-link {
   display: inline-block;
@@ -124,17 +123,17 @@
   color: $body-color;
 
   @include media-breakpoint-down(md) {
-  	font-size: 1rem;
+    font-size: 1rem;
   }
 
   @include hover-focus-active {
-    color: lighten($body-color, 23%);		
+    color: lighten($body-color, 23%);
     text-decoration: none;
     background: transparent;
   }
 
   &:visited {
-	 color:  $body-color;    // lighten($body-color, 23%);		
+    color: $body-color; // lighten($body-color, 23%);
   }
 
   .fa, .fas, .far, .fal, .fab {
@@ -151,8 +150,8 @@
 
   .pure-menu-selected & {
     color: #000;
-    background: rgba(0,0,0,.05);
-  
+    background: rgba(0, 0, 0, .05);
+
     &:hover,
     &:focus {
       color: #7e7e7e;
@@ -168,17 +167,18 @@
   padding: 1em;
 }
 
-
 // Nav social
 #nav-social {
-	opacity: .8;
+  opacity: .8;
 }
 
 .github-btn.star {
   &:hover {
     text-decoration: none;
 
-    img { opacity: .65; }
+    img {
+      opacity: .65;
+    }
   }
 
   .fa-github {
@@ -193,111 +193,109 @@
     top: -1px;
   }
 }
-  
+
 // Nav social [rwd] 
 @include media-breakpoint-down(md) {
- 
-    .pure-menu-item .fa,
-    .pure-menu-item .fas,
-    .pure-menu-item .far,
-    .pure-menu-item .fal,
-    .pure-menu-item .fab {
-      margin-right: 0;
-    }
 
-    #nav-social {
-      position: absolute;
-      top: 1em;
-      right: 1em;
+  .pure-menu-item .fa,
+  .pure-menu-item .fas,
+  .pure-menu-item .far,
+  .pure-menu-item .fal,
+  .pure-menu-item .fab {
+    margin-right: 0;
+  }
 
-      .pure-menu-link,
-      .pure-menu-disabled,
-      .pure-menu-heading {
+  #nav-social {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+
+    .pure-menu-link,
+    .pure-menu-disabled,
+    .pure-menu-heading {
+      padding-right: .5em;
+      padding-left: .5em;
+
+      & + .pure-menu-link {
         padding-right: .5em;
         padding-left: .5em;
-
-        & + .pure-menu-link {
-          padding-right: .5em;
-          padding-left: .5em;
-          margin-right: 0;
-        }
+        margin-right: 0;
       }
     }
+  }
 
-    .github-btn {
-      &.star,
-      &.fork span {
-        display: none;
-      }
-      &.star .fa-github {
-        display: block;
-        top: -1px;
-      }
-    }
-
-    .tw-btn span {
+  .github-btn {
+    &.star,
+    &.fork span {
       display: none;
     }
+    &.star .fa-github {
+      display: block;
+      top: -1px;
+    }
+  }
+
+  .tw-btn span {
+    display: none;
+  }
 }
-
-
 
 // RWD MENU ANIM
 // `.menu-toggle` represents the responsive menu toggle that shows/hides on
 //   small screens.
 //
 .menu-toggle {
-    position: absolute; 						// fixed; 
-    top: 18px ;
-    left: 18px;
-    font-size: 11px;
-    z-index: 10;
-    width: 2em;
-    height: 2em;
-    padding: 1em;
-    box-sizing: content-box;
-    display: none;
+  position: absolute; // fixed;
+  top: 18px;
+  left: 18px;
+  font-size: 11px;
+  z-index: 10;
+  width: 2em;
+  height: 2em;
+  padding: 1em;
+  box-sizing: content-box;
+  display: none;
 
-    @media screen and (max-width: 991px) {
-      display: block; /* show this only on small screens */
-    }
+  @media screen and (max-width: 991px) {
+    display: block; /* show this only on small screens */
+  }
 }
 
 /* Hamburger + `x` when active */
-	.menu-toggle span {
-	  position: relative;
-	  display: block;
-	  margin-top: 0.9em;
-	}
+.menu-toggle span {
+  position: relative;
+  display: block;
+  margin-top: 0.9em;
+}
 
-	.menu-toggle span,
-	.menu-toggle span:before,
-	.menu-toggle span:after {
-	  background: rgba(0,0,0,0.7);
-	  width: 100%;
-	  height: .2em;
-	  transition: all 0.4s;
-	}
+.menu-toggle span,
+.menu-toggle span:before,
+.menu-toggle span:after {
+  background: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: .2em;
+  transition: all 0.4s;
+}
 
-	.menu-toggle span:before,
-	.menu-toggle span:after {
-	    position: absolute;
-	    top: -.55em;
-	    content: " ";
-	}
+.menu-toggle span:before,
+.menu-toggle span:after {
+  position: absolute;
+  top: -.55em;
+  content: " ";
+}
 
-	.menu-toggle span:after {
-	    top: .55em;
-	}
+.menu-toggle span:after {
+  top: .55em;
+}
 
-	.menu-toggle.active span {
-	    background: transparent;
-	}
+.menu-toggle.active span {
+  background: transparent;
+}
 
-	.menu-toggle.active span:before {
-	  transform: rotate(45deg) translate(.5em, .4em);
-	}
+.menu-toggle.active span:before {
+  transform: rotate(45deg) translate(.5em, .4em);
+}
 
-	.menu-toggle.active span:after {
-	  transform: rotate(-45deg) translate(.4em, -.3em);
-	}
+.menu-toggle.active span:after {
+  transform: rotate(-45deg) translate(.4em, -.3em);
+}

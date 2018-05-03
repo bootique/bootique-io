@@ -7,16 +7,15 @@ $i: "../images/"; // PATH VAR
 @import "mixins/mixins";
 
 // FONTS (with filename)
-  // ROBOTO:
-  // @import url(//fonts.googleapis.com/css?family=Roboto:100,300,400);
-  @include customFontFace('Roboto', 'fonts/roboto-thin', 100);
-  @include customFontFace('Roboto', 'fonts/roboto-light', 300);
-  @include customFontFace('Roboto', 'fonts/roboto-regular', 400);
-  @include customFontFace('Roboto', 'fonts/roboto-medium', 500);
-  @include customFontFace('Roboto', 'fonts/roboto-bold', 700);
-  @include customFontFace('RobotoСondensed', 'fonts/robotocondensed-light', 300);
-  @include customFontFace('RobotoСondensed', 'fonts/robotocondensed-regular', 400);
-  @include customFontFace('RobotoСondensed', 'fonts/robotocondensed-bold', 700);
+$roboto-font-path: "~roboto-fontface/fonts";
+@import "~roboto-fontface/css/roboto/sass/roboto-fontface-thin";
+@import "~roboto-fontface/css/roboto/sass/roboto-fontface-light";
+@import "~roboto-fontface/css/roboto/sass/roboto-fontface-regular";
+@import "~roboto-fontface/css/roboto/sass/roboto-fontface-medium";
+@import "~roboto-fontface/css/roboto/sass/roboto-fontface-bold";
+@import "~roboto-fontface/css/roboto-condensed/sass/roboto-condensed-fontface-light";
+@import "~roboto-fontface/css/roboto-condensed/sass/roboto-condensed-fontface-regular";
+@import "~roboto-fontface/css/roboto-condensed/sass/roboto-condensed-fontface-bold";
 
 // FA SOLID AND BRANDS
 $fa-font-path: "~@fortawesome/fontawesome-free-webfonts/webfonts";
@@ -26,16 +25,16 @@ $fa-font-path: "~@fortawesome/fontawesome-free-webfonts/webfonts";
 
 // BS 4.0
 @import "~bootstrap/scss/functions";
-  // Vars
-  @import "variables";
-  // @import "~bootstrap/scss/variables";
+// Vars
+@import "variables";
+// @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/root";
 @import "~bootstrap/scss/reboot";
 @import "~bootstrap/scss/type";
 @import "~bootstrap/scss/images";
 // @import "~bootstrap/scss/code";
-@import "~bootstrap/scss/grid"; 
+@import "~bootstrap/scss/grid";
 // @import "~bootstrap/scss/tables";
 // @import "~bootstrap/scss/forms";
 @import "~bootstrap/scss/buttons";
@@ -63,17 +62,14 @@ $fa-font-path: "~@fortawesome/fontawesome-free-webfonts/webfonts";
 @import "~bootstrap/scss/utilities";
 @import "~bootstrap/scss/print";
 
-
 // Bootique Specific:scss
-  @import 'pure-grid-breakpoints', 'pure-grid-offsets';
-  @import 'mixins', 'helper-classes', 'helpers/bs/media'; 
-  @import 'color-pallette','typography', 'docbook';
-
+@import 'pure-grid-breakpoints';
+@import 'helper-classes', 'helpers/bs/media';
+@import 'color-pallette', 'typography', 'docbook', 'docs';
 
 // Nav
-@import '~purecss-sass/vendor/assets/stylesheets/purecss/menus';
+@import "menus";
 @import "nav";
-
 
 // VIEWPORT FIX
 @-webkit-viewport {
@@ -108,7 +104,7 @@ $fa-font-path: "~@fortawesome/fontawesome-free-webfonts/webfonts";
 
 // GENERAL
 body.inactive {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 [data-spy="scroll"] {
@@ -137,39 +133,6 @@ hr {
   border-width: 1px 0 0;
   margin: 20px 0;
 }
-
-// GRID
-  // .pure-g {
-  //   /* IE10 uses display: flexbox */
-  //   display: -ms-flexbox;
-  //   -ms-flex-flow: row wrap;
-
-  //   display: -webkit-flex;
-  //   -webkit-flex-flow: row wrap;
-  // }
-
-  // .container {
-  //   margin-left: auto;
-  //   margin-right: auto;
-  //   padding-left: 15px;
-  //   padding-right: 15px;
-
-  //   &.nav {
-  //     max-width: 1050px;
-  //   }
-
-  //   &.content {
-  //     max-width: 1050px;
-  //   }
-
-  //   &.docbook {
-  //     padding-bottom: 60px;
-
-  //     & ~ .footer-p {
-  //       position: static;
-  //     }
-  //   }
-  // }
 
 // Helpers
 .relative {
@@ -200,26 +163,26 @@ hr {
   padding: 24% 0 0; // pb : 7.25rem made by columns
 
   @include media-breakpoint-up(sm) {
-    padding-top: 16%;   
+    padding-top: 16%;
   }
 
   @include media-breakpoint-up(lg) {
-    padding-top: 6.2%;    
+    padding-top: 6.2%;
   }
 
   &:before {
-      content: '';
-      position: absolute;
-      display: block;
-      width: 100%;
-      height: 500%;
-      top: 0;
-      left: 0;
-      transform: skewY(7deg);
-      // z-index: 1;
-      transform-origin: 0 0;
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 500%;
+    top: 0;
+    left: 0;
+    transform: skewY(7deg);
+    // z-index: 1;
+    transform-origin: 0 0;
   }
-  
+
   &.-slight-dark--bg:before {
     background: rgba(theme-color("gray-dark"), .03);
   }
@@ -235,15 +198,16 @@ hr {
   }
 }
 
-.text-bold { font-weight: 700; }
-
+.text-bold {
+  font-weight: 700;
+}
 
 // TYPE
 h1, h2, h3, h4, h6,
 .h1, .h2, .h3, .h4, .h6 {
   font-family: 'RobotoСondensed', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   color: $black;
-  
+
   > a {
     color: inherit;
 
@@ -268,7 +232,7 @@ h1,
 
     @include media-breakpoint-down(sm) {
       font-size: 1.3rem;
-    }   
+    }
 
     strong {
       font-weight: 400;
@@ -284,7 +248,7 @@ a {
   color: theme-color("gray-dark");
 
   @include hover-focus-active {
-    color: $black;    
+    color: $black;
   }
 }
 
@@ -292,9 +256,8 @@ a,
 button,
 [class*='button'],
 [class*='btn'] {
-   @include addAnimation(all);
+  @include addAnimation(all);
 }
-
 
 // COMPONENTS
 .container {
@@ -302,9 +265,10 @@ button,
     @include px-(2rem);
   }
 }
+
 .btn {
-    font-size: 1.125rem;
-    padding: .7rem 1.5rem .6rem; // .8rem 1.5rem;
+  font-size: 1.125rem;
+  padding: .7rem 1.5rem .6rem; // .8rem 1.5rem;
   font-family: 'RobotoСondensed', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
   // rounded
@@ -316,25 +280,23 @@ button,
   .fa, .fas, .far, .fal, .fab {
     margin-right: 1rem;
   }
-  
+
   // outlined
   &[class*='btn-outline'] {
     border-width: 2px;
   }
 }
 
-
 // INTRO
 #intro {
   padding-top: 100px; // 88px + 80px;
 }
 
-
 // YT Video
 .yt-video {
-    position: relative;
-    @include mx-(auto);
-  
+  position: relative;
+  @include mx-(auto);
+
   .yt-video-overlay {
     display: flex;
     flex-direction: column;
@@ -342,31 +304,31 @@ button,
     justify-content: space-between;
     background: $body-bg;
     z-index: 1;
-      opacity: 1;
-      transition: z-index 0.5s step-start, opacity 0.5s linear;
+    opacity: 1;
+    transition: z-index 0.5s step-start, opacity 0.5s linear;
 
     > img {
       @include media-breakpoint-down(xs) {
         max-width: 16.25rem;
-      }     
+      }
     }
   }
 
   [class*='-btn'] {
     text-indent: -99999px;
   }
-  
+
   .yt-play-btn {
     @include equal-width-height(7.5rem);
-      background: transparent url("images/btn.play.svg") center center no-repeat;
-      margin-bottom: map-get($spacers, 2_5);        // 12px
+    background: transparent url("images/btn.play.svg") center center no-repeat;
+    margin-bottom: map-get($spacers, 2_5); // 12px
 
     @include media-breakpoint-up(sm) {
-      margin-bottom: map-get($spacers, 5);      // 78px
+      margin-bottom: map-get($spacers, 5); // 78px
     }
 
     @include media-breakpoint-up(md) {
-      margin-bottom: map-get($spacers, 7);      // 78px
+      margin-bottom: map-get($spacers, 7); // 78px
     }
   }
 
@@ -381,20 +343,20 @@ button,
     height: 2em;
     padding: 1em;
     font-size: 11px;
-    background: #e5e5e5;              // rgba(0, 0, 0, .05);
-      opacity:0;
+    background: #e5e5e5; // rgba(0, 0, 0, .05);
+    opacity: 0;
   }
 }
 
 .yt-video.active {
-  
+
   .yt-video-overlay {
     z-index: -1;
-      opacity: 0;
+    opacity: 0;
     transition: z-index 0.5s step-end, opacity 0.5s linear;
   }
 
-  .yt-close-stop-btn{
+  .yt-close-stop-btn {
     visibility: visible;
     opacity: 1;
     transition-delay: 0s;
@@ -402,37 +364,36 @@ button,
 }
 
 .yt-close-stop-btn span {
-    position: relative;
-    display: block;
-    margin-top: 0.9em;   
-    background: transparent;
+  position: relative;
+  display: block;
+  margin-top: 0.9em;
+  background: transparent;
 }
 
 .yt-close-stop-btn span,
 .yt-close-stop-btn span:before,
 .yt-close-stop-btn span:after {
-    width: 100%;
-    height: .2em;
-    transition: all 0.4s;
+  width: 100%;
+  height: .2em;
+  transition: all 0.4s;
 }
 
 .yt-close-stop-btn span:before,
 .yt-close-stop-btn span:after {
-    content: " ";
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: rgba(0,0,0,0.7);
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .yt-close-stop-btn span:before {
-    transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .yt-close-stop-btn span:after {
-    transform: rotate(-45deg);
+  transform: rotate(-45deg);
 }
-
 
 // FEATURES
 #features .h1 + .container {
@@ -444,14 +405,14 @@ button,
 .feature {
   display: flex;
   flex-direction: column;
-  margin-bottom: map-get($spacers, 6);      // 60px
+  margin-bottom: map-get($spacers, 6); // 60px
 
   .rounded-circle {
     display: flex;
     justify-content: center;
-    @include equal-width-height(4rem);  
+    @include equal-width-height(4rem);
     background: rgba(#fff, .95);
-    margin-bottom: map-get($spacers, 3);  // 1rem
+    margin-bottom: map-get($spacers, 3); // 1rem
   }
 
   p {
@@ -459,250 +420,249 @@ button,
   }
 }
 
-
 // TESTIMONIALS
-  // Slick Carousel
-  $slick-font-path: $fa-font-path;
-  $slick-font-family: "Font Awesome 5 Free";
-  $slick-loader-path: "~slick-carousel/slick/";
-  $slick-prev-character: "\f053";
-  $slick-next-character: "\f054";
-  $slick-opacity-default: 1;
+// Slick Carousel
+$slick-font-path: $fa-font-path;
+$slick-font-family: "Font Awesome 5 Free";
+$slick-loader-path: "~slick-carousel/slick/";
+$slick-prev-character: "\f053";
+$slick-next-character: "\f054";
+$slick-opacity-default: 1;
 
-  @import '~slick-carousel/slick/slick';
-  @import '~slick-carousel/slick/slick-theme';
+@import '~slick-carousel/slick/slick';
+@import '~slick-carousel/slick/slick-theme';
 
-  #testimonials {
+#testimonials {
 
-    .container {
-      @include media-breakpoint-down(md) {
-        @include px-(0);
-        max-width: 100% !important;
+  .container {
+    @include media-breakpoint-down(md) {
+      @include px-(0);
+      max-width: 100% !important;
+    }
+  }
+
+  .slider-center {
+    cursor: move;
+    cursor: grab;
+
+    .slick-list {
+      display: flex;
+    }
+    .slick-track {
+      display: flex;
+      align-items: center;
+    }
+
+    .slick-slide,
+    .slick-slide > div {
+      display: flex;
+    }
+
+    .slick-slide {
+      transition: all 300ms ease;
+      margin: 0 15px;
+      z-index: 1;
+
+      .card {
+        opacity: 0.65;
+        z-index: 1;
       }
     }
 
-    .slider-center {
-      cursor: move;
-      cursor: grab;
-      
-      .slick-list {
-        display: flex;
-      }
-      .slick-track {
-        display: flex;
-        align-items: center;
-      }
+    .slick-center {
+      z-index: 3;
 
-      .slick-slide,
-      .slick-slide > div {
-        display: flex;
-      }
-
-      .slick-slide {
-        transition: all 300ms ease;
-          margin: 0 15px;
-          z-index: 1;
-
-          .card {
-            opacity: 0.65;
-            z-index: 1;
-          }
-      }
-      
-      .slick-center {
-          z-index: 3;
-        
-          .card {
-            position: relative;
-          opacity: 1;
-            transform: scale(1.3);
-          }
-      }
-
-      .card-holder {
+      .card {
         position: relative;
-        display: flex !important;
-        @include py-(100px);
+        opacity: 1;
+        transform: scale(1.3);
       }
+    }
 
-        .card {
-          transition: all 300ms ease;
-          box-shadow: 0 6px 23px rgba($black, .14);
-          border-color: transparent; 
+    .card-holder {
+      position: relative;
+      display: flex !important;
+      @include py-(100px);
+    }
 
-        blockquote {
-          @include px-(2.25rem);  // 3rem ~ 48px
-          @include py-(2.75rem);  // 3.625rem ~ 58px
-            justify-content: center;
+    .card {
+      transition: all 300ms ease;
+      box-shadow: 0 6px 23px rgba($black, .14);
+      border-color: transparent;
 
-            .rounded-circle {
-              @include equal-width-height(4.375rem);  // = 70px
-              border: 2px solid rgba($black, .3);   //#bebebe;
-            }
+      blockquote {
+        @include px-(2.25rem); // 3rem ~ 48px
+        @include py-(2.75rem); // 3.625rem ~ 58px
+        justify-content: center;
+
+        .rounded-circle {
+          @include equal-width-height(4.375rem); // = 70px
+          border: 2px solid rgba($black, .3); //#bebebe;
+        }
+
+        p {
+          font-size: .8em; // .9em
+          line-height: 1.8;
+        }
+
+        // rwd
+        @include media-breakpoint-down(lg) {
+          @include px-(1.75rem); // 3rem ~ 48px
+          @include py-(2rem); // 3.625rem ~ 58px
 
           p {
-            font-size: .8em;  // .9em
-              line-height: 1.8;
+            font-size: .65em;
           }
-
-          // rwd
-          @include media-breakpoint-down(lg) {
-              @include px-(1.75rem);  // 3rem ~ 48px
-            @include py-(2rem);   // 3.625rem ~ 58px
-
-            p { font-size: .65em; }
-            }
-
-            @include media-breakpoint-down(xs) {
-              @include px-(1.35rem);  
-            @include py-(1.6rem);   
-
-            p {
-              font-size: .58em;
-              line-height: 1.7;
-            }
-            }
-
-        }
         }
 
-    }
+        @include media-breakpoint-down(xs) {
+          @include px-(1.35rem);
+          @include py-(1.6rem);
 
-    .slick-prev,
-    .slick-next {
-      z-index: 1;
-      border-radius: 500px;
-      box-shadow: 0 4px 9px rgba(0,0,0,.24);
-      background: $body-color;
-      @include equal-width-height(3.5rem);
+          p {
+            font-size: .58em;
+            line-height: 1.7;
+          }
+        }
 
-      &:before {
-        // font-family: 'Font Awesome 5 Free'; 
-        font-size: .875rem;
-        position: relative;
-        transition: inherit;
-        // opacity: 1;
-      }
-
-      @include hover {
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
       }
     }
 
-    .slick-prev {
-        left: 50%;
-        margin-left: -51%;
+  }
 
-        &:before {
-        // content: '\f053';
-        right: .125rem;
-        }
+  .slick-prev,
+  .slick-next {
+    z-index: 1;
+    border-radius: 500px;
+    box-shadow: 0 4px 9px rgba(0, 0, 0, .24);
+    background: $body-color;
+    @include equal-width-height(3.5rem);
+
+    &:before {
+      // font-family: 'Font Awesome 5 Free';
+      font-size: .875rem;
+      position: relative;
+      transition: inherit;
+      // opacity: 1;
     }
 
-    .slick-next {
-        right: 50%;
-        margin-right: -51%;
-
-        &:before {
-          // content: '\f054';
-          left: .125rem;
-        }
+    @include hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     }
   }
 
+  .slick-prev {
+    left: 50%;
+    margin-left: -51%;
+
+    &:before {
+      // content: '\f053';
+      right: .125rem;
+    }
+  }
+
+  .slick-next {
+    right: 50%;
+    margin-right: -51%;
+
+    &:before {
+      // content: '\f054';
+      left: .125rem;
+    }
+  }
+}
 
 // FOOTER
-  
-  #social {
-    
-    .list-group-item {
-      padding: 0;
-      border: none;
+
+#social {
+
+  .list-group-item {
+    padding: 0;
+    border: none;
+    color: $body-color;
+    background: transparent;
+
+    @include hover-focus-active {
+      color: $black;
+      background: transparent;
+    }
+  }
+
+}
+
+// MEDIUM POSTS
+#medium-posts {
+
+  .list-group-item {
+    margin-bottom: map-get($spacers, 6); // = 60px;
+  }
+
+  .medium-counters {
+
+    > span {
+      display: inline-block;
+      margin-right: map-get($spacers, 4_5); // = 28px;
+
+      &.badge {
+        margin-right: map-get($spacers, 3_4); // = 20px;
+        margin-bottom: map-get($spacers, 2); // = 8px;
+      }
+    }
+
+    img {
+      width: (1.2rem); // = 19.2px
+    }
+
+    img,
+    i {
+      margin-right: map-get($spacers, 1); // = 28px;
+    }
+  }
+}
+
+// TWITTER POSTS
+#twitter-posts {
+
+  .twitter-timeline {
+    flex-grow: 1;
+    position: relative !important;
+    left: -10px;
+    width: calc(100% + 20px) !important;
+    top: -15px;
+    max-width: none !important;
+  }
+
+  .list-group-item {
+    margin-bottom: map-get($spacers, 5); // = 60px;
+  }
+}
+
+// FOOTER COPY
+
+#footer-copy {
+
+  p,
+  .nav-double a {
+    font-size: .75rem;
+  }
+
+  p,
+  a {
+    color: #A0A0A0;
+  }
+
+  a {
+    @include hover-focus-active {
       color: $body-color;
       background: transparent;
-
-      @include hover-focus-active {
-        color: $black;
-        background: transparent;
-      }
-    }
-
-  }
-
-  // MEDIUM POSTS
-  #medium-posts {
-
-    .list-group-item {
-      margin-bottom: map-get($spacers, 6);        // = 60px;
-    }
-
-    .medium-counters {
-
-      > span {
-        display: inline-block;
-        margin-right: map-get($spacers, 4_5);     // = 28px;
-
-        &.badge {
-          margin-right: map-get($spacers, 3_4);   // = 20px;          
-          margin-bottom: map-get($spacers, 2);   // = 8px;          
-        }
-      }
-
-      img {
-        width: (1.2rem);              // = 19.2px
-      }
-
-      img,
-      i {
-        margin-right: map-get($spacers, 1);       // = 28px;
-      }
+      text-decoration: none;
     }
   }
 
-  // TWITTER POSTS
-  #twitter-posts {
-
-    .twitter-timeline {
-      flex-grow: 1;
-      position: relative !important;
-      left: -10px;
-      width: calc(100% + 20px) !important;
-      top: -15px;
-      max-width: none !important;
-    }
-
-    .list-group-item {
-      margin-bottom: map-get($spacers, 5);        // = 60px;
+  @include media-breakpoint-down(md) {
+    > p {
+      max-width: 12.5rem; // = 200px;
+      text-align: center;
     }
   }
-
-
-  // FOOTER COPY
-
-  #footer-copy {
-
-    p,
-    .nav-double a {
-      font-size: .75rem;
-    }
-
-    p,
-    a {
-      color: #A0A0A0;
-    }
-
-    a {
-      @include hover-focus-active {
-        color: $body-color;
-        background: transparent;
-        text-decoration: none;
-      }
-    }
-
-    @include media-breakpoint-down(md) {
-       > p {
-        max-width: 12.5rem;             // = 200px;
-        text-align: center;
-       }
-    }
-  }
+}

@@ -95,7 +95,7 @@ HELPER CLASSES
     justify-content: center;
 
     > div {
-      padding-top: 60px; //6% // 8%        	// we cannot use percents https://bugzilla.mozilla.org/show_bug.cgi?id=958714
+      padding-top: 60px; //6% // 8% // we cannot use percents https://bugzilla.mozilla.org/show_bug.cgi?id=958714
       padding-bottom: 120px; //14% // 8%
 
       @media (min-width: 1240px) {

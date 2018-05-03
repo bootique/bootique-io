@@ -13,16 +13,16 @@ import * as sql from "highlight.js/lib/languages/sql.js";
 import * as yaml from "highlight.js/lib/languages/yaml.js";
 
 export function applyHighlightJs() {
-  hljs.registerLanguage('xml', xml);
-  hljs.registerLanguage('bash', bash);
-  hljs.registerLanguage('markdown', markdown);
-  hljs.registerLanguage('gradle', gradle);
-  hljs.registerLanguage('groovy', groovy);
-  hljs.registerLanguage('java', java);
-  hljs.registerLanguage('javascript', javascript);
-  hljs.registerLanguage('json', json);
-  hljs.registerLanguage('kotlin', kotlin);
-  hljs.registerLanguage('sql', sql);
-  hljs.registerLanguage('yaml', yaml);
+  hljs.registerLanguage("xml", xml);
+  hljs.registerLanguage("bash", bash);
+  hljs.registerLanguage("markdown", markdown);
+  hljs.registerLanguage("gradle", gradle);
+  hljs.registerLanguage("groovy", groovy);
+  hljs.registerLanguage("java", java);
+  hljs.registerLanguage("javascript", javascript);
+  hljs.registerLanguage("json", json);
+  hljs.registerLanguage("kotlin", kotlin);
+  hljs.registerLanguage("sql", sql);
+  hljs.registerLanguage("yaml", yaml);
   hljs.initHighlightingOnLoad();
 }

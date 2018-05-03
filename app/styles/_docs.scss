@@ -1,0 +1,33 @@
+.bootique-docs {
+  p {
+    font-size: 14px;
+  }
+
+  #TableOfContents > ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  pre code {
+    display: block;
+    font-style: normal;
+    overflow-x: auto;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    border: 1px dotted #616161;
+    background-color: #f8f8f8;
+    padding: 7px;
+  }
+
+  ul, ol {
+    font-size: 14px;
+    padding-left: 20px;
+  }
+
+  code {
+    color: #161616;
+
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-weight: 400;
+    font-size: 14px;
+  }
+}
