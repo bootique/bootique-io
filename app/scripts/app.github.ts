@@ -15,7 +15,7 @@ export function applyGithub() {
   if (ghButtons.length) {
     const ghOwner = ghButtons.attr("data-gh-owner");
     const ghRepo = ghButtons.attr("data-gh-repo");
-    const ghUrl = "https://api.github.com/repos/" + ghOwner + "/" + ghRepo;
+    const ghUrl = `https://api.github.com/repos/${ghOwner}/${ghRepo}`;
 
     $.getJSON(ghUrl, callbackFuncWithData);
   }

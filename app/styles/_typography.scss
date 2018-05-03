@@ -1,80 +1,74 @@
 // TYPOGRAPHY
 
-	[class*="pure-u"]{
-		font-weight: 400;
-		letter-spacing: normal;
-	}
+[class*="pure-u"] {
+  font-weight: 400;
+  letter-spacing: normal;
+}
 
-  html, button, input, select, textarea,
-  .pure-g [class *= "pure-u"] {
-    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  color: $black;
+
+  > a {
+    color: inherit;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+h2 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  display: inline-block;
+
+  .docbook & {
+    margin: 1.1em 0 .8em;
   }
 
-	h1, h2, h3, h4, h5, h6,
-	.h1, .h2, .h3, .h4, .h5, .h6 {
-		color: $black;
-		
-		> a {
-			color: inherit;
+  @media screen and (max-width: 480px) {
+    font-size: 18px;
+  }
+}
 
-			&:hover {
-				text-decoration: none;
-			}
-		}
-	}
+p {
+  margin: 0 0 1em;
+}
 
-	h2 {
-	    font-family: 'Roboto', sans-serif;
-	    font-weight: 300;
-	    font-size: 24px;
-	    display: inline-block;
+.text-muted {
+  color: #717171;
+}
 
-	    .docbook & {
-			margin: 1.1em 0 .8em;
-	    }
+ul {
+  margin: 0 0 1em;
+  padding: 0 0 0 1.8rem;
 
-	    @media screen and (max-width: 480px) {
-			font-size: 18px;
-		}
-	}
+  &.itemizedlist {
+    padding-left: 1.34em;
 
-	p {
-		margin: 0 0 1em;
-	}
+    li.listitem {
+      position: relative;
+      list-style: none;
 
-	.text-muted {
-	    color: #717171;
-	}
+      &:before {
+        content: '\2022'; // = `•` =  &bull;
 
-	ul {
-	    margin: 0 0 1em;
-	    padding: 0 0 0 1.8rem;
+        font-size: 20px;
+        line-height: 1.05;
+        color: #616161;
 
-	    &.itemizedlist {
-	    	padding-left: 1.34em;
-
-			li.listitem {
-				position: relative;
-				list-style: none;
-
-			    &:before {
-			    	content: '\2022'; // = `•` =  &bull;
-				    
-				    font-size: 20px;
-			        line-height: 1.05;
-				    color: #616161;
-				    
-				    position: absolute;
-				    left: -.88em;
-				    top: 0;
-			    }
-		    }
-	    }
-	}
-
-	code {
-	    color: #000;
-	    font-weight: 600;
-	}
-		
+        position: absolute;
+        left: -.88em;
+        top: 0;
+      }
+    }
+  }
+}
 

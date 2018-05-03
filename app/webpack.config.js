@@ -21,7 +21,7 @@ Build started with following configuration:
 `);
 
   const publicPath = "/assets/";
-  const limit = 65000;
+  const limit = 1024;
 
   return {
     entry: {
