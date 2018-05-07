@@ -4,14 +4,21 @@
 
 ## How to build:
 
+## CI/CD
+
 See [.travis.yml](./.travis.yml) for complete set of commands to build website.
 
-Basically this steps should be done:
-
-1. Setup env: Node.js, Java, Hugo;
+1. Setup env: Node.js (Yarn), Java, Hugo;
 1. Run Node.js to generate JS/CSS;
 1. Run Java to generate documentation for set of projects;
 1. Run Hugo to assemble all parts of website.
 
+### To build site locally:
 
-
+1. Install java(tested with java 8), node.js(8), yarn, hugo.
+2. Build assets and docs and run hugo:
+    ```bash
+    cd ./app && yarn run build
+    cd ../ && ./docs.sh]
+    hugo server
+    ```
