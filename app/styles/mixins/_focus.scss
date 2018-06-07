@@ -1,0 +1,5 @@
+// Focus
+
+@mixin focus {
+  &:focus { @content; }
+}

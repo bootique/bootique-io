@@ -1,6 +1,7 @@
 // GLOBAL SETTINGS
 $path-root: "..";
 $site-max-h: 914px;
+$tw-color: #1DA1F2;
 $i: "../images/"; // PATH VAR
 
 // MIXINS
@@ -205,7 +206,7 @@ hr {
 // TYPE
 h1, h2, h3, h4, h6,
 .h1, .h2, .h3, .h4, .h6 {
-  font-family: 'RobotoСondensed', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Roboto Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   color: $black;
 
   > a {
@@ -269,7 +270,7 @@ button,
 .btn {
   font-size: 1.125rem;
   padding: .7rem 1.5rem .6rem; // .8rem 1.5rem;
-  font-family: 'RobotoСondensed', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Roboto Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
   // rounded
   &.btn-rounded {
@@ -284,6 +285,15 @@ button,
   // outlined
   &[class*='btn-outline'] {
     border-width: 2px;
+  }
+
+  // outlined light
+  &.btn-outline-light {
+    @include focus {
+      color: $gray-900;
+      background-color: darken($light, 7.5%);
+      border-color: $light;
+    }
   }
 }
 
@@ -466,6 +476,10 @@ $slick-opacity-default: 1;
       .card {
         opacity: 0.65;
         z-index: 1;
+
+        // max-width: 85%;
+        // align-self: center;
+        // margin: 0 auto;
       }
     }
 
@@ -475,7 +489,7 @@ $slick-opacity-default: 1;
       .card {
         position: relative;
         opacity: 1;
-        transform: scale(1.3);
+        transform: scale(1.2);
       }
     }
 
@@ -491,24 +505,77 @@ $slick-opacity-default: 1;
       border-color: transparent;
 
       blockquote {
-        @include px-(2.25rem); // 3rem ~ 48px
-        @include py-(2.75rem); // 3.625rem ~ 58px
+        @include px-(2rem); // 2.25rem  // 3rem ~ 48px
+        @include py-(1.5rem); // 2.75rem  // 3.625rem ~ 58px
         justify-content: center;
 
         .rounded-circle {
           @include equal-width-height(4.375rem); // = 70px
-          border: 2px solid rgba($black, .3); //#bebebe;
+          // border: 2px solid rgba($black, .3); //#bebebe;
+        }
+        
+        .rounded-circle + .flex-column .xsmall {
+          @include hover-focus-active {
+            color: $tw-color !important;
+            text-decoration: none;
+          }
+        }
+        
+        .rounded-circle ~ a {
+          opacity: .3; 
+          font-size: .8em;
+
+          @include hover-focus-active {
+            opacity: 1; //.7;
+            color: $tw-color;
+            text-decoration: none;
+          }
+        }
+
+        a {
+          
+          @include hover-focus-active {
+            outline: 0 !important;
+          }
         }
 
         p {
-          font-size: .8em; // .9em
-          line-height: 1.8;
+          font-size: .7em;  //.8em; // .9em
+          line-height: 1.75;
+          @include px-(map-get($spacers, 2));
+
+          &:last-child {
+            position: relative;
+
+            &:before {
+              content: '\201C';
+              position: absolute;
+              left: -.3em;
+              top: -.1em;
+              font-size: 3em;
+              opacity: .1;
+              line-height: 1;
+            }
+          }
+          
+          a {
+            padding: 0 .2rem;
+            color: $white;
+            background-color: $dark;
+            text-decoration: none;
+
+            @include hover-focus-active {
+              color: $dark;
+              background-color: rgba($dark, .1);
+            }
+          }
         }
+
 
         // rwd
         @include media-breakpoint-down(lg) {
-          @include px-(1.75rem); // 3rem ~ 48px
-          @include py-(2rem); // 3.625rem ~ 58px
+          @include px-(1.2rem); // 3rem ~ 48px
+          @include py-(1.6rem); // 3.625rem ~ 58px
 
           p {
             font-size: .65em;
