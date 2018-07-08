@@ -1,0 +1,39 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+{{ partial "header.html" . }}
+<style>
+  /*
+  TODO: Move to sass after merge of https://github.com/bootique/bootique-io/pull/13
+  */
+  .not-found-page .detail {
+    display: block;
+    text-align: center;
+  }
+
+  .not-found-page .suggestion {
+    text-align: center;
+  }
+</style>
+<body>
+
+{{ partial "ltie10.html" . }}
+{{ partial "top-nav.html" . }}
+
+<div class="not-found-page container content docbook">
+  <h1>
+    Page not found
+  </h1>
+  <hr/>
+
+  <article>
+    <h2 class="detail">Oops! That page can’t be found.</h2>
+    <p class="suggestion">It looks like nothing was found at this location. Go back to <a href="{{ .Site.BaseURL }}">bootique.io</a>.
+    </p>
+  </article>
+</div>
+{{ partial "footer.html" . }}
+{{ partial "google_analytics.html" . }}
+{{ partial "twitter_analytics.html" . }}
+</body>
+</html>
+
