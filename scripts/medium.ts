@@ -50,7 +50,7 @@ async function main(limit: number = 10): Promise<MediumResponse> {
       }) => ({
         title,
         subtitle,
-        publishedAt: firstPublishedAt,
+        publishedAt: new Date(firstPublishedAt).toISOString(),
         tags: tags.map(tag => tag.name),
         url: uniqueSlug
       }));

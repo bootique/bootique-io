@@ -1,0 +1,14 @@
+{{ range $.Site.Data.medium }}
+<a href="https://blog.bootique.io/{{ .url }}" class="list-group-item d-flex flex-column align-items-start">
+  <h5 class="mb-3">{{ .title }}</h5>
+  <p class="mb-2_5">{{ .subtitle }}</p>
+  <div class="list-group-item-footer w-100  d-flex flex-column flex-sm-row justify-content-between  text-muted small">
+    <div class="medium-counters">
+      {{ range .tags }}
+      <span class="badge badge-secondary">{{ . }}</span>
+      {{ end }}
+    </div>
+    <span class="text-uppercase text-bold text-nowrap  mt-2 mt-sm-0">{{ dateFormat "2 January" .publishedAt }}</span>
+  </div>
+</a>
+{{ end }}

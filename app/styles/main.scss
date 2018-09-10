@@ -658,7 +658,7 @@ $slick-opacity-default: 1;
 }
 
 // MEDIUM POSTS
-#medium-posts {
+.medium-posts {
 
   .list-group-item {
     margin-bottom: map-get($spacers, 6); // = 60px;

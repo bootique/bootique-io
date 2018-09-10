@@ -18,10 +18,6 @@
   version "2.0.48"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.48.tgz#3e90d8cde2d29015e5583017f7830cb3975b2eef"
 
-"@types/luxon@0.5.2":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-0.5.2.tgz#3a12e672cfde45a83fc92b8b11ba91db0622e6fc"
-
 "@types/modernizr@3.5.0":
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/@types/modernizr/-/modernizr-3.5.0.tgz#ca26494e4d2d26ca6b5d6d873275a0ebe877320f"
@@ -2071,10 +2067,6 @@ lru-cache@^4.0.1:
   dependencies:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
-
-luxon@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.2.0.tgz#d438567c890c05c8fcb2d462af7ea66a5fbb0efa"
 
 macaddress@^0.2.8:
   version "0.2.8"
