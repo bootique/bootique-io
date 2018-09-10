@@ -9,6 +9,7 @@ install:
   - nvm install 8
 script:
   - cd ./app && yarn run build
+  - cd ../scripts && yarn run build
   - cd ../ && ./docs.sh
   - hugo
 branches:

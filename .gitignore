@@ -11,6 +11,7 @@
 
 # Dependencies
 /app/node_modules/
+/scripts/node_modules/
 
 # Idea
 .idea
