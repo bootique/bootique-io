@@ -1,13 +1,11 @@
 # Build
-/tmp
 /public
-/static/docs/0/
 /themes/bootique-theme/static/assets/
 /themes/bootique-theme/layouts/partials/assets.html
 
 # Docs
-/content/docs/getting-started.md
-/content/docs/bootique-docs.md
+/docs/
+/content/docs/
 
 # Dependencies
 /app/node_modules/

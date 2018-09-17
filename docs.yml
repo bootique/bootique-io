@@ -1,0 +1,20 @@
+docs:
+  workingDir: "./docs/working"
+  outputDir: "./content/docs"
+  cacheDir: "./docs/cache"
+  repos:
+    - url: https://github.com/bootique/bootique.git
+      versions:
+        0: "master" # fallback, as before that version used.
+        latest: "master"
+    - url: https://github.com/bootique/bootique-kotlin.git
+      versions:
+        latest: "master"
+    - url: https://github.com/bootique/bootique-logback.git
+      versions:
+        0: "master" # fallback, as before that version used.
+        latest: "master"
+    - url: https://github.com/bootique/bootique-jetty.git
+      versions:
+        0: "master" # fallback, as before that version used.
+        latest: "master"
