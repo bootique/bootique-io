@@ -98,9 +98,25 @@ code {
     font-size: 14px;
   }
 
-  #TableOfContents > ul {
-    list-style: none;
-    margin-left: -15px;
+  .toc {
+    display: block !important; // overwrite docbook style
+
+    #toctitle {
+      @extend h2;
+    }
+
+    ul {
+      margin-top: 5px;
+      margin-bottom: 20px;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+
+    padding-bottom: 26px;
+    border-bottom: 1px solid #ececec;
+    margin: 20px 0 46px 0;
   }
 
   pre code {
