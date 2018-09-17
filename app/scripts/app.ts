@@ -12,8 +12,10 @@ import {applyHashLinks} from "./app.hashLinks";
 import {applyPureTables} from "./app.pureTables";
 import {applyHighlightJs} from "./app.hljs";
 
+// highlight.js uses own onload listener
+tryApply(applyHighlightJs);
+
 $(document).ready(function () {
-  tryApply(applyHighlightJs);
   tryApply(applySideMenu);
   tryApply(applyModernizr);
   tryApply(applyDocsNav);

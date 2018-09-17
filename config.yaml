@@ -13,7 +13,6 @@ params:
 # URLs for pages under folders content/page and content/docs.
 permalinks:
   page: ":filename/"
-  docs: "docs/0/:filename/"
 
 menu:
   main:
