@@ -1,0 +1,27 @@
+// Build docs
+// docker run --rm --user "$(id -u):$(id -g)" -v $(pwd):/documents/ asciidoctor/docker-asciidoctor asciidoctor-pdf -a allow-uri-read index.adoc
+
+= Bootique Documentation
+
+= Getting Started
+
+include::https://raw.githubusercontent.com/bootique/bootique/master/docs/getting-started/index.adoc[]
+
+<<<
+
+= Bootique Core Documentation
+
+include::https://raw.githubusercontent.com/bootique/bootique/master/docs/bootique-docs/index.adoc[]
+
+<<<
+
+include::https://raw.githubusercontent.com/bootique/bootique-kotlin/master/docs/index.adoc[]
+
+<<<
+
+include::https://raw.githubusercontent.com/bootique/bootique-jetty/master/docs/index.adoc[]
+
+<<<
+
+include::https://raw.githubusercontent.com/bootique/bootique-logback/master/docs/index.adoc[]
+
