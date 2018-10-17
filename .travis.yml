@@ -1,7 +1,6 @@
 language: java
 jdk:
-  - oraclejdk10
-dist: trusty
+  - openjdk11
 env:
   global:
     - HUGO_VERSION=0.48
