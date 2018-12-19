@@ -15,9 +15,13 @@ async function main(): Promise<GithubResponse> {
   try {
     const response = await axios.get<GithubResponse>(githubUrl);
     const {forks_count, stargazers_count} = response.data;
+    const starsFile = path.resolve(__dirname, "..", "data", "stars.json");
+
+    console.log(`Forks Count: ${forks_count}, Stargazers Count: ${stargazers_count}`);
+    console.log(`Saving stars data to file: "${starsFile}"`);
 
     fs.writeFileSync(
-      path.resolve(__dirname, "..", "data", "stars.json"),
+      starsFile,
       JSON.stringify({forks_count, stargazers_count}),
       {encoding: "UTF-8"}
     );
