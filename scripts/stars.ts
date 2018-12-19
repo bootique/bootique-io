@@ -13,7 +13,11 @@ const githubUrl = `https://api.github.com/repos/bootique/bootique`;
 
 async function main(): Promise<GithubResponse> {
   try {
-    const response = await axios.get<GithubResponse>(githubUrl);
+    const response = await axios.get<GithubResponse>(githubUrl, {
+      headers: {
+        "Authorization": `token ${process.env.GITHUB_TOKEN}`
+      }
+    });
     const {forks_count, stargazers_count} = response.data;
     const starsFile = path.resolve(__dirname, "..", "data", "stars.json");
 
@@ -28,11 +32,15 @@ async function main(): Promise<GithubResponse> {
 
     return response.data;
   } catch (e) {
-    return e;
+    return Promise.reject(e);
   }
 }
 
 console.log("Fetching stars from GitHub.");
-main();
-console.log("Fetching stars from GitHub. Done.");
+main().then(() => {
+  console.log("Fetching stars from GitHub. Done.");
+}, (e: Error) => {
+  console.error(e);
+  process.exit(1);
+});
 
