@@ -1,0 +1,27 @@
+{
+  "$id": "https://bootique.io/schema/1.0.rc1/bootique-flyway.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Bootique JDBC Module Configuration",
+  "type": "object",
+  "required": [
+    "jdbc"
+  ],
+  "properties": {
+    "jdbc": {
+      "type": "object",
+      "description": "Define configuration for jdbc module",
+      "additionalProperties": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "hikari",
+              "tomcat"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+

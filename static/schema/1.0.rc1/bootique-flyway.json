@@ -1,0 +1,34 @@
+{
+  "$id": "https://bootique.io/schema/1.0.rc1/bootique-flyway.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Bootique Flyway Module Configuration",
+  "type": "object",
+  "required": [
+    "flyway"
+  ],
+  "properties": {
+    "flyway": {
+      "type": "object",
+      "required": [
+        "dataSources"
+      ],
+      "description": "Define configuration for flyway module",
+      "properties": {
+        "dataSources": {
+          "description": "References to dataSources to access the database.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "locations": {
+          "description": "The locations to scan recursively for migration scripts.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
