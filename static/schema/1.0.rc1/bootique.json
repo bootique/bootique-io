@@ -5,10 +5,10 @@
   "type": "object",
   "anyOf": [
     {
-      "$ref": "./bootique-flyway.json"
+      "$ref": "https://bootique.io/schema/1.0.rc1/bootique-flyway.json"
     },
     {
-      "$ref": "./bootique-jdbc.json"
+      "$ref": "https://bootique.io/schema/1.0.rc1/bootique-jdbc.json"
     }
   ]
 }
