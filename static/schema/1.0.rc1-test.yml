@@ -1,0 +1,82 @@
+flyway:
+  dataSources:
+    - test
+
+jdbc:
+  test-hikari:
+    type: "hikari"
+    connectionTimeout: 250
+    validationTimeout: 250
+    idleTimeout: 20000
+    leakDetectionThreshold: 20000
+    maxLifetime: 50000
+    maximumPoolSize: 3
+    minimumIdle: 1
+    username: x
+    password: x
+    initializationFailTimeout: 100
+    catalog: "test-catalog"
+    connectionInitSql: "VALUES 1"
+    connectionTestQuery: "VALUES 1"
+    dataSourceClassName: "org.apache.derby.jdbc.EmbeddedDataSource"
+    jdbcUrl: "jdbc:derby:target/HikariCPModuleIT_full;"
+    transactionIsolation: "TRANSACTION_SERIALIZABLE"
+    autoCommit: true
+    readOnly: false
+    isolateInternalQueries: false
+    registerMbeans: false
+    allowPoolSuspension: false
+    dataSourceProperties:
+      databaseName: "target/ds1"
+      createDatabase: "create"
+    dataSourceJndiName: "dataSourceJndiName"
+    driverClassName: "driverClassName"
+    schema: "public"
+    transactionIsolationName: "read-committed"
+    health:
+      connectivity:
+        warning: 10ms
+        critical: 250ms
+        min:  250ms
+        max:  250ms
+      connection99Percent:
+        warning: 10ms
+        critical: 500ms
+        min: 500ms
+        max: 500ms
+  test-tomcat:
+    type: "tomcat"
+    url: "jdbc:derby:target/derby1;create=true"
+    driverClassName: "org.apache.derby.jdbc.EmbeddedDriver"
+    initialSize: 0
+    maxActive: 6
+    minIdle: 1
+    maxIdle: 3
+    username: sa
+
+jdbctest:
+  quoteIdentifiers: false
+
+heartbeat:
+  initialDelayMs: 3
+  fixedDelayMs: 100
+  threadPoolSize: 2
+  healthCheckTimeoutMs: 2000
+
+application:
+  hello:
+    - "World"
+
+aws:
+  accessKey: ""
+  defaultRegion: ""
+  secretKey: ""
+
+cayenne:
+
+curator:
+  connectString: ""
+
+cfx:
+  urlPattern: ""
+  welcomeText: ""

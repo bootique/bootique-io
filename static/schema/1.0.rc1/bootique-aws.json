@@ -1,0 +1,26 @@
+{
+  "$id": "https://bootique.io/schema/1.0.rc1/bootique-flyway.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Bootique AWS Module Configuration",
+  "type": "object",
+  "properties": {
+    "aws": {
+      "type": "object",
+      "description": "Define configuration for AWS module",
+      "properties": {
+        "accessKey": {
+          "type": "string",
+          "description": "Sets AWS account credentials 'accessKey'"
+        },
+        "secretKey": {
+          "type": "string",
+          "description": "AWS account credentials 'secretKey'"
+        },
+        "defaultRegion": {
+          "type": "string",
+          "description": "Optional default region to use for AWS calls."
+        }
+      }
+    }
+  }
+}

@@ -9,6 +9,19 @@
     },
     {
       "$ref": "https://bootique.io/schema/1.0.rc1/bootique-jdbc.json"
+    },
+    {
+      "$ref": "https://bootique.io/schema/1.0.rc1/bootique-aws.json"
+    },
+    {
+      "$ref": "https://bootique.io/schema/1.0.rc1/bootique-cayenne.json"
+    },
+    {
+      "$ref": "https://bootique.io/schema/1.0.rc1/bootique-curator.json"
+    },
+    {
+      "$ref": "https://bootique.io/schema/1.0.rc1/bootique-cfx.json"
     }
-  ]
+  ],
+  "additionalProperties": true
 }
