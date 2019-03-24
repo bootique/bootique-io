@@ -2,19 +2,21 @@
 
 https://json-schema.org/[JSON Schema Specification]
 
+IDEA issues: https://youtrack.jetbrains.com/issue/IDEA-180672[IDEA-180672]
+
 == Modules
 
 * [*] bootique
 * [ ] bootique-agrest
 * [*] bootique-aws
-* [ ] bootique-cayenne
+* [*] bootique-cayenne
 * [*] bootique-curator
 * [*] bootique-cxf
 * [*] bootique-flyway
-* [ ] bootique-jcache
+* [*] bootique-jcache
 * [*] bootique-jdbc
-* [ ] bootique-jersey
-* [ ] bootique-jersey-client
+* [*] bootique-jersey
+* [*] bootique-jersey-client
 * [ ] bootique-jetty
 * [ ] bootique-job
 * [ ] bootique-jooq
@@ -29,4 +31,4 @@ https://json-schema.org/[JSON Schema Specification]
 * [ ] bootique-shiro
 * [ ] bootique-swagger
 * [ ] bootique-tapestry
-* [ ] bootique-undertow
+* [*] bootique-undertow

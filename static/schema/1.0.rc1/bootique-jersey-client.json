@@ -1,0 +1,164 @@
+{
+  "$id": "https://bootique.io/schema/1.0.rc1/bootique-jersey-client.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Bootique Jersey Client Module Configuration",
+  "type": "object",
+  "properties": {
+    "jerseyclient": {
+      "type": "object",
+      "description": "Configures HttpClientFactory, including named authenticators, timeouts, SSL certificates, etc.",
+      "properties": {
+        "followRedirects": {
+          "type": "boolean",
+          "description": "Sets whether the client should automatically follow redirects. The default is 'true'."
+        },
+        "compression": {
+          "type": "boolean",
+          "description": "Enables or disables client-side compression headers. True by default."
+        },
+        "readTimeoutMs": {
+          "type": "integer",
+          "description": "Sets the read timeout. The default (0) means no timeout."
+        },
+        "connectTimeoutMs": {
+          "type": "integer",
+          "description": "Sets the connect timeout. The default (0) means no timeout."
+        },
+        "asyncThreadPoolSize": {
+          "type": "integer",
+          "description": "Sets the size of the async requests thread pool. The default (0) sets no limit on the pool."
+        },
+        "auth": {
+          "type": "object",
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "object",
+                "description": "Authenticator for BASIC auth protocol.",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "basic"
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "A user name of the BASIC auth credentials used to access the remote resource."
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "A password of the BASIC auth credentials used to access the remote resource."
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "description": "Authenticator for Oauth2 protocol. Includes URL of the OAuth token endpoint and username/password that are exchanged for the token.",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "oauth2"
+                  },
+                  "tokenUrl": {
+                    "type": "string",
+                    "description": "A URL of the OAuth2 Token API endpoint."
+                  },
+                  "tokenTrustStore": {
+                    "type": "string",
+                    "description": "An optional name of a mapped trust store to use with when requesting a token."
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "Login username. A part of the application credentials to obtain oauth token."
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password. A part of the application credentials to obtain oauth token."
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "trustStores": {
+          "type": "object",
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "location": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "targets": {
+          "type": "object",
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string"
+                  },
+                  "auth": {
+                    "type": "string",
+                    "description": "An optional name of the authentication config referencing one of the entries in 'jerseyclient.auth'."
+                  },
+                  "trustStore": {
+                    "type": "string",
+                    "description": "An optional name of the trust store config referencing one of the entries in 'jerseyclient.trusStores'."
+                  },
+                  "followRedirects": {
+                    "type": "boolean",
+                    "description": "If set, overrides 'jerseyclient.followRedirects' - the redirect policy of the parent client config."
+                  },
+                  "compression": {
+                    "type": "boolean",
+                    "description": "If set, overrides 'jerseyclient.compression' - the compression policy of the parent client config."
+                  },
+                  "readTimeoutMs": {
+                    "type": "integer",
+                    "description": "If set, overrides 'jerseyclient.readTimeoutMs' - the read timeout setting of the parent client config."
+                  },
+                  "connectTimeoutMs": {
+                    "type": "integer",
+                    "description": "If set, overrides 'jerseyclient.connectTimeoutMs' - the connect timeout setting of the parent client config."
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "jerseyClientInstrumented": {
+      "type": "object",
+      "properties": {
+        "timeRequestsThresholds": {
+          "type": "object",
+          "properties": {
+            "warning": {
+              "type": "string"
+            },
+            "critical": {
+              "type": "string"
+            },
+            "min": {
+              "type": "string"
+            },
+            "max": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

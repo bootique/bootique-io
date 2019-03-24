@@ -5,22 +5,34 @@
   "type": "object",
   "anyOf": [
     {
-      "$ref": "https://bootique.io/schema/1.0.rc1/bootique-flyway.json"
-    },
-    {
-      "$ref": "https://bootique.io/schema/1.0.rc1/bootique-jdbc.json"
-    },
-    {
       "$ref": "https://bootique.io/schema/1.0.rc1/bootique-aws.json"
     },
     {
       "$ref": "https://bootique.io/schema/1.0.rc1/bootique-cayenne.json"
     },
     {
+      "$ref": "https://bootique.io/schema/1.0.rc1/bootique-cfx.json"
+    },
+    {
       "$ref": "https://bootique.io/schema/1.0.rc1/bootique-curator.json"
     },
     {
-      "$ref": "https://bootique.io/schema/1.0.rc1/bootique-cfx.json"
+      "$ref": "https://bootique.io/schema/1.0.rc1/bootique-flyway.json"
+    },
+    {
+      "$ref": "https://bootique.io/schema/1.0.rc1/bootique-jcache.json"
+    },
+    {
+      "$ref": "https://bootique.io/schema/1.0.rc1/bootique-jdbc.json"
+    },
+    {
+      "$ref": "https://bootique.io/schema/1.0.rc1/bootique-jersey.json"
+    },
+    {
+      "$ref": "https://bootique.io/schema/1.0.rc1/bootique-jersey-client.json"
+    },
+    {
+      "$ref": "https://bootique.io/schema/1.0.rc1/bootique-undertow.json"
     }
   ],
   "additionalProperties": true

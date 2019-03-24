@@ -73,6 +73,17 @@ aws:
   secretKey: ""
 
 cayenne:
+  datasource: ds
+  name: "default"
+  createSchema: false
+  configs:
+    - cayenne-project2.xml
+  maps:
+    - location: classpath:datamap1.map.xml
+      name: map1
+      datasource: ds
+    - location: classpath:datamap2.map.xml
+      name: map2
 
 curator:
   connectString: ""
@@ -80,3 +91,65 @@ curator:
 cfx:
   urlPattern: ""
   welcomeText: ""
+
+jcache:
+  configs:
+    - "classpath:ehcache1.xml"
+
+jersey:
+  urlPattern: "/*"
+
+jetty:
+  connectors:
+    - type: https
+      port: 14001
+      keyStore: 'classpath:io/bootique/jersey/client/testkeystore'
+      keyStorePassword: 'supersecret'
+
+jerseyclient:
+  followRedirects: true
+  readTimeoutMs: 2000
+  connectTimeoutMs: 2000
+  asyncThreadPoolSize: 10
+  compression: true
+  trustStores:
+    t1:
+      location: 'classpath:io/bootique/jersey/client/testkeystore'
+      password: 'supersecret'
+    t2_default_password:
+      location: 'classpath:io/bootique/jersey/client/testkeystore_default_password'
+  targets:
+    google:
+      url: "https://google.com"
+    bootique:
+      url: "https://bootique.io"
+      followRedirects: false
+  auth:
+    myauth:
+      type: basic
+      username: myuser
+      password: mypassword
+    twitter:
+      type: oauth2
+      tokenUrl: https://api.twitter.com/oauth2/token
+      username: sdfjkdferefxfkdsf
+      password: Efcdsfdsflkurecdsfj
+
+jerseyClientInstrumented:
+  timeRequestsThresholds:
+    max: 1
+    min: 1
+    warning: 0.01
+    critical: 0.05
+
+undertow:
+  bufferSize: 1
+  directBuffers: true
+  ioThreads: 1
+  workerThreads: 1
+  httpListeners:
+    - host: localhost
+      port: 80
+  httpsListeners:
+    - host: localhost
+      port: 443
