@@ -63,10 +63,14 @@ async function main(limit: number = 10): Promise<MediumResponse> {
 
     return json;
   } catch (e) {
-    return e;
+    return Promise.reject(e);
   }
 }
 
 console.log("Fetching feed from Medium.");
-main(3);
-console.log("Fetching feed from Medium. Done.");
+main(3).then(() => {
+  console.log("Fetching feed from Medium. Done.");
+}, (e: Error) => {
+  console.error(e);
+  process.exit(1);
+});

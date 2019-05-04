@@ -5,16 +5,17 @@ docs:
   repos:
     - url: https://github.com/bootique/bootique.git
       versions:
-        0: "master" # fallback, as before that version used.
+        0: "1.0-STABLE"
         latest: "master"
     - url: https://github.com/bootique/bootique-kotlin.git
       versions:
+        0: "1.0-STABLE"
         latest: "master"
     - url: https://github.com/bootique/bootique-logback.git
       versions:
-        0: "master" # fallback, as before that version used.
+        0: "1.0-STABLE"
         latest: "master"
     - url: https://github.com/bootique/bootique-jetty.git
       versions:
-        0: "master" # fallback, as before that version used.
+        0: "1.0-STABLE"
         latest: "master"

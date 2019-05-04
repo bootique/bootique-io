@@ -1,0 +1,323 @@
+{
+  "$id": "https://bootique.io/schema/1.0.rc1/bootique-jdbc.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Bootique JDBC Module Configuration",
+  "type": "object",
+  "properties": {
+    "jdbc": {
+      "type": "object",
+      "description": "Define configuration for jdbc module",
+      "additionalProperties": {
+        "type": "object",
+        "description": "Name of DataSource",
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "DataSource implementation",
+                "enum": [
+                  "hikari",
+                  "hikari-instrumented"
+                ]
+              },
+              "allowPoolSuspension": {
+                "type": "boolean"
+              },
+              "autoCommit": {
+                "type": "boolean"
+              },
+              "catalog": {
+                "type": "string"
+              },
+              "connectionInitSql": {
+                "type": "string"
+              },
+              "connectionTestQuery": {
+                "type": "string"
+              },
+              "connectionTimeout": {
+                "type": "number"
+              },
+              "dataSourceClassName": {
+                "type": "string"
+              },
+              "dataSourceJndiName": {
+                "type": "string"
+              },
+              "dataSourceProperties": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "driverClassName": {
+                "type": "string"
+              },
+              "idleTimeout": {
+                "type": "number"
+              },
+              "initializationFailTimeout": {
+                "type": "number"
+              },
+              "isolateInternalQueries": {
+                "type": "boolean"
+              },
+              "jdbcUrl": {
+                "type": "string"
+              },
+              "leakDetectionThreshold": {
+                "type": "number"
+              },
+              "maxLifetime": {
+                "type": "number"
+              },
+              "maximumPoolSize": {
+                "type": "number"
+              },
+              "minimumIdle": {
+                "type": "number"
+              },
+              "password": {
+                "type": "string"
+              },
+              "schema": {
+                "type": "string"
+              },
+              "transactionIsolationName": {
+                "type": "string"
+              },
+              "readOnly": {
+                "type": "boolean"
+              },
+              "registerMbeans": {
+                "type": "boolean"
+              },
+              "username": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "validationTimeout": {
+                "type": "number"
+              },
+              "health": {
+                "type": "object",
+                "description": "Configures health checks for a Hikari DataSource.",
+                "properties": {
+                  "connectivity": {
+                    "type": "object",
+                    "description": "Configures a time threshold for DB connectivity check.",
+                    "properties": {
+                      "warning": {
+                        "type": "string"
+                      },
+                      "critical": {
+                        "type": "string"
+                      },
+                      "min": {
+                        "type": "string"
+                      },
+                      "max": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "connection99Percent": {
+                    "type": "object",
+                    "description": "Configures thresholds for a health check verifying 99th percentile for checkout times of pooled connections.",
+                    "properties": {
+                      "warning": {
+                        "type": "string"
+                      },
+                      "critical": {
+                        "type": "string"
+                      },
+                      "min": {
+                        "type": "string"
+                      },
+                      "max": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "DataSource implementation",
+                "const": "tomcat"
+              },
+              "abandonWhenPercentageFull": {
+                "type": "number"
+              },
+              "alternateUsernameAllowed": {
+                "type": "boolean"
+              },
+              "commitOnReturn": {
+                "type": "boolean"
+              },
+              "dataSourceJNDI": {
+                "type": "string"
+              },
+              "defaultAutoCommit": {
+                "type": "boolean"
+              },
+              "defaultCatalog": {
+                "type": "string"
+              },
+              "defaultReadOnly": {
+                "type": "boolean"
+              },
+              "defaultTransactionIsolation": {
+                "type": "string"
+              },
+              "driverClassName": {
+                "type": "string"
+              },
+              "fairQueue": {
+                "type": "boolean"
+              },
+              "ignoreExceptionOnPreLoad": {
+                "type": "boolean"
+              },
+              "initialSize": {
+                "type": "number"
+              },
+              "initSQL": {
+                "type": "string"
+              },
+              "jdbcInterceptors": {
+                "type": "string"
+              },
+              "jmxEnabled": {
+                "type": "boolean"
+              },
+              "jmxObjectName": {
+                "type": "string"
+              },
+              "logAbandoned": {
+                "type": "boolean"
+              },
+              "logValidationErrors": {
+                "type": "boolean"
+              },
+              "maxActive": {
+                "type": "number"
+              },
+              "maxAge": {
+                "type": "number"
+              },
+              "maxIdle": {
+                "type": "number"
+              },
+              "maxWait": {
+                "type": "number"
+              },
+              "minEvictableIdleTimeMillis": {
+                "type": "number"
+              },
+              "minIdle": {
+                "type": "number"
+              },
+              "numTestsPerEvictionRun": {
+                "type": "number"
+              },
+              "password": {
+                "type": "string"
+              },
+              "propagateInterruptState": {
+                "type": "boolean"
+              },
+              "removeAbandoned": {
+                "type": "boolean"
+              },
+              "removeAbandonedTimeout": {
+                "type": "number"
+              },
+              "rollbackOnReturn": {
+                "type": "boolean"
+              },
+              "suspectTimeout": {
+                "type": "number"
+              },
+              "testOnBorrow": {
+                "type": "boolean"
+              },
+              "testOnReturn": {
+                "type": "boolean"
+              },
+              "testWhileIdle": {
+                "type": "boolean"
+              },
+              "testOnConnect": {
+                "type": "boolean"
+              },
+              "timeBetweenEvictionRunsMillis": {
+                "type": "number"
+              },
+              "url": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "useDisposableConnectionFacade": {
+                "type": "boolean"
+              },
+              "useEquals": {
+                "type": "boolean"
+              },
+              "useLock": {
+                "type": "boolean"
+              },
+              "validationQuery": {
+                "type": "string"
+              },
+              "validationQueryTimeout": {
+                "type": "number"
+              },
+              "validatorClassName": {
+                "type": "string"
+              },
+              "validationInterval": {
+                "type": "number"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "heartbeat": {
+      "type": "object",
+      "properties": {
+        "initialDelayMs": {
+          "type": "number"
+        },
+        "fixedDelayMs": {
+          "type": "number"
+        },
+        "threadPoolSize": {
+          "type": "number"
+        },
+        "healthCheckTimeoutMs": {
+          "type": "number"
+        }
+      }
+    },
+    "jdbctest": {
+      "type": "object",
+      "properties": {
+        "quoteIdentifiers": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
+

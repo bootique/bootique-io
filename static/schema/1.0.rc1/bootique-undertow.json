@@ -1,0 +1,54 @@
+{
+  "$id": "https://bootique.io/schema/1.0.rc1/bootique-undertow.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Bootique Undertow Module Configuration",
+  "type": "object",
+  "properties": {
+    "undertow": {
+      "type": "object",
+      "description": "Define configuration for Undertow module",
+      "properties": {
+        "httpListeners": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "port": {
+                "type": "integer"
+              },
+              "host": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "httpsListeners": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "port": {
+                "type": "integer"
+              },
+              "host": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "bufferSize": {
+          "type": "integer"
+        },
+        "ioThreads": {
+          "type": "integer"
+        },
+        "workerThreads": {
+          "type": "integer"
+        },
+        "directBuffers": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
