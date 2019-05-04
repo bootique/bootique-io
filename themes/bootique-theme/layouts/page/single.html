@@ -1,10 +1,10 @@
 <!doctype html>
 <html class="no-js" lang="en-us">
-{{ partial "header.html" . }}
+{{ partial "header.gohtml" . }}
 <body data-spy="scroll">
 
-{{ partial "ltie10.html" . }}
-{{ partial "top-nav.html" . }}
+{{ partial "ltie10.gohtml" . }}
+{{ partial "top_nav.gohtml" . }}
 
 <div class="container content docbook">
   <h1>
@@ -16,9 +16,9 @@
     {{ .Content }}
   </article>
 </div>
-{{ partial "footer.html" . }}
-{{ partial "google_analytics.html" . }}
-{{ partial "twitter_analytics.html" . }}
+{{ partial "footer.gohtml" . }}
+{{ partial "google_analytics.gohtml" . }}
+{{ partial "twitter_analytics.gohtml" . }}
 </body>
 </html>
 

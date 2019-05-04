@@ -1,0 +1,19 @@
+<section id="social" class="slanted-reverse-top -slight-dark--bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6  pb-5 pb-lg-8">
+                <h2 class="h1 text-capitalize  mb-5 mb-lg-7">Medium blog</h2>
+                <div class="medium-posts list-group list-group-flush">
+                    {{ partial "footer/medium.gohtml" . }}
+                </div>
+            </div>
+            <div id="twitter-posts" class="d-flex flex-column  offset-lg-1 col-lg-5  pb-7 pb-lg-8">
+                <h2 class="h1 text-capitalize  mb-5 mb-lg-7">Latest tweets</h2>
+                <a class="twitter-timeline" data-chrome="nofooter noborders transparent noscrollbar noheader"
+                   data-height="100%" data-tweet-limit="2"
+                   href="https://twitter.com/BootiqueProject?ref_src=twsrc%5Etfw">Tweets by BootiqueProject</a>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+        </div>
+    </div>
+</section>

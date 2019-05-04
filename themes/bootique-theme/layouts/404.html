@@ -1,6 +1,6 @@
 <!doctype html>
 <html class="no-js" lang="en-us">
-{{ partial "header.html" . }}
+{{ partial "header.gohtml" . }}
 <style>
   /*
   TODO: Move to sass after merge of https://github.com/bootique/bootique-io/pull/13
@@ -16,8 +16,8 @@
 </style>
 <body>
 
-{{ partial "ltie10.html" . }}
-{{ partial "top-nav.html" . }}
+{{ partial "ltie10.gohtml" . }}
+{{ partial "top_nav.gohtml" . }}
 
 <div class="not-found-page container content docbook">
   <h1>
@@ -31,9 +31,9 @@
     </p>
   </article>
 </div>
-{{ partial "footer.html" . }}
-{{ partial "google_analytics.html" . }}
-{{ partial "twitter_analytics.html" . }}
+{{ partial "footer.gohtml" . }}
+{{ partial "google_analytics.gohtml" . }}
+{{ partial "twitter_analytics.gohtml" . }}
 </body>
 </html>
 

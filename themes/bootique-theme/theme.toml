@@ -3,7 +3,7 @@ description = ""
 homepage = "https://bootique.io/"
 tags = []
 features = []
-min_version = "0.25.1"
+min_version = "0.48"
 
 [author]
   name = "Ibragimov Ruslan"
