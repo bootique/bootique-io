@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+const sass = require("sass");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const autoprefixer = require("autoprefixer")({
@@ -60,7 +61,10 @@ Build started with following configuration:
               }
             }
           }, {
-            loader: "sass-loader"
+            loader: "sass-loader",
+            options: {
+              implementation: sass
+            }
           }]
         })
       }, {
