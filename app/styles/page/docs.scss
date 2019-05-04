@@ -1,4 +1,11 @@
-.bootique-docs {
+.documentation-listing-page {
+  /* This is added since we need 2x resolution for retina displays */
+  .listitem img {
+    max-width: 120px;
+  }
+}
+
+.documentation-page {
   p {
     font-size: 14px;
   }

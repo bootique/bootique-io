@@ -66,11 +66,14 @@ $fa-font-path: "~@fortawesome/fontawesome-free-webfonts/webfonts";
 // Bootique Specific:scss
 @import 'pure-grid-breakpoints';
 @import 'helper-classes', 'helpers/bs/media';
-@import 'color-pallette', 'typography', 'docbook', 'docs';
+@import 'color-pallette', 'typography', 'docbook';
 
 // Nav
 @import "menus";
 @import "nav";
+
+// Pages
+@import "page/404", "page/docs";
 
 // VIEWPORT FIX
 @-webkit-viewport {
