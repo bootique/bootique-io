@@ -11,9 +11,10 @@ Manages contents of [bootique.io](https://bootique.io/). This includes site page
 
 Also see [.travis.yml](./.travis.yml) for environment setup and build command details.
 
-## Folder Structure
+## Important files / directories:
 
-* HTML pages content is located under `content/`
+* `content/` : contains HTML page templates
+* `docs.yml` : contains references to external Asciidocs of individual Bootique modules
 
 ## Publishing via CI/CD
 
