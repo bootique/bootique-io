@@ -1,10 +1,10 @@
 {
   "$id": "https://bootique.io/schema/1.0.rc1/bootique-cfx.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Bootique CFX Module Configuration",
+  "description": "Bootique CXF Module Configuration",
   "type": "object",
   "properties": {
-    "cfx": {
+    "cxf": {
       "type": "object",
       "description": "Configures the servlet that is an entry point to CXF REST API engine.",
       "properties": {

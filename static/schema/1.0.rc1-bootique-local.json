@@ -11,7 +11,7 @@
       "$ref": "./1.0.rc1/bootique-cayenne.json"
     },
     {
-      "$ref": "./1.0.rc1/bootique-cfx.json"
+      "$ref": "./1.0.rc1/bootique-cxf.json"
     },
     {
       "$ref": "./1.0.rc1/bootique-curator.json"
