@@ -11,7 +11,12 @@ Manages contents of [bootique.io](https://bootique.io/). This includes site page
 
 Also see [.travis.yml](./.travis.yml) for environment setup and build command details.
 
+## Folder Structure
+
+* HTML pages content is located under `content/`
+
 ## CI/CD
 
 The site is updated automatically via cron'd Travis job. See [.travis.yml](./.travis.yml) for details.
+
 
