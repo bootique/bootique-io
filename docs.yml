@@ -19,3 +19,6 @@ docs:
       versions:
         0: "1.0-STABLE"
         latest: "master"
+    - url: https://github.com/bootique/bootique-tool.git
+      versions:
+        latest: "master"
