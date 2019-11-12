@@ -11,5 +11,12 @@
 /app/node_modules/
 /scripts/node_modules/
 
+# compiled js
+/scripts/*.js
+/app/scripts/*.js
+
 # Idea
 .idea
+
+# other
+.DS_Store

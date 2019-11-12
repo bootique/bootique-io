@@ -2,6 +2,7 @@
 import "../styles/main.scss";
 
 import "jquery";
+import 'bootstrap/js/dist/scrollspy';
 
 import {tryApply} from "./tryApply";
 import {applyHighlightJs} from "./app.hljs";
@@ -11,6 +12,7 @@ import {applySideMenu} from "./app.sidemenu";
 import {applyModernizr} from "./app.modernizr";
 import {applyHashLinks} from "./app.hashLinks";
 import {testimonialsSlider} from "./app.slickCarousel";
+import {initAnchors} from "./app.initAnchors";
 
 // highlight.js uses own onload listener
 tryApply(applyHighlightJs);
@@ -22,4 +24,5 @@ $(document).ready(function () {
   tryApply(applyModernizr);
   tryApply(applyHashLinks);
   tryApply(testimonialsSlider);
+  tryApply(initAnchors);
 });

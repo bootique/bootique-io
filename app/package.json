@@ -9,6 +9,7 @@
     "@types/modernizr": "3.5.0",
     "@types/slick-carousel": "1.6.32",
     "@types/youtube": "0.0.32",
+    "@types/anchor-js": "^4.1.0",
     "autoprefixer": "7.1.2",
     "css-loader": "0.28.4",
     "extract-text-webpack-plugin": "3.0.2",
@@ -22,7 +23,8 @@
     "ts-loader": "3.5.0",
     "typescript": "2.8.3",
     "url-loader": "0.5.9",
-    "webpack": "3.11.0"
+    "webpack": "3.11.0",
+    "exports-loader": "^0.7.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free-webfonts": "1.0.7",
@@ -30,7 +32,8 @@
     "highlight.js": "9.12.0",
     "jquery": "3.3.1",
     "roboto-fontface": "0.9.0",
-    "slick-carousel": "kenwheeler/slick#refs/pull/3307/head"
+    "slick-carousel": "kenwheeler/slick#refs/pull/3307/head",
+    "anchor-js": "^4.2.0"
   },
   "scripts": {
     "prebuild": "yarn install && rimraf ../themes/bootique-theme/static/assets/",

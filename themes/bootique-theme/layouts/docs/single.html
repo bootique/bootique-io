@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="en-us">
 {{ partial "header.gohtml" . }}
-<body data-spy="scroll">
+<body data-spy="scroll" data-target="#docs-nav">
 
 {{ partial "ltie10.gohtml" . }}
 {{ partial "top_nav.gohtml" . }}
@@ -12,10 +12,24 @@
   </h1>
   <hr/>
 
-  <article>
-    {{ .Content }}
-  </article>
+  <div class="container">
+    <div class="row ">
+      <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav">
+        {{- $tocFile := printf "content/%s/%s.toc.html" (path.Dir .File) .File.BaseFileName -}}
+        {{- if (fileExists $tocFile) -}}
+        {{ readFile $tocFile | safeHTML }}
+        {{- end -}}
+      </div>
+
+      <div class="col-12 col-lg-8 col-xl-9  py-3 pl-lg-5">
+        <article>
+          {{ .Content }}
+        </article>
+      </div>
+    </div>
+  </div>
 </div>
+
 {{ partial "footer.gohtml" . }}
 {{ partial "google_analytics.gohtml" . }}
 {{ partial "twitter_analytics.gohtml" . }}

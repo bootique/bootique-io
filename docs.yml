@@ -5,19 +5,19 @@ docs:
   repos:
     - url: https://github.com/bootique/bootique.git
       versions:
-        0: "1.0-STABLE"
+        "1.x": "1.x"
         latest: "master"
     - url: https://github.com/bootique/bootique-kotlin.git
       versions:
-        0: "1.0-STABLE"
+        "1.x": "1.x"
         latest: "master"
     - url: https://github.com/bootique/bootique-logback.git
       versions:
-        0: "1.0-STABLE"
+        "1.x": "1.x"
         latest: "master"
     - url: https://github.com/bootique/bootique-jetty.git
       versions:
-        0: "1.0-STABLE"
+        "1.x": "1.x"
         latest: "master"
     - url: https://github.com/bootique/bootique-tool.git
       versions:

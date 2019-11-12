@@ -154,7 +154,8 @@ function createListOfPlugins({NODE_ENV}) {
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery",
-      "window.jQuery": "jquery"
+      "window.jQuery": "jquery",
+      Util: "exports-loader?Util!bootstrap/js/dist/util"
     }),
     new HtmlWebpackPlugin({
       filename: "../../layouts/partials/assets.html",

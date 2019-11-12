@@ -9,13 +9,14 @@ export function applyHashLinks() {
         location.hostname == this.hostname
       ) {
         let target = $(this.hash);
+        const hash = this.hash;
         target = target.length ? target : $("[name=" + this.hash.slice(1) + "]");
         if (target.length) {
           event.preventDefault();
           $("html, body").animate({
             scrollTop: target.offset().top  // - $("#top-nav").height() - 15   // + height of fixed header + padding from it
                                             // no fixed topNav -> no extra height dependencies
-          }, 300);
+          }, 300, 'swing', () => location.hash = hash);
         }
       }
     });

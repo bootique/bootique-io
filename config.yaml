@@ -17,7 +17,7 @@ permalinks:
 menu:
   main:
     - Name: "Get started"
-      URL: "/docs/0/getting-started/"
+      URL: "/docs/1.x/getting-started/"
       Weight: 1
     - Name: "Documentation"
       URL: "/docs/"

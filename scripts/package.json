@@ -1,16 +1,19 @@
 {
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "js-yaml": "^3.13.1"
   },
   "devDependencies": {
     "@types/node": "^10.9.4",
     "ts-node": "^7.0.1",
-    "typescript": "^3.0.3"
+    "typescript": "^3.0.3",
+    "rimraf": "^3.0.0"
   },
   "scripts": {
     "prebuild": "yarn install",
-    "build": "ts-node ./stars.ts && ts-node ./medium.ts",
+    "build": "ts-node ./stars.ts && ts-node ./medium.ts && ts-node ./docs.ts",
     "stars": "ts-node ./stars.ts",
-    "medium": "ts-node ./medium.ts"
+    "medium": "ts-node ./medium.ts",
+    "docs": "ts-node ./docs.ts"
   }
 }
