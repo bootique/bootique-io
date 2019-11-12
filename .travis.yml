@@ -13,7 +13,7 @@ script:
   - cd ./app && yarn run build
   # run service scripts: load medium content, fetch github stars and build docs
   - cd ../scripts && yarn run build
-  - hugo
+  - cd ../ && hugo
 branches:
   only:
     - master
