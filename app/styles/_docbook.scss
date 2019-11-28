@@ -48,6 +48,10 @@
       &:active {
         background-color: inherit;
       }
+
+      &:focus {
+        outline-style: none;
+      }
     }
 
     a.active {
