@@ -918,8 +918,14 @@ $close-text-shadow:                 0 1px 0 $white !default;
 
 // Code
 
-$code-font-size:                    87.5% !default;
-$code-color:                        $pink !default;
+$code-font-size:                    .875rem;
+$code-color:                        $black;                         // was $pink !default;
+$code-bg:                           #f8f8f8;
+$code-padding-y:                    .2rem ;
+$code-padding-x:                    .4rem;
+$pre-code-border:                   #c5c5c5;                      // was #616161
+$pre-code-padding-y:                .4375rem;
+$pre-code-padding-x:                .75rem;
 
 $kbd-padding-y:                     .2rem !default;
 $kbd-padding-x:                     .4rem !default;

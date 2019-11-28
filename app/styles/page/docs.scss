@@ -6,47 +6,77 @@
 }
 
 .documentation-page {
+  > .container {
+    line-height: 1.8;
+  }
+
   p {
     font-size: 14px;
   }
 
   .toc {
     display: block !important; // overwrite docbook style
+    padding-bottom: 26px;
+    margin: 20px 0 46px 0;
 
     #toctitle {
       @extend h2;
     }
 
+    > ul {
+      margin-top: 15px !important;
+    }
+
     ul {
       margin-top: 5px;
-      margin-bottom: 20px;
+      margin-bottom: 0;
+
+      &.sectlevel1 {
+        @extend .pl-0;
+      }
     }
 
     li {
       margin-bottom: 5px;
     }
 
-    padding-bottom: 26px;
-    border-bottom: 1px solid #ececec;
-    margin: 20px 0 46px 0;
   }
 
-  pre code {
+
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    @extend .font-weight-bold;
     display: block;
-    font-style: normal;
-    overflow-x: auto;
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    border: 1px dotted #616161;
-    background-color: #f8f8f8;
-    padding: 7px;
   }
 
-  code {
-    color: #161616;
+  // /node_modules/bootstrap/scss/_reboot.scss
+  //
+  // Code
+  //
 
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    font-weight: 400;
-    font-size: 14px;
+  pre,
+  code,
+  kbd,
+  samp {
+    font-size: $code-font-size;
+  }
+
+  // Inline code and <var>
+  code,
+  var {
+    padding: $code-padding-y $code-padding-x;
+    background-color: $code-bg;
+    @include border-radius($border-radius-sm); 
+  }
+  
+  // pre > code, highlight
+  pre code {
+      display: block;
+      font-style: normal;
+      overflow-x: auto;
+      border: 1px dotted $pre-code-border;
+      padding: $pre-code-padding-y $pre-code-padding-x;
+      @include border-radius($border-radius-sm); 
   }
 
   ul, ol {
