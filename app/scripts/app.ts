@@ -2,7 +2,9 @@
 import "../styles/main.scss";
 
 import "jquery";
+import "popper.js"
 import 'bootstrap/js/dist/scrollspy';
+import 'bootstrap/js/dist/dropdown';
 
 import {tryApply} from "./tryApply";
 import {applyHighlightJs} from "./app.hljs";

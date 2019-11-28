@@ -1,0 +1,45 @@
+{{- $UrlComponents := split .RelPermalink "/" -}}
+{{- if ne (index $UrlComponents 2) "" -}}
+    {{- $.Scratch.Set "bqVersion" (index $UrlComponents 2) -}}
+{{- else -}}
+    {{- $.Scratch.Set "bqVersion" $.Site.Data.versions.DefaultVersionUrl -}}
+{{- end -}}
+{{- $VersionData := index $.Site.Data.versions.ByUrl ($.Scratch.Get "bqVersion") -}}
+
+<!-- chapter -->
+<div class="chapter">
+  <div class="titlepage">
+    <h2 class="title">
+      Modules (in alphabetical order)
+    </h2>
+  </div>
+  <div class="itemizedlist">
+    <ul class="itemizedlist media-list">
+      {{- range sort $.Site.Data.modules.ByName -}}
+          {{- if in .Versions $VersionData.ShortName -}}
+            <!-- MEDIA ITEM -->
+            <li class="listitem media" id="bootique-agrest">
+              <div class="media-holder media-left media-middle">
+                <a href="https://github.com/bootique/{{ .Name }}">
+                  <img src="/docs/images/{{ .Icon }}" alt="{{ .Name }}"/>
+                </a>
+              </div>
+              <div class="media-body media-middle">
+                <a class="media-heading" href="https://github.com/bootique/{{ .Name }}"><code class="code">{{ .Name }}</code></a>
+                <p>{{ .Description }}</p>
+              </div>
+              <div class="media-right media-middle nowrap">
+                <ul class="list-inline list-vertbars">
+                  <li><a href="https://github.com/bootique/{{ .Name }}">Code</a></li>
+                  <li><a href="{{ if .Docs }}/docs/{{ $VersionData.URL }}/{{ .Docs }}{{ else }}https://github.com/bootique/{{ .Name }}/blob/master/README.md{{ end}}">Docs</a></li>
+                  {{ if .Example }}<li><a href="{{ .Example }}">Examples</a></li>{{ end }}
+                </ul>
+              </div>
+            </li>
+            <!-- /.MEDIA ITEM -->
+          {{- end -}}
+      {{- end -}}
+    </ul>
+  </div>
+</div>
+<!-- /.chapter -->

@@ -1,0 +1,34 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+{{ partial "header.gohtml" . }}
+<body data-spy="scroll">
+
+{{ partial "ltie10.gohtml" . }}
+{{ partial "top_nav.gohtml" . }}
+
+<div class="container content docbook">
+  <h1>
+    {{ .Params.title }}
+  </h1>
+  {{ partial "version_selector.gohtml" . }}
+
+  <hr/>
+
+  <article>
+    <div class="documentation-listing-page pure-g docs-wrapper">
+      <!-- MAIN -->
+      <div class="docs-main pure-u-1">
+        {{ .Content }}
+
+        {{ partial "module_list.gohtml" . }}
+      </div>
+      <!-- /.MAIN -->
+    </div>
+  </article>
+</div>
+{{ partial "footer.gohtml" . }}
+{{ partial "google_analytics.gohtml" . }}
+{{ partial "twitter_analytics.gohtml" . }}
+</body>
+</html>
+

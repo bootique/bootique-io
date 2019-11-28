@@ -3,6 +3,8 @@ languageCode: "en-us"
 title: "Bootique: Minimally Opinionated Framework for Runnable Java"
 theme: "bootique-theme"
 
+disableKinds: ['RSS']
+
 params:
   googleAnalytics: "UA-74603008-1"
   description: >-
@@ -20,7 +22,7 @@ menu:
       URL: "/docs/1.x/getting-started/"
       Weight: 1
     - Name: "Documentation"
-      URL: "/docs/"
+      URL: "/docs/1.x/"
       Weight: 2
     - Name: "CLA"
       URL: "/cla/"

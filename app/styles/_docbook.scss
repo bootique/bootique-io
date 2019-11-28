@@ -30,6 +30,31 @@
     padding-bottom: map-get($spacers, 5);
   }
 
+  .doc-version {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+
+    a {
+      font-size: 1.56rem;
+      font-weight: 300;
+      text-decoration: none;
+      color: #777;
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      &:active {
+        background-color: inherit;
+      }
+    }
+
+    a.active {
+      background-color: rgba(0, 0, 0, .05);
+    }
+  }
+
   .toc {
     display: none;
   }
