@@ -35,8 +35,15 @@
     text-align: center;
     text-decoration: none;
 
-    a {
+    .dropdown-toggle:after {
+      font-size: .875em;
+    }
+
+    > a {
       font-size: 1.56rem;
+    }
+
+    a {
       font-weight: 300;
       text-decoration: none;
       color: #777;
@@ -77,7 +84,13 @@
     .nav {
       li {
         a {
-          padding: 0;
+          padding: 5px 10px;
+          text-decoration: none;
+          border-radius: .3rem;
+
+          @include hover-focus-active {
+            background-color: rgba(0, 0, 0, .05);
+          }
         }
       }
     }
@@ -123,6 +136,10 @@
     &:hover {
       text-decoration: none;
     }
+    
+    &.anchorjs-link {
+      text-decoration: none;
+    }
   }
 
   // hr
@@ -145,10 +162,6 @@
   > .h1 {
     margin-top: map-get($spacers, 6);
     margin-bottom: map-get($spacers, 4);
-  }
-
-  h2 {
-    margin-top: 0;
   }
 
   h3.title {
@@ -183,13 +196,17 @@
   h2 {
     font-size: 1.7rem;
   }
-
+  
   h3 {
     font-size: 1.4rem;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
   }
-
+  
   h4 {
     font-size: 1.1rem;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
   }
 
   // chapters
@@ -210,9 +227,9 @@
     }
   }
 
-  .titlepage + .section .titlepage h2 {
-    margin-top: 0;
-  }
+  // .titlepage + .section .titlepage h2 {
+  //   margin-top: 0;
+  // }
 
   // lists
   .media-list {
