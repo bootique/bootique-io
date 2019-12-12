@@ -22,3 +22,6 @@ docs:
     - url: https://github.com/bootique/bootique-tool.git
       versions:
         latest: "master"
+    - url: https://github.com/bootique/bootique-di.git
+      versions:
+        latest: "master"
