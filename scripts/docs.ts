@@ -1,3 +1,12 @@
+/**
+ * This script builds Bootique documentation deployed at bootique.io.
+ * To call it use `yarn docs` command from the directory containing it.
+ *
+ * This script uses docs.yml config to get information about bootique modules it needs to process.
+ * For each module it pulls sources and run maven to build `{module-name}-docs` maven module.
+ * Results are just copied to `/content/docs/*` directory.
+ */
+
 const fs = require("fs");
 const rimraf = require("rimraf");
 const path = require("path");
@@ -37,7 +46,7 @@ docs.repos.forEach(repo => {
 
     gitClone(repo.url, tag, output);
 
-    // check that docs maven module exists..
+    // check 'docs' maven module exists
     const docsModule = path.join(output, `${projectName}-docs`);
     if(mavenBuild(docsModule)) {
       if(copyDocs(docsModule, id, projectName)) {
@@ -52,7 +61,7 @@ docs.repos.forEach(repo => {
 });
 
 /**
- * Clone specified tag to a give output path
+ * Clone specified tag to a given output path
  * @param url of the repo
  * @param tag to checkout
  * @param output path
