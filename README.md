@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/bootique/bootique-io.svg)](https://travis-ci.org/bootique/bootique-io)
-# Bootique.io Site [![Build Status](https://travis-ci.org/bootique/bootique-io.svg)](https://travis-ci.org/bootique/bootique-io)
+# Bootique.io Site
 
 Manages contents of [bootique.io](https://bootique.io/). This includes site pages assembly, docs aggregation from external Bootique modules and publishing everything to the website. For docs assembly relies on custom Asciidoc engine from [here](https://github.com/bootique/bootique-docs).
 
