@@ -149,6 +149,12 @@ ByName:
     Example: "https://github.com/bootique-examples/bootique-mvc-demo"
     Versions: ["1.1", "2.0"]
 
+  mybatis:
+    Name: bootique-mybatis
+    Icon: mybatis.png
+    Description: Integrates MyBatis SQL mapper.
+    Versions: ["2.0"]
+
   rabbitmq-client:
     Name: bootique-rabbitmq-client
     Icon: rabbitmq-client.png
