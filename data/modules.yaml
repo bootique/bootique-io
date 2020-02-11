@@ -153,6 +153,7 @@ ByName:
     Name: bootique-mybatis
     Icon: mybatis.png
     Description: Integrates MyBatis SQL mapper.
+    Example: "https://github.com/bootique-examples/bootique-mybatis-demo"
     Versions: ["2.0"]
 
   rabbitmq-client:
