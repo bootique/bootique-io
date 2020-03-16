@@ -19,10 +19,12 @@ permalinks:
 menu:
   main:
     - Name: "Get started"
-      URL: "/docs/1.x/getting-started/"
+      Pre: version
+      URL: "/getting-started/"
       Weight: 1
     - Name: "Documentation"
-      URL: "/docs/1.x/"
+      Pre: version
+      URL: "/docs/"
       Weight: 2
     - Name: "CLA"
       URL: "/cla/"

@@ -4,7 +4,7 @@ const sass = require("sass");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const autoprefixer = require("autoprefixer")({
-  browsers: ["> 1%", "last 2 versions", "Firefox ESR"],
+  overrideBrowserslist: ["> 1%", "last 2 versions", "Firefox ESR"],
   remove: false
 });
 
@@ -25,6 +25,12 @@ Build started with following configuration:
   const limit = 1024;
 
   return {
+
+    performance: {
+          maxEntrypointSize: 850000,
+          maxAssetSize: 850000
+        },
+
     entry: {
       app: [
         path.resolve(__dirname, "scripts", "app.ts")
@@ -146,11 +152,6 @@ Build started with following configuration:
 function createListOfPlugins({NODE_ENV}) {
   return [
     new ExtractTextPlugin("app.css?[hash]"),
-    new webpack.DefinePlugin({
-      "process.env": {
-        "NODE_ENV": JSON.stringify(NODE_ENV)
-      }
-    }),
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery",

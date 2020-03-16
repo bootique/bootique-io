@@ -12,7 +12,6 @@ import {setupYt} from "./app.setupYt";
 import {injectYtPlayerApi} from "./app.injectYtPlayerApi";
 import {applySideMenu} from "./app.sidemenu";
 import {applyModernizr} from "./app.modernizr";
-import {applyHashLinks} from "./app.hashLinks";
 import {testimonialsSlider} from "./app.slickCarousel";
 import {initAnchors} from "./app.initAnchors";
 
@@ -24,7 +23,6 @@ $(document).ready(function () {
   tryApply(injectYtPlayerApi);
   tryApply(applySideMenu);
   tryApply(applyModernizr);
-  tryApply(applyHashLinks);
   tryApply(testimonialsSlider);
   tryApply(initAnchors);
 });

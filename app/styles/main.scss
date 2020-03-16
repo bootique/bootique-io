@@ -19,16 +19,16 @@ $roboto-font-path: "~roboto-fontface/fonts";
 @import "~roboto-fontface/css/roboto-condensed/sass/roboto-condensed-fontface-bold";
 
 // FA SOLID AND BRANDS
-$fa-font-path: "~@fortawesome/fontawesome-free-webfonts/webfonts";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands";
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/brands";
 
 // BS 4.0
 @import "~bootstrap/scss/functions";
 // Vars
+@import "~bootstrap/scss/variables";
 @import "variables";
-// @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/root";
 @import "~bootstrap/scss/reboot";

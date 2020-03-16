@@ -1,8 +1,30 @@
+{{- $UrlComponents := split .RelPermalink "/" -}}
+
+{{/* get doc version from URL */}}
+{{- if ne (index $UrlComponents 2) "" -}}
+  {{- $.Scratch.Set "bqVersion" (index $UrlComponents 2) -}}
+{{- else -}}
+  {{- $.Scratch.Set "bqVersion" $.Site.Data.versions.DefaultVersionUrl -}}
+{{- end -}}
+{{- $Version := ($.Scratch.Get "bqVersion") -}}
+
 <ul class="pure-menu-list pull-left">
-  {{ $currentPage := . }}
-  {{ range .Site.Menus.main.ByWeight }}
-  <li class="pure-menu-item {{ if eq (string (.URL | absURL)) (string $currentPage.Permalink) }}pure-menu-selected{{ end }}">
-    <a class="pure-menu-link" href="{{ .URL }}">{{ .Name }}</a>
-  </li>
+    {{ $currentPage := . }}
+    {{ range .Site.Menus.main.ByWeight }}
+        <li class="pure-menu-item {{ if eq (string (.URL | absURL)) (string $currentPage.Permalink) }}pure-menu-selected{{ end }}">
+          {{- if .Pre }}
+          {{- if eq .URL "/getting-started/" -}}
+            {{ if $Version }}
+              <a class="pure-menu-link" href="/docs/{{ $Version }}{{ .URL }}">{{ .Name }}</a>
+            {{ else -}}
+              <a class="pure-menu-link" href="/docs/1.x{{ .URL }}">{{ .Name }}</a>
+            {{ end }}
+          {{- else -}}
+            <a class="pure-menu-link" href="{{ .URL }}{{ $Version }}">{{ .Name }}</a>
+          {{- end -}}
+          {{- else }}
+          <a class="pure-menu-link" href="{{ .URL }}">{{ .Name }}</a>
+        {{- end }}
+        </li>
   {{ end }}
 </ul>
