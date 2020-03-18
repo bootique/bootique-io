@@ -19,7 +19,7 @@ permalinks:
 menu:
   main:
     - Name: "Get started"
-      Pre: version
+      Pre: version # this means that item's URL depends on Bootique version
       URL: "/getting-started/"
       Weight: 1
     - Name: "Documentation"

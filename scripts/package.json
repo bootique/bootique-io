@@ -1,4 +1,7 @@
 {
+  "name": "bootique-io-build-scripts",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
   "dependencies": {
     "axios": "^0.19.2",
     "js-yaml": "^3.13.1"
@@ -15,6 +18,5 @@
     "stars": "ts-node ./stars.ts",
     "medium": "ts-node ./medium.ts",
     "docs": "ts-node ./docs.ts"
-  },
-  "version": "0.0.0"
+  }
 }
