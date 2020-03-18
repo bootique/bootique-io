@@ -14,6 +14,7 @@ import {applySideMenu} from "./app.sidemenu";
 import {applyModernizr} from "./app.modernizr";
 import {testimonialsSlider} from "./app.slickCarousel";
 import {initAnchors} from "./app.initAnchors";
+import {applyHashLinks} from "./app.hashLinks";
 
 // highlight.js uses own onload listener
 tryApply(applyHighlightJs);
@@ -25,4 +26,5 @@ $(document).ready(function () {
   tryApply(applyModernizr);
   tryApply(testimonialsSlider);
   tryApply(initAnchors);
+  tryApply(applyHashLinks);
 });

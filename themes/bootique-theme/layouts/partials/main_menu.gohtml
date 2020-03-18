@@ -14,13 +14,17 @@
         <li class="pure-menu-item {{ if eq (string (.URL | absURL)) (string $currentPage.Permalink) }}pure-menu-selected{{ end }}">
           {{- if .Pre }}
           {{- if eq .URL "/getting-started/" -}}
+            <div class="{{ if in (string $currentPage.Permalink) ( .URL ) }}pure-menu-selected{{ end }}">
             {{ if $Version }}
               <a class="pure-menu-link" href="/docs/{{ $Version }}{{ .URL }}">{{ .Name }}</a>
             {{ else -}}
               <a class="pure-menu-link" href="/docs/1.x{{ .URL }}">{{ .Name }}</a>
             {{ end }}
+            </div>
           {{- else -}}
+          <div class="{{ if in (string $currentPage.Permalink) ( "/getting-started/" ) }}{{else if in (string $currentPage.Permalink) ( .URL )}}pure-menu-selected{{ end }}">
             <a class="pure-menu-link" href="{{ .URL }}{{ $Version }}">{{ .Name }}</a>
+          </div>
           {{- end -}}
           {{- else }}
           <a class="pure-menu-link" href="{{ .URL }}">{{ .Name }}</a>
