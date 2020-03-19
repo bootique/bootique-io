@@ -13,7 +13,7 @@
 {{- if and (ne $Doc "") (isset $UrlComponents 3) -}}
     {{- $.Scratch.Set "docPage" (string (delimit (slice "/docs/%s" $Doc) "/")) -}}
 {{- else -}}
-    {{- $.Scratch.Set "docPage" "/page/docs/_index_%s" -}}
+    {{- $.Scratch.Set "docPage" "/page/docs/_index_%s.html" -}}
 {{- end -}}
 
 <div class="dropdown doc-version">
@@ -29,5 +29,3 @@
       {{- end -}}
   </div>
 </div>
-
-
