@@ -59,7 +59,8 @@ ByName:
   jersey:
     Name: bootique-jersey
     Icon: jersey.png
-    Description: "Integrates JAX-RS engine, allowing you to create and run REST web services."
+    Description: Integrates JAX-RS engine, allowing you to create and run REST web services. Since 2.0 also includes 
+      JAX-RS HTTP client with various kinds of authentication (BASIC, OAuth2,etc.).
     Example: "https://github.com/bootique-examples/bootique-rest-demo"
     Versions: ["1.1", "2.0"]
 
@@ -69,7 +70,7 @@ ByName:
     Description: Integrates JAX-RS-based HTTP client with support for various types of server
       authentication (BASIC, OAuth2,etc.).
     Example: "https://github.com/bootique-examples/bootique-jersey-client-demo"
-    Versions: ["1.1", "2.0"]
+    Versions: ["1.1"]
 
   jetty:
     Name: bootique-jetty
