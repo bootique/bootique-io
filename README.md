@@ -15,6 +15,7 @@ Also see [.travis.yml](./.travis.yml) for environment setup and build command de
 ## Important files / directories:
 
 * `content/` : contains HTML page templates
+* `data/` : contains documentation "models" and parameters. E.g. `modules.yaml` configures links related to each Bootique module.
 * `docs.yml` : contains references to external Asciidocs of individual Bootique modules
 
 ## Publishing via CI/CD
