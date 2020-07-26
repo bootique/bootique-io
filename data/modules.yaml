@@ -52,7 +52,8 @@ ByName:
     Name: bootique-jdbc
     Icon: jdbc.png
     Description: Integrates JDBC connection pool of your choice, providing optimized configurable database connectivity.
-                 Supports Apache Tomcat connection pool and HikariCP out of the box.
+                 Supports Apache Tomcat and HikariCP connection pools out of the box.
+    Docs: "bootique-jdbc-docs/"
     Example: "https://github.com/bootique-examples/bootique-jdbc-demo"
     Versions: ["1.1", "2.0"]
 

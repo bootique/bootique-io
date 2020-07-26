@@ -15,6 +15,9 @@ docs:
       versions:
         "1.x": "1.x"
         latest: "master"
+    - url: https://github.com/bootique/bootique-jdbc.git
+      versions:
+        latest: "master"
     - url: https://github.com/bootique/bootique-jetty.git
       versions:
         "1.x": "1.x"
