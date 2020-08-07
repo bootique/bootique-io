@@ -1,10 +1,10 @@
 DefaultVersionUrl: "1.x"
 
 ByUrl:
-  "1.x": &v11
+  "1.x": &v1x
     URL: "1.x"
-    Name: "1.1 (stable)"
-    ShortName: "1.1"
+    Name: "1.2 (stable)"
+    ShortName: "1.2"
 
   "latest": &v20
     URL: "latest"
@@ -12,5 +12,5 @@ ByUrl:
     ShortName: "2.0"
 
 ByName:
-  "1.1": *v11
+  "1.2": *v1x
   "2.0": *v20
