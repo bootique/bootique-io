@@ -79,11 +79,56 @@
       @include border-radius($border-radius-sm); 
   }
 
+  // conum (callout nummber from code)
+  .conum[data-value] {
+    font-size: .875rem;
+    font-style: normal;
+    background: $body-color;
+    color: $white;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 1.7143em;        //  = 24px from 14px
+    height: 1.7143em;           //  = 24px from 14px
+    border-radius: 50rem;
+    
+    &:after {
+      content: attr(data-value);
+    }
+    
+    & + b {
+      display: none;
+    }
+  }
+  
+  // colist (callout list)
+  .colist table {
+    border: none;
+
+    tr:last-child td {
+      padding-bottom: 0;
+    }
+    
+    td {
+      border: none;
+      vertical-align: top;
+      padding-left: 0;
+      font-size: 14px;
+      
+      .conum[data-value] {
+        margin: auto .2857em;       // = 4px from 14px
+      }
+    }
+    
+  }
+
+  // lists
   ul, ol {
     font-size: 14px;
     padding-left: 20px;
   }
 
+  // table
   table {
     border-collapse: collapse;
     border-spacing: 0;
