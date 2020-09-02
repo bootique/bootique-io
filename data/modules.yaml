@@ -158,12 +158,19 @@ ByName:
     Example: "https://github.com/bootique-examples/bootique-mybatis-demo"
     Versions: ["2.0"]
 
+  rabbitmq:
+    Name: bootique-rabbitmq
+    Icon: rabbitmq-client.png
+    Description: Integrates RabbitMQ Client.
+    Example: "https://github.com/bootique-examples/bootique-rabbitmq-client-demo"
+    Versions: ["2.0"]
+
   rabbitmq-client:
     Name: bootique-rabbitmq-client
     Icon: rabbitmq-client.png
     Description: Integrates RabbitMQ Client.
     Example: "https://github.com/bootique-examples/bootique-rabbitmq-client-demo"
-    Versions: ["1.2", "2.0"]
+    Versions: ["2.0"]
 
   shiro:
     Name: bootique-shiro
