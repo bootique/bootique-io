@@ -170,7 +170,7 @@ ByName:
     Icon: rabbitmq-client.png
     Description: Integrates RabbitMQ Client.
     Example: "https://github.com/bootique-examples/bootique-rabbitmq-client-demo"
-    Versions: ["2.0"]
+    Versions: ["1.2"]
 
   shiro:
     Name: bootique-shiro
