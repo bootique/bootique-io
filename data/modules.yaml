@@ -179,6 +179,12 @@ ByName:
     Example: "https://github.com/bootique-examples/bootique-shiro-demo"
     Versions: ["1.2", "2.0"]
 
+  simplejavamail:
+    Name: bootique-simplejavamail
+    Icon: simplejavamail.png
+    Description: Integrates Simple Java Mail library
+    Versions: ["2.0"]
+
   swagger:
     Name: bootique-swagger
     Icon: swagger.png
