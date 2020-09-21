@@ -127,11 +127,11 @@
     table {
       border: none;
       border-radius: $border-radius * 2;
-      background-color: $gray-200;
+      background-color: $admonition-note-bg;
     }
     
     td.icon {
-      background-color: $gray-300;
+      background-color: $admonition-note-icon-bg;
 
       .fa {
         line-height: inherit;
