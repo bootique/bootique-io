@@ -7,13 +7,13 @@
 {{ partial "top_nav.gohtml" . }}
 
 <div class="documentation-page container content docbook">
-  <h1>
-    {{ .Params.title }}
-  </h1>
-  {{ partial "version_selector.gohtml" . }}
-  <hr/>
-
   <div class="container">
+    <h1>
+      {{ .Params.title }}
+    </h1>
+    {{ partial "version_selector.gohtml" . }}
+    <hr/>
+
     <div class="row ">
       <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav">
         {{- $tocFile := printf "content/%s/%s.toc.html" (path.Dir .File) .File.BaseFileName -}}
