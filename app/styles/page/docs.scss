@@ -122,6 +122,30 @@
     
   }
 
+  // admonitionblock
+  .admonitionblock.note{
+    table {
+      border: none;
+      border-radius: $border-radius * 2;
+      background-color: $gray-200;
+    }
+    
+    td.icon {
+      background-color: $gray-300;
+
+      .fa {
+        line-height: inherit;
+      }
+    }
+    
+    td {
+      border-left: none;
+      padding: 1em 1.5em .875em;
+      
+    }
+    
+  }
+
   // lists
   ul, ol {
     font-size: 14px;
