@@ -253,7 +253,7 @@ $font-size-sm:                ($font-size-base * .875) !default;
 
 $font-weight-light:           300 !default;
 $font-weight-normal:          400 !default;
-// $font-weight-bold:            700 !default;
+$font-weight-medium:            500;
 $font-weight-bolder:            700 !default;
 
 $font-weight-base:            $font-weight-normal !default;
@@ -930,12 +930,12 @@ $close-text-shadow:                 0 1px 0 $white !default;
 
 $code-font-size:                    .875rem;
 $code-color:                        $black;                         // was $pink !default;
-$code-bg:                           #f8f8f8;
+$code-bg:                           #f2f2f2;
 $code-padding-y:                    .2rem ;
 $code-padding-x:                    .4rem;
-$pre-code-border:                   #c5c5c5;                      // was #616161
-$pre-code-padding-y:                .4375rem;
-$pre-code-padding-x:                .75rem;
+$pre-code-border:                   #dedede;                      // was #616161
+$pre-code-padding-y:                1rem;
+$pre-code-padding-x:                1.25rem;
 
 $kbd-padding-y:                     .2rem !default;
 $kbd-padding-x:                     .4rem !default;

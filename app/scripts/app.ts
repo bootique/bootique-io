@@ -7,7 +7,7 @@ import 'bootstrap/js/dist/scrollspy';
 import 'bootstrap/js/dist/dropdown';
 
 import {tryApply} from "./tryApply";
-import {applyHighlightJs} from "./app.hljs";
+import {applyHighlightJs, applyCopyHighlightJs} from "./app.hljs";
 import {setupYt} from "./app.setupYt";
 import {injectYtPlayerApi} from "./app.injectYtPlayerApi";
 import {applySideMenu} from "./app.sidemenu";
@@ -20,6 +20,7 @@ import {applyHashLinks} from "./app.hashLinks";
 tryApply(applyHighlightJs);
 
 $(document).ready(function () {
+  tryApply(applyCopyHighlightJs);
   tryApply(setupYt);
   tryApply(injectYtPlayerApi);
   tryApply(applySideMenu);
