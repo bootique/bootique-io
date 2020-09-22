@@ -50,7 +50,7 @@ ul {
   margin: 0 0 1em;
   padding: 0 0 0 1.8rem;
 
-  &.itemizedlist {
+  &.itemizedlist:not(.media-list) {
     padding-left: 1.34em;
 
     li.listitem {

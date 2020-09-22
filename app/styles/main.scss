@@ -264,11 +264,17 @@ button,
 }
 
 // COMPONENTS
-.container {
+.container:not(.documentation-page) {
   @include media-breakpoint-down(md) {
     @include px-(2rem);
   }
+  
+  .documentation-page & {
+    padding-left: inherit;
+    padding-right: inherit;
+  }
 }
+
 
 .btn {
   font-size: 1.125rem;
