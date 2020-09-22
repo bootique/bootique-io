@@ -66,7 +66,7 @@
   var {
     padding: $code-padding-y $code-padding-x;
     background-color: $code-bg;
-    @include border-radius($border-radius-sm); 
+    @include border-radius($border-radius);  
   }
   
   // pre > code, highlight
@@ -74,10 +74,40 @@
       display: block;
       font-style: normal;
       overflow-x: auto;
-      border: 1px dotted $pre-code-border;
+      // border: 1px dotted $pre-code-border;
       padding: $pre-code-padding-y $pre-code-padding-x;
-      @include border-radius($border-radius-sm); 
+      @include border-radius($border-radius * 2); 
   }
+  
+  .listingblock {
+      position: relative;
+  }
+  
+  .copy-code-button {
+    position: absolute;
+    top: 1rem;
+    right: .75rem;
+
+    display: block;
+    margin-left: auto;
+    // margin-right: .5rem;
+
+    background: transparent;  // #282a36;
+    color: $body-color;       // #fff;
+    padding: .35em 1em;
+    
+    font-size: .688em;
+    font-weight: $font-weight-medium;
+    text-transform: uppercase;
+    
+    border: none;
+    border-top-right-radius: .5rem;
+    border-top-left-radius: .5rem;
+    
+    @include hover-focus-active {
+      transition: none !important;
+    }
+}
 
   // conum (callout nummber from code)
   .conum[data-value] {

@@ -1,4 +1,4 @@
-import "highlight.js/styles/github.css";
+import "highlight.js/styles/a11y-light.css";
 import * as hljs from "highlight.js/lib/highlight.js";
 import * as xml from "highlight.js/lib/languages/xml.js";
 import * as bash from "highlight.js/lib/languages/bash.js";
@@ -11,6 +11,7 @@ import * as json from "highlight.js/lib/languages/json.js";
 import * as kotlin from "highlight.js/lib/languages/kotlin.js";
 import * as sql from "highlight.js/lib/languages/sql.js";
 import * as yaml from "highlight.js/lib/languages/yaml.js";
+import * as ClipboardJS from "clipboard/dist/clipboard";
 
 export function applyHighlightJs() {
   hljs.registerLanguage("xml", xml);
@@ -25,4 +26,33 @@ export function applyHighlightJs() {
   hljs.registerLanguage("sql", sql);
   hljs.registerLanguage("yaml", yaml);
   hljs.initHighlightingOnLoad();
+}
+
+export function applyCopyHighlightJs() {
+  document.querySelectorAll('pre > code').forEach(function (codeBlock) {
+    var button = document.createElement('button');
+    button.className = 'copy-code-button';
+    button.type = 'button';
+    button.innerText = 'Copy';
+
+    new ClipboardJS('.copy-code-button', {
+      target: function(trigger) {
+          return trigger.nextElementSibling;
+      }
+    }).on('success', function(e) {
+      e.clearSelection();
+      e.trigger.innerText = 'Copied!';
+      setTimeout(function () {
+        e.trigger.innerText = 'Copy';
+      }, 2000);
+    });
+
+    var pre = codeBlock.parentNode;
+    if ((<Element>pre.parentNode).classList.contains('highlight')) {
+        var highlight = pre.parentNode;
+        highlight.parentNode.insertBefore(button, highlight);
+    } else {
+        pre.parentNode.insertBefore(button, pre); 
+    }
+  });
 }
