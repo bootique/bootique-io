@@ -1,4 +1,4 @@
-DefaultVersionUrl: "1.x"
+DefaultVersionUrl: "2.x"
 
 ByUrl:
   "1.x": &v1x
@@ -6,11 +6,11 @@ ByUrl:
     Name: "1.2 (stable)"
     ShortName: "1.2"
 
-  "latest": &v20
-    URL: "latest"
+  "2.x": &v2x
+    URL: "2.x"
     Name: "2.0 (alpha)"
     ShortName: "2.0"
 
 ByName:
   "1.2": *v1x
-  "2.0": *v20
+  "2.0": *v2x

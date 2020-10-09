@@ -6,26 +6,26 @@ docs:
     - url: https://github.com/bootique/bootique.git
       versions:
         "1.x": "1.x"
-        latest: "master"
+        "2.x": "master"
     - url: https://github.com/bootique/bootique-kotlin.git
       versions:
         "1.x": "1.x"
-        latest: "master"
+        "2.x": "master"
     - url: https://github.com/bootique/bootique-logback.git
       versions:
         "1.x": "1.x"
-        latest: "master"
+        "2.x": "master"
     - url: https://github.com/bootique/bootique-jdbc.git
       versions:
         "1.x": "1.x"
-        latest: "master"
+        "2.x": "master"
     - url: https://github.com/bootique/bootique-jetty.git
       versions:
         "1.x": "1.x"
-        latest: "master"
+        "2.x": "master"
     - url: https://github.com/bootique/bootique-tool.git
       versions:
-        latest: "master"
+        "2.x": "master"
     - url: https://github.com/bootique/bootique-di.git
       versions:
-        latest: "master"
+        "2.x": "master"
