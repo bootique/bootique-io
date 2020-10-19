@@ -85,7 +85,7 @@ function mavenBuild(docsModule: string): boolean {
     return false;
   }
   console.log(`Building docs '${docsModule}'...`);
-  const mvnCmd = `mvn -f ${docsModule} package -DskipTests -B -q`;
+  const mvnCmd = `mvn -f ${docsModule} package -DskipTests -B`;
   childProcess.execSync(mvnCmd);
   return true;
 }
