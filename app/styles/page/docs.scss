@@ -230,4 +230,9 @@
       border-bottom-width: 0;
     }
   }
+
+  summary {
+    border: none;
+    outline: none;
+  }
 }
