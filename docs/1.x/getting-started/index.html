@@ -1,0 +1,471 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>Bootique: Minimally Opinionated Framework for Runnable Java</title>
+  <meta name="description" content="Bootique: A Minimally Opinionated Framework for Runnable Java Apps">
+<meta name="keywords" content="bootique, java, micro framework">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/images/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/images/favicon/safari-pinned-tab.svg" color="#333333">
+  <link rel="shortcut icon" href="/images/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#333333">
+  <link rel="canonical" href="https://bootique.io/docs/1.x/getting-started/">
+  <link href="/assets/app.css?1b49aca56d4cc4fc79b0" rel="stylesheet">
+<script type="text/javascript" src="/assets/app.js?1b49aca56d4cc4fc79b0"></script>
+
+</head>
+
+<body data-spy="scroll" data-target="#docs-nav">
+
+<!--[if lt IE 10]>
+<p class="browsehappy">
+  You are using an <strong>outdated</strong> browser.
+  Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.
+</p>
+<![endif]-->
+
+<div id="top-nav" class="main">
+  
+  <a href="#menu" id="menuToggle" aria-label="Menu" class="menu-toggle">
+      <span></span>
+  </a>
+  <div id="menu" class="nav-menu pure-menu pure-menu-horizontal">
+    <a href="https://bootique.io/" class="nav-brand center"><img src="/images/logo.svg" alt="Bootique" /></a>
+    <div class="container nav">
+      <div class="valign-wrapper-sm">
+        <div class="valign-sm">
+          <ul class="pure-menu-list pull-left">
+    
+    
+        <li class="pure-menu-item "><div class="pure-menu-selected">
+            
+              <a class="pure-menu-link" href="/docs/1.x/getting-started/">Get started</a>
+            
+            </div>
+        </li>
+  
+        <li class="pure-menu-item "><div class="">
+            <a class="pure-menu-link" href="/docs/1.x">Documentation</a>
+          </div>
+        </li>
+  
+        <li class="pure-menu-item ">
+          <a class="pure-menu-link" href="/cla/">CLA</a>
+        </li>
+  
+        <li class="pure-menu-item ">
+          <a class="pure-menu-link" href="https://groups.google.com/forum/#!forum/bootique-user">Forum</a>
+        </li>
+  
+</ul>
+
+        </div>
+      </div>
+      <ul id="nav-social" class="pure-menu-list pull-right">
+        <li class="pure-menu-item gh-btns" data-gh-owner="bootique" data-gh-repo="bootique">
+          <a href="https://github.com/bootique/bootique" class="pure-menu-link github-btn fork">
+            <i class="fab fa-github"></i><span>Github</span>
+          </a>
+          <a href="https://github.com/bootique/bootique/stargazers" class="pure-menu-link github-btn star">
+            <img class="gh-stars" src="/images/icon_octocat_stars.svg" alt="GitHub Stars" />
+            <span class="star-counter">1323</span>
+          </a>
+        </li>
+        <li class="pure-menu-item tw-btn">
+          <a href="https://twitter.com/intent/follow?screen_name=BootiqueProject" class="pure-menu-link tw-btn">
+            <i class="fab fa-twitter"></i><span>Follow</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="documentation-page container content docbook">
+  <div class="container">
+    <h1>
+      Getting Started with Bootique
+    </h1>
+    <div class="dropdown doc-version">
+  <a class="dropdown-toggle" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-24,4">
+      Version 1.2
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          
+              <a class="dropdown-item " href="/docs/2.x/getting-started/">Version 2.0 (alpha)</a>
+          
+          
+              <a class="dropdown-item active" href="/docs/1.x/getting-started/">Version 1.2 (stable)</a>
+          </div>
+</div>
+
+    <hr/>
+
+    <div class="row ">
+      <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav"><div id="toc" class="toc"> 
+ <div id="toctitle">
+  Table of Contents
+ </div> 
+ <ul class="sectlevel1 nav"> 
+  <li><a href="#_hello_world_in_bootique" class="nav-link">1. Hello World in Bootique</a></li> 
+  <li><a href="#_configuration" class="nav-link">2. Configuration</a></li> 
+  <li><a href="#_injection" class="nav-link">3. Injection</a></li> 
+  <li><a href="#_packaging" class="nav-link">4. Packaging</a></li> 
+ </ul> 
+</div></div>
+
+      <div class="col-12 col-lg-8 col-xl-9  py-3 pl-lg-5">
+        <article>
+          <div class="sect1"> 
+ <h2 id="_hello_world_in_bootique">1. Hello World in Bootique</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>The goal of this chapter is to write a simple REST app using Bootique. Let’s start with a new Java Maven project created in your favorite IDE. Your <code>pom.xml</code> in addition to the required project information tags will need to declare a few BOM ("Bill of Material") imports in the <code>&lt;dependencyManagement/&gt;</code> section:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependencyManagement&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;io.bootique.bom&lt;/groupId&gt;
+      &lt;artifactId&gt;bootique-bom&lt;/artifactId&gt;
+      &lt;version&gt;1.2&lt;/version&gt;
+      &lt;type&gt;pom&lt;/type&gt;
+      &lt;scope&gt;import&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>This will allow <code>&lt;dependencies/&gt;</code> section that will follow shortly to include various Bootique modules and not worry about their individual versions. So let’s create this section and import a few modules:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.jersey&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-jersey&lt;/artifactId&gt;
+    &lt;scope&gt;compile&lt;/scope&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.logback&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-logback&lt;/artifactId&gt;
+    &lt;scope&gt;compile&lt;/scope&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>As you see we want a <code>bootique-jersey</code> and <code>bootique-logback</code> modules in our app. Those may depend on other modules, but we don’t have to think about it. Those dependencies will be included by Maven automatically. Now let’s create the main Java class that will run the app:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-java java" data-lang="java">package com.foo;
+
+import io.bootique.Bootique;
+
+public class Application {
+
+    public static void main(String[] args) {
+        Bootique
+            .app(args)
+            .autoLoadModules()
+            .exec()
+            .exit();
+    }
+}</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>There’s only one line of meaningful code inside the <code>main()</code> method, but this is already a working Bootique app. Meaning it is runnable and can do a few things. So let’s try running this class from your IDE. You will see the output like this on the IDE console:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code>NAME
+      com.foo.Application
+
+OPTIONS
+      -c yaml_location, --config=yaml_location
+           Specifies YAML config location, which can be a file path or a URL.
+
+      -h, --help
+           Prints this message.
+
+      -H, --help-config
+           Prints information about application modules and their configuration
+           options.
+
+      -s, --server
+           Starts Jetty server.</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>So the app printed its help message telling us which commands and options it understands. <code>--server</code> option looks promising, but before we use it, let’s actually write a REST endpoint that will answer to our requests. We’ll use standard Java <a href="https://en.wikipedia.org/wiki/Java_API_for_RESTful_Web_Services">JAX-RS API</a> for that:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-java java" data-lang="java">package com.foo;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+
+@Path("/")
+public class HelloResource {
+
+    @GET
+    public String hello() {
+        return "Hello, world!";
+    }
+}</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Note that we could have placed this code straight in the Main class. Which makes for an effective demo (an app that can fit in one class), but not for a particularly clean design. So keeping the resource in its own class. Now let’s amend the <code>Main</code> class to tell Bootique where to find the resource:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-java java" data-lang="java">package com.foo;
+
+import com.google.inject.Module;
+import io.bootique.Bootique;
+import io.bootique.jersey.JerseyModule;
+
+public class Application {
+
+    public static void main(String[] args) {
+
+        Module module = binder -&gt;
+                  JerseyModule.extend(binder).addResource(HelloResource.class);
+
+        Bootique
+            .app(args)
+            .module(module)
+            .autoLoadModules()
+            .exec()
+            .exit();
+    }
+}</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Here we created our own module that "contributes" resource configuration to the JerseyModule. Now let’s try to run the app with the changes. Add <code>--server</code> to the command run parameters before doing it. Now when the app is started, you will see different output:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-text text" data-lang="text">INFO main o.e.jetty.util.log: Logging initialized @1328ms
+INFO main i.b.j.s.ServerFactory: Adding listener io.bootique.jetty.servlet.DefaultServletEnvironment
+INFO main i.b.j.s.ServletFactory: Adding servlet 'jersey' mapped to /*
+INFO main i.b.j.s.ServerLifecycleLogger: Starting jetty...
+INFO main o.e.j.server.Server: jetty-9.3.6.v20151106
+INFO main o.e.j.s.h.ContextHandler: Started o.e.j.s.ServletContextHandler@27dc79f7{/,null,AVAILABLE}
+INFO main o.e.j.s.ServerConnector: Started ServerConnector@3a45c42a{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}
+INFO main o.e.j.server.Server: Started @2005ms
+INFO main i.b.j.s.ServerLifecycleLogger: Started Jetty in 584 ms. Base URL: http://127.0.0.1:8080/</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Notice that the app did not terminate immediately, and is waiting for user requests. Now let’s try opening the URL <a href="http://localhost:8080/">http://localhost:8080/</a> in the browser. We should see 'Hello, world!' as request output. We just built a working REST app that does not require deployment to a web container, and generally wasn’t that hard to write. The takeaway here is this:</p> 
+  </div> 
+  <div class="ulist"> 
+   <ul> 
+    <li> <p>You start the app via <code>Bootique</code> class, that gives you a runnable "shell" of your future app in one line of code.</p> </li> 
+    <li> <p>Declaring modules in the app dependencies and using <code>Bootique.autoLoadModules()</code> gives the app the ability to respond to commands from those modules (in our example <code>--server</code> command coming from implicit bootique-jetty module started an embedded web server ).</p> </li> 
+    <li> <p>You can contribute your own code to modules to build an app with desired behavior.</p> </li> 
+   </ul> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Next we’ll talk about configuration…​</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_configuration">2. Configuration</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>You can optionally pass a configuration to almost any Bootique app. This is done with a <code>--config</code> parameter. An argument to <code>--config</code> is either a path to a configuration file or a URL of a service that serves such configuration remotely (imagine an app starting on a cloud that downloads its configuration from a central server). The format of the file is YAML (though, just like everything in Bootique, this can be customized). Let’s create a config file that changes Jetty listen port and the app context path. To do this create a file in the app run directory, with an arbitrary name, e.g. <code>myconfig.yml</code> with the following contents:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jetty:
+  context: /hello
+  connectors:
+    - port: 10001</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Now restart the app with the new set of parameters: <code>--server --config=myconfig.yml</code>. After the restart the app would no longer respond at <a href="http://localhost:8080/">http://localhost:8080/</a>, instead you will need to use a new URL: <a href="http://localhost:10001/hello">http://localhost:10001/hello</a>. This is just a taste of what can be done with configuration. Your app can just as easily obtain its own specific configuration in a form of an app-specific object, as described elsewhere in the docs.</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_injection">3. Injection</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>We’ve mentioned that Bootique is built on Google Guice dependency injection (DI) container. We’ll talk more about injection elsewhere. Here we’ll provide a simple example. Our simple app already has a number of objects and services working behind the scenes that can be injected. One of them is command-line arguments that were provided to the app on startup. Let’s extend our resource to include those arguments in the output:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-java java" data-lang="java">package com.foo;
+
+import static java.util.stream.Collectors.joining;
+
+import java.util.Arrays;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+
+import com.google.inject.Inject;
+import io.bootique.annotation.Args;
+
+@Path("/")
+public class HelloResource {
+
+    @Inject
+    @Args
+    private String[] args;
+
+    @GET
+    public String hello() {
+        String allArgs = Arrays.asList(args).stream().collect(joining(" "));
+        return "Hello, world! The app was started with the following arguments: " + allArgs;
+    }
+}</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>As you see, we declared a variable of type <code>String[]</code> and annotated it with <code>@Inject</code> and <code>@Args</code>. <code>@Inject</code> (must be a <code>com.google.inject.Inject</code>, not <code>javax.inject.Inject</code>) ensures that the value is initialized via injection, and <code>@Args</code> tells Bootique which one of possibly many String[] instances from the DI container we are expecting here.</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Now you can restart the app and refresh <a href="http://localhost:10001/hello">http://localhost:10001/hello</a> in the browser. The new output will be "Hello, world! The app was started with the following arguments: `--server --config=myconfig.yml`".</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Next let’s discuss how to build and run the app outside the IDE…</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_packaging">4. Packaging</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>Till now we’ve been running our app from IDE (which also happened to be much easier then running typical container-aware apps). Now let’s package our app as a runnable "fat" jar to be able to run it from command line (e.g. in deployment environment). Assembling "fat" jar requires a bit of configuration of the Maven <code>maven-shade-plugin</code>. To simplify it, you can set a parent of your <code>pom.xml</code> to be a standard Bootique parent:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;parent&gt;
+    &lt;groupId&gt;io.bootique.parent&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-parent&lt;/artifactId&gt;
+    &lt;version&gt;0.14&lt;/version&gt;
+&lt;/parent&gt;</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Other required <code>pom.xml</code> additions:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;properties&gt;
+    &lt;main.class&gt;com.foo.Application&lt;/main.class&gt;
+&lt;/properties&gt;
+&lt;!--...--&gt;
+&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Once this is setup you can build and run the app:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-text text" data-lang="text">mvn clean package
+
+# Using myapp-1.0.jar as an example; the actual jar name depends on your POM settings
+java -jar target/myapp-1.0.jar --server --config=myconfig.yml</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>The result should be the same as running from the IDE and the app should be still accessible at <a href="http://localhost:10001/hello">http://localhost:10001/hello</a>. Now your jar can be deployed in any environment that has Java 8.</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>This concludes our simple tutorial. Now you can explore our <a href="http://bootique.io/docs/">documentation</a> to read more about Bootique core and individual modules.</p> 
+  </div> 
+ </div> 
+</div>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+    <div id="footer-copy" class="container  d-flex flex-column align-items-center flex-lg-row flex-wrap justify-content-between  py-5 py-md-7">
+    <ul class="list-inline nav-double  order-lg-3  mb-0">
+        <li class="list-inline-item  mr-3 mr-lg-5">
+            <a href="/docs/" class="text-uppercase">Documentation</a>
+        </li>
+        <li class="list-inline-item  mr-3 mr-lg-5">
+            <a href="https://blog.bootique.io/" class="text-uppercase">Blog</a>
+        </li>
+        <li class="list-inline-item"><a href="/cla/" class="text-uppercase">CLA</a></li>
+    </ul>
+    <ul class="list-inline social-icons  order-lg-2  my-3 my-md-4 my-lg-0">
+        <li class="list-inline-item  mr-4_5">
+            <a href="https://github.com/bootique/bootique">
+                <i class="fab fa-github"></i>
+            </a>
+        </li>
+        <li class="list-inline-item  mr-4_5">
+            <a href="https://twitter.com/BootiqueProject">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+        <li class="list-inline-item">
+            <a href="https://blog.bootique.io/">
+                <i class="fab fa-medium-m"></i>
+            </a>
+        </li>
+    </ul>
+    <p class="order-lg-1  mb-0">&copy; <span class="current-year">2021</span> ObjectStyle LLC and individual authors</p>
+</div>
+
+</footer>
+
+
+<script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+  function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+  e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+  e.src='https://www.google-analytics.com/analytics.js';
+  r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-74603008-1');ga('send','pageview');
+</script>
+
+
+
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+
+twq('init','nwf2s');
+twq('track','PageView');
+</script>
+
+
+</body>
+</html>
+

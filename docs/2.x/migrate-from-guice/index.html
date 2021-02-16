@@ -1,0 +1,772 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>Bootique: Minimally Opinionated Framework for Runnable Java</title>
+  <meta name="description" content="Migration from Google Guice to Bootique DI">
+<meta name="keywords" content="bootique, di, guice, migration">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/images/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/images/favicon/safari-pinned-tab.svg" color="#333333">
+  <link rel="shortcut icon" href="/images/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#333333">
+  <link rel="canonical" href="https://bootique.io/docs/2.x/migrate-from-guice/">
+  <link href="/assets/app.css?1b49aca56d4cc4fc79b0" rel="stylesheet">
+<script type="text/javascript" src="/assets/app.js?1b49aca56d4cc4fc79b0"></script>
+
+</head>
+
+<body data-spy="scroll" data-target="#docs-nav">
+
+<!--[if lt IE 10]>
+<p class="browsehappy">
+  You are using an <strong>outdated</strong> browser.
+  Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.
+</p>
+<![endif]-->
+
+<div id="top-nav" class="main">
+  
+  <a href="#menu" id="menuToggle" aria-label="Menu" class="menu-toggle">
+      <span></span>
+  </a>
+  <div id="menu" class="nav-menu pure-menu pure-menu-horizontal">
+    <a href="https://bootique.io/" class="nav-brand center"><img src="/images/logo.svg" alt="Bootique" /></a>
+    <div class="container nav">
+      <div class="valign-wrapper-sm">
+        <div class="valign-sm">
+          <ul class="pure-menu-list pull-left">
+    
+    
+        <li class="pure-menu-item "><div class="">
+            
+              <a class="pure-menu-link" href="/docs/2.x/getting-started/">Get started</a>
+            
+            </div>
+        </li>
+  
+        <li class="pure-menu-item "><div class="pure-menu-selected">
+            <a class="pure-menu-link" href="/docs/2.x">Documentation</a>
+          </div>
+        </li>
+  
+        <li class="pure-menu-item ">
+          <a class="pure-menu-link" href="/cla/">CLA</a>
+        </li>
+  
+        <li class="pure-menu-item ">
+          <a class="pure-menu-link" href="https://groups.google.com/forum/#!forum/bootique-user">Forum</a>
+        </li>
+  
+</ul>
+
+        </div>
+      </div>
+      <ul id="nav-social" class="pure-menu-list pull-right">
+        <li class="pure-menu-item gh-btns" data-gh-owner="bootique" data-gh-repo="bootique">
+          <a href="https://github.com/bootique/bootique" class="pure-menu-link github-btn fork">
+            <i class="fab fa-github"></i><span>Github</span>
+          </a>
+          <a href="https://github.com/bootique/bootique/stargazers" class="pure-menu-link github-btn star">
+            <img class="gh-stars" src="/images/icon_octocat_stars.svg" alt="GitHub Stars" />
+            <span class="star-counter">1323</span>
+          </a>
+        </li>
+        <li class="pure-menu-item tw-btn">
+          <a href="https://twitter.com/intent/follow?screen_name=BootiqueProject" class="pure-menu-link tw-btn">
+            <i class="fab fa-twitter"></i><span>Follow</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="documentation-page container content docbook">
+  <div class="container">
+    <h1>
+      Bootique DI migration guide
+    </h1>
+    <div class="dropdown doc-version">
+  <a class="dropdown-toggle" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-24,4">
+      Version 2.0
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          
+              <a class="dropdown-item active" href="/docs/2.x/migrate-from-guice/">Version 2.0 (alpha)</a>
+          
+          </div>
+</div>
+
+    <hr/>
+
+    <div class="row ">
+      <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav"><div id="toc" class="toc"> 
+ <div id="toctitle">
+  Table of Contents
+ </div> 
+ <ul class="sectlevel1 nav"> 
+  <li><a href="#_migrating_from_guice_framework" class="nav-link">1. Migrating from Guice framework</a></li> 
+  <li><a href="#_interfaces_and_annotations" class="nav-link">2. Interfaces and Annotations</a></li> 
+  <li><a href="#_api_changes" class="nav-link">3. API changes</a> 
+   <ul class="sectlevel2 nav"> 
+    <li><a href="#_binder_api" class="nav-link">3.1. Binder API</a></li> 
+    <li><a href="#_multibinder" class="nav-link">3.2. Multibinder</a></li> 
+    <li><a href="#_mapbinder" class="nav-link">3.3. MapBinder</a></li> 
+    <li><a href="#_injector_api" class="nav-link">3.4. Injector API</a></li> 
+    <li><a href="#_module_api" class="nav-link">3.5. Module API</a></li> 
+   </ul> </li> 
+ </ul> 
+</div></div>
+
+      <div class="col-12 col-lg-8 col-xl-9  py-3 pl-lg-5">
+        <article>
+          
+
+
+
+
+
+<div class="sect1"> 
+ <h2 id="_migrating_from_guice_framework">1. Migrating from Guice framework</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>Migration from Guice to Bootique DI is a straightforward process as they both share similar concepts. Essentially it all comes to changing packages and minor code rewrites.</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_interfaces_and_annotations">2. Interfaces and Annotations</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>Here is a table that shows a correspondence of interfaces and annotations between Guice and Bootique DI.</p> 
+  </div> 
+  <table class="tableblock frame-all grid-all stretch"> 
+   <colgroup> 
+    <col style="width: 50%;"> 
+    <col style="width: 50%;"> 
+   </colgroup> 
+   <thead> 
+    <tr> 
+     <th class="tableblock halign-left valign-top">Guice</th> 
+     <th class="tableblock halign-left valign-top">Bootique</th> 
+    </tr> 
+   </thead> 
+   <tbody> 
+    <tr> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">@com.google.inject.Inject</p></td> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">@javax.inject.Inject</p></td> 
+    </tr> 
+    <tr> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">@com.google.inject.BindingAnnotation</p></td> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">@javax.inject.Qualifier</p></td> 
+    </tr> 
+    <tr> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">@com.google.inject.Singleton</p></td> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">@javax.inject.Singleton</p></td> 
+    </tr> 
+    <tr> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">@com.google.inject.Named</p></td> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">@javax.inject.Named</p></td> 
+    </tr> 
+    <tr> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">@com.google.inject.Provides</p></td> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">@io.bootique.di.Provides</p></td> 
+    </tr> 
+    <tr> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">com.google.inject.Module</p></td> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">io.bootique.di.BQModule</p></td> 
+    </tr> 
+    <tr> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">com.google.inject.Binder</p></td> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">io.bootique.di.Binder</p></td> 
+    </tr> 
+    <tr> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">com.google.inject.Injector</p></td> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">io.bootique.di.Injector</p></td> 
+    </tr> 
+    <tr> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">com.google.inject.Provider</p></td> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">javax.inject.Provider</p></td> 
+    </tr> 
+    <tr> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">com.google.inject.Key</p></td> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">io.bootique.di.Key</p></td> 
+    </tr> 
+    <tr> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">com.google.inject.TypeLiteral</p></td> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">io.bootique.di.TypeLiteral</p></td> 
+    </tr> 
+    <tr> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">com.google.inject.multibindings.Multibinder</p></td> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">io.bootique.di.SetBuilder</p></td> 
+    </tr> 
+    <tr> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">com.google.inject.multibindings.MapBinder</p></td> 
+     <td class="tableblock halign-left valign-top"><p class="tableblock">io.bootique.di.MapBuilder</p></td> 
+    </tr> 
+   </tbody> 
+  </table> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_api_changes">3. API changes</h2> 
+ <div class="sectionbody"> 
+  <div class="sect2"> 
+   <h3 id="_binder_api">3.1. Binder API</h3> 
+   <table class="tableblock frame-all grid-all stretch"> 
+    <colgroup> 
+     <col style="width: 50%;"> 
+     <col style="width: 50%;"> 
+    </colgroup> 
+    <thead> 
+     <tr> 
+      <th class="tableblock halign-center valign-top">Guice</th> 
+      <th class="tableblock halign-center valign-top">Bootique</th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(String[].class)
+    .annotatedWith(Args.class)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(String[].class, Args.class)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(String[].class)
+    .annotatedWith(Names.named("args"))</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(String[].class, "args")</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(Service.class)
+    .to(MyService.class)
+    .in(Singleton.class)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(Service.class)
+    .to(MyService.class)
+    .inSingletonScope()</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(Service.class)
+    .to(MyService.class)
+    .in(Singleton.class)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(Service.class)
+    .to(MyService.class)
+    .inSingletonScope()</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(Service.class)
+    .to(MyService.class)
+    .asEagerSingleton()</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(Service.class)
+    .to(MyService.class)
+    .initOnStartup()</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">OptionalBinder
+    .newOptionalBinder(binder,
+        Command.class)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">binder
+    .bindOptional(Service.class)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_multibinder">3.2. Multibinder</h3> 
+   <table class="tableblock frame-all grid-all stretch"> 
+    <colgroup> 
+     <col style="width: 50%;"> 
+     <col style="width: 50%;"> 
+    </colgroup> 
+    <thead> 
+     <tr> 
+      <th class="tableblock halign-center valign-top">Guice</th> 
+      <th class="tableblock halign-center valign-top">Bootique</th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">Multibinder
+    .newSetBinder(binder, Service.class)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">binder.bindSet(Service.class)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">Multibinder.newSetBinder(
+        binder,
+        Service.class,
+        Marker.class
+)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">binder.bindSet(Service.class, Marker.class)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">multibinder.addBinding()
+    .to(MyService.class)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">setbinder.add(MyService.class)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">multibinder.addBinding()
+    .toInstance(new MyService())</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">setbinder.addInstance(new MyService())</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">multibinder.addBinding()
+    .toProvider(MyServiceProvider.class)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">setbinder
+    .addProvider(MyServiceProvider.class)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_mapbinder">3.3. MapBinder</h3> 
+   <table class="tableblock frame-all grid-all stretch"> 
+    <colgroup> 
+     <col style="width: 50%;"> 
+     <col style="width: 50%;"> 
+    </colgroup> 
+    <thead> 
+     <tr> 
+      <th class="tableblock halign-center valign-top">Guice</th> 
+      <th class="tableblock halign-center valign-top">Bootique</th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">MapBinder.newMapBinder(
+        binder,
+        String.class,
+        Service.class
+)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">binder.bindMap(
+        String.class,
+        Service.class
+)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">MapBinder.newMapBinder(
+        binder,
+        String.class,
+        Service.class,
+        Marker.class
+)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">binder.bindMap(
+        String.class,
+        Service.class,
+        Marker.class
+)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">mapbinder.addBinding("internal")
+    .to(MyService.class)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">mapbinder.put("internal",
+    MyService.class)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_injector_api">3.4. Injector API</h3> 
+   <table class="tableblock frame-all grid-all stretch"> 
+    <colgroup> 
+     <col style="width: 50%;"> 
+     <col style="width: 50%;"> 
+    </colgroup> 
+    <thead> 
+     <tr> 
+      <th class="tableblock halign-center valign-top">Guice</th> 
+      <th class="tableblock halign-center valign-top">Bootique</th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">Guice.createInjector(modules)</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">DIBootstrap.injectorBuilder(modules)
+    .enableDynamicBindings()
+    .defaultNoScope()
+    .build()</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">Binding&lt;Service&gt; binding = injector
+        .getExistingBinding(Service.class);
+return binding != null
+        ? Optional.of(binding.getProvider())
+        : Optional.empty();</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">if(injector.hasProvider(Service.class)) {
+    Provider&lt;Service&gt; provider = injector
+        .getProvider(Service.class);
+    return Optional.of(provider);
+}
+return Optional.empty();</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">List&lt;Binding&lt;T&gt;&gt; bindings
+    = injector.findBindingsByType(type);</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">Collection&lt;Key&lt;T&gt;&gt; keys
+    = injector.getKeysByType(type);</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_module_api">3.5. Module API</h3> 
+   <table class="tableblock frame-all grid-all stretch"> 
+    <colgroup> 
+     <col style="width: 50%;"> 
+     <col style="width: 50%;"> 
+    </colgroup> 
+    <thead> 
+     <tr> 
+      <th class="tableblock halign-center valign-top">BQModuleProvider 1.x</th> 
+      <th class="tableblock halign-center valign-top">BQModuleProvider 2.x</th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">Module module()</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">BQModule module()</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">BQModule.Builder moduleBuilder()</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+      <td class="tableblock halign-left valign-top">
+       <div class="content">
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="highlight"><code class="language-java java" data-lang="java">BQModuleMetadata.Builder moduleBuilder()</code></pre> 
+         </div> 
+        </div>
+       </div></td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+ </div> 
+</div>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+    <div id="footer-copy" class="container  d-flex flex-column align-items-center flex-lg-row flex-wrap justify-content-between  py-5 py-md-7">
+    <ul class="list-inline nav-double  order-lg-3  mb-0">
+        <li class="list-inline-item  mr-3 mr-lg-5">
+            <a href="/docs/" class="text-uppercase">Documentation</a>
+        </li>
+        <li class="list-inline-item  mr-3 mr-lg-5">
+            <a href="https://blog.bootique.io/" class="text-uppercase">Blog</a>
+        </li>
+        <li class="list-inline-item"><a href="/cla/" class="text-uppercase">CLA</a></li>
+    </ul>
+    <ul class="list-inline social-icons  order-lg-2  my-3 my-md-4 my-lg-0">
+        <li class="list-inline-item  mr-4_5">
+            <a href="https://github.com/bootique/bootique">
+                <i class="fab fa-github"></i>
+            </a>
+        </li>
+        <li class="list-inline-item  mr-4_5">
+            <a href="https://twitter.com/BootiqueProject">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+        <li class="list-inline-item">
+            <a href="https://blog.bootique.io/">
+                <i class="fab fa-medium-m"></i>
+            </a>
+        </li>
+    </ul>
+    <p class="order-lg-1  mb-0">&copy; <span class="current-year">2021</span> ObjectStyle LLC and individual authors</p>
+</div>
+
+</footer>
+
+
+<script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+  function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+  e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+  e.src='https://www.google-analytics.com/analytics.js';
+  r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-74603008-1');ga('send','pageview');
+</script>
+
+
+
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+
+twq('init','nwf2s');
+twq('track','PageView');
+</script>
+
+
+</body>
+</html>
+

@@ -1,0 +1,604 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>Bootique: Minimally Opinionated Framework for Runnable Java</title>
+  <meta name="description" content="Bootique dependency injection (DI) framework documentation">
+<meta name="keywords" content="bootique, di">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/images/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/images/favicon/safari-pinned-tab.svg" color="#333333">
+  <link rel="shortcut icon" href="/images/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#333333">
+  <link rel="canonical" href="https://bootique.io/docs/2.x/bootique-di-docs/">
+  <link href="/assets/app.css?1b49aca56d4cc4fc79b0" rel="stylesheet">
+<script type="text/javascript" src="/assets/app.js?1b49aca56d4cc4fc79b0"></script>
+
+</head>
+
+<body data-spy="scroll" data-target="#docs-nav">
+
+<!--[if lt IE 10]>
+<p class="browsehappy">
+  You are using an <strong>outdated</strong> browser.
+  Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.
+</p>
+<![endif]-->
+
+<div id="top-nav" class="main">
+  
+  <a href="#menu" id="menuToggle" aria-label="Menu" class="menu-toggle">
+      <span></span>
+  </a>
+  <div id="menu" class="nav-menu pure-menu pure-menu-horizontal">
+    <a href="https://bootique.io/" class="nav-brand center"><img src="/images/logo.svg" alt="Bootique" /></a>
+    <div class="container nav">
+      <div class="valign-wrapper-sm">
+        <div class="valign-sm">
+          <ul class="pure-menu-list pull-left">
+    
+    
+        <li class="pure-menu-item "><div class="">
+            
+              <a class="pure-menu-link" href="/docs/2.x/getting-started/">Get started</a>
+            
+            </div>
+        </li>
+  
+        <li class="pure-menu-item "><div class="pure-menu-selected">
+            <a class="pure-menu-link" href="/docs/2.x">Documentation</a>
+          </div>
+        </li>
+  
+        <li class="pure-menu-item ">
+          <a class="pure-menu-link" href="/cla/">CLA</a>
+        </li>
+  
+        <li class="pure-menu-item ">
+          <a class="pure-menu-link" href="https://groups.google.com/forum/#!forum/bootique-user">Forum</a>
+        </li>
+  
+</ul>
+
+        </div>
+      </div>
+      <ul id="nav-social" class="pure-menu-list pull-right">
+        <li class="pure-menu-item gh-btns" data-gh-owner="bootique" data-gh-repo="bootique">
+          <a href="https://github.com/bootique/bootique" class="pure-menu-link github-btn fork">
+            <i class="fab fa-github"></i><span>Github</span>
+          </a>
+          <a href="https://github.com/bootique/bootique/stargazers" class="pure-menu-link github-btn star">
+            <img class="gh-stars" src="/images/icon_octocat_stars.svg" alt="GitHub Stars" />
+            <span class="star-counter">1323</span>
+          </a>
+        </li>
+        <li class="pure-menu-item tw-btn">
+          <a href="https://twitter.com/intent/follow?screen_name=BootiqueProject" class="pure-menu-link tw-btn">
+            <i class="fab fa-twitter"></i><span>Follow</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="documentation-page container content docbook">
+  <div class="container">
+    <h1>
+      Bootique DI documentation
+    </h1>
+    <div class="dropdown doc-version">
+  <a class="dropdown-toggle" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-24,4">
+      Version 2.0
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          
+              <a class="dropdown-item active" href="/docs/2.x/bootique-di-docs/">Version 2.0 (alpha)</a>
+          
+          </div>
+</div>
+
+    <hr/>
+
+    <div class="row ">
+      <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav"><div id="toc" class="toc"> 
+ <div id="toctitle">
+  Table of Contents
+ </div> 
+ <ul class="sectlevel1 nav"> 
+  <li><a href="#_bootique_di_framework" class="nav-link">1. Bootique DI framework</a></li> 
+  <li><a href="#_core_concepts" class="nav-link">2. Core concepts</a></li> 
+  <li><a href="#_bqmodule" class="nav-link">3. BQModule</a> 
+   <ul class="sectlevel2 nav"> 
+    <li><a href="#_configure_method" class="nav-link">3.1. Configure method</a></li> 
+    <li><a href="#_custom_factory_methods" class="nav-link">3.2. Custom factory methods</a></li> 
+   </ul> </li> 
+  <li><a href="#_binder" class="nav-link">4. Binder</a> 
+   <ul class="sectlevel2 nav"> 
+    <li><a href="#_service_binding" class="nav-link">4.1. Service binding</a></li> 
+    <li><a href="#_qualifiers" class="nav-link">4.2. Qualifiers</a></li> 
+    <li><a href="#_generics" class="nav-link">4.3. Generics</a></li> 
+    <li><a href="#_collections" class="nav-link">4.4. Collections</a></li> 
+    <li><a href="#_optional_binding" class="nav-link">4.5. Optional binding</a></li> 
+   </ul> </li> 
+  <li><a href="#_injector" class="nav-link">5. Injector</a></li> 
+ </ul> 
+</div></div>
+
+      <div class="col-12 col-lg-8 col-xl-9  py-3 pl-lg-5">
+        <article>
+          
+
+
+
+
+
+<div class="sect1"> 
+ <h2 id="_bootique_di_framework">1. Bootique DI framework</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p><strong>Bootique DI</strong> is a lightweight DI engine used to power <strong>Bootique</strong> application framework. It is a <strong>JSR330</strong> (Dependency Injection for Java) compatible implementation.</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_core_concepts">2. Core concepts</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>The central source of all configuration in Bootique DI is an instance of <a href="#_injector">Injector</a>. It represents a registry that provides access to configured services. Each injected service is called <strong>binding</strong> in terms of Bootique DI. To create an <code>Injector</code> you need to provide a set of <a href="#_bqmodule">configuration units</a> that define services available for injection.</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Here is a simple example of Bootique DI usage:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-java java" data-lang="java">import javax.inject.Inject;
+
+import io.bootique.di.DIBootstrap;
+import io.bootique.di.Injector;
+
+public class Application {
+    public static void main(String[] args) {
+        Injector injector = DIBootstrap
+                .injectorBuilder(
+                        binder -&gt; binder.bind(Service.class)
+                                    .to(MyService.class) <i class="conum" data-value="1"></i><b>(1)</b>
+                                    .inSingletonScope(),
+                        binder -&gt; binder.bind(Worker.class).to(MyWorker.class)
+                )
+                .build();
+        Worker worker = injector.getInstance(Worker.class);
+        worker.doWork();
+    }
+}
+
+interface Worker {
+    void doWork();
+}
+
+interface Service {
+    String getInfo();
+}
+
+class MyService implements Service {
+
+    @Override
+    public String getInfo() {
+        return "Hello world!";
+    }
+}
+
+class MyWorker implements Worker {
+    private Service service;
+
+    @Inject
+    MyWorker(Service service) {
+        this.service = service;
+    }
+
+    public void doWork() {
+        System.out.println(service.getInfo());
+    }
+}</code></pre> 
+   </div> 
+  </div> 
+  <div class="colist arabic"> 
+   <table> 
+    <tbody>
+     <tr> 
+      <td><i class="conum" data-value="1"></i><b>1</b></td> 
+      <td>here we bind a <code>Service</code> interface to concrete implementation.</td> 
+     </tr> 
+    </tbody>
+   </table> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Each service known to <code>Injector</code> can be injected into field or constructor marked with <code>@javax.inject.Inject</code> annotation, or into <a href="#_custom_factory_methods">factory methods of modules</a>. Optionally you can inject not only service itself but also a lazy provider of that service. This can be very useful to break circular dependencies between services. Here is an example of <code>Provider</code> injection:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-java java" data-lang="java">class MyService implements Service {
+
+    private Provider&lt;Worker&gt; workerProvider;
+
+    @Inject
+    MyService(Provider&lt;Worker&gt; workerProvider) {
+        this.workerProvider = workerProvider;
+    }
+
+    // ...
+}
+
+class MyWorker implements Worker {
+    private Service service;
+
+    @Inject
+    MyWorker(Service service) {
+        this.service = service;
+    }
+
+    // ...
+}</code></pre> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_bqmodule">3. BQModule</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p><code>BQModule</code> is a single unit of configuration. It provides two ways of configuring services.</p> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_configure_method">3.1. Configure method</h3> 
+   <div class="paragraph"> 
+    <p><code>BQModule</code> interface contains single <code>void configure(Binder binder)</code> method. It can be used to configure simple bindings as mentioned above. Also, it’s useful for extending other Bootique modules. More options discussed in a separate <a href="#_binder">Binder</a> section.</p> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_custom_factory_methods">3.2. Custom factory methods</h3> 
+   <div class="paragraph"> 
+    <p>For greater control, you can use custom factory methods to create and configure services. Any module method annotated with <code>@io.bootique.di.Provides</code> annotation and returning single object will be treated as a factory method. All arguments of such method will be automatically injected, no <code>@Inject</code> annotation is required.</p> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Here is an example of such methods.</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">class MyModule implements BQModule {
+    public void configure(Binder binder) {
+    }
+
+    @Provides
+    Service createService() {
+        return new MyService("service");
+    }
+
+    @Provides
+    Worker createWorker(Service service) {
+        return new MyWorker(service);
+    }
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="admonitionblock note"> 
+    <table> 
+     <tbody>
+      <tr> 
+       <td class="icon"> <i class="fa fa-info-circle fa-2x" title="Note"></i> </td> 
+       <td class="content"> If you don’t need to provide anything in a <code>configure()</code> method, you can use <code>io.bootique.di.BaseBQModule</code> as a base class and omit it completely. </td> 
+      </tr> 
+     </tbody>
+    </table> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_binder">4. Binder</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>Binder provides the API for the module to bind its services to the DI container. Every binding is defined by its key. In a simple case, binding key based on just a java class.</p> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_service_binding">4.1. Service binding</h3> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(Service.class).to(MyService.class)</code></pre> 
+    </div> 
+   </div> 
+   <div class="admonitionblock note"> 
+    <table> 
+     <tbody>
+      <tr> 
+       <td class="icon"> <i class="fa fa-info-circle fa-2x" title="Note"></i> </td> 
+       <td class="content"> using interface is optional, you can directly bind implementation: <code>binder.bind(MyService.class);</code> </td> 
+      </tr> 
+     </tbody>
+    </table> 
+   </div> 
+   <div class="paragraph"> 
+    <p>In this case, <code>MyService</code> will be created by the container. As an alternative, you can provide a manually initialized instance of the <code>MyService</code>.</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(Service.class).toInstance(new MyService())</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Or you can use a custom factory for that:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(Service.class).toProvider(MyServiceProvider.class)</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Note that <code>MyServiceProvider</code> can use injection like any other service managed by the DI container:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">class MyServiceProvider implements Provider&lt;Service&gt; {
+
+    private SomeOtherService otherService;
+
+    @Inject
+    public MyServiceProvider(SomeOtherService otherService) {
+        this.otherService = otherService;
+    }
+
+    @Override
+    public Service get() {
+        return new MyService(otherService.getSomething());
+    }
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Moreover, <code>MyServiceProvider</code> can be configured as a binding itself:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(Service.class).toProvider(MyServiceProvider.class)
+binder.bind(MyServiceProvider.class).to(MyServiceProviderImpl.class)</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>The final option of how you can bind service is via a concrete <code>Provider</code> implementation:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(Service.class).toProviderInstance(new MyServiceProvider())</code></pre> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_qualifiers">4.2. Qualifiers</h3> 
+   <div class="paragraph"> 
+    <p>Sometimes, it’s required to provide several variants of the same service. In that case, you need to distinguish them at the injection point. For that you can use qualifiers. A simple qualifier is a service name:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(Service.class, "internal").to(MyInternalService.class)
+binder.bind(Service.class, "public").to(MyPublicService.class)</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>To inject this service you need to use <code>javax.inject.Named</code> annotation at the injection point:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">class MyWorker {
+    @Inject
+    public MyWorker(@Named("public") Service service) {
+    }
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Additionally, you can use custom annotation to achieve this:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">@Target({ ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD })
+@Retention(RetentionPolicy.RUNTIME)
+@Qualifier
+public @interface Marker {
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">//...
+binder.bind(String.class, Marker.class).toInstance("My string")</code></pre> 
+    </div> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">class MyWorker {
+    @Inject
+    public MyWorker(@Marker String arg) {
+    }
+}</code></pre> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_generics">4.3. Generics</h3> 
+   <div class="paragraph"> 
+    <p>Due to generics implementation in Java, you can’t directly use something like <code>Service&lt;String&gt;.class</code> to bind generic classes. For these cases, Bootique DI provides helper class <code>TypeLiteral</code>.</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">binder.bind(Key.get(new TypeLiteral&lt;Service&lt;String&gt;&gt;(){})).to(MyStringService.class);
+binder.bind(Key.get(new TypeLiteral&lt;Service&lt;Integer&gt;&gt;(){})).to(MyIntegerService.class);</code></pre> 
+    </div> 
+   </div> 
+   <div class="admonitionblock note"> 
+    <table> 
+     <tbody>
+      <tr> 
+       <td class="icon"> <i class="fa fa-info-circle fa-2x" title="Note"></i> </td> 
+       <td class="content"> you don’t need additional qualifiers to inject different versions of the generic class. </td> 
+      </tr> 
+     </tbody>
+    </table> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_collections">4.4. Collections</h3> 
+   <div class="paragraph"> 
+    <p>Collections can be injected like any other generic class mentioned above. However, there is advanced support for <code>Set</code> and <code>Map</code> injection offered by Binder API.</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">class MyModule implements BQModule {
+
+    @Override
+    public void configure(Binder binder) {
+        binder.bindSet(Service.class)
+                .add(DefaultService.class)
+                .add(Key.get(Service.class, "internal"))
+                .addProvider(ServiceProvider.class);
+    }
+
+    @Provides
+    @Singleton
+    @Named("internal")
+    Service createInternalService() {
+        return new InternalService();
+    }
+
+    @Provides
+    @Singleton
+    Worker createWorker(Set&lt;Service&gt; services) {
+        return new MyWorker(services);
+    }
+}</code></pre> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_optional_binding">4.5. Optional binding</h3> 
+   <div class="paragraph"> 
+    <p>In normal cases, Bootique DI will throw an exception if injected service is missing. If you want to make some service optional you can create an optional binding for it.</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">class MyModule implements BQModule {
+
+    @Override
+    public void configure(Binder binder) {
+        binder.bindOptional(Service.class);
+    }
+
+    @Provides
+    Worker createWorker(Optional&lt;Service&gt; service) {
+        return new MyWorker(service.orElse(new DefaultService()));
+    }
+}</code></pre> 
+    </div> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_injector">5. Injector</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p><code>Injector</code> is an entry point for all DI-managed objects. Injector allows getting configured services directly or via a lazy provider. You can get services by their binding keys.</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-java java" data-lang="java">Injector injector = ...;
+
+// get directly by the class
+Worker worker = injector.getInstance(Worker.class);
+
+// get by the key
+Key&lt;Service&lt;Integer&gt;&gt; serviceKey = Key.get(new TypeLiteral&lt;Service&lt;Integer&gt;&gt;(){});
+Provider&lt;Service&lt;Integer&gt;&gt; serviceProvider = injector.getProvider(serviceKey);</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Also, the <code>Injector</code> API contains some useful methods for container retrospection.</p> 
+  </div> 
+  <div class="ulist"> 
+   <ul> 
+    <li> <p><code>injector.hasProvider()</code> method allows checking presence of the binding.</p> </li> 
+    <li> <p><code>injector.getKeysByType()</code> method returns collection of key bound to given type, regardless of additional qualifiers.</p> </li> 
+   </ul> 
+  </div> 
+ </div> 
+</div>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+    <div id="footer-copy" class="container  d-flex flex-column align-items-center flex-lg-row flex-wrap justify-content-between  py-5 py-md-7">
+    <ul class="list-inline nav-double  order-lg-3  mb-0">
+        <li class="list-inline-item  mr-3 mr-lg-5">
+            <a href="/docs/" class="text-uppercase">Documentation</a>
+        </li>
+        <li class="list-inline-item  mr-3 mr-lg-5">
+            <a href="https://blog.bootique.io/" class="text-uppercase">Blog</a>
+        </li>
+        <li class="list-inline-item"><a href="/cla/" class="text-uppercase">CLA</a></li>
+    </ul>
+    <ul class="list-inline social-icons  order-lg-2  my-3 my-md-4 my-lg-0">
+        <li class="list-inline-item  mr-4_5">
+            <a href="https://github.com/bootique/bootique">
+                <i class="fab fa-github"></i>
+            </a>
+        </li>
+        <li class="list-inline-item  mr-4_5">
+            <a href="https://twitter.com/BootiqueProject">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+        <li class="list-inline-item">
+            <a href="https://blog.bootique.io/">
+                <i class="fab fa-medium-m"></i>
+            </a>
+        </li>
+    </ul>
+    <p class="order-lg-1  mb-0">&copy; <span class="current-year">2021</span> ObjectStyle LLC and individual authors</p>
+</div>
+
+</footer>
+
+
+<script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+  function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+  e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+  e.src='https://www.google-analytics.com/analytics.js';
+  r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-74603008-1');ga('send','pageview');
+</script>
+
+
+
+<script>
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+
+twq('init','nwf2s');
+twq('track','PageView');
+</script>
+
+
+</body>
+</html>
+

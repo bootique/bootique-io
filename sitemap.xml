@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://bootique.io/</loc>
+    <lastmod>2019-11-16T12:02:04+03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/</loc>
+    <lastmod>2019-11-16T12:02:04+03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/1.x/</loc>
+    <lastmod>2019-11-16T12:02:04+03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/2.x/</loc>
+    <lastmod>2019-11-16T12:02:04+03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/page/</loc>
+    <lastmod>2019-11-16T12:02:04+03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/cla/</loc>
+    <lastmod>2016-09-16T21:02:04+03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/2.x/bootique-logback-docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/1.x/bootique-docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/2.x/bootique-docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/2.x/bootique-di-docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/2.x/migrate-from-guice/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/1.x/bootique-logback-docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/1.x/bootique-jdbc-docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/2.x/bootique-jdbc-docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/1.x/bootique-jetty-docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/2.x/bootique-jetty-docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/1.x/bootique-kotlin-docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/2.x/bootique-kotlin-docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/2.x/bootique-tool-docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/1.x/getting-started/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/2.x/getting-started/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/tags/</loc>
+  </url>
+  
+</urlset>

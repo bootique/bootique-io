@@ -1,0 +1,34 @@
+= Schema for Standard Bootique Modules
+
+https://json-schema.org/[JSON Schema Specification]
+
+IDEA issues: https://youtrack.jetbrains.com/issue/IDEA-180672[IDEA-180672]
+
+== Modules
+
+* [*] bootique
+* [ ] bootique-agrest
+* [*] bootique-aws
+* [*] bootique-cayenne
+* [*] bootique-curator
+* [*] bootique-cxf
+* [*] bootique-flyway
+* [*] bootique-jcache
+* [*] bootique-jdbc
+* [*] bootique-jersey
+* [*] bootique-jersey-client
+* [ ] bootique-jetty
+* [ ] bootique-job
+* [ ] bootique-jooq
+* [ ] bootique-kafka-client
+* [ ] bootique-kotlin
+* [ ] bootique-linkmove
+* [ ] bootique-liquibase
+* [ ] bootique-logback
+* [ ] bootique-metrics
+* [ ] bootique-mvc
+* [ ] bootique-rabbitmq-client
+* [ ] bootique-shiro
+* [ ] bootique-swagger
+* [ ] bootique-tapestry
+* [*] bootique-undertow
