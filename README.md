@@ -1,16 +1,17 @@
-[![Build Status](https://travis-ci.org/bootique/bootique-io.svg)](https://travis-ci.org/bootique/bootique-io)
+[![deploy site](https://github.com/bootique/bootique-io/workflows/deploy%20site/badge.svg)](https://github.com/bootique/bootique-io/actions)
 # Bootique.io Site
 
-Manages contents of [bootique.io](https://bootique.io/). This includes site pages assembly, docs aggregation from external Bootique modules and publishing everything to the website. For docs assembly relies on custom Asciidoc engine from [here](https://github.com/bootique/bootique-docs).
+Manages content of [bootique.io](https://bootique.io/). This includes site pages assembly, 
+docs aggregation from external Bootique modules and publishing everything to the website.
 
 ## How to Build Locally
 
 1. Setup env: Node.js (Yarn), Java, Hugo;
-1. Run Node.js to generate JS/CSS;
-1. Run Java to generate documentation for set of projects;
+1. Run Node.js to generate JS/CSS (see [app](./app) directory);
+1. Run Node.js to generate documentation and other external content for the site (see [scripts](./scripts) directory);
 1. Run Hugo to assemble all parts of website.
 
-Also see [.travis.yml](./.travis.yml) for environment setup and build command details.
+Also see [site.yml](./.github/workflows/site.yml) workflow for environment setup and build command details.
 
 ## Important files / directories:
 
@@ -20,8 +21,10 @@ Also see [.travis.yml](./.travis.yml) for environment setup and build command de
 
 ## Publishing via CI/CD
 
-To publish your changes to the website, commit them to the `master` branch and push to GitHub. Travis will pick them up, buid and publish to the live site in just a few minutes. Additionally documentation changes coming from other Bootique modules are published via a Travis cron job scheduled at 5:36 UTC.
+To publish your changes to the website, commit them to the `master` branch and push to GitHub. 
+GitHub Actions will pick them up, build and publish to the live site in just a few minutes. 
+Additionally, documentation changes coming from other Bootique modules are published via a cron job scheduled at 4:15 UTC.
 
-See [.travis.yml](./.travis.yml) for more details. 
+See [site.yml](./.github/workflows/site.yml) workflow for more details. 
 
 
