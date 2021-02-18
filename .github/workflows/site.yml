@@ -40,12 +40,11 @@ jobs:
         shell: bash
 
       - name: Yarn build scripts...
-        run: cd ../scripts && yarn run build
+        run: cd ./scripts && yarn run build
         shell: bash
 
       - name: Run Hugo...
-        run: cd ../ && hugo
-        shell: bash
+        run: hugo
 
 #      - name: Deploy...
 #        uses: peaceiris/actions-gh-pages@v3
