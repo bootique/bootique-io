@@ -40,7 +40,7 @@ jobs:
         shell: bash
 
       - name: Yarn build scripts...
-        run: ../scripts && yarn run build
+        run: cd ../scripts && yarn run build
         shell: bash
 
       - name: Run Hugo...
