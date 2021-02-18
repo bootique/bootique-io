@@ -33,6 +33,13 @@ jobs:
         with:
           node-version: '12'
 
+      - name: Retrieve mvn repo cache...
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}-build-v1
+          restore-keys: ${{ runner.os }}-maven
+
       # Build site
 
       - name: Yarn build app...
@@ -42,6 +49,8 @@ jobs:
       - name: Yarn build scripts...
         run: cd ./scripts && yarn run build
         shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Hugo...
         run: hugo
