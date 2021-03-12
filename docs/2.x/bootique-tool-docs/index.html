@@ -117,8 +117,8 @@
   <li><a href="#_installation" class="nav-link">2. Installation</a> 
    <ul class="sectlevel2 nav"> 
     <li><a href="#_macos" class="nav-link">2.1. MacOS</a></li> 
-    <li><a href="#_linux" class="nav-link">2.2. Linux</a></li> 
-    <li><a href="#_windows" class="nav-link">2.3. Windows</a></li> 
+    <li><a href="#_windows" class="nav-link">2.2. Windows</a></li> 
+    <li><a href="#_linux" class="nav-link">2.3. Linux</a></li> 
    </ul> </li> 
   <li><a href="#_usage" class="nav-link">3. Usage</a> 
    <ul class="sectlevel2 nav"> 
@@ -159,56 +159,7 @@
    </div> 
   </div> 
   <div class="sect2"> 
-   <h3 id="_linux">2.2. Linux</h3> 
-   <div class="sect3"> 
-    <h4 id="_centos">2.2.1. CentOS</h4> 
-    <div class="paragraph"> 
-     <p>To install <code>bq</code> on CentOS you need to</p> 
-    </div> 
-    <div class="ulist"> 
-     <ul> 
-      <li> <p>add bintray repo to your yum sources:</p> 
-       <div class="listingblock"> 
-        <div class="content"> 
-         <pre class="highlight"><code class="language-shell shell" data-lang="shell">wget https://bintray.com/bootique/bq-rpm/rpm -O bintray-bootique-bq-rpm.repo
-sudo mv bintray-bootique-bq-rpm.repo /etc/yum.repos.d/</code></pre> 
-        </div> 
-       </div> </li> 
-      <li> <p>run:</p> 
-       <div class="listingblock"> 
-        <div class="content"> 
-         <pre class="highlight"><code class="language-bash bash" data-lang="bash">yum install bq</code></pre> 
-        </div> 
-       </div> </li> 
-     </ul> 
-    </div> 
-   </div> 
-   <div class="sect3"> 
-    <h4 id="_ubuntu">2.2.2. Ubuntu</h4> 
-    <div class="paragraph"> 
-     <p>Installation process is similar to CentOS.</p> 
-    </div> 
-    <div class="ulist"> 
-     <ul> 
-      <li> <p>Add bintray repo to apt sources:</p> 
-       <div class="listingblock"> 
-        <div class="content"> 
-         <pre class="highlight"><code class="language-bash bash" data-lang="bash">echo "deb [trusted=yes] https://dl.bintray.com/bootique/bq-deb vivid main" | sudo tee -a /etc/apt/sources.list</code></pre> 
-        </div> 
-       </div> </li> 
-      <li> <p>Install:</p> 
-       <div class="listingblock"> 
-        <div class="content"> 
-         <pre class="highlight"><code class="language-bash bash" data-lang="bash">apt-get update
-apt-get install bq</code></pre> 
-        </div> 
-       </div> </li> 
-     </ul> 
-    </div> 
-   </div> 
-  </div> 
-  <div class="sect2"> 
-   <h3 id="_windows">2.3. Windows</h3> 
+   <h3 id="_windows">2.2. Windows</h3> 
    <div class="paragraph"> 
     <p>Windows binary is distributed with <a href="https://chocolatey.org">Chocolatey</a> package manager. Use following command to install <code>bq.portable</code> package:</p> 
    </div> 
@@ -223,6 +174,50 @@ apt-get install bq</code></pre>
    <div class="listingblock"> 
     <div class="content"> 
      <pre class="highlight"><code class="language-bash bash" data-lang="bash">choco upgrade bq.portable</code></pre> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_linux">2.3. Linux</h3> 
+   <div class="sect3"> 
+    <h4 id="_ubuntu">2.3.1. Ubuntu</h4> 
+    <div class="ulist"> 
+     <ul> 
+      <li> <p>Download the latest release from the GitHub:</p> 
+       <div class="listingblock"> 
+        <div class="content"> 
+         <pre class="highlight"><code class="language-bash bash" data-lang="bash">wget https://github.com/bootique/bootique-tool/releases/download/v0.100/bq-0.100.deb</code></pre> 
+        </div> 
+       </div> </li> 
+      <li> <p>Install:</p> 
+       <div class="listingblock"> 
+        <div class="content"> 
+         <pre class="highlight"><code class="language-bash bash" data-lang="bash">sudo apt install ./bq-0.100.deb</code></pre> 
+        </div> 
+       </div> </li> 
+     </ul> 
+    </div> 
+   </div> 
+   <div class="sect3"> 
+    <h4 id="_centos">2.3.2. CentOS</h4> 
+    <div class="paragraph"> 
+     <p>To install <code>bq</code> on CentOS you need to</p> 
+    </div> 
+    <div class="ulist"> 
+     <ul> 
+      <li> <p>Download the latest release from the GitHub:</p> 
+       <div class="listingblock"> 
+        <div class="content"> 
+         <pre class="highlight"><code class="language-bash bash" data-lang="bash">wget https://github.com/bootique/bootique-tool/releases/download/v0.100/bq-0.100.x86_64.rpm</code></pre> 
+        </div> 
+       </div> </li> 
+      <li> <p>Install:</p> 
+       <div class="listingblock"> 
+        <div class="content"> 
+         <pre class="highlight"><code class="language-bash bash" data-lang="bash">sudo yum install bq-0.100.x86_64.rpm</code></pre> 
+        </div> 
+       </div> </li> 
+     </ul> 
     </div> 
    </div> 
   </div> 
