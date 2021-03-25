@@ -429,6 +429,7 @@ button,
   .rounded-circle {
     display: flex;
     justify-content: center;
+    align-items: center;
     @include equal-width-height(4rem);
     background: rgba(#fff, .95);
     margin-bottom: map-get($spacers, 3); // 1rem
