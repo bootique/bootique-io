@@ -1210,14 +1210,31 @@ BQCoreModule.extend(binder)
     <div class="paragraph"> 
      <p>For better control over logging a standard module called <code>bootique-logback</code> is available, that integrates <a href="http://logback.qos.ch/">Logback framework</a> in the app. It seamlessly bridges SLF4J (so you keep using SLF4J in the code), and allows to configure logging via YAML config file, including appenders (file, console, etc.) and per class/package log levels. Just like any other module, <code>bootique-logback</code> can be enabled by simply adding it to the pom.xml dependencies, assuming <code>autoLoadModules()</code> is in effect:</p> 
     </div> 
-    <div class="listingblock"> 
+    <details open> 
+     <summary class="title">Maven</summary> 
      <div class="content"> 
-      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+      <div class="listingblock"> 
+       <div class="content"> 
+        <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.logback&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-logback&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre> 
+       </div> 
+      </div> 
      </div> 
-    </div> 
+    </details> 
+    <details> 
+     <summary class="title">Gradle</summary> 
+     <div class="content"> 
+      <div class="listingblock"> 
+       <div class="content"> 
+        <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
+  implementation: 'io.bootique.logback:bootique-logback'
+}</code></pre> 
+       </div> 
+      </div> 
+     </div> 
+    </details> 
     <div class="paragraph"> 
      <p>See <code>bootique-logback</code> module <a href="http://bootique.io/docs/0/bootique-logback-docs/">documentation</a> for further details.</p> 
     </div> 
@@ -1267,15 +1284,32 @@ BQCoreModule.extend(binder)
    <div class="paragraph"> 
     <p>To start using Bootique test extensions, import the following module in the "test" scope:</p> 
    </div> 
-   <div class="listingblock"> 
+   <details open> 
+    <summary class="title">Maven</summary> 
     <div class="content"> 
-     <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-junit5&lt;/artifactId&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre> 
+      </div> 
+     </div> 
     </div> 
-   </div> 
+   </details> 
+   <details> 
+    <summary class="title">Gradle</summary> 
+    <div class="content"> 
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
+  testImplementation: 'io.bootique:bootique-junit5'
+}</code></pre> 
+      </div> 
+     </div> 
+    </div> 
+   </details> 
    <div class="paragraph"> 
     <p>Each test class using Bootique extensions must be annotated with <code>@BQTest</code>:</p> 
    </div> 

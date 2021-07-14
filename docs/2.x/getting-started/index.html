@@ -130,9 +130,12 @@
   <div class="paragraph"> 
    <p>The goal of this chapter is to write a simple REST app using Bootique. Let’s start with a new Java Maven project created in your favorite IDE. Your <code>pom.xml</code> in addition to the required project information tags will need to declare a few BOM ("Bill of Material") imports in the <code>&lt;dependencyManagement/&gt;</code> section:</p> 
   </div> 
-  <div class="listingblock"> 
+  <details open> 
+   <summary class="title">Maven</summary> 
    <div class="content"> 
-    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependencyManagement&gt;
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependencyManagement&gt;
   &lt;dependencies&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;io.bootique.bom&lt;/groupId&gt;
@@ -143,14 +146,31 @@
     &lt;/dependency&gt;
   &lt;/dependencies&gt;
 &lt;/dependencyManagement&gt;</code></pre> 
+     </div> 
+    </div> 
    </div> 
-  </div> 
+  </details> 
+  <details> 
+   <summary class="title">Gradle</summary> 
+   <div class="content"> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">dependencies {
+    implementation platform("io.bootique.bom:bootique-bom:$bootique_version")
+}</code></pre> 
+     </div> 
+    </div> 
+   </div> 
+  </details> 
   <div class="paragraph"> 
    <p>This will allow <code>&lt;dependencies/&gt;</code> section that will follow shortly to include various Bootique modules and not worry about their individual versions. So let’s create this section and import a few modules:</p> 
   </div> 
-  <div class="listingblock"> 
+  <details open> 
+   <summary class="title">Maven</summary> 
    <div class="content"> 
-    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependencies&gt;
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependencies&gt;
   &lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jersey&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-jersey&lt;/artifactId&gt;
@@ -162,8 +182,23 @@
     &lt;scope&gt;compile&lt;/scope&gt;
   &lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre> 
+     </div> 
+    </div> 
    </div> 
-  </div> 
+  </details> 
+  <details> 
+   <summary class="title">Gradle</summary> 
+   <div class="content"> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">dependencies {
+    implementation 'io.bootique.jersey:bootique-jersey'
+    implementation 'io.bootique.logback:bootique-logback'
+}</code></pre> 
+     </div> 
+    </div> 
+   </div> 
+  </details> 
   <div class="paragraph"> 
    <p>As you see we want a <code>bootique-jersey</code> and <code>bootique-logback</code> modules in our app. Those may depend on other modules, but we don’t have to think about it. Those dependencies will be included by Maven automatically. Now let’s create the main Java class that will run the app:</p> 
   </div> 

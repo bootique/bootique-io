@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <title>Bootique: Minimally Opinionated Framework for Runnable Java</title>
-  <meta name="description" content="">
-<meta name="keywords" content="">
+  <meta name="description" content="Bootique Logback Module Documentation">
+<meta name="keywords" content="bootique, logback, slf4j, sentry">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
@@ -92,7 +92,7 @@
 <div class="documentation-page container content docbook">
   <div class="container">
     <h1>
-      
+      Bootique Integration with Logback
     </h1>
     <div class="dropdown doc-version">
   <a class="dropdown-toggle" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-24,4">
@@ -136,7 +136,11 @@
 
       <div class="col-12 col-lg-8 col-xl-9  py-3 pl-lg-5">
         <article>
-          null<div class="sect1"> 
+          
+
+
+
+<div class="sect1"> 
  <h2 id="_bootique_integration_with_logback">1. Bootique Integration with Logback</h2> 
  <div class="sectionbody"> 
   <div class="paragraph"> 
@@ -145,14 +149,31 @@
   <div class="paragraph"> 
    <p><a href="https://github.com/bootique/bootique-logback"><code>bootique-logback</code></a> is a "drag-and-drop" module integrating Bootique logging with <a href="http://logback.qos.ch/">Logback logging framework</a>. Just like any other module, <code>bootique-logback</code> can be enabled by simply adding it to the <code>pom.xml</code> dependencies, assuming <code>autoLoadModules()</code> is in effect:</p> 
   </div> 
-  <div class="listingblock"> 
+  <details open> 
+   <summary class="title">Maven</summary> 
    <div class="content"> 
-    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.logback&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-logback&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre> 
+     </div> 
+    </div> 
    </div> 
-  </div> 
+  </details> 
+  <details> 
+   <summary class="title">Gradle</summary> 
+   <div class="content"> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
+  implementation: 'io.bootique.logback:bootique-logback'
+}</code></pre> 
+     </div> 
+    </div> 
+   </div> 
+  </details> 
   <div class="paragraph"> 
    <p>Without further configuration it would log everything to console using INFO level. Configuration can be provided via YAML, as shown in the <a href="#_configuration_reference">Configuration Reference</a> section. Configuration options include per class and package log levels configuration, a choice of appenders, etc.</p> 
   </div> 
@@ -694,25 +715,31 @@ static final BQRuntime app = Bootique.app()
   </div> 
   <div class="sect2"> 
    <h3 id="_add_bootique_logback_sentry_to_your_build_tool">4.2. Add bootique-logback-sentry to your build tool:</h3> 
-   <div class="paragraph"> 
-    <p><strong>Maven</strong></p> 
-   </div> 
-   <div class="listingblock"> 
+   <details open> 
+    <summary class="title">Maven</summary> 
     <div class="content"> 
-     <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.logback&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-logback-sentry&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre> 
+      </div> 
+     </div> 
     </div> 
-   </div> 
-   <div class="paragraph"> 
-    <p><strong>Gradle</strong></p> 
-   </div> 
-   <div class="listingblock"> 
+   </details> 
+   <details> 
+    <summary class="title">Gradle</summary> 
     <div class="content"> 
-     <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">compile("io.bootique.logback:bootique-logback-sentry:3.0-SNAPSHOT")</code></pre> 
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">dependencies {
+    implementation "io.bootique.logback:bootique-logback-sentry"
+}</code></pre> 
+      </div> 
+     </div> 
     </div> 
-   </div> 
+   </details> 
    <div class="admonitionblock note"> 
     <table> 
      <tbody>

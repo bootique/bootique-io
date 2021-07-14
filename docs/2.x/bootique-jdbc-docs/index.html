@@ -160,24 +160,50 @@
   <div class="paragraph"> 
    <p>Import one of these Bootique modules in your app, depending on your connection pool choice:</p> 
   </div> 
-  <div class="listingblock"> 
+  <details open> 
+   <summary class="title">Maven</summary> 
    <div class="content"> 
-    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For Tomcat DataSource --&gt;
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For Tomcat DataSource --&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-jdbc-tomcat&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre> 
-   </div> 
-  </div> 
-  <div class="listingblock"> 
-   <div class="content"> 
-    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For HikariCP --&gt;
+     </div> 
+    </div> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For HikariCP --&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-jdbc-hikaricp&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre> 
+     </div> 
+    </div> 
    </div> 
-  </div> 
+  </details> 
+  <details> 
+   <summary class="title">Gradle</summary> 
+   <div class="content"> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">// For Tomcat DataSource
+{
+  implementation: 'io.bootique.jdbc:bootique-jdbc-tomcat'
+}</code></pre> 
+     </div> 
+    </div> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">// For HikariCP
+{
+  implementation: 'io.bootique.jdbc:bootique-jdbc-hikaricp'
+}</code></pre> 
+     </div> 
+    </div> 
+   </div> 
+  </details> 
   <div class="paragraph"> 
    <p>Alternatively you may include an <a href="#jdbc-merics-and-healthchecks">"instrumented" version</a> of each module, that will enable a number of metrics for your running app.</p> 
   </div> 
@@ -226,24 +252,50 @@ try (Connection connection = dataSource.getConnection()) {
   <div class="paragraph"> 
    <p>You may use the "instrumented" version of one of the <code>bootique-jdbc-*</code> connection pools, that will expose a number of metrics and health checks:</p> 
   </div> 
-  <div class="listingblock"> 
+  <details open> 
+   <summary class="title">Maven</summary> 
    <div class="content"> 
-    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For Tomcat DataSource --&gt;
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For Tomcat DataSource --&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-jdbc-tomcat-instrumented&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre> 
-   </div> 
-  </div> 
-  <div class="listingblock"> 
-   <div class="content"> 
-    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For HikariCP --&gt;
+     </div> 
+    </div> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For HikariCP --&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-jdbc-hikaricp-instrumented&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre> 
+     </div> 
+    </div> 
    </div> 
-  </div> 
+  </details> 
+  <details> 
+   <summary class="title">Gradle</summary> 
+   <div class="content"> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">// For Tomcat DataSource
+{
+  implementation: 'io.bootique.jdbc:bootique-jdbc-tomcat-instrumented'
+}</code></pre> 
+     </div> 
+    </div> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">// For HikariCP
+{
+  implementation: 'io.bootique.jdbc:bootique-jdbc-hikaricp-instrumented'
+}</code></pre> 
+     </div> 
+    </div> 
+   </div> 
+  </details> 
  </div> 
 </div> 
 <div class="sect1"> 
@@ -270,15 +322,32 @@ try (Connection connection = dataSource.getConnection()) {
    <div class="paragraph"> 
     <p>Testing with an in-memory DB has the advantage of speed, and a disadvantage of being only an approximation of the production DB. If you decide to go this way, start by including the following dependency:</p> 
    </div> 
-   <div class="listingblock"> 
+   <details open> 
+    <summary class="title">Maven</summary> 
     <div class="content"> 
-     <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-jdbc-junit5-derby&lt;/artifactId&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre> 
+      </div> 
+     </div> 
     </div> 
-   </div> 
+   </details> 
+   <details> 
+    <summary class="title">Gradle</summary> 
+    <div class="content"> 
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
+  testImplementation: 'io.bootique.jdbc:bootique-jdbc-junit5-derby'
+}</code></pre> 
+      </div> 
+     </div> 
+    </div> 
+   </details> 
    <div class="paragraph"> 
     <p>Then create a <code>DbTester</code> in a desired scope:</p> 
    </div> 
@@ -312,9 +381,12 @@ public class DerbyTest {
    <div class="paragraph"> 
     <p>If you need a real database environment that is as close as possible to your production, you need to include a different dependency plus a few third-party libraries:</p> 
    </div> 
-   <div class="listingblock"> 
+   <details open> 
+    <summary class="title">Maven</summary> 
     <div class="content"> 
-     <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-jdbc-junit5-testcontainers&lt;/artifactId&gt;
     &lt;scope&gt;test&lt;/scope&gt;
@@ -333,8 +405,24 @@ public class DerbyTest {
     &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre> 
+      </div> 
+     </div> 
     </div> 
-   </div> 
+   </details> 
+   <details> 
+    <summary class="title">Gradle</summary> 
+    <div class="content"> 
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
+   testImplementation: 'io.bootique.jdbc:bootique-jdbc-junit5-testcontainers'
+   testImplementation: 'org.testcontainers:mysql'
+   testImplementation: 'mysql:mysql-connector-java'
+}</code></pre> 
+      </div> 
+     </div> 
+    </div> 
+   </details> 
    <div class="paragraph"> 
     <p>Now you can create a <code>DbTester</code> using <code>TcDbTester</code>:</p> 
    </div> 

@@ -33,10 +33,6 @@
   </url>
   
   <url>
-    <loc>https://bootique.io/docs/2.x/bootique-logback-docs/</loc>
-  </url>
-  
-  <url>
     <loc>https://bootique.io/docs/1.x/bootique-docs/</loc>
   </url>
   
@@ -54,6 +50,10 @@
   
   <url>
     <loc>https://bootique.io/docs/1.x/bootique-logback-docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/2.x/bootique-logback-docs/</loc>
   </url>
   
   <url>
