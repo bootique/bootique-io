@@ -3,8 +3,8 @@ DefaultVersionUrl: "2.x"
 ByUrl:
   "1.x": &v1x
     URL: "1.x"
-    Name: "1.2 (stable)"
-    ShortName: "1.2"
+    Name: "1.3 (stable)"
+    ShortName: "1.3"
 
   "2.x": &v2x
     URL: "2.x"
