@@ -8,7 +8,7 @@ ByUrl:
 
   "2.x": &v2x
     URL: "2.x"
-    Name: "2.0 (beta)"
+    Name: "2.0 (release candidate)"
     ShortName: "2.0"
 
 ByName:
