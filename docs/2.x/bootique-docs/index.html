@@ -1549,41 +1549,51 @@ public void testAutoLoadable() {
    </div> 
    <div class="listingblock"> 
     <div class="content"> 
-     <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;plugin&gt;
-    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-    &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
-    &lt;version&gt;3.2.1&lt;/version&gt;
-
-    &lt;configuration&gt;
-        &lt;createDependencyReducedPom&gt;true&lt;/createDependencyReducedPom&gt;
-        &lt;filters&gt;
-            &lt;filter&gt;
-                &lt;artifact&gt;*:*&lt;/artifact&gt;
-                &lt;excludes&gt;
-                    &lt;exclude&gt;META-INF/*.SF&lt;/exclude&gt;
-                    &lt;exclude&gt;META-INF/*.DSA&lt;/exclude&gt;
-                    &lt;exclude&gt;META-INF/*.RSA&lt;/exclude&gt;
-                &lt;/excludes&gt;
-            &lt;/filter&gt;
-        &lt;/filters&gt;
-    &lt;/configuration&gt;
-    &lt;executions&gt;
-        &lt;execution&gt;
-            &lt;phase&gt;package&lt;/phase&gt;
-            &lt;goals&gt;
-                &lt;goal&gt;shade&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-                &lt;transformers&gt;
-                    &lt;transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" /&gt;
-                    &lt;transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"&gt;
-                        &lt;mainClass&gt;${main.class}&lt;/mainClass&gt;
-                    &lt;/transformer&gt;
-                &lt;/transformers&gt;
-            &lt;/configuration&gt;
-        &lt;/execution&gt;
-    &lt;/executions&gt;
-&lt;/plugin&gt;</code></pre> 
+     <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;build&gt;
+    &lt;pluginManagement&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.2.4&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;createDependencyReducedPom&gt;true&lt;/createDependencyReducedPom&gt;
+                    &lt;filters&gt;
+                        &lt;filter&gt;
+                            &lt;artifact&gt;*:*&lt;/artifact&gt;
+                            &lt;excludes&gt;
+                                &lt;exclude&gt;META-INF/*.SF&lt;/exclude&gt;
+                                &lt;exclude&gt;META-INF/*.DSA&lt;/exclude&gt;
+                                &lt;exclude&gt;META-INF/*.RSA&lt;/exclude&gt;
+                            &lt;/excludes&gt;
+                        &lt;/filter&gt;
+                    &lt;/filters&gt;
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;phase&gt;package&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;shade&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;transformers&gt;
+                                &lt;transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" /&gt;
+                                &lt;transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"&gt;
+                                    &lt;mainClass&gt;${main.class}&lt;/mainClass&gt;
+                                &lt;/transformer&gt;
+                            &lt;/transformers&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;</code></pre> 
     </div> 
    </div> 
    <div class="paragraph"> 

@@ -391,19 +391,59 @@ public class HelloResource {
  <h2 id="_packaging">4. Packaging</h2> 
  <div class="sectionbody"> 
   <div class="paragraph"> 
-   <p>Till now we’ve been running our app from IDE (which also happened to be much easier than running typical container-aware apps). Now let’s package our app as a runnable "fat" jar to be able to run it from command line (e.g. in deployment environment). Assembling "fat" jar requires a bit of configuration of the Maven <code>maven-shade-plugin</code>. To simplify it, you can set a parent of your <code>pom.xml</code> to be a standard Bootique parent:</p> 
+   <p>Till now we’ve been running our app from IDE. Now let’s package it as a runnable "fat" jar to be able to start it from command line (and potentially deploy to a remote server). This requires a bit of configuration of the Maven <code>maven-shade-plugin</code>:</p> 
   </div> 
   <div class="listingblock"> 
    <div class="content"> 
-    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;parent&gt;
-    &lt;groupId&gt;io.bootique.parent&lt;/groupId&gt;
-    &lt;artifactId&gt;bootique-parent&lt;/artifactId&gt;
-    &lt;version&gt;0.14&lt;/version&gt;
-&lt;/parent&gt;</code></pre> 
+    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;build&gt;
+    &lt;pluginManagement&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.2.4&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;createDependencyReducedPom&gt;true&lt;/createDependencyReducedPom&gt;
+                    &lt;filters&gt;
+                        &lt;filter&gt;
+                            &lt;artifact&gt;*:*&lt;/artifact&gt;
+                            &lt;excludes&gt;
+                                &lt;exclude&gt;META-INF/*.SF&lt;/exclude&gt;
+                                &lt;exclude&gt;META-INF/*.DSA&lt;/exclude&gt;
+                                &lt;exclude&gt;META-INF/*.RSA&lt;/exclude&gt;
+                            &lt;/excludes&gt;
+                        &lt;/filter&gt;
+                    &lt;/filters&gt;
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;phase&gt;package&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;shade&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;transformers&gt;
+                                &lt;transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" /&gt;
+                                &lt;transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"&gt;
+                                    &lt;mainClass&gt;${main.class}&lt;/mainClass&gt;
+                                &lt;/transformer&gt;
+                            &lt;/transformers&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;</code></pre> 
    </div> 
   </div> 
   <div class="paragraph"> 
-   <p>Other required <code>pom.xml</code> additions:</p> 
+   <p>Now you should set the name of the main class as property:</p> 
   </div> 
   <div class="listingblock"> 
    <div class="content"> 
@@ -412,20 +452,8 @@ public class HelloResource {
 &lt;/properties&gt;</code></pre> 
    </div> 
   </div> 
-  <div class="listingblock"> 
-   <div class="content"> 
-    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;build&gt;
-    &lt;plugins&gt;
-        &lt;plugin&gt;
-            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-            &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
-        &lt;/plugin&gt;
-    &lt;/plugins&gt;
-&lt;/build&gt;</code></pre> 
-   </div> 
-  </div> 
   <div class="paragraph"> 
-   <p>Once this is setup you can build and run the app:</p> 
+   <p>Once this is done, you can build and run the app:</p> 
   </div> 
   <div class="listingblock"> 
    <div class="content"> 
@@ -436,10 +464,10 @@ java -jar target/myapp-1.0.jar --server --config=myconfig.yml</code></pre>
    </div> 
   </div> 
   <div class="paragraph"> 
-   <p>The result should be the same as running from the IDE, and the app should be still accessible at <a href="http://localhost:10001/hello">http://localhost:10001/hello</a>. Now your jar can be deployed in any environment that has Java 8.</p> 
+   <p>The result should be the same as running from the IDE, and the app should be still accessible at <a href="http://localhost:10001/hello">http://localhost:10001/hello</a>. But now your jar can also be deployed in any Java environment.</p> 
   </div> 
   <div class="paragraph"> 
-   <p>This concludes our simple tutorial. Now you can explore our <a href="http://bootique.io/docs/">documentation</a> to read more about Bootique core and individual modules.</p> 
+   <p>This concludes our simple tutorial. You can further explore our documentation <a href="http://bootique.io/docs/">here</a>.</p> 
   </div> 
  </div> 
 </div>
