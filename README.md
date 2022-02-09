@@ -21,9 +21,12 @@ Also see [site.yml](./.github/workflows/site.yml) workflow for environment setup
 
 ## Publishing via CI/CD
 
-To publish your changes to the website, commit them to the `master` branch and push to GitHub. 
+* To publish your changes to the website, commit them to the `master` branch and push to GitHub. 
 GitHub Actions will pick them up, build and publish to the live site in just a few minutes. 
-Additionally, documentation changes coming from other Bootique modules are published via a cron job scheduled at 4:15 UTC.
+
+* Documentation changes coming from other Bootique modules are published via a cron job scheduled at 4:15 UTC.
+
+* There's a way to manually publish the site via GitHub Actions UI
 
 See [site.yml](./.github/workflows/site.yml) workflow for more details. 
 
