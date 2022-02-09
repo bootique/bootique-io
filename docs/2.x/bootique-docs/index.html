@@ -1540,44 +1540,12 @@ public void testAutoLoadable() {
    <p>This chapter discusses how to package Bootique apps for deployment/distribution and how to run them. We are going to present two approaches that produce cross-platform runnable applications - "<a href="#runnable-jar-with-dependencies">Runnable Jar with Dependencies</a>" and "<a href="#runnable-jar-with-lib">Runnable Jar with "lib" Folder</a>". They only differ in how dependencies are packaged and referenced.</p> 
   </div> 
   <div class="paragraph"> 
-   <p>Ultimately any Bootique app is just a Java app with a <code>main(..)</code> method and hence can be executed using <code>java</code> command. With that understanding you can come up with your own custom packaging strategies.</p> 
+   <p>Ultimately any Bootique app is just a Java app with the <code>main(..)</code> method and hence can be executed using <code>java</code> command. With that understanding you can come up with your own custom packaging strategies.</p> 
   </div> 
   <div class="sect2"> 
    <h3 id="runnable-jar-with-dependencies">4.1. Runnable Jar with Dependencies</h3> 
    <div class="paragraph"> 
-    <p>Under this approach application classes, resources and all classes and resources from dependency jars are packaged in a single "fat" runnable jar. In Maven this can be accomplished with <code>maven-shade-plugin</code>. To simplify plugin configuration, your app <code>pom.xml</code> may inherit from <code>bootique-parent</code> pom. Then configuration would look like this:</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
-     <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;parent&gt;
-    &lt;groupId&gt;io.bootique.parent&lt;/groupId&gt;
-    &lt;artifactId&gt;bootique-parent&lt;/artifactId&gt;
-    &lt;version&gt;0.14&lt;/version&gt;
-&lt;/parent&gt;
-
-...
-&lt;build&gt;
-    &lt;plugins&gt;
-        &lt;plugin&gt;
-            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-            &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
-        &lt;/plugin&gt;
-    &lt;/plugins&gt;
-&lt;/build&gt;</code></pre> 
-    </div> 
-   </div> 
-   <div class="paragraph"> 
-    <p>It will create the app with the framework-provided main class <code>io.bootique.Bootique</code>. You can set Maven <code>main.class</code> property, to use your own main class instead:</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
-     <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;properties&gt;
-    &lt;main.class&gt;com.foo.Application&lt;/main.class&gt;
-&lt;/properties&gt;</code></pre> 
-    </div> 
-   </div> 
-   <div class="paragraph"> 
-    <p>If you don’t want to inherit from the framework pom, you will need to add the following (fairly long) piece of configuration to your <code>pom.xml</code>:</p> 
+    <p>Under this approach application classes, resources and all classes and resources from dependency jars are packaged in a single "fat" runnable jar. In Maven this can be accomplished with <code>maven-shade-plugin</code>:</p> 
    </div> 
    <div class="listingblock"> 
     <div class="content"> 
@@ -1619,7 +1587,17 @@ public void testAutoLoadable() {
     </div> 
    </div> 
    <div class="paragraph"> 
-    <p>Either way, once the pom is configured, you can assemble and run the jar. E.g.:</p> 
+    <p>Make sure you set the <code>main.class</code> property in the POM to the appropriate class value from your application or to <code>io.bootique.Bootique</code>:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;properties&gt;
+    &lt;main.class&gt;com.foo.Application&lt;/main.class&gt;
+&lt;/properties&gt;</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Once the pom is configured, you can assemble and run the jar. E.g.:</p> 
    </div> 
    <div class="listingblock"> 
     <div class="content"> 
