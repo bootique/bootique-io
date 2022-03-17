@@ -1,31 +1,23 @@
 import "highlight.js/styles/a11y-light.css";
-import * as hljs from "highlight.js/lib/highlight.js";
-import * as xml from "highlight.js/lib/languages/xml.js";
-import * as bash from "highlight.js/lib/languages/bash.js";
-import * as markdown from "highlight.js/lib/languages/markdown.js";
-import * as gradle from "highlight.js/lib/languages/gradle.js";
-import * as groovy from "highlight.js/lib/languages/groovy.js";
-import * as java from "highlight.js/lib/languages/java.js";
-import * as javascript from "highlight.js/lib/languages/javascript.js";
-import * as json from "highlight.js/lib/languages/json.js";
-import * as kotlin from "highlight.js/lib/languages/kotlin.js";
-import * as sql from "highlight.js/lib/languages/sql.js";
-import * as yaml from "highlight.js/lib/languages/yaml.js";
+import hljs from "highlight.js/lib/core";
 import * as ClipboardJS from "clipboard/dist/clipboard";
 
 export function applyHighlightJs() {
-  hljs.registerLanguage("xml", xml);
-  hljs.registerLanguage("bash", bash);
-  hljs.registerLanguage("markdown", markdown);
-  hljs.registerLanguage("gradle", gradle);
-  hljs.registerLanguage("groovy", groovy);
-  hljs.registerLanguage("java", java);
-  hljs.registerLanguage("javascript", javascript);
-  hljs.registerLanguage("json", json);
-  hljs.registerLanguage("kotlin", kotlin);
-  hljs.registerLanguage("sql", sql);
-  hljs.registerLanguage("yaml", yaml);
-  hljs.initHighlightingOnLoad();
+  hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml'));
+  hljs.registerLanguage("bash", require('highlight.js/lib/languages/bash'));
+  hljs.registerLanguage("markdown", require('highlight.js/lib/languages/markdown'));
+  hljs.registerLanguage("gradle", require('highlight.js/lib/languages/gradle'));
+  hljs.registerLanguage("groovy", require('highlight.js/lib/languages/groovy'));
+  hljs.registerLanguage("java", require('highlight.js/lib/languages/java'));
+  hljs.registerLanguage("javascript", require('highlight.js/lib/languages/javascript'));
+  hljs.registerLanguage("json", require('highlight.js/lib/languages/json'));
+  hljs.registerLanguage("kotlin", require('highlight.js/lib/languages/kotlin'));
+  hljs.registerLanguage("sql", require('highlight.js/lib/languages/sql'));
+  hljs.registerLanguage("yaml", require('highlight.js/lib/languages/yaml'));
+  hljs.configure({
+    ignoreUnescapedHTML: true
+  });
+  hljs.highlightAll();
 }
 
 export function applyCopyHighlightJs() {

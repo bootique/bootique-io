@@ -1,24 +1,21 @@
 const path = require("path");
 const webpack = require("webpack");
 const sass = require("sass");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const autoprefixer = require("autoprefixer")({
   overrideBrowserslist: ["> 1%", "last 2 versions", "Firefox ESR"],
   remove: false
 });
 
-module.exports = function (options = {}) {
+module.exports = (env, argv) => {
   // Settings
-  // --env.NODE_ENV root --env.SOURCE_MAP source-map ...
-  const NODE_ENV = options.NODE_ENV || "development"; // "production"
-  const SOURCE_MAP = options.SOURCE_MAP || "eval-source-map"; // "source-map"
-
+  // --mode ... --devtool  ...
   console.log(`
 Build started with following configuration:
 ===========================================
-→ NODE_ENV: ${NODE_ENV}
-→ SOURCE_MAP: ${SOURCE_MAP}
+→ mode: ${argv.mode}
+→ devtool: ${argv.devtool}
 `);
 
   const publicPath = "/assets/";
@@ -38,14 +35,13 @@ Build started with following configuration:
     },
     output: {
       path: path.resolve(__dirname, "..", "themes", "bootique-theme", "static", "assets"),
-      filename: "[name].js?[hash]",
+      filename: "[name].js?[contenthash]",
       publicPath
     },
     resolve: {
       extensions: [".ts", ".js"]
     },
     bail: false,
-    devtool: SOURCE_MAP,
     module: {
       rules: [{
         test: /\.ts$/,
@@ -53,116 +49,168 @@ Build started with following configuration:
         loader: "ts-loader"
       }, {
         test: /\.s[ac]ss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: [{
-            loader: "css-loader"
-          }, {
-            loader: "postcss-loader",
-            options: {
-              plugins: function () {
-                return [
-                  autoprefixer
-                ];
-              }
+        use: [
+            argv.mode === 'production' ? "style-loader" : MiniCssExtractPlugin.loader,
+            { loader: "css-loader",
+                options: {
+                    sourceMap: true,
+                }
+            },
+            {
+                loader: "postcss-loader",
+                options: {
+                    postcssOptions: {
+                        plugins: [[function () {
+                                       return [
+                                           autoprefixer
+                                       ];
+                                    }
+                                ],
+                        ],
+                    },
+                    sourceMap: true,
+                },
+            },
+            {
+                loader: "sass-loader",
+                options: {
+                    implementation: sass,
+                    sourceMap: true,
+                }
             }
-          }, {
-            loader: "sass-loader",
-            options: {
-              implementation: sass
-            }
-          }]
-        })
+        ]
       }, {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: [{
-            loader: "css-loader"
-          }, {
-            loader: "postcss-loader",
-            options: {
-              plugins: function () {
-                return [
-                  autoprefixer
-                ];
-              }
-            }
-          }]
-        })
+        use: [
+            argv.mode === 'production' ? "style-loader" : MiniCssExtractPlugin.loader,
+            { loader: "css-loader",
+                options: {
+                    sourceMap: true,
+                },
+            },
+            {
+                loader: "postcss-loader",
+                options: {
+                    postcssOptions: {
+                        plugins: [[function () {
+                                       return [
+                                           autoprefixer
+                                       ];
+                                    },
+                                ],
+                        ],
+                    },
+                    sourceMap: true,
+                },
+            }]
       }, {
         test: /\.(png|jpg|gif)$/,
-        loader: "url-loader",
-        options: {
-          limit,
-          publicPath,
-          name: "/images/[name].[ext]?[hash]"
-        }
+        type: 'asset/resource',
+        dependency: { not: ['url'] },
+        use: [
+            {
+                loader: "url-loader",
+                options: {
+                    limit,
+                    publicPath,
+                    name: "/images/[name].[ext]?[contenthash]"
+                },
+            },
+        ],
       }, {
         test: /\.svg$/,
-        loader: "url-loader",
-        options: {
-          limit,
-          mimetype: "image/svg+xml",
-          publicPath,
-          name: "fonts/[name].[ext]?[hash]"
-        }
+        type: 'asset/resource',
+        dependency: { not: ['url'] },
+        use: [
+            {
+                loader: "url-loader",
+                options: {
+                    limit,
+                    mimetype: "image/svg+xml",
+                    publicPath,
+                    name: "fonts/[name].[ext]?[contenthash]"
+                },
+            },
+        ],
       }, {
         test: /\.woff$/,
-        loader: "url-loader",
-        options: {
-          limit,
-          mimetype: "application/font-woff",
-          publicPath,
-          name: "fonts/[name].[ext]?[hash]"
-        }
+        type: 'asset/resource',
+        dependency: { not: ['url'] },
+        use: [
+            {
+                loader: "url-loader",
+                options: {
+                    limit,
+                    mimetype: "application/font-woff",
+                    publicPath,
+                    name: "fonts/[name].[ext]?[hash]"
+                },
+            },
+        ],
       }, {
         test: /\.woff2$/,
-        loader: "url-loader",
-        options: {
-          limit,
-          mimetype: "application/font-woff2",
-          publicPath,
-          name: "fonts/[name].[ext]?[hash]"
-        }
+        type: 'asset/resource',
+        dependency: { not: ['url'] },
+        use: [
+            {
+                loader: "url-loader",
+                options: {
+                    limit,
+                    mimetype: "application/font-woff2",
+                    publicPath,
+                    name: "fonts/[name].[ext]?[hash]"
+                },
+            },
+        ],
       }, {
         test: /\.[ot]tf$/,
-        loader: "url-loader",
-        options: {
-          limit,
-          mimetype: "application/octet-stream",
-          publicPath,
-          name: "fonts/[name].[ext]?[hash]"
-        }
+        type: 'asset/resource',
+        dependency: { not: ['url'] },
+        use: [
+            {
+                loader: "url-loader",
+                options: {
+                    limit,
+                    mimetype: "application/octet-stream",
+                    publicPath,
+                    name: "fonts/[name].[ext]?[contenthash]"
+                },
+            },
+        ],
       }, {
         test: /\.eot$/,
-        loader: "url-loader",
-        options: {
-          limit,
-          mimetype: "application/vnd.ms-fontobject",
-          publicPath,
-          name: "fonts/[name].[ext]?[hash]"
-        }
+        type: 'asset/resource',
+        dependency: { not: ['url'] },
+        use: [
+            {
+                loader: "url-loader",
+                options: {
+                    limit,
+                    mimetype: "application/vnd.ms-fontobject",
+                    publicPath,
+                    name: "fonts/[name].[ext]?[contenthash]"
+                },
+            },
+        ],
       }]
     },
-    plugins: createListOfPlugins({NODE_ENV})
-  }
+    plugins: [
+        new MiniCssExtractPlugin({
+                   filename: "app.css?[contenthash]",
+                   chunkFilename: "[id].css?[contenthash]",
+                 }),
+        new webpack.ProvidePlugin({
+         $: "jquery",
+         jQuery: "jquery",
+         "window.jQuery": "jquery",
+         Popper: ['popper.js', 'default'],
+         Util: "exports-loader?Util!bootstrap/js/dist/util"
+        }),
+        new HtmlWebpackPlugin({
+         filename: "../../layouts/partials/assets.html",
+         template: "assets.ejs",
+         inject: false
+        })
+        ]
+  };
 };
-
-function createListOfPlugins({NODE_ENV}) {
-  return [
-    new ExtractTextPlugin("app.css?[hash]"),
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-      "window.jQuery": "jquery",
-      Popper: ['popper.js', 'default'],
-      Util: "exports-loader?Util!bootstrap/js/dist/util"
-    }),
-    new HtmlWebpackPlugin({
-      filename: "../../layouts/partials/assets.html",
-      template: "assets.ejs",
-      inject: false
-    })
-  ];
-}
