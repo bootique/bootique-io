@@ -1671,6 +1671,10 @@ java -jar target/myapp-1.0.jar</code></pre>
         &lt;/plugin&gt;
         &lt;plugin&gt;
             &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+            &lt;configuration&gt;
+                &lt;includeScope&gt;runtime&lt;/includeScope&gt;
+                &lt;outputDirectory&gt;${project.build.directory}/lib&lt;/outputDirectory&gt;
+            &lt;/configuration&gt;
             &lt;executions&gt;
                 &lt;execution&gt;
                     &lt;id&gt;assembly&lt;/id&gt;
@@ -1678,15 +1682,8 @@ java -jar target/myapp-1.0.jar</code></pre>
                     &lt;goals&gt;
                         &lt;goal&gt;copy-dependencies&lt;/goal&gt;
                     &lt;/goals&gt;
-                    &lt;configuration&gt;
-                        &lt;includeScope&gt;runtime&lt;/includeScope&gt;
-                    &lt;/configuration&gt;
                 &lt;/execution&gt;
             &lt;/executions&gt;
-            &lt;configuration&gt;
-                &lt;outputDirectory&gt;${project.build.directory}/lib&lt;/outputDirectory&gt;
-                &lt;includeScope&gt;compile&lt;/includeScope&gt;
-            &lt;/configuration&gt;
         &lt;/plugin&gt;
     &lt;/plugins&gt;
 &lt;/build&gt;</code></pre> 
