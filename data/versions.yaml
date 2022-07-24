@@ -11,6 +11,12 @@ ByUrl:
     Name: "2.0 (stable)"
     ShortName: "2.0"
 
+  "3.x": &v3x
+    URL: "3.x"
+    Name: "3.0 (alpha)"
+    ShortName: "3.0"
+
 ByName:
   "1.2": *v1x
   "2.0": *v2x
+  "3.0": *v3x
