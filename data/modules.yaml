@@ -38,6 +38,7 @@ ByName:
     Name: bootique-docker
     Icon: docker.png
     Description: Integrates the Docker client in your app, allowing to manage external Docker containers
+    Example: "https://github.com/bootique-examples/bootique-docker-demo"
     Versions: ["1.3", "2.0", "3.0"]
 
   flyway:
