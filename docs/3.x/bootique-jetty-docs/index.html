@@ -16,7 +16,7 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
   <meta name="theme-color" content="#333333">
-  <link rel="canonical" href="https://bootique.io/docs/1.x/bootique-jetty-docs/">
+  <link rel="canonical" href="https://bootique.io/docs/3.x/bootique-jetty-docs/">
   <link href="/assets/app.css?0feb24357c49235eff59" rel="stylesheet">
 <script type="text/javascript" src="/assets/app.js?0feb24357c49235eff59"></script>
 
@@ -46,13 +46,13 @@
     
         <li class="pure-menu-item "><div class="">
             
-              <a class="pure-menu-link" href="/docs/1.x/getting-started/">Get started</a>
+              <a class="pure-menu-link" href="/docs/3.x/getting-started/">Get started</a>
             
             </div>
         </li>
   
         <li class="pure-menu-item "><div class="pure-menu-selected">
-            <a class="pure-menu-link" href="/docs/1.x">Documentation</a>
+            <a class="pure-menu-link" href="/docs/3.x">Documentation</a>
           </div>
         </li>
   
@@ -96,17 +96,17 @@
     </h1>
     <div class="dropdown doc-version">
   <a class="dropdown-toggle" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-24,4">
-      Version 1.3
+      Version 3.0
   </a>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           
-              <a class="dropdown-item " href="/docs/3.x/bootique-jetty-docs/">Version 3.0 (alpha)</a>
+              <a class="dropdown-item active" href="/docs/3.x/bootique-jetty-docs/">Version 3.0 (alpha)</a>
           
           
               <a class="dropdown-item " href="/docs/2.x/bootique-jetty-docs/">Version 2.0 (stable)</a>
           
           
-              <a class="dropdown-item active" href="/docs/1.x/bootique-jetty-docs/">Version 1.3 (stable)</a>
+              <a class="dropdown-item " href="/docs/1.x/bootique-jetty-docs/">Version 1.3 (stable)</a>
           </div>
 </div>
 
@@ -124,11 +124,21 @@
     <li><a href="#_servlets" class="nav-link">2.1. Servlets</a></li> 
     <li><a href="#_servlet_filters" class="nav-link">2.2. Servlet Filters</a></li> 
     <li><a href="#_listeners" class="nav-link">2.3. Listeners</a></li> 
-    <li><a href="#_serving_static_files" class="nav-link">2.4. Serving Static Files</a></li> 
+    <li><a href="#serving-static-files" class="nav-link">2.4. Serving Static Files</a></li> 
+    <li><a href="#_servletenvironment" class="nav-link">2.5. ServletEnvironment</a></li> 
    </ul> </li> 
-  <li><a href="#_configuration_reference" class="nav-link">3. Configuration Reference</a> 
+  <li><a href="#jetty-extensions" class="nav-link">3. Jetty Extensions</a> 
    <ul class="sectlevel2 nav"> 
-    <li><a href="#_jetty" class="nav-link">3.1. jetty</a></li> 
+    <li><a href="#merics-and-healthchecks" class="nav-link">3.1. Metrics and Healthchecks</a></li> 
+    <li><a href="#_support_for_cors" class="nav-link">3.2. Support for CORS</a></li> 
+    <li><a href="#_support_for_websockets" class="nav-link">3.3. Support for Websockets</a></li> 
+   </ul> </li> 
+  <li><a href="#jetty-testing" class="nav-link">4. Testing Jetty Services</a></li> 
+  <li><a href="#jetty-configuration" class="nav-link">5. Configuration Reference</a> 
+   <ul class="sectlevel2 nav"> 
+    <li><a href="#_jetty" class="nav-link">5.1. jetty</a></li> 
+    <li><a href="#jettycors" class="nav-link">5.2. jettycors</a></li> 
+    <li><a href="#jettywebsocket" class="nav-link">5.3. jettywebsocket</a></li> 
    </ul> </li> 
  </ul> 
 </div></div>
@@ -141,32 +151,38 @@
  <h2 id="_bootique_integration_with_jetty">1. Bootique Integration with Jetty</h2> 
  <div class="sectionbody"> 
   <div class="paragraph"> 
-   <p><a href="https://github.com/bootique/bootique-jetty"><code>bootique-jetty</code></a> module embeds <a href="http://www.eclipse.org/jetty/">Jetty web server</a> in your application. It provides environment for running servlet specification objects (servlets, servlet filters, servlet listeners). Also you will be able to serve static files that are either packaged in the application jar or located somewhere on the filesystem. As things go with Bootique, you will be able to centrally configure both Jetty (e.g. set connector ports) as well as your apps (e.g. map servlet URL patterns and pass servlet parameters).</p> 
+   <p><a href="https://github.com/bootique/bootique-jetty"><code>bootique-jetty</code></a> module embeds <a href="http://www.eclipse.org/jetty/">Jetty web server</a> in your application. It provides environment for running servlet specification objects (servlets, servlet filters, servlet listeners). Also you will be able to serve static files that are either packaged in the application jar or located somewhere on the filesystem. As things go with Bootique, you will be able to centrally configure both Jetty (e.g. set connector ports) and your apps (e.g. map servlet URL patterns and pass servlet parameters).</p> 
   </div> 
   <div class="paragraph"> 
    <p><code>bootique-jetty</code> is "drag-and-drop" just like any other Bootique module. It is enabled by simply adding it to the <code>pom.xml</code> dependencies (assuming <code>autoLoadModules()</code> is in effect):</p> 
   </div> 
-  <div class="listingblock"> 
+  <details open> 
+   <summary class="title">Maven</summary> 
    <div class="content"> 
-    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jetty&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-jetty&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre> 
+     </div> 
+    </div> 
    </div> 
-  </div> 
-  <div class="paragraph"> 
-   <p>Alternatively you may include an "instrumented" version of <code>bootique-jetty</code> that will provide a number of metrics for your running app:</p> 
-  </div> 
-  <div class="listingblock"> 
+  </details> 
+  <details> 
+   <summary class="title">Gradle</summary> 
    <div class="content"> 
-    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
-    &lt;groupId&gt;io.bootique.jetty&lt;/groupId&gt;
-    &lt;artifactId&gt;bootique-jetty-instrumented&lt;/artifactId&gt;
-&lt;/dependency&gt;</code></pre> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
+  implementation: 'io.bootique.jetty:bootique-jetty'
+}</code></pre> 
+     </div> 
+    </div> 
    </div> 
-  </div> 
+  </details> 
   <div class="paragraph"> 
-   <p>The module provides <code>--server</code> command, which starts your web server on foreground:</p> 
+   <p>Alternatively you may include an <a href="#merics-and-healthchecks">"instrumented" version</a> of <code>bootique-jetty</code> that will enable a number of metrics for your running app. Either the regular or the instrumented Jetty modules provide <code>--server</code> command, which starts your web server on foreground:</p> 
   </div> 
   <div class="listingblock"> 
    <div class="content"> 
@@ -179,7 +195,7 @@ i.b.j.s.Server - Started @490ms</pre>
    </div> 
   </div> 
   <div class="paragraph"> 
-   <p>Various aspects of the Jetty container, such as listen port, thread pool size, etc. can be configured in a normal Bootique way via YAML, as detailed below in the "Configuration Reference" chapter.</p> 
+   <p>Various aspects of the Jetty container, such as listen port, thread pool size, etc. can be configured in a normal Bootique way via YAML, as detailed in the <a href="#jetty-configuration">"Configuration Reference" chapter</a>. A few additional Bootique modules that extend Jetty to support CORS, websockets, etc. are documented in the <a href="#jetty-extensions">"Extensions" chapter</a>.</p> 
   </div> 
  </div> 
 </div> 
@@ -197,20 +213,18 @@ i.b.j.s.Server - Started @490ms</pre>
    <div class="listingblock"> 
     <div class="content"> 
      <pre class="highlight"><code class="language-java java" data-lang="java">@WebServlet(
-    name = "myservlet",
-    urlPatterns = "/b",
-    initParams = {
-        @WebInitParam(name = "p1", value = "v1"),
-        @WebInitParam(name = "p2", value = "v2")
-    }
+        name = "myservlet",
+        urlPatterns = "/b",
+        initParams = {
+                @WebInitParam(name = "p1", value = "v1"),
+                @WebInitParam(name = "p2", value = "v2")
+        }
 )
-public class AnnotatedServlet extends HttpServlet {
-    //...
-}</code></pre> 
+public class AnnotatedServlet extends HttpServlet { // ...</code></pre> 
     </div> 
    </div> 
    <div class="paragraph"> 
-    <p>The "name" annotation is kind of important as it would allow to override annotation values in the YAML, as described in the "Configuration Reference" chapter. A servlet created this way can inject any services it might need using normal Guice injection.</p> 
+    <p>The "name" annotation is kind of important as it would allow to override annotation values in the YAML, as described in the "Configuration Reference" chapter. A servlet created this way can inject any services it might need using normal Bootique DI injection.</p> 
    </div> 
    <div class="paragraph"> 
     <p>Next step is adding it to Bootique via <code>JettyModule</code> contribution API called from your application Module:</p> 
@@ -224,19 +238,16 @@ public void configure(Binder binder) {
     </div> 
    </div> 
    <div class="paragraph"> 
-    <p>But what if you are deploying a third-party servlet that is not annotated? Or annotation values are off in the context of your application? There are two choices. The first is to subclass such servlets and annotate the subclasses that you control.</p> 
-   </div> 
-   <div class="paragraph"> 
-    <p>The second is to wrap your servlet in a special metadata object called <code>MappedServlet</code>, providing all the mapping information in that wrapper. This is a bit too verbose, but can be a good way to define the mapping that is not otherwise available:</p> 
+    <p>But what if you are deploying a third-party servlet that is not annotated? Or annotation values are off in the context of your application? There are two choices. The first is to subclass such servlets and annotate the subclasses that you control. The second is to wrap your servlet in a special metadata object called <code>MappedServlet</code>, providing all the mapping information in that wrapper. This is a bit too verbose, but can be a good way to define the mapping that is not otherwise available:</p> 
    </div> 
    <div class="listingblock"> 
     <div class="content"> 
      <pre class="highlight"><code class="language-java java" data-lang="java">@Override
 public void configure(Binder binder) {
     MappedServlet mappedServlet = new MappedServlet(
-       new MyServlet(),
-       Collections.singleton("/c"),
-       "myservlet");
+            new MyServlet(),
+            Collections.singleton("/c"),
+            "myservlet");
 
     JettyModule.extend(binder).addMappedServlet(mappedServlet);
 }</code></pre> 
@@ -247,18 +258,20 @@ public void configure(Binder binder) {
    </div> 
    <div class="listingblock"> 
     <div class="content"> 
-     <pre class="highlight"><code class="language-java java" data-lang="java">@Singleton
-@Provides
-MappedServlet&lt;MyServlet&gt; provideMyServlet(MyService1 s1, MyService2 s2) {
-    MyServlet servlet = new MyServlet(s1, s2);
-    return new MappedServlet&lt;&gt;(servlet, Collections.singleton("/c"), "myservlet");
+     <pre class="highlight"><code class="language-java java" data-lang="java">@Override
+public void configure(Binder binder) {
+
+    // must use TypeLiteral to identify which kind of MappedServlet&lt;..&gt; to add
+    TypeLiteral&lt;MappedServlet&lt;MyServlet&gt;&gt; tl = new TypeLiteral&lt;MappedServlet&lt;MyServlet&gt;&gt;() {
+    };
+    JettyModule.extend(binder).addMappedServlet(tl);
 }
 
-// must use TypeLiteral to contribute MappedServlet&lt;MyServlet&gt; to the servlet collection
-@Override
-public void configure(Binder binder) {
-    TypeLiteral&lt;MappedServlet&lt;Servlet2&gt;&gt; tl = new TypeLiteral&lt;MappedServlet&lt;MyServlet&gt;&gt;() {};
-    JettyModule.extend(binder).addMappedServlet(tl);
+@Singleton
+@Provides
+MappedServlet&lt;MyServlet&gt; provideMyServlet(MyService1 s1) {
+    MyServlet servlet = new MyServlet(s1);
+    return new MappedServlet&lt;&gt;(servlet, Collections.singleton("/c"), "myservlet");
 }</code></pre> 
     </div> 
    </div> 
@@ -271,14 +284,14 @@ public void configure(Binder binder) {
    <div class="listingblock"> 
     <div class="content"> 
      <pre class="highlight"><code class="language-java java" data-lang="java">@WebFilter(
-    filterName = "f1",
-    urlPatterns = "/b/*",
-    initParams = {
-        @WebInitParam(name = "p1", value = "v1"),
-        @WebInitParam(name = "p2", value = "v2")
-    }
+        filterName = "f1",
+        urlPatterns = "/b/*",
+        initParams = {
+                @WebInitParam(name = "p1", value = "v1"),
+                @WebInitParam(name = "p2", value = "v2")
+        }
 )
-public class AnnotatedFilter implements Filter { .. }</code></pre> 
+public class AnnotatedFilter implements Filter { // ...</code></pre> 
     </div> 
    </div> 
    <div class="listingblock"> 
@@ -311,18 +324,363 @@ public void configure(Binder binder) {
    </div> 
   </div> 
   <div class="sect2"> 
-   <h3 id="_serving_static_files">2.4. Serving Static Files</h3> 
+   <h3 id="serving-static-files">2.4. Serving Static Files</h3> 
    <div class="paragraph"> 
-    <p>TODO</p> 
+    <p>Jetty is not limited to just servlets. It can also act as a webserver for static files stored on the filesystem or even on the application classpath. By default this behavior is disabled to prevent unintended security risks. To enable the "webserver" feature use extender’s <code>useDefaultServlet()</code> method:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">@Override
+public void configure(Binder binder) {
+    JettyModule.extend(binder).useDefaultServlet();
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>This enables a special internal servlet at "/" path, that will act as a static webserver. It requires an additional configuration parameter though - the base directory where the files are stored. This is configured in YAML, and the path can be either a directory on the filesystem or a classpath:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jetty:
+  context: "/myapp"
+  staticResourceBase: "classpath:com/example/docroot"</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>"Default" servlet always has a base URL of "/" (relative to the application context). If you want a different path (or need to serve more then one file directory under different base URLs), you can define more of those "webserver" servlets, each with its own parameters:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">@Override
+public void configure(Binder binder) {
+    JettyModule.extend(binder)
+            .addStaticServlet("abc", "/abc/*")
+            .addStaticServlet("xyz", "/xyz/*");
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>By default each "static servlet" shares the common <code>staticResourceBase</code>, but it can also define its own base and URL-to-file mapping approach using a few <a href="https://www.eclipse.org/jetty/javadoc/9.4.19.v20190610/org/eclipse/jetty/servlet/DefaultServlet.html">servlet parameters</a>, namely <code>resourceBase</code> and <code>pathInfoOnly</code>:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jetty:
+  context: "/myapp"
+  servlets:
+    abc:
+      params:
+        # Note that "resourceBase" follows Bootique resource URL format
+        # and hence can be a  "classpath:" URL or a filesystem path
+        resourceBase: "classpath:com/example/abcdocroot"
+        pathInfoOnly: true</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p><code>resourceBase</code> simply overrides <code>staticResourceBase</code> for a given servlet, while <code>pathInfoOnly</code> controls static resource URL resolution as follows:</p> 
+   </div> 
+   <table class="tableblock frame-all grid-all stretch"> 
+    <colgroup> 
+     <col style="width: 33.3333%;"> 
+     <col style="width: 33.3333%;"> 
+     <col style="width: 33.3334%;"> 
+    </colgroup> 
+    <thead> 
+     <tr> 
+      <th class="tableblock halign-left valign-top">URL</th> 
+      <th class="tableblock halign-left valign-top">pathInfoOnly</th> 
+      <th class="tableblock halign-left valign-top">File Path</th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">/abc/dir1/f1.html</p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">false (default)</p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;resource_base&gt;/abc/dir1/f1.html</p></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">/abc/dir1/f1.html</p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;resource_base&gt;/dir1/f1.html</p></td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_servletenvironment">2.5. ServletEnvironment</h3> 
+   <div class="paragraph"> 
+    <p>Some application classes have direct access to the current servlet request and context (e.g. servlets, filters, listeners are all passed the servlet environment objects in their methods). But other classes don’t. E.g. imagine you are writing an audit service that needs to know the request URL and the calling client IP address. For such services Bootique provides an injectable <code>ServletEnvironment</code> object:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">@Inject
+private ServletEnvironment servletEnv;</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Now any method in this class can access <code>ServletContext</code> or <code>HttpServletRequest</code>:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">String url = servletEnv.request().map(HttpServletRequest::getRequestURI).orElse("unknown");</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Note that <code>ServletEnvironment</code> returns <code>Optional</code> for both, as there is no guarantee that it is invoked within a request or after the Jetty engine initialized its servlets. It is the responsibility of the caller to verify the state of the <code>Optional</code> and react accordingly, just like we did in this example.</p> 
    </div> 
   </div> 
  </div> 
 </div> 
 <div class="sect1"> 
- <h2 id="_configuration_reference">3. Configuration Reference</h2> 
+ <h2 id="jetty-extensions">3. Jetty Extensions</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>Bootique includes additional modules described in this chapter that provide metrics, health checks and other Jetty extensions.</p> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="merics-and-healthchecks">3.1. Metrics and Healthchecks</h3> 
+   <div class="paragraph"> 
+    <p>You may use an "instrumented" version <code>bootique-jetty</code>, that will extend the server with a number of metrics and health checks for your running app:</p> 
+   </div> 
+   <details open> 
+    <summary class="title">Maven</summary> 
+    <div class="content"> 
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.jetty&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-jetty-instrumented&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre> 
+      </div> 
+     </div> 
+    </div> 
+   </details> 
+   <details> 
+    <summary class="title">Gradle</summary> 
+    <div class="content"> 
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
+  implementation: 'io.bootique.jetty:bootique-jetty-instrumented'
+}</code></pre> 
+      </div> 
+     </div> 
+    </div> 
+   </details> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_support_for_cors">3.2. Support for CORS</h3> 
+   <div class="paragraph"> 
+    <p>If the services running on Jetty are accessed from other domains, you may need to explicitly configure CORS rules to to prevent the browsers from blocking access. To achieve that include the following module:</p> 
+   </div> 
+   <details open> 
+    <summary class="title">Maven</summary> 
+    <div class="content"> 
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.jetty&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-jetty-cors&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre> 
+      </div> 
+     </div> 
+    </div> 
+   </details> 
+   <details> 
+    <summary class="title">Gradle</summary> 
+    <div class="content"> 
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
+  implementation: 'io.bootique.jetty:bootique-jetty-cors'
+}</code></pre> 
+      </div> 
+     </div> 
+    </div> 
+   </details> 
+   <div class="paragraph"> 
+    <p>and then configure rules in YAML under "jettycors" root element (see details <a href="#jettycors">here</a>).</p> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_support_for_websockets">3.3. Support for Websockets</h3> 
+   <div class="paragraph"> 
+    <p>If in addition to HTTP requests, you’d like your server to provide access via websockets, you need to add the following module:</p> 
+   </div> 
+   <details open> 
+    <summary class="title">Maven</summary> 
+    <div class="content"> 
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.jetty&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-jetty-websocket&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre> 
+      </div> 
+     </div> 
+    </div> 
+   </details> 
+   <details> 
+    <summary class="title">Gradle</summary> 
+    <div class="content"> 
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
+  implementation: 'io.bootique.jetty:bootique-jetty-websocket'
+}</code></pre> 
+      </div> 
+     </div> 
+    </div> 
+   </details> 
+   <div class="paragraph"> 
+    <p>Somewhat similar to servlets, the application will need to provide its own classes for websocket endpoints (that must follow JSR-356 API to be recognized as endpoonts). Then you need to register them using <code>JettyWebSocketModule</code> extender:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">@ServerEndpoint(value = "/ws1")
+public class AnnotatedWebsocket {
+
+    @OnMessage
+    public void onMessageText(String message) {
+        System.out.println("message via websocket:" + message );
+    }
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">@Override
+public void configure(Binder binder) {
+    JettyWebSocketModule.extend(binder).addEndpoint(AnnotatedWebsocket.class);
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Just like with servlets, endpoints can be managed by the DI container and can inject any services available in the application. Websockets server parameters are configured in YAML under "jettywebsocket" root element (see details <a href="#jettywebsocket">here</a>).</p> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="jetty-testing">4. Testing Jetty Services</h2> 
+ <div class="sectionbody"> 
+  <div class="admonitionblock note"> 
+   <table> 
+    <tbody>
+     <tr> 
+      <td class="icon"> <i class="fa fa-info-circle fa-2x" title="Note"></i> </td> 
+      <td class="content"> "bootique-jetty" provides integration for JUnit 5. You can still test Jetty apps using JUnit 4 with generic Bootique test tools (<code>BQTestFactory</code>), however this would require a bit more setup, and doesn’t provide all the cool features like dynamic ports and response assertions. </td> 
+     </tr> 
+    </tbody>
+   </table> 
+  </div> 
+  <div class="paragraph"> 
+   <p>To use "bootique-jetty" test extensions, import the following module in the "test" scope:</p> 
+  </div> 
+  <details open> 
+   <summary class="title">Maven</summary> 
+   <div class="content"> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.jetty&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-jetty-junit5&lt;/artifactId&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre> 
+     </div> 
+    </div> 
+   </div> 
+  </details> 
+  <details> 
+   <summary class="title">Gradle</summary> 
+   <div class="content"> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
+  testImplementation: 'io.bootique.jetty:bootique-jetty-junit5'
+}</code></pre> 
+     </div> 
+    </div> 
+   </div> 
+  </details> 
+  <div class="paragraph"> 
+   <p>Most Jetty tests start like this:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-java java" data-lang="java">@BQTest
+public class JettyIT {
+
+    static final JettyTester jetty = JettyTester.create(); <i class="conum" data-value="1"></i><b>(1)</b>
+
+    @BQApp
+    static final BQRuntime app = Bootique.app("-s")
+            .autoLoadModules()
+            .module(jetty.moduleReplacingConnectors()) <i class="conum" data-value="2"></i><b>(2)</b>
+            .createRuntime();</code></pre> 
+   </div> 
+  </div> 
+  <div class="colist arabic"> 
+   <table> 
+    <tbody>
+     <tr> 
+      <td><i class="conum" data-value="1"></i><b>1</b></td> 
+      <td><code>JettyTester</code> doesn’t require lifecycle annotations. All you need is one instance per BQRuntime. Declaring it as a test class variable, so that both the runtime and the test code can access it per examples below.</td> 
+     </tr> 
+     <tr> 
+      <td><i class="conum" data-value="2"></i><b>2</b></td> 
+      <td><code>JettyTester</code> helps to bootstrap a test BQRuntime. It resets all connectors configured in the app, and creates a connector on a randomly selected unoccupied port.</td> 
+     </tr> 
+    </tbody>
+   </table> 
+  </div> 
+  <div class="admonitionblock note"> 
+   <table> 
+    <tbody>
+     <tr> 
+      <td class="icon"> <i class="fa fa-info-circle fa-2x" title="Note"></i> </td> 
+      <td class="content"> Not hardcoding the connector port improves your chances of tests working regardless of what else is running on the same machine. Also it may reduce the amount of test configuration (previously it was common to create a test <code>.yml</code> file that would define a specific Jetty port). Bootique uses the dynamic port approach in other test helpers too. </td> 
+     </tr> 
+    </tbody>
+   </table> 
+  </div> 
+  <div class="paragraph"> 
+   <p>An actual test looks as follows:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-java java" data-lang="java">@Test
+public void test() {
+    Response ok = jetty.getTarget() <i class="conum" data-value="1"></i><b>(1)</b>
+            .path("helloworld").request().get();
+
+    JettyTester.assertOk(ok).assertContent("Hello, world!"); <i class="conum" data-value="2"></i><b>(2)</b>
+}</code></pre> 
+   </div> 
+  </div> 
+  <div class="colist arabic"> 
+   <table> 
+    <tbody>
+     <tr> 
+      <td><i class="conum" data-value="1"></i><b>1</b></td> 
+      <td>Web requests are sent using JAX-RS HTTP client API. JettyHelper provides access to the client "target", so we don’t need to know about the dynamic port or service host name.</td> 
+     </tr> 
+     <tr> 
+      <td><i class="conum" data-value="2"></i><b>2</b></td> 
+      <td>JettyHelper provides a simple DSL for response assertions.</td> 
+     </tr> 
+    </tbody>
+   </table> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="jetty-configuration">5. Configuration Reference</h2> 
  <div class="sectionbody"> 
   <div class="sect2"> 
-   <h3 id="_jetty">3.1. jetty</h3> 
+   <h3 id="_jetty">5.1. jetty</h3> 
+   <div class="paragraph"> 
+    <p>"jetty" is a root element of the Jetty configuration and is bound to a <a href="https://github.com/bootique/bootique-jetty/blob/master/bootique-jetty/src/main/java/io/bootique/jetty/server/ServerFactory.java"><code>ServerFactory</code></a> object. Example:</p> 
+   </div> 
    <div class="listingblock"> 
     <div class="content"> 
      <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jetty:
@@ -334,7 +692,7 @@ public void configure(Binder binder) {
     </div> 
    </div> 
    <div class="paragraph"> 
-    <p>"jetty" is a root element of the Jetty configuration and is bound to a <a href="https://github.com/bootique/bootique-jetty/blob/1.x/bootique-jetty/src/main/java/io/bootique/jetty/server/ServerFactory.java"><code>ServerFactory</code></a> object. It supports the following properties:</p> 
+    <p>It supports the following properties:</p> 
    </div> 
    <table class="tableblock frame-all grid-all stretch"> 
     <caption class="title">
@@ -380,7 +738,7 @@ public void configure(Binder binder) {
      </tr> 
      <tr> 
       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxThreads</code></p></td> 
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>1024</code></p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>200</code></p></td> 
       <td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of request processing threads in the pool.</p></td> 
      </tr> 
      <tr> 
@@ -411,7 +769,7 @@ public void configure(Binder binder) {
      <tr> 
       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>staticResourceBase</code></p></td> 
       <td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td> 
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Defines a base location for resources of the Jetty context. It can be a filesystem path, a URL or a special “classpath:” URL (which gives the ability to bundle resources in the app, not unlike a JavaEE .war file). + For security reasons this annotation has to be set explicitly. There’s no default. + This setting only makes sense when some form of "default" servlet is in use, that will be responsible for serving static resources. See <code>JettyModule.contributeStaticServlet(..)</code> or <code>JettyModule.contributeDefaultServlet(..)</code>. Such servlet will use the path defined here, unless overridden via servlet parameters. For the list fo servlet parameters see <a href="http://download.eclipse.org/jetty/9.3.7.v20160115/apidocs/org/eclipse/jetty/servlet/DefaultServlet.html">Jetty default servlet docs</a>.</p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">This setting is used in conjunction with <a href="#serving-static-files">"default" servlet</a> that serves "static" resources. It defines a base location for static resources of the Jetty context. It can be a filesystem path, a URL or a special “classpath:” URL. The last option gives the ability to bundle resources in the app, not unlike a JavaEE .war file. For security reasons this property has to be set explicitly. There’s no default.</p></td> 
      </tr> 
      <tr> 
       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>compactPath</code></p></td> 
@@ -421,7 +779,10 @@ public void configure(Binder binder) {
     </tbody> 
    </table> 
    <div class="sect3"> 
-    <h4 id="_jetty_connectors">3.1.1. jetty.connectors</h4> 
+    <h4 id="_jetty_connectors">5.1.1. jetty.connectors</h4> 
+    <div class="paragraph"> 
+     <p>"jetty.connectors" element configures one or more web connectors. Each connector listens on a specified port and has an associated protocol (http or https). If no connectors are provided, Bootique will create a single HTTP connector on port 8080. Example:</p> 
+    </div> 
     <div class="listingblock"> 
      <div class="content"> 
       <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jetty:
@@ -432,10 +793,7 @@ public void configure(Binder binder) {
      </div> 
     </div> 
     <div class="paragraph"> 
-     <p>"jetty.connectors" element configures one or more web connectors. Each connector listens on a specified port and has an associated protocol (http or https). If no connectors are provided, Bootique will create a single HTTP connector on port 8080.</p> 
-    </div> 
-    <div class="paragraph"> 
-     <p>HTTPS connectors require an SSL certificate (real or self-signed), stored in a keystore. <a href="http://www.eclipse.org/jetty/documentation/9.4.x/configuring-ssl.html">Jetty documentaion on the subject</a> should help with generating a certificate. In its simplest form it may look like this:</p> 
+     <p>Each HTTPS connector requires an SSL certificate (real or self-signed), stored in a keystore. <a href="http://www.eclipse.org/jetty/documentation/9.4.x/configuring-ssl.html">Jetty documentation on the subject</a> should help with generating a certificate. In its simplest form it may look like this:</p> 
     </div> 
     <div class="listingblock"> 
      <div class="content"> 
@@ -543,7 +901,7 @@ public void configure(Binder binder) {
     </table> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_jetty_filters">3.1.2. jetty.filters</h4> 
+    <h4 id="_jetty_filters">5.1.2. jetty.filters</h4> 
     <div class="listingblock"> 
      <div class="content"> 
       <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jetty:
@@ -566,7 +924,7 @@ public void configure(Binder binder) {
     </div> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_jetty_servlets">3.1.3. jetty.servlets</h4> 
+    <h4 id="_jetty_servlets">5.1.3. jetty.servlets</h4> 
     <div class="listingblock"> 
      <div class="content"> 
       <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jetty:
@@ -589,6 +947,37 @@ public void configure(Binder binder) {
     </div> 
     <div class="paragraph"> 
      <p>TODO</p> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="jettycors">5.2. jettycors</h3> 
+   <div class="paragraph"> 
+    <p>"jettycors" is a root element of the Jetty CORS module configuration and is bound to a <a href="https://github.com/bootique/bootique-jetty/blob/master/bootique-jetty-cors/src/main/java/io/bootique/jetty/cors/CrossOriginFilterFactory.java"><code>CrossOriginFilterFactory</code></a> object. Example:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jettycors:
+  urlPatterns:
+    - "/*"
+  allowedOrigins: "https://www1.example.org,https://www2.example.org"
+  allowedMethods: "GET,OPTIONS,HEAD"
+  allowedHeaders: "*"</code></pre> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="jettywebsocket">5.3. jettywebsocket</h3> 
+   <div class="paragraph"> 
+    <p>"jettywebsocket" is a root element of the Jetty Websocket module configuration and is bound to a <a href="https://github.com/bootique/bootique-jetty/blob/0826b9c29210db3b5a7b0941ba387147e24736a8/bootique-jetty-websocket/src/main/java/io/bootique/jetty/websocket/WebSocketPolicyFactory.java"><code>WebSocketPolicyFactory</code></a> object. Example:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jettywebsocket:
+    asyncSendTimeout: "5s"
+    maxSessionIdleTimeout: "30min"
+    maxBinaryMessageBufferSize: "30kb"
+    maxTextMessageBufferSize: "45kb"</code></pre> 
     </div> 
    </div> 
   </div> 

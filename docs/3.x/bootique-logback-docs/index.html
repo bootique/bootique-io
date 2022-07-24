@@ -16,7 +16,7 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
   <meta name="theme-color" content="#333333">
-  <link rel="canonical" href="https://bootique.io/docs/1.x/bootique-logback-docs/">
+  <link rel="canonical" href="https://bootique.io/docs/3.x/bootique-logback-docs/">
   <link href="/assets/app.css?0feb24357c49235eff59" rel="stylesheet">
 <script type="text/javascript" src="/assets/app.js?0feb24357c49235eff59"></script>
 
@@ -46,13 +46,13 @@
     
         <li class="pure-menu-item "><div class="">
             
-              <a class="pure-menu-link" href="/docs/1.x/getting-started/">Get started</a>
+              <a class="pure-menu-link" href="/docs/3.x/getting-started/">Get started</a>
             
             </div>
         </li>
   
         <li class="pure-menu-item "><div class="pure-menu-selected">
-            <a class="pure-menu-link" href="/docs/1.x">Documentation</a>
+            <a class="pure-menu-link" href="/docs/3.x">Documentation</a>
           </div>
         </li>
   
@@ -96,17 +96,17 @@
     </h1>
     <div class="dropdown doc-version">
   <a class="dropdown-toggle" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-24,4">
-      Version 1.3
+      Version 3.0
   </a>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           
-              <a class="dropdown-item " href="/docs/3.x/bootique-logback-docs/">Version 3.0 (alpha)</a>
+              <a class="dropdown-item active" href="/docs/3.x/bootique-logback-docs/">Version 3.0 (alpha)</a>
           
           
               <a class="dropdown-item " href="/docs/2.x/bootique-logback-docs/">Version 2.0 (stable)</a>
           
           
-              <a class="dropdown-item active" href="/docs/1.x/bootique-logback-docs/">Version 1.3 (stable)</a>
+              <a class="dropdown-item " href="/docs/1.x/bootique-logback-docs/">Version 1.3 (stable)</a>
           </div>
 </div>
 
@@ -123,13 +123,17 @@
    <ul class="sectlevel2 nav"> 
     <li><a href="#_log" class="nav-link">2.1. log</a></li> 
     <li><a href="#_log_appenders" class="nav-link">2.2. log.appenders</a></li> 
-    <li><a href="#_log_loggers" class="nav-link">2.3. log.loggers</a></li> 
+    <li><a href="#_log_appenders_rollingpolicy" class="nav-link">2.3. log.appenders.rollingPolicy</a></li> 
+    <li><a href="#_log_appenders_filters" class="nav-link">2.4. log.appenders.filters</a></li> 
+    <li><a href="#log.appenders.layout" class="nav-link">2.5. log.appenders.layout</a></li> 
+    <li><a href="#_log_loggers" class="nav-link">2.6. log.loggers</a></li> 
    </ul> </li> 
-  <li><a href="#_logback_sentry_module" class="nav-link">3. Logback Sentry Module</a> 
+  <li><a href="#_logback_in_unit_tests" class="nav-link">3. Logback In Unit Tests</a></li> 
+  <li><a href="#_logback_sentry_module" class="nav-link">4. Logback Sentry Module</a> 
    <ul class="sectlevel2 nav"> 
-    <li><a href="#_setup" class="nav-link">3.1. Setup</a></li> 
-    <li><a href="#_add_bootique_logback_sentry_to_your_build_tool" class="nav-link">3.2. Add bootique-logback-sentry to your build tool:</a></li> 
-    <li><a href="#_write_configuration" class="nav-link">3.3. Write Configuration</a></li> 
+    <li><a href="#_setup" class="nav-link">4.1. Setup</a></li> 
+    <li><a href="#_add_bootique_logback_sentry_to_your_build_tool" class="nav-link">4.2. Add bootique-logback-sentry to your build tool:</a></li> 
+    <li><a href="#_write_configuration" class="nav-link">4.3. Write Configuration</a></li> 
    </ul> </li> 
  </ul> 
 </div></div>
@@ -149,16 +153,33 @@
   <div class="paragraph"> 
    <p><a href="https://github.com/bootique/bootique-logback"><code>bootique-logback</code></a> is a "drag-and-drop" module integrating Bootique logging with <a href="http://logback.qos.ch/">Logback logging framework</a>. Just like any other module, <code>bootique-logback</code> can be enabled by simply adding it to the <code>pom.xml</code> dependencies, assuming <code>autoLoadModules()</code> is in effect:</p> 
   </div> 
-  <div class="listingblock"> 
+  <details open> 
+   <summary class="title">Maven</summary> 
    <div class="content"> 
-    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.logback&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-logback&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre> 
+     </div> 
+    </div> 
    </div> 
-  </div> 
+  </details> 
+  <details> 
+   <summary class="title">Gradle</summary> 
+   <div class="content"> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
+  implementation: 'io.bootique.logback:bootique-logback'
+}</code></pre> 
+     </div> 
+    </div> 
+   </div> 
+  </details> 
   <div class="paragraph"> 
-   <p>Without further configuration it would log everything to console using INFO level. Configuration can be provided via YAML, as shown in the following section. Configuration options include per class and package log levels configuration, a choice of appenders, etc.</p> 
+   <p>Without further configuration it would log everything to console using INFO level. Configuration can be provided via YAML, as shown in the <a href="#_configuration_reference">Configuration Reference</a> section. Configuration options include per class and package log levels configuration, a choice of appenders, etc.</p> 
   </div> 
  </div> 
 </div> 
@@ -183,8 +204,13 @@
   appenders:
     - type: file
       name: test
-      logFormat: '%c{20}: %m%n'
-      file: target/logback/testRun_Debug.log</code></pre> 
+      file: target/logback/testRun_Debug.log
+      filters:
+        - type: threshold
+          level: info
+      layout:
+        type: pattern
+        logFormat: '%c{20}: %m%n'</code></pre> 
     </div> 
    </div> 
    <div class="paragraph"> 
@@ -243,10 +269,14 @@
   appenders:
     - type: file
       name: test
-      logFormat: '%c{20}: %m%n'
       file: /var/log/myapp.log
+      layout:
+        type: json
+        timestampFormat: "yyyy-MM-dd HH:mm"
     - type: console
-      logFormat: '%c{20}: %m%n'</code></pre> 
+      layout:
+        type: pattern
+        logFormat: '%c{20}: %m%n'</code></pre> 
     </div> 
    </div> 
    <div class="paragraph"> 
@@ -272,12 +302,22 @@
      <tr> 
       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>logFormat</code></p></td> 
       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>%-5p [%d{ISO8601,UTC}] %thread %c{20}: %m%n%rEx</code></p></td> 
-      <td class="tableblock halign-left valign-top"><p class="tableblock">A format of the log lines. See Logback <a href="http://logback.qos.ch/manual/layouts.html#ClassicPatternLayout">PatternLayout</a> for details.</p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">A format of the log lines. See Logback <a href="http://logback.qos.ch/manual/layouts.html#ClassicPatternLayout">PatternLayout</a> for details. This is a shortcut for a <code>pattern</code> layout with a given format.</p></td> 
      </tr> 
      <tr> 
       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>target</code></p></td> 
       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>stdout</code></p></td> 
       <td class="tableblock halign-left valign-top"><p class="tableblock">Whether to log to standard output or standard error. Possible values are <code>stdout</code> and <code>stderr</code></p></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>filters</code></p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">A collection of filters to use with this appender</p></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>layout</code></p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">pattern</p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">Layout config for this appender. Possible values are <code>pattern</code>, <code>html</code>, <code>xml</code> and <code>json</code>. If not set <code>pattern</code> layout is used by default. Examples are given <a href="#log.appenders.layout">below</a></p></td> 
      </tr> 
     </tbody> 
    </table> 
@@ -301,7 +341,7 @@
      <tr> 
       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>logFormat</code></p></td> 
       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>%-5p [%d{ISO8601,UTC}] %thread %c{20}: %m%n%rEx</code></p></td> 
-      <td class="tableblock halign-left valign-top"><p class="tableblock">A format of the log lines. See Logback <a href="http://logback.qos.ch/manual/layouts.html#ClassicPatternLayout">PatternLayout</a> for details.</p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">A format of the log lines. See Logback <a href="http://logback.qos.ch/manual/layouts.html#ClassicPatternLayout">PatternLayout</a> for details. This is a shortcut for a <code>pattern</code> layout with a given format.</p></td> 
      </tr> 
      <tr> 
       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td> 
@@ -321,22 +361,35 @@
      <tr> 
       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>rollingPolicy</code></p></td> 
       <td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td> 
-      <td class="tableblock halign-left valign-top"><p class="tableblock">An object that defines a log rotation policy. Examples are given below.</p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">An object that defines a log rotation policy. Examples are given <a href="#_log_appenders_rollingpolicy">below</a>.</p></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>filters</code></p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">A collection of filters to use with this appender. See <a href="#_log_appenders_filters">filters</a> section.</p></td> 
+     </tr> 
+     <tr> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>layout</code></p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">pattern</p></td> 
+      <td class="tableblock halign-left valign-top"><p class="tableblock">Layout config for this appender. Possible values are <code>pattern</code>,<code>html</code>, <code>xml</code> and <code>json</code>. Examples are given <a href="#log.appenders.layout">below</a></p></td> 
      </tr> 
     </tbody> 
    </table> 
    <div class="paragraph"> 
     <p>There are a few ways log file rotation can be configured for the "file" appender, as defined by the <code>rollingPolicy</code>. Out of the box the following Logback policies are supported: <a href="http://logback.qos.ch/manual/appenders.html#FixedWindowRollingPolicy"><code>fixedWindow</code></a>, <a href="http://logback.qos.ch/manual/appenders.html#TimeBasedRollingPolicy"><code>time</code></a>, <code>sizeAndTime</code>.</p> 
    </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_log_appenders_rollingpolicy">2.3. log.appenders.rollingPolicy</h3> 
    <div class="sect3"> 
-    <h4 id="_fixedwindow_rolling_policy">2.2.1. "fixedWindow" Rolling Policy</h4> 
+    <h4 id="_fixedwindow_rolling_policy">2.3.1. "fixedWindow" Rolling Policy</h4> 
     <div class="listingblock"> 
      <div class="content"> 
       <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">log:
   appenders:
     - type: file
-      logFormat: '%c{20}: %m%n'
       file: /var/log/myapp.log
+      logFormat: '%c{20}: %m%n'
       rollingPolicy:
         type: fixedWindow
         fileNamePattern: '/var/log/myapp-%i.log'
@@ -383,14 +436,14 @@
     </table> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_time_rolling_policy">2.2.2. "time" Rolling Policy</h4> 
+    <h4 id="_time_rolling_policy">2.3.2. "time" Rolling Policy</h4> 
     <div class="listingblock"> 
      <div class="content"> 
       <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">log:
   appenders:
     - type: file
-      logFormat: '%c{20}: %m%n'
       file: /var/log/myapp.log
+      logFormat: '%c{20}: %m%n'
       rollingPolicy:
         type: time
         fileNamePattern: '/var/log/myapp-%d{yyyyMMddHHmmss}.log'</code></pre> 
@@ -435,14 +488,14 @@
     </table> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_sizeandtime_rolling_policy">2.2.3. "sizeAndTime" Rolling Policy</h4> 
+    <h4 id="_sizeandtime_rolling_policy">2.3.3. "sizeAndTime" Rolling Policy</h4> 
     <div class="listingblock"> 
      <div class="content"> 
       <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">log:
   appenders:
     - type: file
-      logFormat: '%c{20}: %m%n'
       file: /var/log/myapp.log
+      logFormat: '%c{20}: %m%n'
       rollingPolicy:
         type: sizeAndTime
         fileNamePattern: '/var/log/myapp-%d{yyyyMMddHHmmss}.%i.log'
@@ -496,7 +549,296 @@
    </div> 
   </div> 
   <div class="sect2"> 
-   <h3 id="_log_loggers">2.3. log.loggers</h3> 
+   <h3 id="_log_appenders_filters">2.4. log.appenders.filters</h3> 
+   <div class="sect3"> 
+    <h4 id="_level_filter">2.4.1. "level" Filter</h4> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">log:
+  level: debug
+  appenders:
+    - type: file
+      file: target/logs/info-only.log
+      logFormat: '%c{20}: %m%n'
+      filters:
+        - type: level
+          level: info
+          onMatch: accept
+          onMismatch: deny</code></pre> 
+     </div> 
+    </div> 
+    <div class="paragraph"> 
+     <p><code>level</code> filter filters events based on exact level matching.</p> 
+    </div> 
+    <table class="tableblock frame-all grid-all stretch"> 
+     <colgroup> 
+      <col style="width: 33.3333%;"> 
+      <col style="width: 33.3333%;"> 
+      <col style="width: 33.3334%;"> 
+     </colgroup> 
+     <thead> 
+      <tr> 
+       <th class="tableblock halign-left valign-top">Property</th> 
+       <th class="tableblock halign-left valign-top">Default</th> 
+       <th class="tableblock halign-left valign-top">Description</th> 
+      </tr> 
+     </thead> 
+     <tbody> 
+      <tr> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>level</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock">logging event level to filter</p></td> 
+      </tr> 
+      <tr> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>onMatch</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock">neutral</p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock">action to take on event level match (<code>accept</code>, <code>deny</code>, <code>neutral</code>)</p></td> 
+      </tr> 
+      <tr> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>onMismatch</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock">neutral</p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock">action to take on event level mismatch (<code>accept</code>, <code>deny</code>, <code>neutral</code>)</p></td> 
+      </tr> 
+     </tbody> 
+    </table> 
+   </div> 
+   <div class="sect3"> 
+    <h4 id="_threshold_filter">2.4.2. "threshold" Filter</h4> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">log:
+  level: debug
+  appenders:
+    - type: console
+      filters:
+        - type: threshold
+          level: warn</code></pre> 
+     </div> 
+    </div> 
+    <div class="paragraph"> 
+     <p><code>threshold</code> filter filters events below the specified level threshold. Events with a level below the threshold will be denied.</p> 
+    </div> 
+    <table class="tableblock frame-all grid-all stretch"> 
+     <colgroup> 
+      <col style="width: 33.3333%;"> 
+      <col style="width: 33.3333%;"> 
+      <col style="width: 33.3334%;"> 
+     </colgroup> 
+     <thead> 
+      <tr> 
+       <th class="tableblock halign-left valign-top">Property</th> 
+       <th class="tableblock halign-left valign-top">Default</th> 
+       <th class="tableblock halign-left valign-top">Description</th> 
+      </tr> 
+     </thead> 
+     <tbody> 
+      <tr> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>level</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock">logging event level to filter</p></td> 
+      </tr> 
+     </tbody> 
+    </table> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="log.appenders.layout">2.5. log.appenders.layout</h3> 
+   <div class="sect3"> 
+    <h4 id="_layout_pattern">2.5.1. Layout "pattern"</h4> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">log:
+  level: debug
+  appenders:
+    - type: file
+      file: target/logs/info-only.log
+      layout:
+        type: pattern
+        logFormat: '%c{20}: %m%n'</code></pre> 
+     </div> 
+    </div> 
+    <div class="paragraph"> 
+     <p><code>pattern</code> layout configure log massage as plain text.</p> 
+    </div> 
+    <table class="tableblock frame-all grid-all stretch"> 
+     <colgroup> 
+      <col style="width: 33.3333%;"> 
+      <col style="width: 33.3333%;"> 
+      <col style="width: 33.3334%;"> 
+     </colgroup> 
+     <thead> 
+      <tr> 
+       <th class="tableblock halign-left valign-top">Property</th> 
+       <th class="tableblock halign-left valign-top">Default</th> 
+       <th class="tableblock halign-left valign-top">Description</th> 
+      </tr> 
+     </thead> 
+     <tbody> 
+      <tr> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>logFormat</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>%-5p [%d{ISO8601,UTC}] %thread %c{20}: %m%n%rEx</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock">A format of the log lines. See Logback <a href="http://logback.qos.ch/manual/layouts.html#ClassicPatternLayout">PatternLayout</a> for details.</p></td> 
+      </tr> 
+     </tbody> 
+    </table> 
+   </div> 
+   <div class="sect3"> 
+    <h4 id="_layout_json">2.5.2. Layout "json"</h4> 
+    <div class="paragraph"> 
+     <p><code>json</code> layout generates logs in JSON format. This layout requires additional dependency:</p> 
+    </div> 
+    <details open> 
+     <summary class="title">Maven</summary> 
+     <div class="content"> 
+      <div class="listingblock"> 
+       <div class="content"> 
+        <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.logback&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-logback-json&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre> 
+       </div> 
+      </div> 
+     </div> 
+    </details> 
+    <details> 
+     <summary class="title">Gradle</summary> 
+     <div class="content"> 
+      <div class="listingblock"> 
+       <div class="content"> 
+        <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">dependencies {
+    implementation "io.bootique.logback:bootique-logback-json"
+}</code></pre> 
+       </div> 
+      </div> 
+     </div> 
+    </details> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">log:
+  level: debug
+  appenders:
+    - type: file
+      file: target/logs/info-only.log
+      layout:
+        type: json
+        timestampFormat: 'yyyy-MM-dd HH:mm:ss'
+        prettyPrint: true</code></pre> 
+     </div> 
+    </div> 
+    <table class="tableblock frame-all grid-all stretch"> 
+     <colgroup> 
+      <col style="width: 33.3333%;"> 
+      <col style="width: 33.3333%;"> 
+      <col style="width: 33.3334%;"> 
+     </colgroup> 
+     <thead> 
+      <tr> 
+       <th class="tableblock halign-left valign-top">Property</th> 
+       <th class="tableblock halign-left valign-top">Default</th> 
+       <th class="tableblock halign-left valign-top">Description</th> 
+      </tr> 
+     </thead> 
+     <tbody> 
+      <tr> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>timestampFormat</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>yyyy-MM-dd HH:mm:ss.SSS</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock">A format of the timestamp value.</p></td> 
+      </tr> 
+      <tr> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>prettyPrint</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock">Option for human-readable output.</p></td> 
+      </tr> 
+     </tbody> 
+    </table> 
+   </div> 
+   <div class="sect3"> 
+    <h4 id="_layout_html">2.5.3. Layout "html"</h4> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">log:
+  level: debug
+  appenders:
+    - type: file
+      file: target/logs/info-only.html
+      layout:
+        type: html
+        pattern: %date%thread%level%logger%mdc%msg</code></pre> 
+     </div> 
+    </div> 
+    <div class="paragraph"> 
+     <p><code>html</code> layout generates logs in HTML format. See Logback documentation on <a href="https://logback.qos.ch/manual/layouts.html#ClassicHTMLLayout">HTMLLayout</a> for details</p> 
+    </div> 
+    <table class="tableblock frame-all grid-all stretch"> 
+     <colgroup> 
+      <col style="width: 33.3333%;"> 
+      <col style="width: 33.3333%;"> 
+      <col style="width: 33.3334%;"> 
+     </colgroup> 
+     <thead> 
+      <tr> 
+       <th class="tableblock halign-left valign-top">Property</th> 
+       <th class="tableblock halign-left valign-top">Default</th> 
+       <th class="tableblock halign-left valign-top">Description</th> 
+      </tr> 
+     </thead> 
+     <tbody> 
+      <tr> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>pattern</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>%date%thread%level%logger%mdc%msg</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock">Each specifier found in the pattern will result in a separate column. Likewise a separate column will be generated for each block of literal text found in the pattern, potentially wasting valuable real-estate on your screen. See Logback <a href="http://logback.qos.ch/manual/layouts.html#ClassicPatternLayout">PatternLayout</a></p></td> 
+      </tr> 
+     </tbody> 
+    </table> 
+   </div> 
+   <div class="sect3"> 
+    <h4 id="_layout_xml">2.5.4. Layout "xml"</h4> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">log:
+  level: debug
+  appenders:
+    - type: file
+      file: target/logs/info-only.xml
+      layout:
+        type: xml
+        locationInfo: true
+        properties: true</code></pre> 
+     </div> 
+    </div> 
+    <div class="paragraph"> 
+     <p><code>xml</code> generates logs in Log4j XML format. See Logback <a href="https://logback.qos.ch/manual/layouts.html#log4jXMLLayout">XMLLayout</a></p> 
+    </div> 
+    <table class="tableblock frame-all grid-all stretch"> 
+     <colgroup> 
+      <col style="width: 33.3333%;"> 
+      <col style="width: 33.3333%;"> 
+      <col style="width: 33.3334%;"> 
+     </colgroup> 
+     <thead> 
+      <tr> 
+       <th class="tableblock halign-left valign-top">Property</th> 
+       <th class="tableblock halign-left valign-top">Default</th> 
+       <th class="tableblock halign-left valign-top">Description</th> 
+      </tr> 
+     </thead> 
+     <tbody> 
+      <tr> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>locationInfo</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock">Setting <code>locationInfo</code> to true enables the inclusion of location info (caller data) in the each event.</p></td> 
+      </tr> 
+      <tr> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>properties</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock">Setting <code>properties</code> to true enables the inclusion of MDC information. Both options are set to false by default.</p></td> 
+      </tr> 
+     </tbody> 
+    </table> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_log_loggers">2.6. log.loggers</h3> 
    <div class="listingblock"> 
     <div class="content"> 
      <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">log:
@@ -538,38 +880,81 @@
  </div> 
 </div> 
 <div class="sect1"> 
- <h2 id="_logback_sentry_module">3. Logback Sentry Module</h2> 
+ <h2 id="_logback_in_unit_tests">3. Logback In Unit Tests</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>Configuring Logback <a href="#_configuration_reference">via Bootique</a> works well for applications, as configuration loading happens in the <code>main</code> method before any of the loggers are started. Unit tests is a different environment though. When testing you’d create, start and stop multiple <code>BQRuntimes</code>, each with its own Logback configuration. To provide consistent logging in this situation, it would be wise to disable per-app configuration all together. This can be done by setting <code>useLogbackConfig</code> property to <code>true</code> for each test <code>BQRuntime</code> (thus disabling Bootique configuration). E.g.:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-java java" data-lang="java">@BQApp
+static final BQRuntime app = Bootique.app()
+        .autoLoadModules()
+        .module(b -&gt; BQCoreModule.extend(b)
+                // "useLogbackConfig=true" turns off Bootique config
+                .setProperty("bq.log.useLogbackConfig", "true"))
+        .createRuntime();</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>If you need to tweak test logs further, you can use the <a href="https://logback.qos.ch/manual/configuration.html#auto_configuration">standard Logback approach</a> - create <code>logback-test.xml</code> file placing it on the test classpath (e.g. under <code>src/test/resources</code>). Here is an example <code>logback-test.xml</code>:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;configuration&gt;
+    &lt;appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;[%d{"dd/MMM/yyyy:HH:mm:ss"}] %t %p %c{1}: %m%n%ex&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+    &lt;root level="info"&gt;
+        &lt;appender-ref ref="STDOUT"/&gt;
+    &lt;/root&gt;
+    &lt;logger name="io.bootique.metrics.health.sink.Slf4JReportSink" level="warn"/&gt;
+&lt;/configuration&gt;</code></pre> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_logback_sentry_module">4. Logback Sentry Module</h2> 
  <div class="sectionbody"> 
   <div class="paragraph"> 
    <p>Provides <a href="https://docs.sentry.io/clients/java/modules/logback/">Sentry</a> integration with <a href="https://github.com/bootique/bootique-logback">Bootique-Logback</a>.</p> 
   </div> 
   <div class="sect2"> 
-   <h3 id="_setup">3.1. Setup</h3> 
+   <h3 id="_setup">4.1. Setup</h3> 
    <div class="paragraph"> 
     <p>Get DSN (Data Source Name) from <a href="https://sentry.io/">sentry.io</a> or from your own instance of <a href="https://github.com/getsentry/sentry">Sentry</a>.</p> 
    </div> 
   </div> 
   <div class="sect2"> 
-   <h3 id="_add_bootique_logback_sentry_to_your_build_tool">3.2. Add bootique-logback-sentry to your build tool:</h3> 
-   <div class="paragraph"> 
-    <p><strong>Maven</strong></p> 
-   </div> 
-   <div class="listingblock"> 
+   <h3 id="_add_bootique_logback_sentry_to_your_build_tool">4.2. Add bootique-logback-sentry to your build tool:</h3> 
+   <details open> 
+    <summary class="title">Maven</summary> 
     <div class="content"> 
-     <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.logback&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-logback-sentry&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre> 
+      </div> 
+     </div> 
     </div> 
-   </div> 
-   <div class="paragraph"> 
-    <p><strong>Gradle</strong></p> 
-   </div> 
-   <div class="listingblock"> 
+   </details> 
+   <details> 
+    <summary class="title">Gradle</summary> 
     <div class="content"> 
-     <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">compile("io.bootique.logback:bootique-logback-sentry:1.3")</code></pre> 
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">dependencies {
+    implementation "io.bootique.logback:bootique-logback-sentry"
+}</code></pre> 
+      </div> 
+     </div> 
     </div> 
-   </div> 
+   </details> 
    <div class="admonitionblock note"> 
     <table> 
      <tbody>
@@ -582,7 +967,7 @@
    </div> 
   </div> 
   <div class="sect2"> 
-   <h3 id="_write_configuration">3.3. Write Configuration</h3> 
+   <h3 id="_write_configuration">4.3. Write Configuration</h3> 
    <div class="paragraph"> 
     <p><strong>config.yml:</strong></p> 
    </div> 

@@ -16,7 +16,7 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
   <meta name="theme-color" content="#333333">
-  <link rel="canonical" href="https://bootique.io/docs/1.x/bootique-docs/">
+  <link rel="canonical" href="https://bootique.io/docs/3.x/bootique-docs/">
   <link href="/assets/app.css?0feb24357c49235eff59" rel="stylesheet">
 <script type="text/javascript" src="/assets/app.js?0feb24357c49235eff59"></script>
 
@@ -46,13 +46,13 @@
     
         <li class="pure-menu-item "><div class="">
             
-              <a class="pure-menu-link" href="/docs/1.x/getting-started/">Get started</a>
+              <a class="pure-menu-link" href="/docs/3.x/getting-started/">Get started</a>
             
             </div>
         </li>
   
         <li class="pure-menu-item "><div class="pure-menu-selected">
-            <a class="pure-menu-link" href="/docs/1.x">Documentation</a>
+            <a class="pure-menu-link" href="/docs/3.x">Documentation</a>
           </div>
         </li>
   
@@ -96,17 +96,17 @@
     </h1>
     <div class="dropdown doc-version">
   <a class="dropdown-toggle" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-24,4">
-      Version 1.3
+      Version 3.0
   </a>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           
-              <a class="dropdown-item " href="/docs/3.x/bootique-docs/">Version 3.0 (alpha)</a>
+              <a class="dropdown-item active" href="/docs/3.x/bootique-docs/">Version 3.0 (alpha)</a>
           
           
               <a class="dropdown-item " href="/docs/2.x/bootique-docs/">Version 2.0 (stable)</a>
           
           
-              <a class="dropdown-item active" href="/docs/1.x/bootique-docs/">Version 1.3 (stable)</a>
+              <a class="dropdown-item " href="/docs/1.x/bootique-docs/">Version 1.3 (stable)</a>
           </div>
 </div>
 
@@ -118,31 +118,37 @@
   Table of Contents
  </div> 
  <ul class="sectlevel1 nav"> 
-  <li><a href="#_part_i_overview" class="nav-link">1. Part I. Overview</a> 
+  <li><a href="#_overview" class="nav-link">1. Overview</a> 
    <ul class="sectlevel2 nav"> 
     <li><a href="#_what_is_bootique" class="nav-link">1.1. What is Bootique</a></li> 
     <li><a href="#_java_version" class="nav-link">1.2. Java Version</a></li> 
     <li><a href="#_build_system" class="nav-link">1.3. Build System</a></li> 
-    <li><a href="#_programming_skills" class="nav-link">1.4. Programming Skills</a></li> 
    </ul> </li> 
-  <li><a href="#_part_ii_programming" class="nav-link">2. Part II. Programming</a> 
+  <li><a href="#_programming" class="nav-link">2. Programming</a> 
    <ul class="sectlevel2 nav"> 
-    <li><a href="#_modules" class="nav-link">2.1. Modules</a></li> 
-    <li><a href="#_modules_auto_loading" class="nav-link">2.2. Modules Auto-Loading</a></li> 
-    <li><a href="#_configuration_and_configurable_factories" class="nav-link">2.3. Configuration and Configurable Factories</a></li> 
-    <li><a href="#_using_modules" class="nav-link">2.4. Using Modules</a></li> 
-    <li><a href="#_application_class" class="nav-link">2.5. Application Class</a></li> 
-    <li><a href="#_commands" class="nav-link">2.6. Commands</a></li> 
-    <li><a href="#_options" class="nav-link">2.7. Options</a></li> 
-    <li><a href="#_logging" class="nav-link">2.8. Logging</a></li> 
+    <li><a href="#_bqruntime_and_di" class="nav-link">2.1. BQRuntime and DI</a></li> 
+    <li><a href="#_modules" class="nav-link">2.2. Modules</a></li> 
+    <li><a href="#services" class="nav-link">2.3. Services</a></li> 
+    <li><a href="#_injection_and_bindings" class="nav-link">2.4. Injection and Bindings</a></li> 
+    <li><a href="#_advanced_injection" class="nav-link">2.5. Advanced Injection</a></li> 
+    <li><a href="#providers_and_authloading" class="nav-link">2.6. Module Providers and Auto-Loading</a></li> 
+    <li><a href="#basemodule" class="nav-link">2.7. BaseModule</a></li> 
+    <li><a href="#_configuration_and_configurable_factories" class="nav-link">2.8. Configuration and Configurable Factories</a></li> 
+    <li><a href="#_using_modules" class="nav-link">2.9. Using Modules</a></li> 
+    <li><a href="#applicationclass" class="nav-link">2.10. Application Class</a></li> 
+    <li><a href="#_commands" class="nav-link">2.11. Commands</a></li> 
+    <li><a href="#_options" class="nav-link">2.12. Options</a></li> 
+    <li><a href="#_logging" class="nav-link">2.13. Logging</a></li> 
    </ul> </li> 
-  <li><a href="#_part_iii_testing" class="nav-link">3. Part III. Testing</a> 
+  <li><a href="#_testing" class="nav-link">3. Testing</a> 
    <ul class="sectlevel2 nav"> 
     <li><a href="#_bootique_and_testing" class="nav-link">3.1. Bootique and Testing</a></li> 
-    <li><a href="#_creating_test_runtimes" class="nav-link">3.2. Creating Test Runtimes</a></li> 
-    <li><a href="#_common_test_scenarios" class="nav-link">3.3. Common Test Scenarios</a></li> 
+    <li><a href="#bqruntime" class="nav-link">3.2. Test BQRuntimes</a></li> 
+    <li><a href="#_test_tools_and_scopes" class="nav-link">3.3. Test Tools and Scopes</a></li> 
+    <li><a href="#_bqtestfactory_tool" class="nav-link">3.4. BQTestFactory Tool</a></li> 
+    <li><a href="#_common_test_scenarios" class="nav-link">3.5. Common Test Scenarios</a></li> 
    </ul> </li> 
-  <li><a href="#_part_iv_assembly_and_deployment" class="nav-link">4. Part IV. Assembly and Deployment</a> 
+  <li><a href="#_assembly_and_deployment" class="nav-link">4. Assembly and Deployment</a> 
    <ul class="sectlevel2 nav"> 
     <li><a href="#runnable-jar-with-dependencies" class="nav-link">4.1. Runnable Jar with Dependencies</a></li> 
     <li><a href="#runnable-jar-with-lib" class="nav-link">4.2. Runnable Jar with "lib" Folder</a></li> 
@@ -154,15 +160,15 @@
       <div class="col-12 col-lg-8 col-xl-9  py-3 pl-lg-5">
         <article>
           <div class="sect1"> 
- <h2 id="_part_i_overview">1. Part I. Overview</h2> 
+ <h2 id="_overview">1. Overview</h2> 
  <div class="sectionbody"> 
   <div class="sect2"> 
    <h3 id="_what_is_bootique">1.1. What is Bootique</h3> 
    <div class="paragraph"> 
-    <p>Bootique is a minimally opinionated platform for building container-less runnable Java applications. No JavaEE container required to run your app! It is an ideal platform for <a href="http://martinfowler.com/articles/microservices.html"><em>microservices</em></a>, as it allows you to create a fully functional app with minimal-to-no setup. Though it is not limited to a specific kind of app (or the "micro" size) and can be used for REST services, webapps, runnable jobs, DB migrations, JavaFX GUI apps to mention a few examples.</p> 
+    <p>Bootique is a platform for building container-less runnable Java applications. It is an ideal technology for microservices, as it allows you to create a fully-functional app with minimal-to-no setup. Though it is not limited to a specific kind of application (or to the "micro" size) and can be used for REST services, webapps, runnable jobs, DB migrations, JavaFX GUI apps or really anything else.</p> 
    </div> 
    <div class="paragraph"> 
-    <p>Unlike traditional container-based apps, Bootique allows you to control your <code>main()</code> method and create Java apps that behave like simple executable commands that can be run with Java:</p> 
+    <p>Unlike traditional container-based apps, Bootique allows you to control your <code>main()</code> method and create Java apps that behave like simple executable commands:</p> 
    </div> 
    <div class="listingblock"> 
     <div class="content"> 
@@ -170,10 +176,10 @@
     </div> 
    </div> 
    <div class="paragraph"> 
-    <p>Each Bootique app can be started with a YAML configuration loaded from a file or from a remote URL. Among other benefits, such configuration approach ideally suits cloud deployment environments.</p> 
+    <p>Each Bootique app can be started with a YAML configuration, or configured with shell variables and is ideally suited for Docker / cloud deployments.</p> 
    </div> 
    <div class="paragraph"> 
-    <p>Other popular products in this space are <a href="http://www.dropwizard.io/">Dropwizard</a> and <a href="http://projects.spring.io/spring-boot/">SpringBoot</a>, however Bootique’s focus is different. Bootique favors modularity and clean pluggable architecture. Bootique is built on top of <a href="https://github.com/google/guice">Google Guice</a> dependency injection (DI) container, which provides the core of its modularity mechanism. This means that pretty much anything in Bootique can be customized/overridden to your liking.</p> 
+    <p>Compared to other products in this space Bootique has a focus on modularity and clean pluggable architecture. It is built on top of a dependency injection container, and pretty much anything in Bootique can be customized/overridden to your liking.</p> 
    </div> 
   </div> 
   <div class="sect2"> 
@@ -188,34 +194,86 @@
     <p>Bootique apps can be built using any Java build system (Ant, Maven, Gradle, etc). Examples in the documentation are based on Maven.</p> 
    </div> 
   </div> 
-  <div class="sect2"> 
-   <h3 id="_programming_skills">1.4. Programming Skills</h3> 
-   <div class="paragraph"> 
-    <p>Everything you know about Java programming will be applicable when working with Bootique. You may need to "unlearn" some of the practices related to JavaEE configuration and container deployment though.</p> 
-   </div> 
-   <div class="paragraph"> 
-    <p>Integration between various parts of a Bootique app is done via <a href="https://github.com/google/guice">Google Guice</a>. In most cases Bootique API would steer you towards idiomatic approach to integration, so deep knowledge of Guice is not required. Though it wouldn’t hurt to understand a few main concepts: modules, bindings, <a href="https://github.com/google/guice/wiki/Multibindings">multibindings</a>, <a href="http://google.github.io/guice/api-docs/latest/javadoc/index.html?com/google/inject/util/Modules.html">overrides</a>.</p> 
-   </div> 
-   <div class="paragraph"> 
-    <p>Java <a href="https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html">ServiceLoader</a> facility is another important part of Bootique, and probably yet another thing that you shouldn’t worry too much about initially.</p> 
-   </div> 
-  </div> 
  </div> 
 </div> 
 <div class="sect1"> 
- <h2 id="_part_ii_programming">2. Part II. Programming</h2> 
+ <h2 id="_programming">2. Programming</h2> 
  <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>A typical "main" class in a Bootique application looks like this:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-java java" data-lang="java">public class Application extends BaseModule {
+
+    public static void main(String[] args) {
+        Bootique.app(args) <i class="conum" data-value="1"></i><b>(1)</b>
+                .autoLoadModules() <i class="conum" data-value="2"></i><b>(2)</b>
+                .exec() <i class="conum" data-value="3"></i><b>(3)</b>
+                .exit(); <i class="conum" data-value="4"></i><b>(4)</b>
+    }
+}</code></pre> 
+   </div> 
+  </div> 
+  <div class="colist arabic"> 
+   <table> 
+    <tbody>
+     <tr> 
+      <td><i class="conum" data-value="1"></i><b>1</b></td> 
+      <td><code>Bootique</code> class is the "builder" of our app that allows to configure it before startup</td> 
+     </tr> 
+     <tr> 
+      <td><i class="conum" data-value="2"></i><b>2</b></td> 
+      <td>Enables <a href="#providers_and_authloading">module auto-loading</a></td> 
+     </tr> 
+     <tr> 
+      <td><i class="conum" data-value="3"></i><b>3</b></td> 
+      <td>Creates a <code>BQRuntime</code> object and calls its "run()" method. The outcome depends on what modules the application is made of and what CLI options were passed to it on startup.</td> 
+     </tr> 
+     <tr> 
+      <td><i class="conum" data-value="4"></i><b>4</b></td> 
+      <td>Exits the app passing the exit code that is the result of the execution to the OS shell that started the app.</td> 
+     </tr> 
+    </tbody>
+   </table> 
+  </div> 
+  <div class="paragraph"> 
+   <p>This is it in a nutshell. Now let’s discuss the details…​</p> 
+  </div> 
   <div class="sect2"> 
-   <h3 id="_modules">2.1. Modules</h3> 
+   <h3 id="_bqruntime_and_di">2.1. BQRuntime and DI</h3> 
    <div class="paragraph"> 
-    <p>Bootique apps are made of "modules". The framework simply locates all available modules, loads them in the DI environment, parses the command line, and then transfers control to a Command (that can originate from any of the modules) that matched the user choice. There’s a growing list of modules created by Bootique development team. And you can easily write your own. In fact, programming in Bootique is primarily about writing Modules.</p> 
+    <p><code>BQRuntime</code> is the object representing a Bootique app. It is the entry point to everything in the app. It holds all other objects ("services"), configuration, commands, etc. Despite its importance, you’d rarely interact with <code>BQRuntime</code> directly (except when writing <a href="#bqruntime">unit tests</a>), instead it acts as a "container" for your code.</p> 
    </div> 
    <div class="paragraph"> 
-    <p>A module is a Java library that contains some code. What makes it a module is a special Java class that implements <a href="https://google.github.io/guice/api-docs/latest/javadoc/index.html?com/google/inject/Module.html">Guice Module interface</a>. This class defines what "services" or other types of objects the module provides (in other words what will be injectable by the module users). This is done in a form of "bindings", i.e. associations between publicly visible injectable service interfaces and specific implementations:</p> 
+    <p>Foundation of <code>BQRuntime</code> functionality is <em>dependency injection</em> (DI) that helps to glue things together even in most complex applications.</p> 
+   </div> 
+   <div class="admonitionblock note"> 
+    <table> 
+     <tbody>
+      <tr> 
+       <td class="icon"> <i class="fa fa-info-circle fa-2x" title="Note"></i> </td> 
+       <td class="content"> If you are familiar with other DI implementations in Java, you will find a lot of similarities. Namely standard injection annotations from <code>javax.inject</code> package (<a href="https://jcp.org/en/jsr/detail?id=330">JSR-330</a>). But also quite a few differences. The closest DI implementation to Bootique is good old Guice. </td> 
+      </tr> 
+     </tbody>
+    </table> 
+   </div> 
+   <div class="paragraph"> 
+    <p><code>BQRuntime</code> loads its services from "modules", so next let’s discuss modules.</p> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_modules">2.2. Modules</h3> 
+   <div class="paragraph"> 
+    <p>Each module is a logical collection of (hopefully related) services. E.g. a standard "bootique-jetty" module integrates Jetty server into your application, "bootique-jdbc" provides a way to work with relational databases, and so on. Bootique team maintains a constantly growing list of such modules. Your own code will also be organized as modules.</p> 
+   </div> 
+   <div class="paragraph"> 
+    <p>At its core a module is simply a bunch of Java classes and resources. What makes it a module is a precense of one special class implementing <code>BQModule</code>. This class is an "assembly descriptor" for the objects in the library. It contains information used by the DI environment to create and configure them. Here is a simple module class (we’ll explain <code>configure(Binder)</code> method a bit later):</p> 
    </div> 
    <div class="listingblock"> 
     <div class="content"> 
-     <pre class="highlight"><code class="language-java java" data-lang="java">public class MyModule implements Module {
+     <pre class="highlight"><code class="language-java java" data-lang="java">public class MyModule implements BQModule {
+
     @Override
     public void configure(Binder binder) {
         binder.bind(MyService.class).to(MyServiceImpl.class);
@@ -224,65 +282,275 @@
     </div> 
    </div> 
    <div class="paragraph"> 
-    <p>There are other flavors of bindings in Guice. Please refer to <a href="https://github.com/google/guice/wiki/Motivation">Guice documentation</a> for details. One important form extensively used in Bootique is <a href="https://github.com/google/guice/wiki/Multibindings">Multibinding</a>.</p> 
+    <p>By convention all classes beloning to a given module are packaged in a dedicated ".jar" file, though nothing would prevent you to keep more than one module in a single .jar.</p> 
+   </div> 
+   <div class="admonitionblock note"> 
+    <table> 
+     <tbody>
+      <tr> 
+       <td class="icon"> <i class="fa fa-info-circle fa-2x" title="Note"></i> </td> 
+       <td class="content"> Java Platform Module System (JPMS) is logically close to Bootique modules, and we would love to fully align the two. Unfortunately it is our experience that forcing the users to adhere to JPMS everywhere would result in lots of limitations and invariable productivity loss, so we are intentionally ignoring possible JPMS synergies. </td> 
+      </tr> 
+     </tbody>
+    </table> 
    </div> 
   </div> 
   <div class="sect2"> 
-   <h3 id="_modules_auto_loading">2.2. Modules Auto-Loading</h3> 
+   <h3 id="services">2.3. Services</h3> 
    <div class="paragraph"> 
-    <p>Modules can be automatically loaded via <code>Bootique.autoLoadModules()</code> as long as they are included in your application dependencies. Auto-loading depends on the Java <a href="https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html">ServiceLoader mechanism</a>. To ensure your modules can be auto-loaded do two things. First implement <code>io.bootique.BQModuleProvider</code> interface specific to your module:</p> 
+    <p>As mentioned above, DI manages a subset of application objects that we informally call "services". Here is a rough list of DI functionality around services:</p> 
+   </div> 
+   <div class="ulist"> 
+    <ul> 
+     <li> <p>It provides a powerful mechanism to assemble service instances, with injection of dependencies, applying external configuration, using custom factories</p> </li> 
+     <li> <p>It makes each constructed service available to be injected in other objects that depend on it</p> </li> 
+     <li> <p>It enables "programming to interfaces" paradigm, decoupling dependencies from specific implementations</p> </li> 
+     <li> <p>It manages each service scope (most often - singleton) and lifecycle (a shutdown callback can be executed if needed)</p> </li> 
+     <li> <p>It infers the startup order to satisfy service interdependencies</p> </li> 
+    </ul> 
+   </div> 
+   <div class="admonitionblock note"> 
+    <table> 
+     <tbody>
+      <tr> 
+       <td class="icon"> <i class="fa fa-info-circle fa-2x" title="Note"></i> </td> 
+       <td class="content"> It is up to you as a programmer to decide which objects are services and which are just regular objects. Common traits of services: (1) are singletons; (2) known to the rest of the application via their "contract" interfaces; (3) require complex configuration and assembly; (4) expensive to create. </td> 
+      </tr> 
+     </tbody>
+    </table> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_injection_and_bindings">2.4. Injection and Bindings</h3> 
+   <div class="paragraph"> 
+    <p>Services can annotate their fields and/or constructors with <code>@Inject</code> to indicate which internal variables they want to be injected by the DI container. Do demonstrate this we will show a couple of implementations of a simple "hello" service that returns a greeting:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">public interface Hello {
+
+    String sayHello();
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>An implementation of this service would need another service called <code>UserNameService</code> that returns a user name and needs to be injected. Here is a field injection flavor:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">public class HelloService1 implements Hello {
+
+    @Inject
+    private UserNameService nameService;
+
+    @Override
+    public String sayHello() {
+        return "Hello, " + nameService.getUserName() + "!";
+    }
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>And here is a constructor flavor:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">public class HelloService2 implements Hello {
+
+    private UserNameService nameService;
+
+    @Inject
+    public HelloService2(UserNameService nameService) {
+        this.nameService = nameService;
+    }
+
+    @Override
+    public String sayHello() {
+        return "Hello, " + nameService.getUserName() + "!";
+    }
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Both flavors are identical in terms of functionality. Constructor variety is more verbose, but arguably results in a cleaner API, as the object can be created if needed without a DI environment. Regardless of which flavor was selected, the implementation needs to be <em>bound</em> in the module class:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">@Override
+public void configure(Binder binder) {
+    binder.bind(Hello.class)
+            .to(HelloService2.class)
+            .inSingletonScope();
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>This creates a permanent association between <code>Hello</code> interface and a specific implementation. <code>Hello</code> can now be injected into other services. A single instance of <code>HelloService2</code> is created automatically by the DI container, with a real object transparently provided for the "nameService".</p> 
+   </div> 
+   <div class="paragraph"> 
+    <p>If the service construction requires additional logic, instead of binding service implementation, you can create and bind a Java class that implements <code>Provider&lt;Service&gt;</code>. E.g.:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">public class HelloService3Provider implements Provider&lt;Hello&gt; {
+
+    @Inject
+    private UserNameService nameService;
+
+    @Override
+    public Hello get() {
+        return new HelloService3(nameService);
+    }
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">@Override
+public void configure(Binder binder) {
+    binder.bind(Hello.class)
+            .toProvider(HelloService3Provider.class)
+            .inSingletonScope();
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Provider class has the same rules for injection of its own dependencies as services (either annotated fields or annotated constructor).</p> 
+   </div> 
+   <div class="paragraph"> 
+    <p>The benefit of the provider is that it can implement custom assembly logic, which is separate from the service itself. It also allows the service it creates to be completely free from injection annotations. Still creating a provider class may be an overkill, and there is a simpler way to define small bits of assembly code - "provider methods" that are declared right in the module class:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">public class HelloModule3 implements BQModule {
+
+    @Singleton
+    @Provides
+    Hello provideHello(UserNameService nameService) {  <i class="conum" data-value="1"></i><b>(1)</b>
+        return new HelloService3(nameService);
+    }
+
+    @Override
+    public void configure(Binder binder) { <i class="conum" data-value="2"></i><b>(2)</b>
+    }
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="colist arabic"> 
+    <table> 
+     <tbody>
+      <tr> 
+       <td><i class="conum" data-value="1"></i><b>1</b></td> 
+       <td>Provider method that does both assembly and binding of the Hello service.</td> 
+      </tr> 
+      <tr> 
+       <td><i class="conum" data-value="2"></i><b>2</b></td> 
+       <td>"configure" method can be empty, as the service was already bound via <code>provideHello</code>. Of course it can also contain bindings for unrelated services.</td> 
+      </tr> 
+     </tbody>
+    </table> 
+   </div> 
+   <div class="paragraph"> 
+    <p>A few notes on the <code>provideHello</code> method. What makes it a provider is the <code>@Provides</code> annotation. Its access modifier is irrelevant (can be "public", "protected", etc.). As mentioned above, this method does both assembly and binding of the "Hello" service. The return type (<code>Hello</code>) is used as the binding key. And while there is no <code>@Inject</code> annotation in use anywhere, injection in fact also happens here - all method arguments ("nameService" in this case) are injected by the DI environment.</p> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_advanced_injection">2.5. Advanced Injection</h3> 
+   <div class="sect3"> 
+    <h4 id="_injection_in_collections">2.5.1. Injection in Collections</h4> 
+    <div class="paragraph"> 
+     <p>TODO</p> 
+    </div> 
+   </div> 
+   <div class="sect3"> 
+    <h4 id="_injection_and_generics">2.5.2. Injection and Generics</h4> 
+    <div class="paragraph"> 
+     <p>TODO</p> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="providers_and_authloading">2.6. Module Providers and Auto-Loading</h3> 
+   <div class="paragraph"> 
+    <p>For a module to be included in <code>BQRuntime</code>, it has be explicitly mentioned when starting a Bootique app (<code>Bootique.app(args).module(MyModule.class)</code>). Though this is highly impractical in real apps, and most often than not the alternative auto-loading mechanism is used. To enable auto-loading, call <code>Bootique.autoLoadModules()</code> as a part of the startup sequence. Also modules themselves need to be created in a certain way to be eligible for auto-loading:</p> 
+   </div> 
+   <div class="olist arabic"> 
+    <ol class="arabic"> 
+     <li> <p>There must be a special per-module class that implements <code>io.bootique.BQModuleProvider</code>:</p> </li> 
+    </ol> 
    </div> 
    <div class="listingblock"> 
     <div class="content"> 
      <pre class="highlight"><code class="language-java java" data-lang="java">public class MyModuleProvider implements BQModuleProvider {
     @Override
-    public Module module() {
+    public BQModule module() {
         return new MyModule();
     }
 }</code></pre> 
     </div> 
    </div> 
    <div class="paragraph"> 
-    <p>After that create a file <code>META-INF/services/io.bootique.BQModuleProvider</code> with the only line being the name of your BQModuleProvider implementor. E.g.:</p> 
+    <p>In fact you don’t need a sperate class. The module itself can implement this interface (see a discussion of <a href="#basemodule">BaseModule superclass</a>).</p> 
+   </div> 
+   <div class="olist arabic"> 
+    <ol class="arabic"> 
+     <li> <p>create a file <code>META-INF/services/io.bootique.BQModuleProvider</code> with the only line being the name of your provider implementor. E.g.:</p> </li> 
+    </ol> 
    </div> 
    <div class="listingblock"> 
     <div class="content"> 
      <pre class="highlight"><code class="language-text text" data-lang="text">com.foo.MyModuleProvider</code></pre> 
     </div> 
    </div> 
+   <div class="admonitionblock note"> 
+    <table> 
+     <tbody>
+      <tr> 
+       <td class="icon"> <i class="fa fa-info-circle fa-2x" title="Note"></i> </td> 
+       <td class="content"> All standard Bootique modules are auto-loadable. </td> 
+      </tr> 
+     </tbody>
+    </table> 
+   </div> 
    <div class="paragraph"> 
-    <p><code>BQModuleProvider</code> has two more methods that you can optionally implement to help Bootique to make sense of the module being loaded:</p> 
+    <p><code>BQModuleProvider</code> has other methods that you can optionally implement that provide Bootique with extra metatada and other module information. Inspect the interface to see what they are.</p> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="basemodule">2.7. BaseModule</h3> 
+   <div class="paragraph"> 
+    <p>Both module and provider classes can be combined in one to reduce the boilerplate code. To do that you simply subclass your module from <code>BaseModule</code>:</p> 
    </div> 
    <div class="listingblock"> 
     <div class="content"> 
-     <pre class="highlight"><code class="language-java java" data-lang="java">public class MyModuleProvider implements BQModuleProvider {
-    // ...
+     <pre class="highlight"><code class="language-java java" data-lang="java">public class MyOtherModule extends BaseModule {
 
-    // provides human-readable name of the module
     @Override
-    public String name() {
-        return "CustomName";
-    }
-
-    // a collection of modules whose services are overridden by this module
-    @Override
-    public Collection&lt;Class&lt;? extends Module&gt;&gt; overrides() {
-        return Collections.singleton(BQCoreModule.class);
+    public void configure(Binder binder) {
+        binder.bind(MyService.class).to(MyServiceImpl.class);
     }
 }</code></pre> 
     </div> 
    </div> 
    <div class="paragraph"> 
-    <p>If in your Module you are planning to redefine any services from the upstream modules, specify those upstream modules in the <code>overrides()</code> collection. In practice overrides are rarely needed, and often can be replaced with service decomposition.</p> 
+    <p>For auto-loading you’d put it in <code>META-INF/services/io.bootique.BQModuleProvider</code>:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-text text" data-lang="text">com.foo.MyOtherModule</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Inheriting from <code>BaseModule</code> provides other advantages that we’ll discuss in the "Configuration" section and is a recommended approach to writing modules since Bootique 2.0.</p> 
    </div> 
   </div> 
   <div class="sect2"> 
-   <h3 id="_configuration_and_configurable_factories">2.3. Configuration and Configurable Factories</h3> 
+   <h3 id="_configuration_and_configurable_factories">2.8. Configuration and Configurable Factories</h3> 
    <div class="paragraph"> 
-    <p>Bootique Modules obtain their configuration in a form of "factory objects". We’ll show some examples shortly. For now let’s focus on the big picture, namely the fact that Bootique app configuration is multi-layered and roughly follows the sequence of "code - config files (contributed) - config files (CLI) - overrides". "Code" is the default values that are provided in constructors of factory objects. Config files overlay those defaults with their own values. Config files can be either contributed in the code, or specified on the command line. Files is where the bulk of configuration usually stored. Finally config values may be further overridden via Java properties and/or environment variables.</p> 
+    <p>Bootique Modules obtain their configuration in a form of "factory objects". We’ll show some examples shortly. For now let’s focus on the big picture, namely the fact that Bootique app configuration is multi-layered and roughly follows the sequence of "code - config files (contributed) - config files (CLI) - overrides". "Code" is the default values that are provided in constructors of factory objects. Config files overlay those defaults with their own values. Config files can be either contributed in the code, or specified on the command line. Files is where the bulk of configuration usually stored. Finally, config values may be further overridden via Java properties and/or environment variables.</p> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_configuration_via_yaml_files">2.3.1. Configuration via YAML Files</h4> 
+    <h4 id="_configuration_via_yaml_files">2.8.1. Configuration via YAML Files</h4> 
     <div class="paragraph"> 
      <p>Format of configuration file can be either JSON or YAML. For simplicity we’ll focus on YAML format, but the two are interchangeable. Here is an example config file:</p> 
     </div> 
@@ -305,7 +573,7 @@ jetty:
      <p>While not strictly required, as a rule the top-level keys in the file belong to configuration objects of individual modules. In the example above "log" subtree configures <code>bootique-logback</code> module, while "jetty" subtree configures <code>bootique-jetty</code>. For standard modules refer to module-specific documentation on the structure of the supported configuration (or run your app <code>-H</code> flag to print supported config to the console). Here we’ll discuss how to build your own configuration-aware module.</p> 
     </div> 
     <div class="paragraph"> 
-     <p>Bootique allows each Module to read its specific configuration subtree as an object of the type defined in the Module. Very often such an object is written as a factory that contains a bunch of setters for configuration properties, and a factory method to produce some "service" that a Module is interested in. Here is an example factory:</p> 
+     <p>Bootique allows each Module to read its specific configuration subtree as an object of the type defined in the Module. Very often such an object is written as a factory that contains a bunch of setters for configuration properties, and a factory method to produce some "service" a Module is interested in. Here is an example factory:</p> 
     </div> 
     <div class="listingblock"> 
      <div class="content"> 
@@ -334,13 +602,13 @@ jetty:
     </div> 
     <div class="listingblock"> 
      <div class="content"> 
-      <pre class="highlight"><code class="language-java java" data-lang="java">public class MyModule extends ConfigModule {
+      <pre class="highlight"><code class="language-java java" data-lang="java">public class MyModule extends BaseModule {
 
     @Singleton
     @Provides
     public MyService createMyService(
-             ConfigurationFactory configFactory,
-             SomeOtherService service) {
+            ConfigurationFactory configFactory,
+            SomeOtherService service) {
 
         return config(MyFactory.class, configFactory).createMyService(service);
     }
@@ -362,15 +630,15 @@ jetty:
     </div> 
     <div class="ulist"> 
      <ul> 
-      <li> <p>Subclassing from <code>ConfigModule</code> is optional. <code>ConfigModule</code> provides a few utilities, such as a shorter "config" method and a default configuration key ("my" in this case. See the next bullet).</p> </li> 
-      <li> <p>Calling our module "MyModule" and extending from <code>ConfigModule</code> gives it access to the protected "configPrefix" property that is initialized to the value of "my" based on the module class name. The naming convention here is to use the Module simple class name without the "Module" suffix and converted to lowercase.</p> </li> 
-      <li> <p><code>@Provides</code> annotation is a Guice way of marking a Module method as a "provider" for a certain type of injectable service. All its parameters are themselves injectable objects.</p> </li> 
+      <li> <p>Subclassing from <code>BaseModule</code> provides a few utilities, such as a shorter "config" method and a default configuration key ("my" in this case. See the next bullet).</p> </li> 
+      <li> <p>Calling our module "MyModule" and extending from <code>BaseModule</code> gives it access to the protected "configPrefix" property that is initialized to the value of "my" based on the module class name. The naming convention here is to use the Module simple class name without the "Module" suffix and converted to lowercase.</p> </li> 
+      <li> <p><code>@Provides</code> annotation is a Bootique DI way of marking a <code>BQModule</code> method as a "provider" for a certain type of injectable service. All its parameters are themselves injectable objects.</p> </li> 
       <li> <p><code>ConfigurationFactory</code> is the class used to bind a subtree of the app YAML configuration to a given Java object (in our case - MyFactory). The structure of MyFactory is very simple here, but it can be as complex as needed, containing nested objects, arrays, maps, etc. Internally Bootique uses <a href="https://github.com/FasterXML/jackson">Jackson framework</a> to bind YAML to a Java class, so all the features of Jackson can be used to craft configuration.</p> </li> 
      </ul> 
     </div> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_configuration_file_loading">2.3.2. Configuration File Loading</h4> 
+    <h4 id="_configuration_file_loading">2.8.2. Configuration File Loading</h4> 
     <div class="paragraph"> 
      <p>A config file can be passed to a Bootique app via DI (those are usually coming from classpath) or on the command line:</p> 
     </div> 
@@ -383,32 +651,32 @@ jetty:
         </div> 
        </div> 
        <div class="paragraph"> 
-        <p>A primary motivation for this style is to provide application default configuration, with YAML files often embedded in the app and read from the classpath (as suggested by the "classpath:.." URL in the example). More then one configuration can be contributed. E.g. individual modules might load their own defaults. Multiple configs are combined in a single config tree by the runtime. The order in which this combination happens is undefined, so make sure there are no conflicts between them. If there are, consider replacing multiple conflicting configs with a single config.</p> 
+        <p>A primary motivation for this style is to provide application default configuration, with YAML files often embedded in the app and read from the classpath (as suggested by the "classpath:.." URL in the example). More than one configuration can be contributed. E.g. individual modules might load their own defaults. Multiple configs are combined in a single config tree by the runtime. The order in which this combination happens is undefined, so make sure there are no conflicts between them. If there are, consider replacing multiple conflicting configs with a single config.</p> 
        </div> </li> 
       <li> <p>Conditionally contributing a config file via DI. It is possible to make DI configuration inclusion conditional on the presence of a certain command line option:</p> 
        <div class="listingblock"> 
         <div class="content"> 
          <pre class="highlight"><code class="language-java java" data-lang="java">OptionMetadata o = OptionMetadata.builder("qa")
-      .description("when present, uses QA config")
-      .build();
+        .description("when present, uses QA config")
+        .build();
 
 BQCoreModule.extend(binder)
-      .addOption(o)
-      .mapConfigResource(o.getName(), "classpath:a/b/qa.yml");</code></pre> 
+        .addOption(o)
+        .mapConfigResource(o.getName(), "classpath:a/b/qa.yml");</code></pre> 
         </div> 
        </div> </li> 
       <li> <p>Specifying a config file on the command line. Each Bootique app supports <code>--config</code> option that takes a configuration file as parameter. To specify more than one file, use <code>--config</code> option multiple times. Configurations will be loaded and merged together in the order of their appearance on the command line.</p> </li> 
       <li> <p>Specifying a single config value via a custom option:</p> 
        <div class="listingblock"> 
         <div class="content"> 
-         <pre class="highlight"><code class="language-java java" data-lang="java">OptionMetadata o = OptionMetadata.builder("db")
-      .description("specifies database URL")
-      .valueOptionalWithDefault("jdbc:mysql://127.0.0.1:3306/mydb")
-      .build();
+         <pre class="highlight"><code class="language-java java" data-lang="java">OptionMetadata o1 = OptionMetadata.builder("db")
+        .description("specifies database URL")
+        .valueOptionalWithDefault("jdbc:mysql://127.0.0.1:3306/mydb")
+        .build();
 
 BQCoreModule.extend(binder)
-      .addOption(o)
-      .mapConfigPath(o.getName(), "jdbc.mydb.url);</code></pre> 
+        .addOption(o1)
+        .mapConfigPath(o1.getName(), "jdbc.mydb.url");</code></pre> 
         </div> 
        </div> 
        <div class="paragraph"> 
@@ -418,7 +686,7 @@ BQCoreModule.extend(binder)
     </div> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_configuration_via_properties">2.3.3. Configuration via Properties</h4> 
+    <h4 id="_configuration_via_properties">2.8.3. Configuration via Properties</h4> 
     <div class="paragraph"> 
      <p>YAML file can be thought of as a set of nested properties. E.g. the following config</p> 
     </div> 
@@ -430,7 +698,7 @@ BQCoreModule.extend(binder)
      </div> 
     </div> 
     <div class="paragraph"> 
-     <p>can be represented as two properties ("my.prop1", "my.prop2") being assigned some values. Bootique takes advantage of this structural equivalence and allows to define configuration via properties as an alternative (or more frequently - an addition) to YAML. If the same "key" is defined in both YAML file and a property, <code>ConfigurationFactory</code> would use the value of the property (in other words properties override YAML values).</p> 
+     <p>can be represented as two properties ("my.prop1", "my.prop2") being assigned some values. Bootique takes advantage of this structural equivalence and allows defining configuration via properties as an alternative (or more frequently - an addition) to YAML. If the same "key" is defined in both YAML file and a property, <code>ConfigurationFactory</code> would use the value of the property (in other words properties override YAML values).</p> 
     </div> 
     <div class="paragraph"> 
      <p>To turn a given property into a configuration property, you need to prefix it with “bq.”. This "namespace" makes configuration explicit and helps to avoid random naming conflicts with properties otherwise present in the system.</p> 
@@ -440,12 +708,12 @@ BQCoreModule.extend(binder)
     </div> 
     <div class="listingblock"> 
      <div class="content"> 
-      <pre class="highlight"><code class="language-java java" data-lang="java">class MyModule implements Module {
+      <pre class="highlight"><code class="language-java java" data-lang="java">class MyModule implements BQModule {
     public void configure(Binder binder) {
 
         BQCoreModule.extend(binder)
-               .setProperty("bq.my.prop1", "valX")
-               .setProperty("bq.my.prop2", "valY");
+                .setProperty("bq.my.prop1", "valX")
+                .setProperty("bq.my.prop2", "valY");
     }
 }</code></pre> 
      </div> 
@@ -463,7 +731,7 @@ BQCoreModule.extend(binder)
     </div> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_configuration_via_environment_variables">2.3.4. Configuration via Environment Variables</h4> 
+    <h4 id="_configuration_via_environment_variables">2.8.4. Configuration via Environment Variables</h4> 
     <div class="paragraph"> 
      <p>Bootique allows to use <em>environment variables</em> to specify/override configuration values. While variables work similar to JVM properties, using them has advantages in certain situations:</p> 
     </div> 
@@ -479,12 +747,12 @@ BQCoreModule.extend(binder)
     </div> 
     <div class="listingblock"> 
      <div class="content"> 
-      <pre class="highlight"><code class="language-java java" data-lang="java">class MyModule implements Module {
+      <pre class="highlight"><code class="language-java java" data-lang="java">class MyModule implements BQModule {
     public void configure(Binder binder) {
 
         BQCoreModule.extend(binder)
-               .declareVar("my.prop1", "P1")
-               .declareVar("my.prop2", "P2");
+                .declareVar("my.prop1", "P1")
+                .declareVar("my.prop2", "P2");
     }
 }</code></pre> 
      </div> 
@@ -518,9 +786,9 @@ ENVIRONMENT
     </div> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_polymorphic_configuration_objects">2.3.5. Polymorphic Configuration Objects</h4> 
+    <h4 id="_polymorphic_configuration_objects">2.8.5. Polymorphic Configuration Objects</h4> 
     <div class="paragraph"> 
-     <p>A powerful feature of Jackson is the ability to dynamically create subclasses of the configuration objects. Bootique takes full advantage of this. E.g. imagine a logging module that needs "appenders" to output its log messages (file appender, console appender, syslog appender, etc.). The framework might not be aware of all possible appenders its users might come up with in the future. Yet it still wants to have the ability to instantiate any of them, based solely on the data coming from YAML. Moreover each appender will have its own set of incompatible configuration properties. In fact this is exactly the situation with <code>bootique-logback</code> module.</p> 
+     <p>A powerful feature of Jackson is the ability to dynamically create subclasses of the configuration objects. Bootique takes full advantage of this. E.g. imagine a logging module that needs "appenders" to output its log messages (file appender, console appender, syslog appender, etc.). The framework might not be aware of all possible appenders its users might come up with in the future. Yet it still wants to have the ability to instantiate any of them, based solely on the data coming from YAML. Moreover, each appender will have its own set of incompatible configuration properties. In fact this is exactly the situation with <code>bootique-logback</code> module.</p> 
     </div> 
     <div class="paragraph"> 
      <p>Here is how you ensure that such a polymorphic configuration is possible. Let’s start with a simple class hierarchy:</p> 
@@ -546,8 +814,8 @@ public class ConcreteType2 extends BaseType {
     <div class="listingblock"> 
      <div class="content"> 
       <pre class="highlight"><code class="language-java java" data-lang="java">@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-     property = "type",
-     defaultImpl = ConcreteTypeFactory1.class)
+        property = "type",
+        defaultImpl = ConcreteTypeFactory1.class)
 public abstract class BaseTypeFactory implements PolymorphicConfiguration {
 
     public abstract BaseType create();
@@ -556,19 +824,19 @@ public abstract class BaseTypeFactory implements PolymorphicConfiguration {
 @JsonTypeName("type1")
 public class ConcreteTypeFactory1 extends BaseTypeFactory {
 
-     @Override
-     public BaseType create() {
+    @Override
+    public BaseType create() {
         return new ConcreteType1();
-     }
+    }
 }
 
 @JsonTypeName("type2")
 public class ConcreteTypeFactory2 extends BaseTypeFactory {
 
-     @Override
-     public BaseType create() {
+    @Override
+    public BaseType create() {
         return new ConcreteType2();
-     }
+    }
 }</code></pre> 
      </div> 
     </div> 
@@ -593,7 +861,7 @@ com.foo.ConcreteTypeFactory2</code></pre>
      </div> 
     </div> 
     <div class="paragraph"> 
-     <p>The service of <code>BaseType</code> is bound in Guice using the standard <code>ConfigurationFactory</code> approach described above. Depending on the YAML config, one of the subclasses of <code>BaseType</code> will be created:</p> 
+     <p>The service of <code>BaseType</code> is bound in Bootique DI using the standard <code>ConfigurationFactory</code> approach described above. Depending on the YAML config, one of the subclasses of <code>BaseType</code> will be created:</p> 
     </div> 
     <div class="listingblock"> 
      <div class="content"> 
@@ -601,8 +869,8 @@ com.foo.ConcreteTypeFactory2</code></pre>
 public BaseType provideBaseType(ConfigurationFactory configFactory) {
 
     return configFactory
-             .config(BaseTypeFactory.class, "my")
-             .create();
+            .config(BaseTypeFactory.class, "my")
+            .create();
 }</code></pre> 
      </div> 
     </div> 
@@ -612,51 +880,57 @@ public BaseType provideBaseType(ConfigurationFactory configFactory) {
    </div> 
   </div> 
   <div class="sect2"> 
-   <h3 id="_using_modules">2.4. Using Modules</h3> 
+   <h3 id="_using_modules">2.9. Using Modules</h3> 
    <div class="paragraph"> 
-    <p>Modules can use other "upstream" modules in a few ways:</p> 
+    <p>Modules often depend on other "upstream" modules. They can interact with upstream modules in a few ways:</p> 
    </div> 
    <div class="ulist"> 
     <ul> 
-     <li> <p>"Import": a downstream module uses another module as a library, ignoring its injectable services.</p> </li> 
-     <li> <p>"Use" : downstream module’s classes inject classes from an upstream module.</p> </li> 
-     <li> <p>"Contribute": downstream module injects objects to collections and maps defined in upstream modules.</p> </li> 
+     <li> <p>Use upstream services - inject objects defined in an upstream module in this module objects</p> </li> 
+     <li> <p>Contribute extensions - inject module’s objects to collections and maps from the upstream module, thus extending upstream module behavior.</p> </li> 
     </ul> 
    </div> 
    <div class="paragraph"> 
-    <p>Import case is trivial, so we’ll concentrate on the two remaining scenarios. We will use <a href="https://github.com/bootique/bootique/blob/master/bootique/src/main/java/io/bootique/BQCoreModule.java">BQCoreModule</a> as an example of an upstream module, as it is available in all apps.</p> 
+    <p>Let’s use <a href="https://github.com/bootique/bootique/blob/master/bootique/src/main/java/io/bootique/BQCoreModule.java">BQCoreModule</a> as an example of an upstream module, as it is available in all apps.</p> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_injecting_other_modules_services">2.4.1. Injecting Other Module’s Services</h4> 
+    <h4 id="_injecting_other_modules_services">2.9.1. Injecting Other Module’s Services</h4> 
     <div class="paragraph"> 
-     <p>You can inject any services declared in other modules. E.g. BQCoreModule provides a number of objects and services that can be accessed via injection:</p> 
+     <p>You can inject any services declared in other modules. E.g. <code>BQCoreModule</code> defines an array of CLI arguments passed to the <code>main()</code> method, that can be injected in our module:</p> 
     </div> 
     <div class="listingblock"> 
      <div class="content"> 
-      <pre class="highlight"><code class="language-java java" data-lang="java">class MyService {
+      <pre class="highlight"><code class="language-java java" data-lang="java">public class MyService {
 
-    @Args
+    @Args <i class="conum" data-value="1"></i><b>(1)</b>
     @Inject
     private String[] args;
 
     public String getArgsString() {
-        return Arrays.asList(getArgs()).stream().collect(joining(" "));
+        return Stream.of(args).collect(joining(" "));
     }
 }</code></pre> 
      </div> 
     </div> 
-    <div class="paragraph"> 
-     <p>In this example we injected command line arguments that were used to start the app. Note that since there can potentially be more than one <code>String[]</code> in a DI container, Bootique <code>@Args</code> annotation is used to uniquely identify the array that we want here.</p> 
+    <div class="colist arabic"> 
+     <table> 
+      <tbody>
+       <tr> 
+        <td><i class="conum" data-value="1"></i><b>1</b></td> 
+        <td>Since there can potentially be more than one <code>String[]</code> in a DI container, Bootique <code>@Args</code> annotation is used to disambiguate the array that we are referring to.</td> 
+       </tr> 
+      </tbody>
+     </table> 
     </div> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_contributing_to_other_modules">2.4.2. Contributing to Other Modules</h4> 
+    <h4 id="_contributing_to_other_modules">2.9.2. Contributing to Other Modules</h4> 
     <div class="paragraph"> 
-     <p>Guice supports <a href="https://github.com/google/guice/wiki/Multibindings">multibindings</a>, intended to <em>contribute</em> objects defined in a downstream module to collections/maps used by services in upstream modules. Bootique hides Guice API complexities, usually providing "extenders" in each module. E.g. the following code adds <code>MyCommand</code> the the app set of commands:</p> 
+     <p>Bootique DI supports <a href="https://bootique.io/docs/latest/bootique-di-docs/#_collections">Collection bindings</a>, intended to <em>contribute</em> objects defined in a downstream module to collections/maps used by services in upstream modules. Bootique hides DI API complexities, usually providing "extenders" in each module. E.g. the following code adds <code>MyCommand</code> the app set of commands:</p> 
     </div> 
     <div class="listingblock"> 
      <div class="content"> 
-      <pre class="highlight"><code class="language-java java" data-lang="java">public class MyModule implements Module {
+      <pre class="highlight"><code class="language-java java" data-lang="java">public class MyModule implements BQModule {
 
     @Override
     public void configure(Binder binder) {
@@ -671,42 +945,50 @@ public BaseType provideBaseType(ConfigurationFactory configFactory) {
    </div> 
   </div> 
   <div class="sect2"> 
-   <h3 id="_application_class">2.5. Application Class</h3> 
+   <h3 id="applicationclass">2.10. Application Class</h3> 
    <div class="paragraph"> 
-    <p>A class that contains the <code>"main()"</code> method is informally called "application". Bootique does not impose any additional requirements on this class. You decide what to put in it. It can be limited to just <code>"main()"</code>, or turned into a REST API resource, etc.</p> 
+    <p>A class containing the <code>"main()"</code> method is informally called "application". Bootique does not impose any additional requirements on this class. You decide what to put in it. It can be limited to just <code>"main()"</code>, or be a REST API endpoint, or something else entirely.</p> 
    </div> 
-   <div class="sect3"> 
-    <h4 id="_application_as_a_module">2.5.1. Application as a Module</h4> 
-    <div class="paragraph"> 
-     <p>Most often then not it makes sense to turn the application class into a Module though. After all a Bootique app is just a collection of Modules, and this way the application class would represent that one final Module to rule them all:</p> 
-    </div> 
-    <div class="listingblock"> 
-     <div class="content"> 
-      <pre class="highlight"><code class="language-java java" data-lang="java">public class Application implements Module {
+   <div class="paragraph"> 
+    <p>Though the most common approach is to turn the application class into a Module. After all a Bootique app is a collection of Modules, and the application class would represent that one main Module to rule them all:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">public class Application extends BaseModule {
 
-   public static void main(String[] args) {
-      Bootique.app(args).module(Application.class).autoLoadModules().exec().exit();
-   }
+    public static void main(String[] args) {
+        Bootique.app(args)
+                .autoLoadModules()
+                .module(Application.class) <i class="conum" data-value="1"></i><b>(1)</b>
+                .exec()
+                .exit();
+    }
 
-   public void configure(Binder binder) {
-      // load app-specific services; redefine standard ones
-   }
+    public void configure(Binder binder) {
+        // load app-specific services; redefine standard ones
+    }
 }</code></pre> 
-     </div> 
-    </div> 
-    <div class="paragraph"> 
-     <p>You may also implement a separate BQModuleProvider for the Application module. Then <code>autoLoadModules()</code> will discover it just like any other Module, and there won’t be a need to add Application module explicitly.</p> 
     </div> 
    </div> 
+   <div class="colist arabic"> 
+    <table> 
+     <tbody>
+      <tr> 
+       <td><i class="conum" data-value="1"></i><b>1</b></td> 
+       <td>Explicitly adds <code>Application</code> to the list of runtime modules. Since the superclass of <code>Application</code> is <code>BaseModule</code>, you may put the application class in <code>META-INF/services/io.bootique.BQModuleProvider</code> to make it auto-loadable and remove this line.</td> 
+      </tr> 
+     </tbody>
+    </table> 
+   </div> 
    <div class="sect3"> 
-    <h4 id="_common_main_class">2.5.2. Common Main Class</h4> 
+    <h4 id="_common_main_class">2.10.1. Common Main Class</h4> 
     <div class="paragraph"> 
      <p>If all your code is packaged in auto-loadable modules (which is always a good idea), you may not even need a custom main class. <code>io.bootique.Bootique</code> class itself declares a <code>main()</code> method and can be used as an app launcher. This creates some interesting possibilities. E.g. you can create Java projects that have no code of their own and are simply collections of modules declared as compile dependencies. More details on packaging are given in the "Runnable Jar" chapter.</p> 
     </div> 
    </div> 
   </div> 
   <div class="sect2"> 
-   <h3 id="_commands">2.6. Commands</h3> 
+   <h3 id="_commands">2.11. Commands</h3> 
    <div class="paragraph"> 
     <p>Bootique runtime contains a set of commands coming from Bootique core and from all the modules currently in effect in the app. On startup Bootique attempts to map command-line arguments to a single command type. If no match is found, a <em>default</em> command is executed (which is normally a "help" command). To list all available commands, the app can be run with <code>--help</code> option (in most cases running without any options will have the same effect). E.g.:</p> 
    </div> 
@@ -733,7 +1015,7 @@ OPTIONS
     </div> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_writing_commands">2.6.1. Writing Commands</h4> 
+    <h4 id="_writing_commands">2.11.1. Writing Commands</h4> 
     <div class="paragraph"> 
      <p>Most common commands are already available in various standard modules, still often you’d need to write your own. To do that, first create a command class. It should implement <code>io.bootique.command.Command</code> interface, though usually it more practical to extend <code>io.bootique.command.CommandWithMetadata</code> and provide some metadata used in help and elsewhere:</p> 
     </div> 
@@ -766,7 +1048,7 @@ OPTIONS
     </div> 
     <div class="listingblock"> 
      <div class="content"> 
-      <pre class="highlight"><code class="language-java java" data-lang="java">public class MyModule implements Module {
+      <pre class="highlight"><code class="language-java java" data-lang="java">public class MyModule extends BaseModule {
 
     @Override
     public void configure(Binder binder) {
@@ -799,9 +1081,9 @@ public CommandOutcome run(Cli cli) {
     </div> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_injection_in_commands">2.6.2. Injection in Commands</h4> 
+    <h4 id="_injection_in_commands">2.11.2. Injection in Commands</h4> 
     <div class="paragraph"> 
-     <p>Commands can inject services, just like most other classes in Bootique. There are some specifics though. Since commands are sometimes instantiated, but not executed (e.g. when <code>--help</code> is run that lists all commands), it is often desirable to avoid immediate instantiation of all dependencies of a given command. So a common pattern with commands is to inject Guice <code>Provider</code> instead of direct dependency:</p> 
+     <p>Commands can inject services, just like most other classes in Bootique. There are some specifics though. Since commands are sometimes instantiated, but not executed (e.g. when <code>--help</code> is run that lists all commands), it is often desirable to avoid immediate instantiation of all dependencies of a given command. So a common pattern with commands is to inject <code>javax.inject.Provider</code> instead of direct dependency:</p> 
     </div> 
     <div class="listingblock"> 
      <div class="content"> 
@@ -816,7 +1098,7 @@ public CommandOutcome run(Cli cli) {
     </div> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_decorating_commands">2.6.3. Decorating Commands</h4> 
+    <h4 id="_decorating_commands">2.11.3. Decorating Commands</h4> 
     <div class="paragraph"> 
      <p>Each command typically does a single well-defined thing, such as starting a web server, executing a job, etc. But very often in addition to that main thing you need to do other things. E.g. when a web server is started, you might also want to run a few more commands:</p> 
     </div> 
@@ -833,11 +1115,11 @@ public CommandOutcome run(Cli cli) {
     <div class="listingblock"> 
      <div class="content"> 
       <pre class="highlight"><code class="language-java java" data-lang="java">CommandDecorator extraCommands = CommandDecorator
-    .beforeRun(CustomHealthcheckCommand.class)
-    .alsoRun(ScheduleCommand.class)
-    .alsoRun(HeartbeatCommand.class);
+        .beforeRun(CustomHealthcheckCommand.class)
+        .alsoRun(ScheduleCommand.class)
+        .alsoRun(HeartbeatCommand.class);
 
-BQCoreModule.extend(binder).decorateCommand(ServerCommand.class, extraCommands);</code></pre> 
+    BQCoreModule.extend(binder).decorateCommand(ServerCommand.class, extraCommands);</code></pre> 
      </div> 
     </div> 
     <div class="paragraph"> 
@@ -846,20 +1128,20 @@ BQCoreModule.extend(binder).decorateCommand(ServerCommand.class, extraCommands);
    </div> 
   </div> 
   <div class="sect2"> 
-   <h3 id="_options">2.7. Options</h3> 
+   <h3 id="_options">2.12. Options</h3> 
    <div class="sect3"> 
-    <h4 id="_simple_options">2.7.1. Simple Options</h4> 
+    <h4 id="_simple_options">2.12.1. Simple Options</h4> 
     <div class="paragraph"> 
-     <p>In addition to commands, the app can define "options". Options are not associated with any runnable java code, and simply pass command-line values to commands and services. E.g. the standard “--config” option is used by <code>CliConfigurationSource</code> service to locate configuration file. Unrecognized options cause application startup errors. To be recognized, options need to be "contributed" to Bootique similar to commands:</p> 
+     <p>In addition to commands, the app can define "options". Options are not associated with any runnable java code, and simply pass command-line values to commands and services. E.g. the standard “--config” option is used to locate configuration file(s). Unrecognized options cause application startup errors. To be recognized, options need to be "contributed" to Bootique similar to commands:</p> 
     </div> 
     <div class="listingblock"> 
      <div class="content"> 
       <pre class="highlight"><code class="language-java java" data-lang="java">OptionMetadata option = OptionMetadata
-    .builder("email", "An admin email address")
-    .valueRequired("email_address")
-    .build();
+        .builder("email", "An admin email address")
+        .valueRequired("email_address")
+        .build();
 
-BQCoreModule.extend(binder).addOption(option);</code></pre> 
+    BQCoreModule.extend(binder).addOption(option);</code></pre> 
      </div> 
     </div> 
     <div class="paragraph"> 
@@ -878,7 +1160,7 @@ public void doSomething() {
     </div> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_configuration_options">2.7.2. Configuration Options</h4> 
+    <h4 id="_configuration_options">2.12.2. Configuration Options</h4> 
     <div class="paragraph"> 
      <p>While you can process your own options as described above, options often are just aliases to enable certain pieces of configuration. Bootique supports three flavors of associating options with configuration. Let’s demonstrate them here.</p> 
     </div> 
@@ -889,7 +1171,7 @@ public void doSomething() {
         <div class="content"> 
          <pre class="highlight"><code class="language-java java" data-lang="java">// Starting the app with "--my-opt=x" will set "jobs.myjob.param" value to "x"
 BQCoreModule.extend(binder)
-        .addOption(OptionMetaData.builder("my-opt").build())
+        .addOption(OptionMetadata.builder("my-opt").build())
         .mapConfigPath("my-opt", "jobs.myjob.param");</code></pre> 
         </div> 
        </div> </li> 
@@ -898,7 +1180,7 @@ BQCoreModule.extend(binder)
         <div class="content"> 
          <pre class="highlight"><code class="language-java java" data-lang="java">// Starting the app with "--my-opt" will set "jobs.myjob.param" value to "y"
 BQCoreModule.extend(binder)
-        .addOption(OptionMetaData.builder("my-opt").valueOptionalWithDefault("y").build())
+        .addOption(OptionMetadata.builder("my-opt").valueOptionalWithDefault("y").build())
         .mapConfigPath("my-opt", "jobs.myjob.param");</code></pre> 
         </div> 
        </div> </li> 
@@ -907,7 +1189,7 @@ BQCoreModule.extend(binder)
         <div class="content"> 
          <pre class="highlight"><code class="language-java java" data-lang="java">// Starting the app with "--my-opt" is equivalent to starting with "--config=classpath:xyz.yml"
 BQCoreModule.extend(binder)
-        .addOption(OptionMetaData.builder("my-opt").build())
+        .addOption(OptionMetadata.builder("my-opt").build())
         .mapConfigResource("my-opt", "classpath:xyz.yml");</code></pre> 
         </div> 
        </div> </li> 
@@ -919,32 +1201,49 @@ BQCoreModule.extend(binder)
    </div> 
   </div> 
   <div class="sect2"> 
-   <h3 id="_logging">2.8. Logging</h3> 
+   <h3 id="_logging">2.13. Logging</h3> 
    <div class="sect3"> 
-    <h4 id="_loggers_in_the_code">2.8.1. Loggers in the Code</h4> 
+    <h4 id="_loggers_in_the_code">2.13.1. Loggers in the Code</h4> 
     <div class="paragraph"> 
      <p>Standard Bootique modules use <a href="http://www.slf4j.org/">SLF4J</a> internally, as it is the most convenient least common denominator framework, and can be easily bridged to other logging implementations. Your apps or modules are not required to use SLF4J, though if they do, it will likely reduce the amount of bridging needed to route all logs to a single destination.</p> 
     </div> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_configurable_logging_with_logback">2.8.2. Configurable Logging with Logback</h4> 
+    <h4 id="_configurable_logging_with_logback">2.13.2. Configurable Logging with Logback</h4> 
     <div class="paragraph"> 
      <p>For better control over logging a standard module called <code>bootique-logback</code> is available, that integrates <a href="http://logback.qos.ch/">Logback framework</a> in the app. It seamlessly bridges SLF4J (so you keep using SLF4J in the code), and allows to configure logging via YAML config file, including appenders (file, console, etc.) and per class/package log levels. Just like any other module, <code>bootique-logback</code> can be enabled by simply adding it to the pom.xml dependencies, assuming <code>autoLoadModules()</code> is in effect:</p> 
     </div> 
-    <div class="listingblock"> 
+    <details open> 
+     <summary class="title">Maven</summary> 
      <div class="content"> 
-      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+      <div class="listingblock"> 
+       <div class="content"> 
+        <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.logback&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-logback&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre> 
+       </div> 
+      </div> 
      </div> 
-    </div> 
+    </details> 
+    <details> 
+     <summary class="title">Gradle</summary> 
+     <div class="content"> 
+      <div class="listingblock"> 
+       <div class="content"> 
+        <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
+  implementation: 'io.bootique.logback:bootique-logback'
+}</code></pre> 
+       </div> 
+      </div> 
+     </div> 
+    </details> 
     <div class="paragraph"> 
      <p>See <code>bootique-logback</code> module <a href="http://bootique.io/docs/0/bootique-logback-docs/">documentation</a> for further details.</p> 
     </div> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_bootlogger">2.8.3. BootLogger</h4> 
+    <h4 id="_bootlogger">2.13.3. BootLogger</h4> 
     <div class="paragraph"> 
      <p>To perform logging during startup, before DI environment is available and YAML configuration is processed, Bootique uses a special service called <code>BootLogger</code>, that is not dependent on SLF4J and is not automatically bridged to Logback. It provides an abstraction for writing to stdout / stderr, as well as conditional "trace" logs sent to stderr. To enable Bootique trace logs, start the app with <code>-Dbq.trace</code> as described in the deployment section.</p> 
     </div> 
@@ -954,9 +1253,9 @@ BQCoreModule.extend(binder)
     <div class="listingblock"> 
      <div class="content"> 
       <pre class="highlight"><code class="language-java java" data-lang="java">public class Application {
-  public static void main(String[] args) {
-     Bootique.app(args).bootLogger(new MyBootLogger()).run();
-  }
+    public static void main(String[] args) {
+        Bootique.app(args).bootLogger(new MyBootLogger()).createRuntime().run();
+    }
 }</code></pre> 
      </div> 
     </div> 
@@ -965,63 +1264,153 @@ BQCoreModule.extend(binder)
  </div> 
 </div> 
 <div class="sect1"> 
- <h2 id="_part_iii_testing">3. Part III. Testing</h2> 
+ <h2 id="_testing">3. Testing</h2> 
  <div class="sectionbody"> 
   <div class="sect2"> 
    <h3 id="_bootique_and_testing">3.1. Bootique and Testing</h3> 
+   <div class="admonitionblock note"> 
+    <table> 
+     <tbody>
+      <tr> 
+       <td class="icon"> <i class="fa fa-info-circle fa-2x" title="Note"></i> </td> 
+       <td class="content"> Bootique provides integration for both JUnit 4 and JUnit 5. Both can even be combined in the same project via JUnit 5 <a href="https://junit.org/junit5/docs/current/user-guide/#migrating-from-junit4-running">"vintage engine"</a>. This chapter will focus on JUnit 5 instructions. For JUnit 4 docs, please check documentation for Bootique 1.x. </td> 
+      </tr> 
+     </tbody>
+    </table> 
+   </div> 
    <div class="paragraph"> 
-    <p>Bootique is uniquely suitable to be used as a test framework. Within a single test it allows you to start and stop multiple embedded Bootique runtimes, each with distinct set of modules and distinct YAML configurations, making it a powerful tool for <em>integration testing.</em></p> 
+    <p>Bootique is uniquely suitable to be used as a test framework. Within a single test it allows you to start and stop multiple in-process runtimes, each with а distinct set of modules and configurations. Bootique test facilities are controlled with a small number of annotations: <code>@BQTest</code>, <code>@BQTestTool</code> and <code>@BQApp</code>, that will be described below.</p> 
+   </div> 
+   <div class="paragraph"> 
+    <p>This chapter is about the core test framework. For module-specific test APIs (e.g. <code>bootique-jdbc-junit5</code>, <code>bootique-jetty-junit5</code>), check documentation of those modules. They all follow the same base principles described here.</p> 
+   </div> 
+   <div class="paragraph"> 
+    <p>To start using Bootique test extensions, import the following module in the "test" scope:</p> 
+   </div> 
+   <details open> 
+    <summary class="title">Maven</summary> 
+    <div class="content"> 
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-junit5&lt;/artifactId&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre> 
+      </div> 
+     </div> 
+    </div> 
+   </details> 
+   <details> 
+    <summary class="title">Gradle</summary> 
+    <div class="content"> 
+     <div class="listingblock"> 
+      <div class="content"> 
+       <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
+  testImplementation: 'io.bootique:bootique-junit5'
+}</code></pre> 
+      </div> 
+     </div> 
+    </div> 
+   </details> 
+   <div class="paragraph"> 
+    <p>Each test class using Bootique extensions must be annotated with <code>@BQTest</code>:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">@BQTest
+public class MyTest {
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Doing that tells Bootique to manage lifecycle of test <code>BQRuntimes</code> and test "tools".</p> 
    </div> 
   </div> 
   <div class="sect2"> 
-   <h3 id="_creating_test_runtimes">3.2. Creating Test Runtimes</h3> 
+   <h3 id="bqruntime">3.2. Test BQRuntimes</h3> 
    <div class="paragraph"> 
-    <p>Here we’ll demonstrate the use of the core test framework. For module-specific test APIs (e.g. <code>bootique-jdbc-test</code>), check documentation of those modules or GitHub. To use the core framework, import the following module in the "test" scope:</p> 
+    <p><code>BQRuntime</code> is an object representing an entire app (i.e. an object whose state and behavior you are checking in your test). You can declare <code>BQRuntime</code> as a static field of the test class, initialize it the way you would initialize an application (yes, using the same factory method from <code>Bootique</code> class), and annotate with <code>@BQApp</code> to let Bootique start and stop it when appropriate:</p> 
    </div> 
    <div class="listingblock"> 
     <div class="content"> 
-     <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
-    &lt;groupId&gt;io.bootique&lt;/groupId&gt;
-    &lt;artifactId&gt;bootique-test&lt;/artifactId&gt;
-    &lt;scope&gt;test&lt;/scope&gt;
-&lt;/dependency&gt;</code></pre> 
-    </div> 
-   </div> 
-   <div class="paragraph"> 
-    <p>Then create a <code>BQTestFactory</code> in each integration test, annotated with <code>@Rule</code> (or <code>@ClassRule</code> if you are planning to create a single runtime for all tests in a given class) :</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
-     <pre class="highlight"><code class="language-java java" data-lang="java">public class MyTest {
-
-    @Rule
-    public BQTestFactory testFactory = new BQTestFactory();
-}</code></pre> 
-    </div> 
-   </div> 
-   <div class="paragraph"> 
-    <p>Now use the factory to create test runtimes. Each runtime object is essentially an entire Bootique application. It can be used to inspect DI contents, execute a command (including commands that start background processes, such as <code>--server</code> and <code>--schedule</code>), etc. You don’t need to stop the runtime explicitly. <code>BQTestFactory</code> will take care of shutdown through JUnit lifecycle.</p> 
-   </div> 
-   <div class="paragraph"> 
-    <p><code>testFactory.app()</code> returns a builder that mimics the API of <code>Bootique</code> class, with a few test-related extensions. E.g. it allows to load extra modules, etc.</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
-     <pre class="highlight"><code class="language-java java" data-lang="java">@Test
-public void testAbc() {
-
-    BQRuntime runtime = testFactory.app()
-        // ensure all classpath modules are included
+     <pre class="highlight"><code class="language-java java" data-lang="java">@BQApp
+final static BQRuntime app = Bootique
+        .app("--server", "--config", "classpath:test.yml")
         .autoLoadModules()
-        // add an adhoc module specific to the test
-        .module(binder -&gt; binder.bind(MyService.class).to(MyServiceImpl.class))
-        .createRuntime();
-    // ...
-}</code></pre> 
+        .createRuntime();</code></pre> 
     </div> 
    </div> 
    <div class="paragraph"> 
-    <p>If you don’t need the runtime instance, but rather want to run a command, you’d call <code>run()</code> instead of <code>createRuntime()</code> (<code>run()</code> is an alias for <code>createRuntime().run()</code>):</p> 
+    <p>The "app" will be started by Bootique before all the tests in this class, and will be shutdown after all the tests are finished. You can declare any number of such "apps" within a test to emulate fairly complex systems. And as you can see in the example, you can pass any command or configuration as arguments to the <code>app(..)</code> method (that emulates a command-line invocation).</p> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Sometimes you just need a runtime instance, and do not want to execute any commands. For this case use <code>@BQApp(skipRun=true)</code>:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">@BQApp(skipRun = true)
+final static BQRuntime app = Bootique
+        .app("--config", "classpath:test.yml")
+        .autoLoadModules()
+        .createRuntime();</code></pre> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_test_tools_and_scopes">3.3. Test Tools and Scopes</h3> 
+   <div class="paragraph"> 
+    <p>Bootique provides a number of test tools that help you customize the apps for the test environment (e.g. <code>TcDbTester</code> tool from <code>bootique-jdbc-junit5-testcontainers</code> starts a test database and supplies a "module" to the app with DataSource configuration to access that DB; <code>JettyTester</code> from <code>bootique-jetty</code> configures HTTP connector to listen on a random unoccupied port and provides a Java client to send requests to the server, etc.).</p> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Tools are declared as fields in a test class, each annotated with <code>@BQTestTool</code>. A tool can exist in a certain scope (as defined by <code>@BQTestTool(value=…​)</code>. "Scope" determines when the tool is initialized and shutdown during the test. The following scopes are available:</p> 
+   </div> 
+   <div class="ulist"> 
+    <ul> 
+     <li> <p><code>BQTestScope.TEST_CLASS</code>: A scope of a single test class. Roughly corresponds to <code>@BeforeAll</code> / <code>@AfterAll</code> from JUnit. All tools in this scope must be declared as static variables.</p> </li> 
+     <li> <p><code>BQTestScope.TEST_METHOD</code>: A scope of a single test method. Roughly corresponds to <code>@BeforeEach</code> / <code>@AfterEach</code> from JUnit.</p> </li> 
+     <li> <p><code>BQTestScope.GLOBAL</code>: Allows a given tool to be shared with more than one test class. JUnit has no analog of a "global" scope, but it is quite useful for expensive reusable resources (e.g. Docker containers), so Bootique supports it for all the tools.</p> </li> 
+     <li> <p><code>BQTestScope.IMPLIED</code>: This is the default scope of <code>@BQTestTool</code>. If the field is static it is equivalent to <code>TEST_CLASS</code>, if non-static - <code>TEST_METHOD</code>. This way most of the time you don’t need to explicitly define the scope, but just need to declare your tool as static or instance variable.</p> </li> 
+    </ul> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Some examples:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">// implied scope is TEST_CLASS
+@BQTestTool
+final static MyTool tool1 = new MyTool();</code></pre> 
+    </div> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">// implied scope is TEST_METHOD
+@BQTestTool
+final MyTool tool2 = new MyTool();</code></pre> 
+    </div> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">// explicit GLOBAL scope. The variable must be static
+@BQTestTool(value = BQTestScope.GLOBAL)
+final static MyTool tool3 = new MyTool();</code></pre> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_bqtestfactory_tool">3.4. BQTestFactory Tool</h3> 
+   <div class="paragraph"> 
+    <p>A very common test tool is <code>BQTestFactory</code>. It allows to create and run <code>BQRuntimes</code> on the fly inside test class methods, and as such is a more flexible alternative to <code>@BQApp</code> annotation:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">@BQTestTool
+final BQTestFactory testFactory = new BQTestFactory();</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p><code>BQTestFactory.app()</code> does roughly the same thing as <code>Bootique.app()</code>, with an important difference that all created runtimes will be automatically shut down at the end of the factory scope. E.g. in the following example <code>testFactory</code> would shut down any runtimes created in each test method right after that method finishes (since <code>testFactory</code> is an instance variable, the default scope is <code>TEST_METHOD</code>):</p> 
    </div> 
    <div class="listingblock"> 
     <div class="content"> 
@@ -1029,61 +1418,88 @@ public void testAbc() {
 public void testAbc() {
 
     CommandOutcome result = testFactory.app("--server")
-        .autoLoadModules()
-        .run();
+            // ensure all classpath modules are included
+            .autoLoadModules()
+            // add an adhoc module specific to the test
+            .module(binder -&gt; binder.bind(MyService.class).to(MyServiceImpl.class))
+            .run();
     // ...
 }</code></pre> 
     </div> 
    </div> 
+   <div class="paragraph"> 
+    <p>If you need the runtime instance to poke inside the app’s DI container, you can call <code>createRuntime()</code> instead of <code>run()</code>:</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre class="highlight"><code class="language-java java" data-lang="java">@Test
+public void testXyz() {
+
+    BQRuntime app = testFactory.app("--server")
+            .autoLoadModules()
+            .createRuntime();
+    // ...
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p><code>BQRuntime</code> of course has its own <code>run()</code> method, so you can both inspect the runtime and run a command.</p> 
+   </div> 
   </div> 
   <div class="sect2"> 
-   <h3 id="_common_test_scenarios">3.3. Common Test Scenarios</h3> 
+   <h3 id="_common_test_scenarios">3.5. Common Test Scenarios</h3> 
    <div class="paragraph"> 
-    <p>Among the things that can be tested are runtime services with real dependencies, standard output of full Bootique applications (i.e. the stuff that would be printed to the console if this were a real app), network services using real network connections (e.g. your REST API’s), and so on. Some examples are given below, outlining common techniques.</p> 
+    <p>Among the things that can be tested are runtime services with real dependencies, standard output of full Bootique applications (i.e. the stuff that would be printed to the console if this were a real app), network services using real network connections (e.g. your REST API’s), and so on. Some examples are given below, outlining the common techniques.</p> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_testing_injectable_services">3.3.1. Testing Injectable Services</h4> 
+    <h4 id="_testing_injectable_services">3.5.1. Testing Injectable Services</h4> 
     <div class="paragraph"> 
      <p>Services can be obtained from test runtime, their methods called, and assertions made about the results of the call:</p> 
     </div> 
     <div class="listingblock"> 
      <div class="content"> 
-      <pre class="highlight"><code class="language-java java" data-lang="java">@Test
+      <pre class="highlight"><code class="language-java java" data-lang="java">@BQApp(skipRun = true)
+static final BQRuntime app = Bootique
+        .app("--config=src/test/resources/my.yml")
+        .createRuntime();
+
+@Test
 public void testService() {
-
-    BQRuntime runtime = testFactory.app("--config=src/test/resources/my.yml").createRuntime();
-
-    MyService service = runtime.getInstance(MyService.class);
+    MyService service = app.getInstance(MyService.class);
     assertEquals("xyz", service.someMethod());
 }</code></pre> 
      </div> 
     </div> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_testing_network_services">3.3.2. Testing Network Services</h4> 
+    <h4 id="_testing_network_services">3.5.2. Testing Network Services</h4> 
     <div class="paragraph"> 
      <p>If a test command starts a web server or some other network service, it can be accessed via a URL right after running the server. E.g.:</p> 
     </div> 
     <div class="listingblock"> 
      <div class="content"> 
-      <pre class="highlight"><code class="language-java java" data-lang="java">@Test
+      <pre class="highlight"><code class="language-java java" data-lang="java">// a tool from "bootique-jetty-junit5". Doesn't require @BQTestTool,
+// as it has no lifecycle of its own
+static final JettyTester jetty = JettyTester.create();
+
+@BQApp
+static final BQRuntime app = Bootique
+        .app("--server")
+        .module(jetty.moduleReplacingConnectors())
+        .createRuntime();
+
+@Test
 public void testServer() {
-
-    testFactory.app("--server").run();
-
-    // using JAX-RS client API
-    WebTarget base = ClientBuilder.newClient().target("http://localhost:8080/");
-    Response r1 = base.path("/somepath").request().get();
-    assertEquals(Status.OK.getStatusCode(), r1.getStatus());
-    assertEquals("{}", r1.readEntity(String.class));
+    Response response = jetty.getTarget().path("/somepath").request().get();
+    JettyTester.assertOk(response);
 }</code></pre> 
      </div> 
     </div> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_testing_commands">3.3.3. Testing Commands</h4> 
+    <h4 id="_testing_commands">3.5.3. Testing Commands</h4> 
     <div class="paragraph"> 
-     <p>You can emulate a real app execution in a unit test, by running a command and then checking the values of the exist code and <code>stdin</code> and <code>stderr</code> contents:</p> 
+     <p>You can run the app in the test and check the values of the exit code and <code>stdin</code> and <code>stderr</code> contents:</p> 
     </div> 
     <div class="listingblock"> 
      <div class="content"> 
@@ -1092,9 +1508,9 @@ public void testCommand() {
 
     TestIO io = TestIO.noTrace();
     CommandOutcome outcome = testFactory
-        .app("--help")
-        .bootLogger(io.getBootLogger())
-        .run();
+            .app("--help")
+            .bootLogger(io.getBootLogger())
+            .run();
 
     assertEquals(0, outcome.getExitCode());
     assertTrue(io.getStdout().contains("--help"));
@@ -1104,7 +1520,7 @@ public void testCommand() {
     </div> 
    </div> 
    <div class="sect3"> 
-    <h4 id="_testing_module_validity">3.3.4. Testing Module Validity</h4> 
+    <h4 id="_testing_module_validity">3.5.4. Testing Module Validity</h4> 
     <div class="paragraph"> 
      <p>When you are writing your own modules, you may want to check that they are configured properly for autoloading (i.e. <code>META-INF/services/io.bootique.BQModuleProvider</code> is present in the expected place and contains the right provider. There’s a helper class to check for it:</p> 
     </div> 
@@ -1121,32 +1537,62 @@ public void testAutoLoadable() {
  </div> 
 </div> 
 <div class="sect1"> 
- <h2 id="_part_iv_assembly_and_deployment">4. Part IV. Assembly and Deployment</h2> 
+ <h2 id="_assembly_and_deployment">4. Assembly and Deployment</h2> 
  <div class="sectionbody"> 
   <div class="paragraph"> 
    <p>This chapter discusses how to package Bootique apps for deployment/distribution and how to run them. We are going to present two approaches that produce cross-platform runnable applications - "<a href="#runnable-jar-with-dependencies">Runnable Jar with Dependencies</a>" and "<a href="#runnable-jar-with-lib">Runnable Jar with "lib" Folder</a>". They only differ in how dependencies are packaged and referenced.</p> 
   </div> 
   <div class="paragraph"> 
-   <p>Ultimately any Bootique app is just a Java app with a <code>main(..)</code> method and hence can be executed using <code>java</code> command. With that understanding you can come up with your own custom packaging strategies.</p> 
+   <p>Ultimately any Bootique app is just a Java app with the <code>main(..)</code> method and hence can be executed using <code>java</code> command. With that understanding you can come up with your own custom packaging strategies.</p> 
   </div> 
   <div class="sect2"> 
    <h3 id="runnable-jar-with-dependencies">4.1. Runnable Jar with Dependencies</h3> 
    <div class="paragraph"> 
-    <p>Under this approach application classes, resources and all classes and resources from dependency jars are packaged in a single "fat" runnable jar. In Maven this can be accomplished with <code>maven-shade-plugin</code>. To simplify plugin configuration, your app <code>pom.xml</code> may inherit from <code>bootique-parent</code> pom. Then configuration would look like this:</p> 
+    <p>Under this approach application classes, resources and all classes and resources from dependency jars are packaged in a single "fat" runnable jar. In Maven this can be accomplished with <code>maven-shade-plugin</code>:</p> 
    </div> 
    <div class="listingblock"> 
     <div class="content"> 
-     <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;parent&gt;
-    &lt;groupId&gt;io.bootique.parent&lt;/groupId&gt;
-    &lt;artifactId&gt;bootique-parent&lt;/artifactId&gt;
-    &lt;version&gt;0.14&lt;/version&gt;
-&lt;/parent&gt;
-
-...
-&lt;build&gt;
+     <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;build&gt;
+    &lt;pluginManagement&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.2.4&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;createDependencyReducedPom&gt;true&lt;/createDependencyReducedPom&gt;
+                    &lt;filters&gt;
+                        &lt;filter&gt;
+                            &lt;artifact&gt;*:*&lt;/artifact&gt;
+                            &lt;excludes&gt;
+                                &lt;exclude&gt;META-INF/*.SF&lt;/exclude&gt;
+                                &lt;exclude&gt;META-INF/*.DSA&lt;/exclude&gt;
+                                &lt;exclude&gt;META-INF/*.RSA&lt;/exclude&gt;
+                            &lt;/excludes&gt;
+                        &lt;/filter&gt;
+                    &lt;/filters&gt;
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;phase&gt;package&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;shade&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;transformers&gt;
+                                &lt;transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" /&gt;
+                                &lt;transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"&gt;
+                                    &lt;mainClass&gt;${main.class}&lt;/mainClass&gt;
+                                &lt;/transformer&gt;
+                            &lt;/transformers&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
     &lt;plugins&gt;
         &lt;plugin&gt;
-            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
             &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
         &lt;/plugin&gt;
     &lt;/plugins&gt;
@@ -1154,7 +1600,7 @@ public void testAutoLoadable() {
     </div> 
    </div> 
    <div class="paragraph"> 
-    <p>It will create the app with the framework-provided main class <code>io.bootique.Bootique</code>. You can set Maven <code>main.class</code> property, to use your own main class instead:</p> 
+    <p>Make sure you set the <code>main.class</code> property in the POM to the appropriate class value from your application or to <code>io.bootique.Bootique</code>:</p> 
    </div> 
    <div class="listingblock"> 
     <div class="content"> 
@@ -1164,49 +1610,7 @@ public void testAutoLoadable() {
     </div> 
    </div> 
    <div class="paragraph"> 
-    <p>If you don’t want to inherit from the framework pom, you will need to add the following (fairly long) piece of configuration to your <code>pom.xml</code>:</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
-     <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;plugin&gt;
-    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-    &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
-    &lt;version&gt;3.2.1&lt;/version&gt;
-
-    &lt;configuration&gt;
-        &lt;createDependencyReducedPom&gt;true&lt;/createDependencyReducedPom&gt;
-        &lt;filters&gt;
-            &lt;filter&gt;
-                &lt;artifact&gt;*:*&lt;/artifact&gt;
-                &lt;excludes&gt;
-                    &lt;exclude&gt;META-INF/*.SF&lt;/exclude&gt;
-                    &lt;exclude&gt;META-INF/*.DSA&lt;/exclude&gt;
-                    &lt;exclude&gt;META-INF/*.RSA&lt;/exclude&gt;
-                &lt;/excludes&gt;
-            &lt;/filter&gt;
-        &lt;/filters&gt;
-    &lt;/configuration&gt;
-    &lt;executions&gt;
-        &lt;execution&gt;
-            &lt;phase&gt;package&lt;/phase&gt;
-            &lt;goals&gt;
-                &lt;goal&gt;shade&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-                &lt;transformers&gt;
-                    &lt;transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" /&gt;
-                    &lt;transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"&gt;
-                        &lt;mainClass&gt;${main.class}&lt;/mainClass&gt;
-                    &lt;/transformer&gt;
-                &lt;/transformers&gt;
-            &lt;/configuration&gt;
-        &lt;/execution&gt;
-    &lt;/executions&gt;
-&lt;/plugin&gt;</code></pre> 
-    </div> 
-   </div> 
-   <div class="paragraph"> 
-    <p>Either way, once the pom is configured, you can assemble and run the jar. E.g.:</p> 
+    <p>Once the pom is configured, you can assemble and run the jar. E.g.:</p> 
    </div> 
    <div class="listingblock"> 
     <div class="content"> 
@@ -1270,6 +1674,10 @@ java -jar target/myapp-1.0.jar</code></pre>
         &lt;/plugin&gt;
         &lt;plugin&gt;
             &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+            &lt;configuration&gt;
+                &lt;includeScope&gt;runtime&lt;/includeScope&gt;
+                &lt;outputDirectory&gt;${project.build.directory}/lib&lt;/outputDirectory&gt;
+            &lt;/configuration&gt;
             &lt;executions&gt;
                 &lt;execution&gt;
                     &lt;id&gt;assembly&lt;/id&gt;
@@ -1279,9 +1687,6 @@ java -jar target/myapp-1.0.jar</code></pre>
                     &lt;/goals&gt;
                 &lt;/execution&gt;
             &lt;/executions&gt;
-            &lt;configuration&gt;
-                &lt;outputDirectory&gt;${project.build.directory}/lib&lt;/outputDirectory&gt;
-            &lt;/configuration&gt;
         &lt;/plugin&gt;
     &lt;/plugins&gt;
 &lt;/build&gt;</code></pre> 
@@ -1395,11 +1800,11 @@ Merged configuration: {"log":{"logFormat":"[%d{\"dd/MMM/yyyy:HH:mm:ss,SSS\"}]
 %t %p %X{txid:-?} %X{principal:-?} %c{1}: %m%n%ex"},"trace":""}</code></pre> 
     </div> 
    </div> 
-   <div class="admonitionblock caution"> 
+   <div class="admonitionblock warning"> 
     <table> 
      <tbody>
       <tr> 
-       <td class="icon"> <i class="fa fa-exclamation-triangle fa-2x" title="Caution"></i> </td> 
+       <td class="icon"> <i class="fa fa-exclamation-triangle fa-2x" title="Warning"></i> </td> 
        <td class="content"> Printing configuration may expose sensitive information, like database passwords, etc. Make sure you use <code>-Dbq.trace</code> for debugging only and don’t leave it on permanently in a deployment environment. </td> 
       </tr> 
      </tbody>

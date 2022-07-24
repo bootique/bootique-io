@@ -41,11 +41,23 @@
   </url>
   
   <url>
+    <loc>https://bootique.io/docs/3.x/bootique-docs/</loc>
+  </url>
+  
+  <url>
     <loc>https://bootique.io/docs/2.x/bootique-di-docs/</loc>
   </url>
   
   <url>
+    <loc>https://bootique.io/docs/3.x/bootique-di-docs/</loc>
+  </url>
+  
+  <url>
     <loc>https://bootique.io/docs/2.x/migrate-from-guice/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/3.x/migrate-from-guice/</loc>
   </url>
   
   <url>
@@ -57,11 +69,19 @@
   </url>
   
   <url>
+    <loc>https://bootique.io/docs/3.x/bootique-logback-docs/</loc>
+  </url>
+  
+  <url>
     <loc>https://bootique.io/docs/1.x/bootique-jdbc-docs/</loc>
   </url>
   
   <url>
     <loc>https://bootique.io/docs/2.x/bootique-jdbc-docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/3.x/bootique-jdbc-docs/</loc>
   </url>
   
   <url>
@@ -73,6 +93,10 @@
   </url>
   
   <url>
+    <loc>https://bootique.io/docs/3.x/bootique-jetty-docs/</loc>
+  </url>
+  
+  <url>
     <loc>https://bootique.io/docs/1.x/bootique-kotlin-docs/</loc>
   </url>
   
@@ -81,7 +105,15 @@
   </url>
   
   <url>
+    <loc>https://bootique.io/docs/3.x/bootique-kotlin-docs/</loc>
+  </url>
+  
+  <url>
     <loc>https://bootique.io/docs/2.x/bootique-tool-docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/3.x/bootique-tool-docs/</loc>
   </url>
   
   <url>
@@ -98,6 +130,10 @@
   
   <url>
     <loc>https://bootique.io/docs/2.x/getting-started/</loc>
+  </url>
+  
+  <url>
+    <loc>https://bootique.io/docs/3.x/getting-started/</loc>
   </url>
   
   <url>
