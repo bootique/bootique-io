@@ -151,10 +151,20 @@
  <h2 id="_bootique_integration_with_jetty">1. Bootique Integration with Jetty</h2> 
  <div class="sectionbody"> 
   <div class="paragraph"> 
-   <p><a href="https://github.com/bootique/bootique-jetty"><code>bootique-jetty</code></a> module embeds <a href="http://www.eclipse.org/jetty/">Jetty web server</a> in your application. It provides environment for running servlet specification objects (servlets, servlet filters, servlet listeners). Also you will be able to serve static files that are either packaged in the application jar or located somewhere on the filesystem. As things go with Bootique, you will be able to centrally configure both Jetty (e.g. set connector ports) and your apps (e.g. map servlet URL patterns and pass servlet parameters).</p> 
+   <p><a href="https://github.com/bootique/bootique-jetty"><code>bootique-jetty</code></a> module embeds <a href="http://www.eclipse.org/jetty/">Jetty web server</a> in your application. It provides environment for running servlet specification objects (servlets, servlet filters, servlet listeners). Also, you will be able to serve static files that are either packaged in the application jar or located somewhere on the filesystem. As things go with Bootique, you will be able to centrally configure both Jetty (e.g. set connector ports) and your apps (e.g. map servlet URL patterns and pass servlet parameters).</p> 
   </div> 
   <div class="paragraph"> 
    <p><code>bootique-jetty</code> is "drag-and-drop" just like any other Bootique module. It is enabled by simply adding it to the <code>pom.xml</code> dependencies (assuming <code>autoLoadModules()</code> is in effect):</p> 
+  </div> 
+  <div class="admonitionblock note"> 
+   <table> 
+    <tbody>
+     <tr> 
+      <td class="icon"> <i class="fa fa-info-circle fa-2x" title="Note"></i> </td> 
+      <td class="content"> Bootique 3.x supports both the legacy JavaEE and the newer Jakarta versions of Jetty. Each Bootique Jetty module is shipped in two flavors (with and without <code>-jakarta</code> in the name). The examples below a based on the newer Jakarta modules. But It is your choice which one to use. The API of both is identical (except for the import package). </td> 
+     </tr> 
+    </tbody>
+   </table> 
   </div> 
   <details open> 
    <summary class="title">Maven</summary> 
@@ -163,7 +173,7 @@
      <div class="content"> 
       <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jetty&lt;/groupId&gt;
-    &lt;artifactId&gt;bootique-jetty&lt;/artifactId&gt;
+    &lt;artifactId&gt;bootique-jetty-jakarta&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre> 
      </div> 
     </div> 
@@ -175,7 +185,7 @@
     <div class="listingblock"> 
      <div class="content"> 
       <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
-  implementation: 'io.bootique.jetty:bootique-jetty'
+  implementation: 'io.bootique.jetty:bootique-jetty-jakarta'
 }</code></pre> 
      </div> 
     </div> 
@@ -448,7 +458,7 @@ private ServletEnvironment servletEnv;</code></pre>
       <div class="content"> 
        <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jetty&lt;/groupId&gt;
-    &lt;artifactId&gt;bootique-jetty-instrumented&lt;/artifactId&gt;
+    &lt;artifactId&gt;bootique-jetty-jakarta-instrumented&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre> 
       </div> 
      </div> 
@@ -460,7 +470,7 @@ private ServletEnvironment servletEnv;</code></pre>
      <div class="listingblock"> 
       <div class="content"> 
        <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
-  implementation: 'io.bootique.jetty:bootique-jetty-instrumented'
+  implementation: 'io.bootique.jetty:bootique-jetty-jakarta-instrumented'
 }</code></pre> 
       </div> 
      </div> 
@@ -479,7 +489,7 @@ private ServletEnvironment servletEnv;</code></pre>
       <div class="content"> 
        <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jetty&lt;/groupId&gt;
-    &lt;artifactId&gt;bootique-jetty-cors&lt;/artifactId&gt;
+    &lt;artifactId&gt;bootique-jetty-jakarta-cors&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre> 
       </div> 
      </div> 
@@ -491,7 +501,7 @@ private ServletEnvironment servletEnv;</code></pre>
      <div class="listingblock"> 
       <div class="content"> 
        <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
-  implementation: 'io.bootique.jetty:bootique-jetty-cors'
+  implementation: 'io.bootique.jetty:bootique-jetty-jakarta-cors'
 }</code></pre> 
       </div> 
      </div> 
@@ -513,7 +523,7 @@ private ServletEnvironment servletEnv;</code></pre>
       <div class="content"> 
        <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jetty&lt;/groupId&gt;
-    &lt;artifactId&gt;bootique-jetty-websocket&lt;/artifactId&gt;
+    &lt;artifactId&gt;bootique-jetty-jakarta-websocket&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre> 
       </div> 
      </div> 
@@ -525,14 +535,14 @@ private ServletEnvironment servletEnv;</code></pre>
      <div class="listingblock"> 
       <div class="content"> 
        <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
-  implementation: 'io.bootique.jetty:bootique-jetty-websocket'
+  implementation: 'io.bootique.jetty:bootique-jetty-jakarta-websocket'
 }</code></pre> 
       </div> 
      </div> 
     </div> 
    </details> 
    <div class="paragraph"> 
-    <p>Somewhat similar to servlets, the application will need to provide its own classes for websocket endpoints (that must follow JSR-356 API to be recognized as endpoonts). Then you need to register them using <code>JettyWebSocketModule</code> extender:</p> 
+    <p>Somewhat similar to servlets, the application will need to provide its own classes for websocket endpoints (that must follow JSR-356 API to be recognized as endpoints). Then you need to register them using <code>JettyWebSocketModule</code> extender:</p> 
    </div> 
    <div class="listingblock"> 
     <div class="content"> 
@@ -583,7 +593,7 @@ public void configure(Binder binder) {
      <div class="content"> 
       <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jetty&lt;/groupId&gt;
-    &lt;artifactId&gt;bootique-jetty-junit5&lt;/artifactId&gt;
+    &lt;artifactId&gt;bootique-jetty-jakarta-junit5&lt;/artifactId&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre> 
      </div> 
@@ -596,7 +606,7 @@ public void configure(Binder binder) {
     <div class="listingblock"> 
      <div class="content"> 
       <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
-  testImplementation: 'io.bootique.jetty:bootique-jetty-junit5'
+  testImplementation: 'io.bootique.jetty:bootique-jetty-jakarta-junit5'
 }</code></pre> 
      </div> 
     </div> 
