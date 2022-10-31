@@ -151,8 +151,8 @@ ByName:
     Versions: ["1.3", "2.0", "3.0"]
 
   mongo:
-    Name: bootique-mongo
-    Icon: mongo-hat.png
+    Name: bootique-mongodb
+    Icon: mongodb.png
     Description: Integrates MongoDB client and Morphia framework
     Versions: ["3.0"]
 
