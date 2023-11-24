@@ -1416,7 +1416,7 @@ final BQTestFactory testFactory = new BQTestFactory();</code></pre>
    <div class="listingblock"> 
     <div class="content"> 
      <pre class="highlight"><code class="language-java java" data-lang="java">@Test
-public void testAbc() {
+public void abc() {
 
     CommandOutcome result = testFactory.app("--server")
             // ensure all classpath modules are included
@@ -1434,7 +1434,7 @@ public void testAbc() {
    <div class="listingblock"> 
     <div class="content"> 
      <pre class="highlight"><code class="language-java java" data-lang="java">@Test
-public void testXyz() {
+public void xyz() {
 
     BQRuntime app = testFactory.app("--server")
             .autoLoadModules()
@@ -1465,7 +1465,7 @@ static final BQRuntime app = Bootique
         .createRuntime();
 
 @Test
-public void testService() {
+public void service() {
     MyService service = app.getInstance(MyService.class);
     assertEquals("xyz", service.someMethod());
 }</code></pre> 
@@ -1490,7 +1490,7 @@ static final BQRuntime app = Bootique
         .createRuntime();
 
 @Test
-public void testServer() {
+public void server() {
     Response response = jetty.getTarget().path("/somepath").request().get();
     JettyTester.assertOk(response);
 }</code></pre> 
@@ -1505,7 +1505,7 @@ public void testServer() {
     <div class="listingblock"> 
      <div class="content"> 
       <pre class="highlight"><code class="language-java java" data-lang="java">@Test
-public void testCommand() {
+public void command() {
 
     TestIO io = TestIO.noTrace();
     CommandOutcome outcome = testFactory
@@ -1528,7 +1528,7 @@ public void testCommand() {
     <div class="listingblock"> 
      <div class="content"> 
       <pre class="highlight"><code class="language-java java" data-lang="java">@Test
-public void testAutoLoadable() {
+public void autoLoadable() {
     BQModuleProviderChecker.testAutoLoadable(MyModuleProvider.class);
 }</code></pre> 
      </div> 
