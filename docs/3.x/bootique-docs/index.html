@@ -76,7 +76,7 @@
           </a>
           <a href="https://github.com/bootique/bootique/stargazers" class="pure-menu-link github-btn star">
             <img class="gh-stars" src="/images/icon_octocat_stars.svg" alt="GitHub Stars" />
-            <span class="star-counter">1408</span>
+            <span class="star-counter">1406</span>
           </a>
         </li>
         <li class="pure-menu-item tw-btn">
@@ -483,15 +483,16 @@ public void configure(Binder binder) {
    <div class="listingblock"> 
     <div class="content"> 
      <pre class="highlight"><code class="language-java java" data-lang="java">public class MyModuleProvider implements BQModuleProvider {
+
     @Override
-    public BQModule module() {
-        return new MyModule();
+    public BuiltModule buildModule() {
+        return BuiltModule.of(new MyModule()).provider(this).build();
     }
 }</code></pre> 
     </div> 
    </div> 
    <div class="paragraph"> 
-    <p>In fact you don’t need a sperate class. The module itself can implement this interface (see a discussion of <a href="#basemodule">BaseModule superclass</a>).</p> 
+    <p>In fact, you don’t need a separate class. The module itself can implement this interface (see a discussion of <a href="#basemodule">BaseModule superclass</a>).</p> 
    </div> 
    <div class="olist arabic"> 
     <ol class="arabic"> 
