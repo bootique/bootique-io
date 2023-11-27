@@ -485,8 +485,8 @@ public void configure(Binder binder) {
      <pre class="highlight"><code class="language-java java" data-lang="java">public class MyModuleProvider implements BQModuleProvider {
 
     @Override
-    public BuiltModule buildModule() {
-        return BuiltModule.of(new MyModule()).provider(this).build();
+    public ModuleCrate moduleCrate() {
+        return ModuleCrate.of(new MyModule()).provider(this).build();
     }
 }</code></pre> 
     </div> 
