@@ -395,7 +395,8 @@
         type: fixedWindow
         fileNamePattern: '/var/log/myapp-%i.log'
         historySize: 5
-        fileSize: 20</code></pre> 
+        fileSize: 20
+        checkIncrement: 50ms</code></pre> 
      </div> 
     </div> 
     <div class="paragraph"> 
@@ -432,6 +433,11 @@
        <td class="tableblock halign-left valign-top"><p class="tableblock"><code>fileSize</code></p></td> 
        <td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td> 
        <td class="tableblock halign-left valign-top"><p class="tableblock">Max file size that causes rotation. Expressed in bytes, kilobytes, megabytes or gigabytes by suffixing a numeric value with KB, MB and respectively GB. For example: 5000000, 5000KB, 5MB and 2GB.</p></td> 
+      </tr> 
+      <tr> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>checkIncrement</code></p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock">1s</p></td> 
+       <td class="tableblock halign-left valign-top"><p class="tableblock">Prevents very quick succession of rotations. Files will not be rotated regardless of their size if the previous rotation happened within the specified interval.</p></td> 
       </tr> 
      </tbody> 
     </table> 
