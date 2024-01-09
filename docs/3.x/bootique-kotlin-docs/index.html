@@ -114,32 +114,32 @@
     <hr/>
 
     <div class="row ">
-      <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav"><div id="toc" class="toc"> 
+      <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav"><div id="toc" class="toc">
  <div id="toctitle">
   Table of Contents
- </div> 
- <ul class="sectlevel1 nav"> 
-  <li><a href="#_overview" class="nav-link">1. Overview</a></li> 
-  <li><a href="#_tldr" class="nav-link">2. TL;DR;</a></li> 
-  <li><a href="#_getting_started" class="nav-link">3. Getting started</a></li> 
-  <li><a href="#_bootique" class="nav-link">4. Bootique</a> 
-   <ul class="sectlevel2 nav"> 
-    <li><a href="#_kotlinbootique" class="nav-link">4.1. KotlinBootique</a></li> 
-    <li><a href="#_kotlinbqmoduleprovider" class="nav-link">4.2. KotlinBQModuleProvider</a></li> 
-    <li><a href="#_configurationfactory" class="nav-link">4.3. ConfigurationFactory</a></li> 
-    <li><a href="#_adding_command" class="nav-link">4.4. Adding command</a></li> 
-    <li><a href="#_default_command" class="nav-link">4.5. Default command</a></li> 
-    <li><a href="#_bootique_di" class="nav-link">4.6. Bootique DI</a></li> 
-   </ul> </li> 
-  <li><a href="#_configuration_module" class="nav-link">5. Configuration Module</a> 
-   <ul class="sectlevel2 nav"> 
-    <li><a href="#_using_kotlin_script_file" class="nav-link">5.1. Using Kotlin Script file</a></li> 
-    <li><a href="#_enable_kotlin_script_configuration" class="nav-link">5.2. Enable Kotlin Script Configuration</a></li> 
-   </ul> </li> 
-  <li><a href="#_bootique_jetty" class="nav-link">6. Bootique Jetty</a></li> 
-  <li><a href="#_bootique_logback" class="nav-link">7. Bootique Logback</a></li> 
-  <li><a href="#_bootique_undertow" class="nav-link">8. Bootique Undertow</a></li> 
- </ul> 
+ </div>
+ <ul class="sectlevel1 nav">
+  <li><a href="#_overview" class="nav-link">1. Overview</a></li>
+  <li><a href="#_tldr" class="nav-link">2. TL;DR;</a></li>
+  <li><a href="#_getting_started" class="nav-link">3. Getting started</a></li>
+  <li><a href="#_bootique" class="nav-link">4. Bootique</a>
+   <ul class="sectlevel2 nav">
+    <li><a href="#_kotlinbootique" class="nav-link">4.1. KotlinBootique</a></li>
+    <li><a href="#_kotlinbqmoduleprovider" class="nav-link">4.2. KotlinBQModuleProvider</a></li>
+    <li><a href="#_configurationfactory" class="nav-link">4.3. ConfigurationFactory</a></li>
+    <li><a href="#_adding_command" class="nav-link">4.4. Adding command</a></li>
+    <li><a href="#_default_command" class="nav-link">4.5. Default command</a></li>
+    <li><a href="#_bootique_di" class="nav-link">4.6. Bootique DI</a></li>
+   </ul></li>
+  <li><a href="#_configuration_module" class="nav-link">5. Configuration Module</a>
+   <ul class="sectlevel2 nav">
+    <li><a href="#_using_kotlin_script_file" class="nav-link">5.1. Using Kotlin Script file</a></li>
+    <li><a href="#_enable_kotlin_script_configuration" class="nav-link">5.2. Enable Kotlin Script Configuration</a></li>
+   </ul></li>
+  <li><a href="#_bootique_jetty" class="nav-link">6. Bootique Jetty</a></li>
+  <li><a href="#_bootique_logback" class="nav-link">7. Bootique Logback</a></li>
+  <li><a href="#_bootique_undertow" class="nav-link">8. Bootique Undertow</a></li>
+ </ul>
 </div></div>
 
       <div class="col-12 col-lg-8 col-xl-9  py-3 pl-lg-5">
@@ -148,51 +148,51 @@
 
 
 
-<div class="sect1"> 
- <h2 id="_overview">1. Overview</h2> 
- <div class="sectionbody"> 
-  <div class="paragraph"> 
-   <p><code>bootique-kotlin</code> contains following modules:</p> 
-  </div> 
-  <div class="olist arabic"> 
-   <ol class="arabic"> 
-    <li> <p>Kotlin APIs and extensions for Bootique;</p> </li> 
-    <li> <p>Kotlin Script Configuration Module;</p> </li> 
-    <li> <p>Configuration and Extensions for Bootique Modules;</p> </li> 
-    <li> <p><code>JacksonService</code> which provides <code>ObjectMapper</code> with enabled <code>KotlinModule</code>.</p> </li> 
-   </ol> 
-  </div> 
- </div> 
-</div> 
-<div class="sect1"> 
- <h2 id="_tldr">2. TL;DR;</h2> 
- <div class="sectionbody"> 
-  <div class="ulist"> 
-   <ul> 
-    <li> <p>Use <code>KotlinBootique</code> instead of <code>Bootique</code>;</p> </li> 
-    <li> <p>Use <code>KotlinModule</code> instead of <code>Module</code>, you can use <code>KotlinModule</code> with <code>ConfigModule</code> (just inherit both);</p> </li> 
-    <li> <p>Use <code>KotlinBQModuleProvider</code> instead of <code>BQModuleProvider</code>;</p> </li> 
-    <li> <p>Use extensions defined in <a href="https://github.com/bootique/bootique-kotlin/blob/master/bootique-kotlin/src/main/java/io/bootique/kotlin/extra/Extensions.kt">Extensions.kt</a>;</p> </li> 
-    <li> <p>Use <code>bootique-kotlin-configuration</code> module to benefit from configuration written in Kotlin.</p> </li> 
-    <li> <p>Use <code>bootique-kotlin-jackson</code> to get <code>ObjectMapper</code> with <code>KotlinModule</code>.</p> </li> 
-   </ul> 
-  </div> 
- </div> 
-</div> 
-<div class="sect1"> 
- <h2 id="_getting_started">3. Getting started</h2> 
- <div class="sectionbody"> 
-  <div class="paragraph"> 
-   <p>Kotlin <strong>1.4.10</strong> used in project.</p> 
-  </div> 
-  <div class="paragraph"> 
-   <p>Latest stable version: <span class="image"><a class="image" href="https://search.maven.org/artifact/io.bootique.kotlin/bootique-kotlin/"><img src="https://img.shields.io/maven-central/v/io.bootique.kotlin/bootique-kotlin.svg?colorB=brightgreen" alt="Maven Central"></a></span></p> 
-  </div> 
-  <div class="paragraph"> 
-   <p>Add dependency on needed parts in your <code>build.gradle</code>, or <code>pom.xml</code>:</p> 
-  </div> 
-  <div class="listingblock"> 
-   <div class="content"> 
+<div class="sect1">
+ <h2 id="_overview">1. Overview</h2>
+ <div class="sectionbody">
+  <div class="paragraph">
+   <p><code>bootique-kotlin</code> contains following modules:</p>
+  </div>
+  <div class="olist arabic">
+   <ol class="arabic">
+    <li><p>Kotlin APIs and extensions for Bootique;</p></li>
+    <li><p>Kotlin Script Configuration Module;</p></li>
+    <li><p>Configuration and Extensions for Bootique Modules;</p></li>
+    <li><p><code>JacksonService</code> which provides <code>ObjectMapper</code> with enabled <code>KotlinModule</code>.</p></li>
+   </ol>
+  </div>
+ </div>
+</div>
+<div class="sect1">
+ <h2 id="_tldr">2. TL;DR;</h2>
+ <div class="sectionbody">
+  <div class="ulist">
+   <ul>
+    <li><p>Use <code>KotlinBootique</code> instead of <code>Bootique</code>;</p></li>
+    <li><p>Use <code>KotlinModule</code> instead of <code>Module</code>, you can use <code>KotlinModule</code> with <code>ConfigModule</code> (just inherit both);</p></li>
+    <li><p>Use <code>KotlinBQModuleProvider</code> instead of <code>BQModuleProvider</code>;</p></li>
+    <li><p>Use extensions defined in <a href="https://github.com/bootique/bootique-kotlin/blob/master/bootique-kotlin/src/main/java/io/bootique/kotlin/extra/Extensions.kt">Extensions.kt</a>;</p></li>
+    <li><p>Use <code>bootique-kotlin-configuration</code> module to benefit from configuration written in Kotlin.</p></li>
+    <li><p>Use <code>bootique-kotlin-jackson</code> to get <code>ObjectMapper</code> with <code>KotlinModule</code>.</p></li>
+   </ul>
+  </div>
+ </div>
+</div>
+<div class="sect1">
+ <h2 id="_getting_started">3. Getting started</h2>
+ <div class="sectionbody">
+  <div class="paragraph">
+   <p>Kotlin <strong>1.4.10</strong> used in project.</p>
+  </div>
+  <div class="paragraph">
+   <p>Latest stable version: <span class="image"><a class="image" href="https://search.maven.org/artifact/io.bootique.kotlin/bootique-kotlin/"><img src="https://img.shields.io/maven-central/v/io.bootique.kotlin/bootique-kotlin.svg?colorB=brightgreen" alt="Maven Central"></a></span></p>
+  </div>
+  <div class="paragraph">
+   <p>Add dependency on needed parts in your <code>build.gradle</code>, or <code>pom.xml</code>:</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
     <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">// Kotlin Extensions for Bootique
 compile("io.bootique.kotlin:bootique-kotlin:3.0.M1")
 
@@ -209,80 +209,80 @@ compile("io.bootique.kotlin:bootique-kotlin-jetty:3.0.M1")
 compile("io.bootique.kotlin:bootique-kotlin-logback:3.0.M1")
 
 // Kotlin Configuration and Extensions for $moduleName$. Also this adds dependency to bootique-$moduleName$ module.
-compile("io.bootique.kotlin:bootique-kotlin-$moduleName$:3.0.M1")</code></pre> 
-   </div> 
-  </div> 
-  <div class="admonitionblock important"> 
-   <table> 
+compile("io.bootique.kotlin:bootique-kotlin-$moduleName$:3.0.M1")</code></pre>
+   </div>
+  </div>
+  <div class="admonitionblock important">
+   <table>
     <tbody>
-     <tr> 
-      <td class="icon"> <i class="fa fa-exclamation-circle fa-2x" title="Important"></i> </td> 
-      <td class="content"> 
-       <div class="paragraph"> 
-        <p><code>bootique-kotlin</code> modules doesn’t include <code>kotlin-stdlib-jdk8</code>, or any other core kotlin libraries, since you can use newer kotlin version and usually you already have <code>kotlin-stdlib-jdk8</code> in runtime. So there are list of additional dependencies for different bootique-kotlin modules:</p> 
-       </div> 
-       <div class="listingblock"> 
-        <div class="content"> 
+     <tr>
+      <td class="icon"><i class="fa fa-exclamation-circle fa-2x" title="Important"></i></td>
+      <td class="content">
+       <div class="paragraph">
+        <p><code>bootique-kotlin</code> modules doesn’t include <code>kotlin-stdlib-jdk8</code>, or any other core kotlin libraries, since you can use newer kotlin version and usually you already have <code>kotlin-stdlib-jdk8</code> in runtime. So there are list of additional dependencies for different bootique-kotlin modules:</p>
+       </div>
+       <div class="listingblock">
+        <div class="content">
          <pre>bootique-kotlin-config:
   org.jetbrains.kotlin:kotlin-scripting-jvm-host
 
 bootique-kotlin-jackson:
-  org.jetbrains.kotlin:kotlin-reflect</pre> 
-        </div> 
-       </div> 
-       <div class="paragraph"> 
-        <p>If you use different kotlin version, it’s much simpler to include these libraries with proper version, instead of excluding library version of them and then including again.</p> 
-       </div> </td> 
-     </tr> 
+  org.jetbrains.kotlin:kotlin-reflect</pre>
+        </div>
+       </div>
+       <div class="paragraph">
+        <p>If you use different kotlin version, it’s much simpler to include these libraries with proper version, instead of excluding library version of them and then including again.</p>
+       </div></td>
+     </tr>
     </tbody>
-   </table> 
-  </div> 
- </div> 
-</div> 
-<div class="sect1"> 
- <h2 id="_bootique">4. Bootique</h2> 
- <div class="sectionbody"> 
-  <div class="sect2"> 
-   <h3 id="_kotlinbootique">4.1. KotlinBootique</h3> 
-   <div class="paragraph"> 
-    <p><code>bootique-kotlin</code> provides replacement for <code>Bootique</code> class - <code>KotlinBootique</code>:</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
+   </table>
+  </div>
+ </div>
+</div>
+<div class="sect1">
+ <h2 id="_bootique">4. Bootique</h2>
+ <div class="sectionbody">
+  <div class="sect2">
+   <h3 id="_kotlinbootique">4.1. KotlinBootique</h3>
+   <div class="paragraph">
+    <p><code>bootique-kotlin</code> provides replacement for <code>Bootique</code> class - <code>KotlinBootique</code>:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
      <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">fun main(args: Array&lt;String&gt;) {
     KotlinBootique(args)
         .module(ApplicationModule::class)
         .exec()
         .exit()
-}</code></pre> 
-    </div> 
-   </div> 
-   <div class="paragraph"> 
-    <p>So no need for extensions for <code>Bootique</code> class, <code>KotlinBootique</code> provides best experience for developing Bootique apps with Kotlin.</p> 
-   </div> 
-  </div> 
-  <div class="sect2"> 
-   <h3 id="_kotlinbqmoduleprovider">4.2. KotlinBQModuleProvider</h3> 
-   <div class="paragraph"> 
-    <p><code>KotlinBQModuleProvider</code> - interface to implement in Bootique Kotlin application instead of <code>BQModuleProvider</code>.</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
+}</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p>So no need for extensions for <code>Bootique</code> class, <code>KotlinBootique</code> provides best experience for developing Bootique apps with Kotlin.</p>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_kotlinbqmoduleprovider">4.2. KotlinBQModuleProvider</h3>
+   <div class="paragraph">
+    <p><code>KotlinBQModuleProvider</code> - interface to implement in Bootique Kotlin application instead of <code>BQModuleProvider</code>.</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
      <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">class ApplicationModuleProvider : KotlinBQModuleProvider {
     override val module = ApplicationModule()
     override val overrides = listOf(BQCoreModule::class)
     override val dependencies = listOf(KotlinConfigModule::class)
-}</code></pre> 
-    </div> 
-   </div> 
-   <div class="paragraph"> 
-    <p>You can see how declarative become module provider.</p> 
-   </div> 
-  </div> 
-  <div class="sect2"> 
-   <h3 id="_configurationfactory">4.3. ConfigurationFactory</h3> 
-   <div class="listingblock"> 
-    <div class="content"> 
+}</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p>You can see how declarative become module provider.</p>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_configurationfactory">4.3. ConfigurationFactory</h3>
+   <div class="listingblock">
+    <div class="content">
      <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">// Using Java Api
 configurationFactory.config(SampleFactory::class.java, "sample")
 
@@ -297,91 +297,91 @@ configurationFactory.config&lt;SampleFactory&gt;("sample")
 @Provides
 fun createAppConfiguration(configurationFactory: ConfigurationFactory): SampleFactory {
     return configurationFactory.config/* No Type Here */(configPrefix)
-}</code></pre> 
-    </div> 
-   </div> 
-  </div> 
-  <div class="sect2"> 
-   <h3 id="_adding_command">4.4. Adding command</h3> 
-   <div class="paragraph"> 
-    <p>Straightforward and easy to use extension for contributing commands.</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
+}</code></pre>
+    </div>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_adding_command">4.4. Adding command</h3>
+   <div class="paragraph">
+    <p>Straightforward and easy to use extension for contributing commands.</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
      <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">BQCoreModule
     .extend(binder)
-    .addCommand(ApplicationCommand::class)</code></pre> 
-    </div> 
-   </div> 
-  </div> 
-  <div class="sect2"> 
-   <h3 id="_default_command">4.5. Default command</h3> 
-   <div class="paragraph"> 
-    <p>Also extension for <code>setDefaultCommand</code> available.</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
+    .addCommand(ApplicationCommand::class)</code></pre>
+    </div>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_default_command">4.5. Default command</h3>
+   <div class="paragraph">
+    <p>Also extension for <code>setDefaultCommand</code> available.</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
      <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">BQCoreModule
     .extend(binder)
-    .setDefaultCommand(ApplicationCommand::class)</code></pre> 
-    </div> 
-   </div> 
-  </div> 
-  <div class="sect2"> 
-   <h3 id="_bootique_di">4.6. Bootique DI</h3> 
-   <div class="sect3"> 
-    <h4 id="_kotlinmodule">4.6.1. KotlinModule</h4> 
-    <div class="paragraph"> 
-     <p><code>bootique-kotlin</code> introduces new module interface to use with kotlin: <code>KotlinModule</code></p> 
-    </div> 
-    <div class="listingblock"> 
-     <div class="content"> 
+    .setDefaultCommand(ApplicationCommand::class)</code></pre>
+    </div>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_bootique_di">4.6. Bootique DI</h3>
+   <div class="sect3">
+    <h4 id="_kotlinmodule">4.6.1. KotlinModule</h4>
+    <div class="paragraph">
+     <p><code>bootique-kotlin</code> introduces new module interface to use with kotlin: <code>KotlinModule</code></p>
+    </div>
+    <div class="listingblock">
+     <div class="content">
       <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">class ApplicationModule : KotlinModule {
     override fun configure(binder: KotlinBinder) {
         binder.bind(ShareCountService::class).to(DefaultShareCountService::class).asSingleton()
         binder.bind(HttpClient::class).to(DefaultHttpClient::class).asSingleton()
     }
-}</code></pre> 
-     </div> 
-    </div> 
-   </div> 
-   <div class="sect3"> 
-    <h4 id="_extensions">4.6.2. Extensions</h4> 
-    <div class="paragraph"> 
-     <p>There are few functions to help work with <code>TypeLiteral</code> and <code>Key</code>.</p> 
-    </div> 
-    <div class="listingblock"> 
-     <div class="content"> 
+}</code></pre>
+     </div>
+    </div>
+   </div>
+   <div class="sect3">
+    <h4 id="_extensions">4.6.2. Extensions</h4>
+    <div class="paragraph">
+     <p>There are few functions to help work with <code>TypeLiteral</code> and <code>Key</code>.</p>
+    </div>
+    <div class="listingblock">
+     <div class="content">
       <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">// TypeLiteral
 typeLiteral&lt;Array&lt;String&gt;&gt;()
 
 // Key
-key&lt;List&lt;Callable&lt;A&gt;&gt;&gt;()</code></pre> 
-     </div> 
-    </div> 
-   </div> 
-  </div> 
- </div> 
-</div> 
-<div class="sect1"> 
- <h2 id="_configuration_module">5. Configuration Module</h2> 
- <div class="sectionbody"> 
-  <div class="paragraph"> 
-   <p>Using Kotlin Script for a configuration is really simple:</p> 
-  </div> 
-  <div class="olist arabic"> 
-   <ol class="arabic"> 
-    <li> <p>Create script</p> </li> 
-    <li> <p>Override <code>ConfigurationFactory</code></p> </li> 
-   </ol> 
-  </div> 
-  <div class="sect2"> 
-   <h3 id="_using_kotlin_script_file">5.1. Using Kotlin Script file</h3> 
-   <div class="paragraph"> 
-    <p>Configuration with Kotlin can be defined in Kotlin Script file:</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
+key&lt;List&lt;Callable&lt;A&gt;&gt;&gt;()</code></pre>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+<div class="sect1">
+ <h2 id="_configuration_module">5. Configuration Module</h2>
+ <div class="sectionbody">
+  <div class="paragraph">
+   <p>Using Kotlin Script for a configuration is really simple:</p>
+  </div>
+  <div class="olist arabic">
+   <ol class="arabic">
+    <li><p>Create script</p></li>
+    <li><p>Override <code>ConfigurationFactory</code></p></li>
+   </ol>
+  </div>
+  <div class="sect2">
+   <h3 id="_using_kotlin_script_file">5.1. Using Kotlin Script file</h3>
+   <div class="paragraph">
+    <p>Configuration with Kotlin can be defined in Kotlin Script file:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
      <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">import io.bootique.kotlin.config.modules.httpConnector
 import io.bootique.kotlin.config.modules.jetty
 
@@ -390,83 +390,83 @@ jetty {
         port = 4242
         host = "0.0.0.0"
     }
-}</code></pre> 
-    </div> 
-   </div> 
-  </div> 
-  <div class="sect2"> 
-   <h3 id="_enable_kotlin_script_configuration">5.2. Enable Kotlin Script Configuration</h3> 
-   <div class="paragraph"> 
-    <p>Enable Kotlin Script Configuration in Bootique with extension:</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
+}</code></pre>
+    </div>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_enable_kotlin_script_configuration">5.2. Enable Kotlin Script Configuration</h3>
+   <div class="paragraph">
+    <p>Enable Kotlin Script Configuration in Bootique with extension:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
      <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">fun main(args: Array&lt;String&gt;) {
     KotlinBootique(args)
         .withKotlinConfig() // Extension function
         .autoLoadModules()
         .exec()
         .exit()
-}</code></pre> 
-    </div> 
-   </div> 
-   <div class="paragraph"> 
-    <p>Using <code>BQModuleProvider</code>:</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
+}</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p>Using <code>BQModuleProvider</code>:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
      <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">fun main(args: Array&lt;String&gt;) {
     KotlinBootique(args)
         .module(KotlinConfigModuleProvider())
         .autoLoadModules()
         .exec()
         .exit()
-}</code></pre> 
-    </div> 
-   </div> 
-   <div class="paragraph"> 
-    <p>You can pass this file as always to bootique:</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
-     <pre class="highlight"><code class="language-bash bash" data-lang="bash">./bin/application --config=classpath:config.bq.kts --server</code></pre> 
-    </div> 
-   </div> 
-   <div class="paragraph"> 
-    <p>It’s even support multiple files (each file contains map of configs):</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
-     <pre class="highlight"><code class="language-bash bash" data-lang="bash">./bin/application --config=classpath:config.bq.kts --config=classpath:config1.bq.kts --server</code></pre> 
-    </div> 
-   </div> 
-   <div class="paragraph"> 
-    <p>That’s it! You get autocomplete in IDE, and <strong>code</strong> for a configuration!</p> 
-   </div> 
-  </div> 
- </div> 
-</div> 
-<div class="sect1"> 
- <h2 id="_bootique_jetty">6. Bootique Jetty</h2> 
- <div class="sectionbody"> 
-  <div class="paragraph"> 
-   <p>Define empty config:</p> 
-  </div> 
-  <div class="listingblock"> 
-   <div class="content"> 
+}</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p>You can pass this file as always to bootique:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-bash bash" data-lang="bash">./bin/application --config=classpath:config.bq.kts --server</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p>It’s even support multiple files (each file contains map of configs):</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-bash bash" data-lang="bash">./bin/application --config=classpath:config.bq.kts --config=classpath:config1.bq.kts --server</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p>That’s it! You get autocomplete in IDE, and <strong>code</strong> for a configuration!</p>
+   </div>
+  </div>
+ </div>
+</div>
+<div class="sect1">
+ <h2 id="_bootique_jetty">6. Bootique Jetty</h2>
+ <div class="sectionbody">
+  <div class="paragraph">
+   <p>Define empty config:</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
     <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">jetty {
 
-}</code></pre> 
-   </div> 
-  </div> 
-  <div class="paragraph"> 
-   <p>Use autocompletion to define configuration.</p> 
-  </div> 
-  <div class="paragraph"> 
-   <p>Use <code>httpConnector/httpsConnector</code> extensions to define connectors:</p> 
-  </div> 
-  <div class="listingblock"> 
-   <div class="content"> 
+}</code></pre>
+   </div>
+  </div>
+  <div class="paragraph">
+   <p>Use autocompletion to define configuration.</p>
+  </div>
+  <div class="paragraph">
+   <p>Use <code>httpConnector/httpsConnector</code> extensions to define connectors:</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
     <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">jetty {
     httpConnector {
         port = 4242
@@ -474,19 +474,19 @@ jetty {
         responseHeaderSize = 42
         requestHeaderSize = 13
     }
-}</code></pre> 
-   </div> 
-  </div> 
- </div> 
-</div> 
-<div class="sect1"> 
- <h2 id="_bootique_logback">7. Bootique Logback</h2> 
- <div class="sectionbody"> 
-  <div class="paragraph"> 
-   <p>Define logback configuration:</p> 
-  </div> 
-  <div class="listingblock"> 
-   <div class="content"> 
+}</code></pre>
+   </div>
+  </div>
+ </div>
+</div>
+<div class="sect1">
+ <h2 id="_bootique_logback">7. Bootique Logback</h2>
+ <div class="sectionbody">
+  <div class="paragraph">
+   <p>Define logback configuration:</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
     <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">addConfig("log", logbackContextFactory(
     logFormat = "[%d{dd/MMM/yyyy:HH:mm:ss}] %t %-5p %c{1}: %m%n",
     useLogbackConfig = false,
@@ -507,44 +507,44 @@ jetty {
             historySize = 1
         ))
     )
-))</code></pre> 
-   </div> 
-  </div> 
-  <div class="paragraph"> 
-   <p>Use function for retrieving logger for class:</p> 
-  </div> 
-  <div class="listingblock"> 
-   <div class="content"> 
-    <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">val logger = logger&lt;SomeService&gt;()</code></pre> 
-   </div> 
-  </div> 
-  <div class="paragraph"> 
-   <p>Or if class is generic:</p> 
-  </div> 
-  <div class="listingblock"> 
-   <div class="content"> 
-    <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">val logger = logger&lt;SomeService&lt;*&gt;&gt;()</code></pre> 
-   </div> 
-  </div> 
- </div> 
-</div> 
-<div class="sect1"> 
- <h2 id="_bootique_undertow">8. Bootique Undertow</h2> 
- <div class="sectionbody"> 
-  <div class="paragraph"> 
-   <p>Define undertow configuration:</p> 
-  </div> 
-  <div class="listingblock"> 
-   <div class="content"> 
+))</code></pre>
+   </div>
+  </div>
+  <div class="paragraph">
+   <p>Use function for retrieving logger for class:</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
+    <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">val logger = logger&lt;SomeService&gt;()</code></pre>
+   </div>
+  </div>
+  <div class="paragraph">
+   <p>Or if class is generic:</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
+    <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">val logger = logger&lt;SomeService&lt;*&gt;&gt;()</code></pre>
+   </div>
+  </div>
+ </div>
+</div>
+<div class="sect1">
+ <h2 id="_bootique_undertow">8. Bootique Undertow</h2>
+ <div class="sectionbody">
+  <div class="paragraph">
+   <p>Define undertow configuration:</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
     <pre class="highlight"><code class="language-kotlin kotlin" data-lang="kotlin">addConfig("undertow", undertowFactory(
     httpListeners = listOf(
         httpListener(1337, "127.0.0.1")
     ),
     workerThreads = 42
-))</code></pre> 
-   </div> 
-  </div> 
- </div> 
+))</code></pre>
+   </div>
+  </div>
+ </div>
 </div>
         </article>
       </div>
