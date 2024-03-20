@@ -3,7 +3,10 @@ languageCode: "en-us"
 title: "Bootique: Minimally Opinionated Framework for Runnable Java"
 theme: "bootique-theme"
 
-disableKinds: ['RSS']
+disableKinds:
+  - RSS
+  - taxonomy
+  - term
 
 params:
   googleAnalytics: "UA-74603008-1"
