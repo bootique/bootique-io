@@ -8,6 +8,8 @@ disableKinds:
   - taxonomy
   - term
 
+enableRobotsTXT: true
+
 params:
   googleAnalytics: "UA-74603008-1"
   description: >-
@@ -21,17 +23,17 @@ permalinks:
 
 menu:
   main:
-    - Name: "Get started"
-      Pre: version # this means that item's URL depends on Bootique version
-      URL: "/getting-started/"
-      Weight: 1
-    - Name: "Documentation"
-      Pre: version
-      URL: "/docs/"
-      Weight: 2
-    - Name: "CLA"
-      URL: "/cla/"
-      Weight: 3
-    - Name: "Forum"
-      URL: "https://groups.google.com/forum/#!forum/bootique-user"
-      Weight: 4
+    - name: "Get started"
+      pre: version # this means that item's URL depends on Bootique version
+      url: "/getting-started/"
+      weight: 1
+    - name: "Documentation"
+      pre: version
+      url: "/docs/"
+      weight: 2
+    - name: "CLA"
+      url: "/cla/"
+      weight: 3
+    - name: "Forum"
+      url: "https://groups.google.com/forum/#!forum/bootique-user"
+      weight: 4
