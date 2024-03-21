@@ -16,7 +16,7 @@
 
     <div class="row ">
       <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav">
-        {{- $tocFile := printf "content/%s/%s.toc.html" (path.Dir .File) .File.BaseFileName -}}
+        {{- $tocFile := printf "/content/%s/%s.toc.html" (path.Dir .File.Path) .File.BaseFileName -}}
         {{- if (fileExists $tocFile) -}}
         {{ readFile $tocFile | safeHTML }}
         {{- end -}}
