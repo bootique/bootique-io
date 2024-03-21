@@ -85,9 +85,6 @@
     <loc>https://bootique.io/docs/3.x/bootique-tool-docs/</loc>
   </url>
   <url>
-    <loc>https://bootique.io/categories/</loc>
-  </url>
-  <url>
     <loc>https://bootique.io/docs/1.x/getting-started/</loc>
   </url>
   <url>
@@ -95,8 +92,5 @@
   </url>
   <url>
     <loc>https://bootique.io/docs/3.x/getting-started/</loc>
-  </url>
-  <url>
-    <loc>https://bootique.io/tags/</loc>
   </url>
 </urlset>
