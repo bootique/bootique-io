@@ -1,7 +1,7 @@
 {{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  {{- $notInSiteMap := slice "/page/" "/docs/" -}}
+  {{- $notInSiteMap := slice "/page/" "/docs/" "/categories/", "/tags/" -}}
   {{- $pagesInSitemap := where .Data.Pages "RelPermalink" "not in" $notInSiteMap -}}
   {{- range $pagesInSitemap  -}}
   {{- if .Permalink }}
