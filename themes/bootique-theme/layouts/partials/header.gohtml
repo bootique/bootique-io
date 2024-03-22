@@ -1,6 +1,6 @@
 <head>
   <meta charset="utf-8">
-  <title>{{ .Site.Title }}</title>
+  <title>{{ with .Title }}{{ . }}{{ else }}{{ .Site.Title }}{{ end }}</title>
   {{ partial "meta.gohtml" . }}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ "/images/favicon/apple-touch-icon.png" | relURL }}">
