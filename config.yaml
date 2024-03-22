@@ -16,6 +16,7 @@ params:
       Bootique is a minimally opinionated platform for runnable Java applications.
       Provides command-line launcher, dependency injection service, configuration and lots of extension modules.
   keywords: "Bootique, Bootique project, Guice, Container-less Java, Runnable Jar, Make Jar not War, WYSIWYR"
+  sitemapExcludes: ["/page/", "/docs/", "/categories/", "/tags/"]
 
 # URLs for pages under folders content/page and content/docs.
 permalinks:
