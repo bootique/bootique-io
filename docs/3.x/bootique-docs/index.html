@@ -298,7 +298,7 @@
    <div class="sect3">
     <h4 id="modules_loading">2.2.1. Modules (Auto) Loading</h4>
     <div class="paragraph">
-     <p>By default, for a module to be included in <code>BQRuntime</code> it has to be explicitly mentioned when starting a Bootique app (<code>Bootique.app(args).module(MyModule.class)</code>), and this is highly impractical in real apps. So most often than not the alternative autoloading mechanism is used. To enable autoloading, call <code>Bootique.autoLoadModules()</code> as a part of the startup sequence. Also, each module needs an extra descriptor file called <code>io.bootique.BQModule</code> to be eligible for autoloading. The file should be located on classpath under <code>META-INF/services</code> and should contain a line with the fully-qualified name of the Module Java class. E.g.:</p>
+     <p>By default, for a module to be included in <code>BQRuntime</code> it has to be explicitly mentioned when starting a Bootique app (<code>Bootique.app(args).module(MyModule.class)</code>), though this is rather impractical in real apps. Most often than not you would rely on "autoloading" enabled via a call to <code>Bootique.autoLoadModules()</code> as a part of the startup sequence. Additionally, for a module to be autoloadable, it needs a file called <code>io.bootique.BQModule</code>. This file should be placed on classpath under <code>META-INF/services</code> and should contain a line with the fully-qualified name of the Module Java class. E.g.:</p>
     </div>
     <div class="listingblock">
      <div class="content">
@@ -306,14 +306,17 @@
      </div>
     </div>
     <div class="paragraph">
-     <p>If you have more than one Bootique module in a given Java project, you should put the names of all modules in this file, one name per line.</p>
+     <p>If you have more than one module in a given project, you should put all the names in this file, one per line.</p>
+    </div>
+    <div class="paragraph">
+     <p>The result of autoloading, is that you can manage inclusion/exclusion of modules purely via the build system instead of in the code.</p>
     </div>
     <div class="admonitionblock note">
      <table>
       <tbody>
        <tr>
         <td class="icon"><i class="fa fa-info-circle fa-2x" title="Note"></i></td>
-        <td class="content">All standard Bootique modules are auto-loadable.</td>
+        <td class="content">all standard Bootique modules are autoloadable.</td>
        </tr>
       </tbody>
      </table>
@@ -336,6 +339,12 @@ public ModuleCrate crate() {
     </div>
     <div class="paragraph">
      <p>The returned "crate" can contain information about module configuration structure, its deprecation status, etc. While you can write modules without explicit "crates", providing a "crate" with as much information about the module as possible, would help Bootique to help your users (and your future self) to understand what the module does, and how to use it.</p>
+    </div>
+   </div>
+   <div class="sect3">
+    <h4 id="_deprecating_modules">2.2.3. Deprecating Modules</h4>
+    <div class="paragraph">
+     <p>TODO</p>
     </div>
    </div>
   </div>
@@ -916,7 +925,7 @@ public BaseType provideBaseType(ConfigurationFactory configFactory) {
     <p>A class containing the <code>"main()"</code> method is informally called "application". Bootique does not impose any additional requirements on this class. You decide what to put in it. It can be limited to just <code>"main()"</code>, or be a REST API endpoint, or something else entirely.</p>
    </div>
    <div class="paragraph">
-    <p>Though the most common approach is to turn the application class into a Module. After all a Bootique app is a collection of Modules, and the application class would represent that one main Module to rule them all:</p>
+    <p>By convention, the application class implements <code>BQModule</code>. After all, a Bootique app is a collection of Modules, and the application class would represent that one main Module to rule them all:</p>
    </div>
    <div class="listingblock">
     <div class="content">
@@ -941,7 +950,7 @@ public BaseType provideBaseType(ConfigurationFactory configFactory) {
      <tbody>
       <tr>
        <td><i class="conum" data-value="1"></i><b>1</b></td>
-       <td>Explicitly adds <code>Application</code> to the list of runtime modules. Since the superclass of <code>Application</code> is <code>BaseModule</code>, you may put the application class in <code>META-INF/services/io.bootique.BQModuleProvider</code> to make it auto-loadable and remove this line.</td>
+       <td>Explicitly adds <code>Application</code> to the list of runtime modules. Since the superclass of <code>Application</code> is <code>BaseModule</code>, you may put the application class in <code>META-INF/services/io.bootique.BQModule</code> to make it auto-loadable and remove this line.</td>
       </tr>
      </tbody>
     </table>
@@ -949,7 +958,7 @@ public BaseType provideBaseType(ConfigurationFactory configFactory) {
    <div class="sect3">
     <h4 id="_common_main_class">2.6.1. Common Main Class</h4>
     <div class="paragraph">
-     <p>If all your code is packaged in auto-loadable modules (which is always a good idea), you may not even need a custom main class. <code>io.bootique.Bootique</code> class itself declares a <code>main()</code> method and can be used as an app launcher. This creates some interesting possibilities. E.g. you can create Java projects that have no code of their own and are simply collections of modules declared as compile dependencies. More details on packaging are given in the "Runnable Jar" chapter.</p>
+     <p>If all your code is packaged in auto-loadable modules (which is always a good idea), you may not even need a custom main class. <code>io.bootique.Bootique</code> class itself declares a <code>main()</code> method and can be used as an app launcher. This creates some interesting possibilities. E.g. you can create Java projects that have no code of their own and are simply collections of modules declared as compile dependencies. More details on packaging are given in the "Assembly and Deployment" chapter.</p>
     </div>
    </div>
   </div>
@@ -1232,16 +1241,6 @@ BQCoreModule.extend(binder)
  <div class="sectionbody">
   <div class="sect2">
    <h3 id="_bootique_and_testing">3.1. Bootique and Testing</h3>
-   <div class="admonitionblock note">
-    <table>
-     <tbody>
-      <tr>
-       <td class="icon"><i class="fa fa-info-circle fa-2x" title="Note"></i></td>
-       <td class="content">Bootique provides integration for both JUnit 4 and JUnit 5. Both can even be combined in the same project via JUnit 5 <a href="https://junit.org/junit5/docs/current/user-guide/#migrating-from-junit4-running">"vintage engine"</a>. This chapter will focus on JUnit 5 instructions. For JUnit 4 docs, please check documentation for Bootique 1.x.</td>
-      </tr>
-     </tbody>
-    </table>
-   </div>
    <div class="paragraph">
     <p>Bootique is uniquely suitable to be used as a test framework. Within a single test it allows you to start and stop multiple in-process runtimes, each with а distinct set of modules and configurations. Bootique test facilities are controlled with a small number of annotations: <code>@BQTest</code>, <code>@BQTestTool</code> and <code>@BQApp</code>, that will be described below.</p>
    </div>
@@ -1484,7 +1483,7 @@ public void command() {
    <div class="sect3">
     <h4 id="_testing_module_validity">3.5.4. Testing Module Validity</h4>
     <div class="paragraph">
-     <p>When you are writing your own modules, you may want to check that they are configured properly for autoloading (i.e. <code>META-INF/services/io.bootique.BQModuleProvider</code> is present in the expected place and contains the right provider. There’s a helper class to check for it:</p>
+     <p>When you are writing your own modules, you may want to check that they are configured properly for autoloading (i.e. <code>META-INF/services/io.bootique.BQModule</code> is present in the expected place and contains the right provider. There’s a helper class to check for it:</p>
     </div>
     <div class="listingblock">
      <div class="content">
