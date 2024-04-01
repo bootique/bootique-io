@@ -1483,13 +1483,15 @@ public void command() {
    <div class="sect3">
     <h4 id="_testing_module_validity">3.5.4. Testing Module Validity</h4>
     <div class="paragraph">
-     <p>When you are writing your own modules, you may want to check that they are configured properly for autoloading (i.e. <code>META-INF/services/io.bootique.BQModule</code> is present in the expected place and contains the right provider. There’s a helper class to check for it:</p>
+     <p>When you are writing your own modules, you may want to check that they are configured properly for autoloading (i.e. <code>META-INF/services/io.bootique.BQModule</code> is present in the expected place and contains the right provider), and their configuration is consistent. There’s a helper class to check for it:</p>
     </div>
     <div class="listingblock">
      <div class="content">
       <pre class="highlight"><code class="language-java java" data-lang="java">@Test
 public void autoLoadable() {
-    BQModuleProviderChecker.testAutoLoadable(MyModuleProvider.class);
+    BQModuleTester.of(MyModule.class)
+            .testAutoLoadable()
+            .testConfig();
 }</code></pre>
      </div>
     </div>
