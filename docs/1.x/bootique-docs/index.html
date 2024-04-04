@@ -924,13 +924,13 @@ BQCoreModule.extend(binder)
    <div class="sect3"> 
     <h4 id="_loggers_in_the_code">2.8.1. Loggers in the Code</h4> 
     <div class="paragraph"> 
-     <p>Standard Bootique modules use <a href="http://www.slf4j.org/">SLF4J</a> internally, as it is the most convenient least common denominator framework, and can be easily bridged to other logging implementations. Your apps or modules are not required to use SLF4J, though if they do, it will likely reduce the amount of bridging needed to route all logs to a single destination.</p> 
+     <p>Standard Bootique modules use htts://www.slf4j.org/[SLF4J] internally, as it is the most convenient least common denominator framework, and can be easily bridged to other logging implementations. Your apps or modules are not required to use SLF4J, though if they do, it will likely reduce the amount of bridging needed to route all logs to a single destination.</p> 
     </div> 
    </div> 
    <div class="sect3"> 
     <h4 id="_configurable_logging_with_logback">2.8.2. Configurable Logging with Logback</h4> 
     <div class="paragraph"> 
-     <p>For better control over logging a standard module called <code>bootique-logback</code> is available, that integrates <a href="http://logback.qos.ch/">Logback framework</a> in the app. It seamlessly bridges SLF4J (so you keep using SLF4J in the code), and allows to configure logging via YAML config file, including appenders (file, console, etc.) and per class/package log levels. Just like any other module, <code>bootique-logback</code> can be enabled by simply adding it to the pom.xml dependencies, assuming <code>autoLoadModules()</code> is in effect:</p> 
+     <p>For better control over logging a standard module called <code>bootique-logback</code> is available, that integrates <a href="https://logback.qos.ch/">Logback framework</a> in the app. It seamlessly bridges SLF4J (so you keep using SLF4J in the code), and allows to configure logging via YAML config file, including appenders (file, console, etc.) and per class/package log levels. Just like any other module, <code>bootique-logback</code> can be enabled by simply adding it to the pom.xml dependencies, assuming <code>autoLoadModules()</code> is in effect:</p> 
     </div> 
     <div class="listingblock"> 
      <div class="content"> 
@@ -941,7 +941,7 @@ BQCoreModule.extend(binder)
      </div> 
     </div> 
     <div class="paragraph"> 
-     <p>See <code>bootique-logback</code> module <a href="http://bootique.io/docs/1.x/bootique-logback-docs/">documentation</a> for further details.</p> 
+     <p>See <code>bootique-logback</code> module <a href="https://bootique.io/docs/1.x/bootique-logback-docs/">documentation</a> for further details.</p> 
     </div> 
    </div> 
    <div class="sect3"> 
