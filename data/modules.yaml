@@ -92,8 +92,7 @@ ByName:
   job:
     Name: bootique-job
     Icon: job.png
-    Description: Integrates a job scheduling and execution engine. Jobs can be run individually or scheduled for
-                 periodic execution. Supports cross-instance locks
+    Description: Bootique's own provider of job scheduling and execution
     Example: "https://github.com/bootique-examples/bootique-jobs-demo"
     Versions: ["1.3", "2.0", "3.0"]
 
@@ -117,7 +116,7 @@ ByName:
     Description: Simplifies writing Bootique modules using Kotlin
     Docs: "bootique-kotlin-docs/"
     Example: "https://github.com/bootique-examples/bootique-kotlin-demo"
-    Versions: ["1.3", "2.0", "3.0"]
+    Versions: ["1.3", "2.0"]
 
   linkmove:
     Name: bootique-linkmove
@@ -216,6 +215,6 @@ ByName:
   undertow:
     Name: bootique-undertow
     Icon: undertow.png
-    Description: Integrates JBoss Undertow web server
+    Description: Integrates JBoss Undertow web server (Deprecated in 3.0)
     Example: "https://github.com/bootique-examples/bootique-undertow-demo"
     Versions: ["1.3", "2.0", "3.0"]
