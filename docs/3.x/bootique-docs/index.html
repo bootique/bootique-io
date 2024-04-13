@@ -127,15 +127,14 @@
    </ul></li>
   <li><a href="#_programming" class="nav-link">2. Programming</a>
    <ul class="sectlevel2 nav">
-    <li><a href="#_bqruntime" class="nav-link">2.1. BQRuntime</a></li>
-    <li><a href="#_modules" class="nav-link">2.2. Modules</a></li>
-    <li><a href="#_dependency_injection" class="nav-link">2.3. Dependency Injection</a></li>
-    <li><a href="#_configuration_and_configurable_factories" class="nav-link">2.4. Configuration and Configurable Factories</a></li>
-    <li><a href="#_using_modules" class="nav-link">2.5. Using Modules</a></li>
-    <li><a href="#applicationclass" class="nav-link">2.6. Application Class</a></li>
-    <li><a href="#_commands" class="nav-link">2.7. Commands</a></li>
-    <li><a href="#_options" class="nav-link">2.8. Options</a></li>
-    <li><a href="#_logging" class="nav-link">2.9. Logging</a></li>
+    <li><a href="#_modules" class="nav-link">2.1. Modules</a></li>
+    <li><a href="#_dependency_injection" class="nav-link">2.2. Dependency Injection</a></li>
+    <li><a href="#_configuration_and_configurable_factories" class="nav-link">2.3. Configuration and Configurable Factories</a></li>
+    <li><a href="#_using_modules" class="nav-link">2.4. Using Modules</a></li>
+    <li><a href="#applicationclass" class="nav-link">2.5. Application Class</a></li>
+    <li><a href="#_commands" class="nav-link">2.6. Commands</a></li>
+    <li><a href="#_options" class="nav-link">2.7. Options</a></li>
+    <li><a href="#_logging" class="nav-link">2.8. Logging</a></li>
    </ul></li>
   <li><a href="#_testing" class="nav-link">3. Testing</a>
    <ul class="sectlevel2 nav">
@@ -197,17 +196,25 @@
  <h2 id="_programming">2. Programming</h2>
  <div class="sectionbody">
   <div class="paragraph">
-   <p>A typical "main" class in a Bootique application looks like this:</p>
+   <p>A "main" class in a Bootique application might look like this:</p>
   </div>
   <div class="listingblock">
    <div class="content">
-    <pre class="highlight"><code class="language-java java" data-lang="java">public class Application extends BaseModule {
+    <pre class="highlight"><code class="language-java java" data-lang="java">public class Application implements BQModule {
 
     public static void main(String[] args) {
-        Bootique.app(args) <i class="conum" data-value="1"></i><b>(1)</b>
+
+        BQRuntime runtime = Bootique.app(args) <i class="conum" data-value="1"></i><b>(1)</b>
                 .autoLoadModules() <i class="conum" data-value="2"></i><b>(2)</b>
-                .exec() <i class="conum" data-value="3"></i><b>(3)</b>
-                .exit(); <i class="conum" data-value="4"></i><b>(4)</b>
+                .createRuntime(); <i class="conum" data-value="3"></i><b>(3)</b>
+
+        runtime.run() <i class="conum" data-value="4"></i><b>(4)</b>
+                .exit(); <i class="conum" data-value="5"></i><b>(5)</b>
+    }
+
+    @Override
+    public void configure(Binder binder) {
+        // configure services
     }
 }</code></pre>
    </div>
@@ -225,44 +232,69 @@
      </tr>
      <tr>
       <td><i class="conum" data-value="3"></i><b>3</b></td>
-      <td>Creates a <code>BQRuntime</code> object and calls its <code>run()</code> method. The outcome depends on what modules the application is made of and what CLI options were passed to it on startup.</td>
+      <td>Creates a <code>BQRuntime</code> object</td>
      </tr>
      <tr>
       <td><i class="conum" data-value="4"></i><b>4</b></td>
-      <td>Exits the app passing the exit code that is the result of the execution to the OS.</td>
+      <td>Executes the runtime <code>run()</code> method. The outcome depends on what options were passed to the app on the command line</td>
+     </tr>
+     <tr>
+      <td><i class="conum" data-value="5"></i><b>5</b></td>
+      <td>Exits the app passing the exit code to the OS</td>
      </tr>
     </tbody>
    </table>
   </div>
   <div class="paragraph">
-   <p>This is it in a nutshell. Now let’s discuss the details…​</p>
+   <p>Actually, there is a shorter version of <code>main(..)</code> that combines creation and execution in a single call to <code>exec()</code>:</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
+    <pre class="highlight"><code class="language-java java" data-lang="java">public static void main(String[] args) {
+    Bootique.app(args)
+            .autoLoadModules()
+            .exec()
+            .exit();
+}</code></pre>
+   </div>
+  </div>
+  <div class="paragraph">
+   <p>That’s what you’d normally do in a real app, but let’s explore the <code>BQRuntime</code> object. It represents the entry point of the application, holding all objects (aka "services") that were created by the <code>Bootique</code> builder. For all intents and purposes, <code>BQRuntime</code> <em>is</em> the "application". Here is how you can peek inside the runtime to access its objects (here we are retrieving a <code>Cli</code> object that is defined in Bootique and describesb the command line arguments our app was started with) :</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
+    <pre class="highlight"><code class="language-java java" data-lang="java">Cli cli = runtime.getInstance(Cli.class);</code></pre>
+   </div>
+  </div>
+  <div class="paragraph">
+   <p>What objects exist in the runtime and how they are initialized is determined by what "modules" <code>Bootique</code> discovered and loaded, so next let’s discuss what modules are.</p>
   </div>
   <div class="sect2">
-   <h3 id="_bqruntime">2.1. BQRuntime</h3>
+   <h3 id="_modules">2.1. Modules</h3>
    <div class="paragraph">
-    <p><code>BQRuntime</code> is the object representing a Bootique app. It is the entry point to everything else. It holds all other objects ("services"), configuration, commands, etc. The foundation of <code>BQRuntime</code> is <em>dependency injection</em> (DI) that glues things together.</p>
+    <p>A module is a class that implements <code>BQModule</code>. Modules serve as "blueprints" for Bootique to create application objects via a combination of Bootique "bindings" API and <em>dependency injection</em> (DI).</p>
    </div>
    <div class="admonitionblock note">
     <table>
      <tbody>
       <tr>
        <td class="icon"><i class="fa fa-info-circle fa-2x" title="Note"></i></td>
-       <td class="content">If you are familiar with other DI implementations, you will find a lot of similarities. Namely, standard annotations from <code>javax.inject</code> package (<a href="https://jcp.org/en/jsr/detail?id=330">JSR-330</a>) are supported in Bootique. But there are also quite a few differences.</td>
+       <td class="content">Colloquially, the term "modules" is also applied to <code>.jar</code> files that contain those classes together with a bunch of "regular" classes. So we will use the word interchangeably to refer to either a specific java class implementing <code>BQModule</code> or the whole <code>.jar</code> that contains such a class.</td>
       </tr>
      </tbody>
     </table>
    </div>
    <div class="paragraph">
-    <p>Application code managed by <code>BQRuntime</code> comes via standard and custom "modules", so next let’s discuss what modules are.</p>
+    <p>Here are two examples of the Bootique standard modules:</p>
    </div>
-  </div>
-  <div class="sect2">
-   <h3 id="_modules">2.2. Modules</h3>
-   <div class="paragraph">
-    <p>Each module is a logical collection of (hopefully related) services with their assembly instructions. E.g. a standard <code>bootique-jetty</code> module integrates Jetty server into your application, <code>bootique-jdbc</code> provides a way to work with relational databases, and so on. Bootique team maintains a constantly growing list of such modules. Your own code will also be organized as modules.</p>
+   <div class="ulist">
+    <ul>
+     <li><p><code>bootique-jetty</code> that integrates Jetty server into your application</p></li>
+     <li><p><code>bootique-jdbc</code> that allows to work with relational databases, and so on.</p></li>
+    </ul>
    </div>
    <div class="paragraph">
-    <p>At its core, a module is simply a bunch of Java classes and resources. What makes it a module is a presence of a special class implementing <code>BQModule</code>. This class is an "assembly descriptor" for the objects in the library. It contains information used by the DI environment to create and configure them. Here is a simple module class (we’ll explain <code>configure(Binder)</code> method a bit later):</p>
+    <p>It is helpful for you to think of your own code as being "organized into modules" as well. An example of a simple custom module is shown below with an example of an object binding API that will be discussed later:</p>
    </div>
    <div class="listingblock">
     <div class="content">
@@ -280,7 +312,7 @@
      <tbody>
       <tr>
        <td class="icon"><i class="fa fa-info-circle fa-2x" title="Note"></i></td>
-       <td class="content">By convention, all classes belonging to a module are packaged in its own <code>.jar</code> file, though nothing prevents you from keeping multiple modules in a single <code>.jar</code>, or spreading the module code across multiple jars. Other than autoloading descriptors explained below, there are no special packaging requirements for modules. When they are combined in runtime, it is all a single classpath.</td>
+       <td class="content">By convention, all classes logically belonging to a module are packaged in a separate <code>.jar</code>, though nothing prevents you from keeping multiple BQModules in a single <code>.jar</code>, or spreading the module code across multiple jars. Other than autoloading descriptors explained below, there are no special packaging requirements for modules. When they are combined in runtime, it is all a single classpath.</td>
       </tr>
      </tbody>
     </table>
@@ -290,15 +322,74 @@
      <tbody>
       <tr>
        <td class="icon"><i class="fa fa-info-circle fa-2x" title="Note"></i></td>
-       <td class="content">Java Platform Module System (JPMS) is logically close to Bootique modules, and we would love to fully align the two. Unfortunately, it is our experience that forcing the users to adhere to JPMS everywhere would result in lots of limitations and invariable productivity loss, so we are intentionally ignoring possible JPMS synergies.</td>
+       <td class="content">Java Platform Module System (JPMS) is conceptually close to Bootique modules, and we would love to fully align the two. Unfortunately, it is our experience that forcing the users to adhere to JPMS everywhere would result in lots of limitations and invariable productivity loss, so we are intentionally ignoring possible JPMS synergies.</td>
       </tr>
      </tbody>
     </table>
    </div>
    <div class="sect3">
-    <h4 id="modules_loading">2.2.1. Modules (Auto) Loading</h4>
+    <h4 id="modules_loading">2.1.1. Modules (Auto) Loading</h4>
     <div class="paragraph">
-     <p>By default, for a module to be included in <code>BQRuntime</code> it has to be explicitly mentioned when starting a Bootique app (<code>Bootique.app(args).module(MyModule.class)</code>), though this is rather impractical in real apps. Most often than not you would rely on "autoloading" enabled via a call to <code>Bootique.autoLoadModules()</code> as a part of the startup sequence. Additionally, for a module to be autoloadable, it needs a file called <code>io.bootique.BQModule</code>. This file should be placed on classpath under <code>META-INF/services</code> and should contain a line with the fully-qualified name of the Module Java class. E.g.:</p>
+     <p>When a Bootique app is started, it loads object definitions from all modules it is aware of. Those can come from two places:</p>
+    </div>
+    <div class="ulist">
+     <ul>
+      <li><p>Modules explicitly added to Bootique: <code>Bootique.app(args).module(MyModule.class)</code></p></li>
+      <li><p>"Auto-loadable" modules</p></li>
+     </ul>
+    </div>
+    <div class="paragraph">
+     <p>The first category is self-explanatory and allows to manually specify which modules should be in the app:</p>
+    </div>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-java java" data-lang="java">Bootique.app()
+        .module(JettyModule.class) <i class="conum" data-value="1"></i><b>(1)</b>
+        .module(binder -&gt; binder.bind(MyService.class).to(MyServiceImpl.class)) <i class="conum" data-value="2"></i><b>(2)</b>
+        .exec();</code></pre>
+     </div>
+    </div>
+    <div class="colist arabic">
+     <table>
+      <tbody>
+       <tr>
+        <td><i class="conum" data-value="1"></i><b>1</b></td>
+        <td>Adding a module by <code>BQModule</code> type</td>
+       </tr>
+       <tr>
+        <td><i class="conum" data-value="2"></i><b>2</b></td>
+        <td>Adding a module as a lambda</td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <div class="paragraph">
+     <p>The second category is modules that will be discovered automatically by looking for <code>META-INF/services/io.bootique.BQModule</code> files on the classpath, and getting the names of modules from those files:</p>
+    </div>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-java java" data-lang="java">Bootique.app()
+        .autoLoadModules() <i class="conum" data-value="1"></i><b>(1)</b>
+        .module(binder -&gt; binder.bind(MyService.class).to(MyServiceImpl.class)) <i class="conum" data-value="2"></i><b>(2)</b>
+        .exec();</code></pre>
+     </div>
+    </div>
+    <div class="colist arabic">
+     <table>
+      <tbody>
+       <tr>
+        <td><i class="conum" data-value="1"></i><b>1</b></td>
+        <td>Module auto-loading needs to be turned on explicitly</td>
+       </tr>
+       <tr>
+        <td><i class="conum" data-value="2"></i><b>2</b></td>
+        <td>Auto-loading can be combined with explicit modules</td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <div class="paragraph">
+     <p>In this example, instead of adding <code>JettyModule</code> explicitly, we turned on auto-loading allowing Bootique to locate and load this standard module (assuming it was added to the application as a dependency). When writing your own auto-loadable modules, you would add a line to <code>META-INF/services/io.bootique.BQModule</code>, containing the fully-qualified name of the BQModule Java class. E.g.:</p>
     </div>
     <div class="listingblock">
      <div class="content">
@@ -306,24 +397,11 @@
      </div>
     </div>
     <div class="paragraph">
-     <p>If you have more than one module in a given project, you should put all the names in this file, one per line.</p>
-    </div>
-    <div class="paragraph">
-     <p>The result of autoloading, is that you can manage inclusion/exclusion of modules purely via the build system instead of in the code.</p>
-    </div>
-    <div class="admonitionblock note">
-     <table>
-      <tbody>
-       <tr>
-        <td class="icon"><i class="fa fa-info-circle fa-2x" title="Note"></i></td>
-        <td class="content">all standard Bootique modules are autoloadable.</td>
-       </tr>
-      </tbody>
-     </table>
+     <p>If you have more than one module in a given project, you should put all the names in this file, one per line. The result of autoloading, is that you can manage inclusion/exclusion of modules purely via the build system instead of in the code. Auto-loading is the recommended mechanism for assembling your app in almost all cases. All the standard Bootique modules are autoloadable.</p>
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_modules_metadata">2.2.2. Modules Metadata</h4>
+    <h4 id="_modules_metadata">2.1.2. Modules Metadata</h4>
     <div class="paragraph">
      <p><code>BQModule</code> has a method called <code>crate()</code> that you can optionally implement to expose module metadata to Bootique:</p>
     </div>
@@ -342,14 +420,14 @@ public ModuleCrate crate() {
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_deprecating_modules">2.2.3. Deprecating Modules</h4>
+    <h4 id="_deprecating_modules">2.1.3. Deprecating Modules</h4>
     <div class="paragraph">
      <p>TODO</p>
     </div>
    </div>
   </div>
   <div class="sect2">
-   <h3 id="_dependency_injection">2.3. Dependency Injection</h3>
+   <h3 id="_dependency_injection">2.2. Dependency Injection</h3>
    <div class="paragraph">
     <p>As mentioned above, DI manages a subset of application objects that you’d write that we informally call "services". Here is a rough list of DI functionality around services:</p>
    </div>
@@ -373,7 +451,7 @@ public ModuleCrate crate() {
     </table>
    </div>
    <div class="sect3">
-    <h4 id="_bindings">2.3.1. Bindings</h4>
+    <h4 id="_bindings">2.2.1. Bindings</h4>
     <div class="paragraph">
      <p>Services can annotate their fields and/or constructors with <code>@Inject</code> to indicate which internal variables they want to be injected by the DI container. Do demonstrate this we will show a couple of implementations of a simple "hello" service that returns a greeting:</p>
     </div>
@@ -507,25 +585,25 @@ public void configure(Binder binder) {
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_injection_in_collections">2.3.2. Injection in Collections</h4>
+    <h4 id="_injection_in_collections">2.2.2. Injection in Collections</h4>
     <div class="paragraph">
      <p>TODO</p>
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_injection_and_generics">2.3.3. Injection and Generics</h4>
+    <h4 id="_injection_and_generics">2.2.3. Injection and Generics</h4>
     <div class="paragraph">
      <p>TODO</p>
     </div>
    </div>
   </div>
   <div class="sect2">
-   <h3 id="_configuration_and_configurable_factories">2.4. Configuration and Configurable Factories</h3>
+   <h3 id="_configuration_and_configurable_factories">2.3. Configuration and Configurable Factories</h3>
    <div class="paragraph">
     <p>Bootique Modules obtain their configuration in a form of "factory objects". We’ll show some examples shortly. For now let’s focus on the big picture, namely the fact that Bootique app configuration is multi-layered and roughly follows the sequence of "code - config files (contributed) - config files (CLI) - overrides". "Code" is the default values that are provided in constructors of factory objects. Config files overlay those defaults with their own values. Config files can be either contributed in the code, or specified on the command line. Files is where the bulk of configuration usually stored. Finally, config values may be further overridden via Java properties and/or environment variables.</p>
    </div>
    <div class="sect3">
-    <h4 id="_configuration_via_yaml_files">2.4.1. Configuration via YAML Files</h4>
+    <h4 id="_configuration_via_yaml_files">2.3.1. Configuration via YAML Files</h4>
     <div class="paragraph">
      <p>Format of configuration file can be either JSON or YAML. For simplicity, we’ll focus on YAML format, but the two are interchangeable. Here is an example config file:</p>
     </div>
@@ -613,7 +691,7 @@ jetty:
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_configuration_file_loading">2.4.2. Configuration File Loading</h4>
+    <h4 id="_configuration_file_loading">2.3.2. Configuration File Loading</h4>
     <div class="paragraph">
      <p>A config file can be passed to a Bootique app via DI (those are usually coming from classpath) or on the command line:</p>
     </div>
@@ -661,7 +739,7 @@ BQCoreModule.extend(binder)
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_configuration_via_properties">2.4.3. Configuration via Properties</h4>
+    <h4 id="_configuration_via_properties">2.3.3. Configuration via Properties</h4>
     <div class="paragraph">
      <p>YAML file can be thought of as a set of nested properties. E.g. the following config</p>
     </div>
@@ -706,7 +784,7 @@ BQCoreModule.extend(binder)
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_configuration_via_environment_variables">2.4.4. Configuration via Environment Variables</h4>
+    <h4 id="_configuration_via_environment_variables">2.3.4. Configuration via Environment Variables</h4>
     <div class="paragraph">
      <p>Bootique allows to use <em>environment variables</em> to specify/override configuration values. While variables work similar to JVM properties, using them has advantages in certain situations:</p>
     </div>
@@ -761,7 +839,7 @@ ENVIRONMENT
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_polymorphic_configuration_objects">2.4.5. Polymorphic Configuration Objects</h4>
+    <h4 id="_polymorphic_configuration_objects">2.3.5. Polymorphic Configuration Objects</h4>
     <div class="paragraph">
      <p>A powerful feature of Jackson is the ability to dynamically create subclasses of the configuration objects. Bootique takes full advantage of this. E.g. imagine a logging module that needs "appenders" to output its log messages (file appender, console appender, syslog appender, etc.). The framework might not be aware of all possible appenders its users might come up with in the future. Yet it still wants to have the ability to instantiate any of them, based solely on the data coming from YAML. Moreover, each appender will have its own set of incompatible configuration properties. In fact this is exactly the situation with <code>bootique-logback</code> module.</p>
     </div>
@@ -855,7 +933,7 @@ public BaseType provideBaseType(ConfigurationFactory configFactory) {
    </div>
   </div>
   <div class="sect2">
-   <h3 id="_using_modules">2.5. Using Modules</h3>
+   <h3 id="_using_modules">2.4. Using Modules</h3>
    <div class="paragraph">
     <p>Modules often depend on other "upstream" modules. They can interact with upstream modules in a few ways:</p>
    </div>
@@ -869,7 +947,7 @@ public BaseType provideBaseType(ConfigurationFactory configFactory) {
     <p>Let’s use <a href="https://github.com/bootique/bootique/blob/master/bootique/src/main/java/io/bootique/BQCoreModule.java">BQCoreModule</a> as an example of an upstream module, as it is available in all apps.</p>
    </div>
    <div class="sect3">
-    <h4 id="_injecting_other_modules_services">2.5.1. Injecting Other Module’s Services</h4>
+    <h4 id="_injecting_other_modules_services">2.4.1. Injecting Other Module’s Services</h4>
     <div class="paragraph">
      <p>You can inject any services declared in other modules. E.g. <code>BQCoreModule</code> defines an array of CLI arguments passed to the <code>main()</code> method, that can be injected in our module:</p>
     </div>
@@ -899,7 +977,7 @@ public BaseType provideBaseType(ConfigurationFactory configFactory) {
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_contributing_to_other_modules">2.5.2. Contributing to Other Modules</h4>
+    <h4 id="_contributing_to_other_modules">2.4.2. Contributing to Other Modules</h4>
     <div class="paragraph">
      <p>Bootique DI supports <a href="https://bootique.io/docs/3.x/bootique-di-docs/#_collections">Collection bindings</a>, intended to <em>contribute</em> objects defined in a downstream module to collections/maps used by services in upstream modules. Bootique hides DI API complexities, usually providing "extenders" in each module. E.g. the following code adds <code>MyCommand</code> the app set of commands:</p>
     </div>
@@ -920,7 +998,7 @@ public BaseType provideBaseType(ConfigurationFactory configFactory) {
    </div>
   </div>
   <div class="sect2">
-   <h3 id="applicationclass">2.6. Application Class</h3>
+   <h3 id="applicationclass">2.5. Application Class</h3>
    <div class="paragraph">
     <p>A class containing the <code>"main()"</code> method is informally called "application". Bootique does not impose any additional requirements on this class. You decide what to put in it. It can be limited to just <code>"main()"</code>, or be a REST API endpoint, or something else entirely.</p>
    </div>
@@ -956,14 +1034,14 @@ public BaseType provideBaseType(ConfigurationFactory configFactory) {
     </table>
    </div>
    <div class="sect3">
-    <h4 id="_common_main_class">2.6.1. Common Main Class</h4>
+    <h4 id="_common_main_class">2.5.1. Common Main Class</h4>
     <div class="paragraph">
      <p>If all your code is packaged in auto-loadable modules (which is always a good idea), you may not even need a custom main class. <code>io.bootique.Bootique</code> class itself declares a <code>main()</code> method and can be used as an app launcher. This creates some interesting possibilities. E.g. you can create Java projects that have no code of their own and are simply collections of modules declared as compile dependencies. More details on packaging are given in the "Assembly and Deployment" chapter.</p>
     </div>
    </div>
   </div>
   <div class="sect2">
-   <h3 id="_commands">2.7. Commands</h3>
+   <h3 id="_commands">2.6. Commands</h3>
    <div class="paragraph">
     <p>Bootique runtime contains a set of commands coming from Bootique core and from all the modules currently in effect in the app. On startup Bootique attempts to map command-line arguments to a single command type. If no match is found, a <em>default</em> command is executed (which is normally a "help" command). To list all available commands, the app can be run with <code>--help</code> option (in most cases running without any options will have the same effect). E.g.:</p>
    </div>
@@ -990,7 +1068,7 @@ OPTIONS
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_writing_commands">2.7.1. Writing Commands</h4>
+    <h4 id="_writing_commands">2.6.1. Writing Commands</h4>
     <div class="paragraph">
      <p>Most common commands are already available in various standard modules, still often you’d need to write your own. To do that, first create a command class. It should implement <code>io.bootique.command.Command</code> interface, though usually it more practical to extend <code>io.bootique.command.CommandWithMetadata</code> and provide some metadata used in help and elsewhere:</p>
     </div>
@@ -1056,7 +1134,7 @@ public CommandOutcome run(Cli cli) {
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_injection_in_commands">2.7.2. Injection in Commands</h4>
+    <h4 id="_injection_in_commands">2.6.2. Injection in Commands</h4>
     <div class="paragraph">
      <p>Commands can inject services, just like most other classes in Bootique. There are some specifics though. Since commands are sometimes instantiated, but not executed (e.g. when <code>--help</code> is run that lists all commands), it is often desirable to avoid immediate instantiation of all dependencies of a given command. So a common pattern with commands is to inject <code>javax.inject.Provider</code> instead of direct dependency:</p>
     </div>
@@ -1073,7 +1151,7 @@ public CommandOutcome run(Cli cli) {
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_decorating_commands">2.7.3. Decorating Commands</h4>
+    <h4 id="_decorating_commands">2.6.3. Decorating Commands</h4>
     <div class="paragraph">
      <p>Each command typically does a single well-defined thing, such as starting a web server, executing a job, etc. But very often in addition to that main thing you need to do other things. E.g. when a web server is started, you might also want to run a few more commands:</p>
     </div>
@@ -1103,9 +1181,9 @@ public CommandOutcome run(Cli cli) {
    </div>
   </div>
   <div class="sect2">
-   <h3 id="_options">2.8. Options</h3>
+   <h3 id="_options">2.7. Options</h3>
    <div class="sect3">
-    <h4 id="_simple_options">2.8.1. Simple Options</h4>
+    <h4 id="_simple_options">2.7.1. Simple Options</h4>
     <div class="paragraph">
      <p>In addition to commands, the app can define "options". Options are not associated with any runnable java code, and simply pass command-line values to commands and services. E.g. the standard “--config” option is used to locate configuration file(s). Unrecognized options cause application startup errors. To be recognized, options need to be "contributed" to Bootique similar to commands:</p>
     </div>
@@ -1135,7 +1213,7 @@ public void doSomething() {
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_configuration_options">2.8.2. Configuration Options</h4>
+    <h4 id="_configuration_options">2.7.2. Configuration Options</h4>
     <div class="paragraph">
      <p>While you can process your own options as described above, options often are just aliases to enable certain pieces of configuration. Bootique supports three flavors of associating options with configuration. Let’s demonstrate them here.</p>
     </div>
@@ -1176,15 +1254,15 @@ BQCoreModule.extend(binder)
    </div>
   </div>
   <div class="sect2">
-   <h3 id="_logging">2.9. Logging</h3>
+   <h3 id="_logging">2.8. Logging</h3>
    <div class="sect3">
-    <h4 id="_loggers_in_the_code">2.9.1. Loggers in the Code</h4>
+    <h4 id="_loggers_in_the_code">2.8.1. Loggers in the Code</h4>
     <div class="paragraph">
      <p>Standard Bootique modules use <a href="https://www.slf4j.org/">SLF4J</a> internally, as it is the most convenient least common denominator framework, and can be easily bridged to other logging implementations. Your apps or modules are not required to use SLF4J, though if they do, it will likely reduce the amount of bridging needed to route all logs to a single destination.</p>
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_configurable_logging_with_logback">2.9.2. Configurable Logging with Logback</h4>
+    <h4 id="_configurable_logging_with_logback">2.8.2. Configurable Logging with Logback</h4>
     <div class="paragraph">
      <p>For better control over logging a standard module called <code>bootique-logback</code> is available, that integrates <a href="https://logback.qos.ch/">Logback framework</a> in the app. It seamlessly bridges SLF4J (so you keep using SLF4J in the code), and allows to configure logging via YAML config file, including appenders (file, console, etc.) and per class/package log levels. Just like any other module, <code>bootique-logback</code> can be enabled by simply adding it to the pom.xml dependencies, assuming <code>autoLoadModules()</code> is in effect:</p>
     </div>
@@ -1216,7 +1294,7 @@ BQCoreModule.extend(binder)
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_bootlogger">2.9.3. BootLogger</h4>
+    <h4 id="_bootlogger">2.8.3. BootLogger</h4>
     <div class="paragraph">
      <p>To perform logging during startup, before DI environment is available and YAML configuration is processed, Bootique uses a special service called <code>BootLogger</code>, that is not dependent on SLF4J and is not automatically bridged to Logback. It provides an abstraction for writing to stdout / stderr, as well as conditional "trace" logs sent to stderr. To enable Bootique trace logs, start the app with <code>-Dbq.trace</code> as described in the deployment section.</p>
     </div>
