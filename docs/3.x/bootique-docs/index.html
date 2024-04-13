@@ -128,7 +128,7 @@
   <li><a href="#_programming" class="nav-link">2. Programming</a>
    <ul class="sectlevel2 nav">
     <li><a href="#_modules" class="nav-link">2.1. Modules</a></li>
-    <li><a href="#_defining_application_objects" class="nav-link">2.2. Defining Application Objects</a></li>
+    <li><a href="#_application_objects" class="nav-link">2.2. Application Objects</a></li>
     <li><a href="#_configuration_and_configurable_factories" class="nav-link">2.3. Configuration and Configurable Factories</a></li>
     <li><a href="#_using_modules" class="nav-link">2.4. Using Modules</a></li>
     <li><a href="#_commands" class="nav-link">2.5. Commands</a></li>
@@ -429,17 +429,14 @@ public ModuleCrate crate() {
    </div>
   </div>
   <div class="sect2">
-   <h3 id="_defining_application_objects">2.2. Defining Application Objects</h3>
+   <h3 id="_application_objects">2.2. Application Objects</h3>
    <div class="paragraph">
     <p>As mentioned above, modules are object assembly blueprints. When implementing a module, you write Java code that defines how your objects should be created and initialized when the app is started. This is done via bindings and provider methods, and with the assistance of the dependency injection (DI) mechanism built into Bootique.</p>
    </div>
    <div class="sect3">
     <h4 id="_dependency_injection">2.2.1. Dependency Injection</h4>
     <div class="paragraph">
-     <p>Let’s start with how you can leverage DI when creating your objects.</p>
-    </div>
-    <div class="paragraph">
-     <p>Services can annotate their fields and/or constructors with <code>@Inject</code> to indicate which internal variables they want to be injected by the DI container. To demonstrate this we will show a couple of implementations of a simple "hello" service that returns a greeting:</p>
+     <p>Let’s start with how you can leverage DI when creating your objects. Objects can annotate their fields and/or constructors with <code>@Inject</code> to indicate which internal variables they want to be provided ("injected") by the Bootique DI environment. To demonstrate this, we will show a couple of implementations of a simple "hello" service that returns a greeting:</p>
     </div>
     <div class="listingblock">
      <div class="content">
@@ -537,13 +534,13 @@ public void configure(Binder binder) {
      </div>
     </div>
     <div class="paragraph">
-     <p>Provider class has the same rules for injection of its own dependencies as services (either annotated fields or annotated constructor).</p>
+     <p>Provider class has the same rules for injection of its own dependencies as regular objects (either annotated fields or annotated constructor). The benefit of the provider is that it can implement custom assembly logic, which is separate from the service itself. It also allows the service it creates to be completely free from injection annotations. Still creating a provider class may be an overkill, and there is a simpler way to define small bits of assembly code - "provider methods" discussed next.</p>
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_provider_methods">2.2.3. Provider Methods</h4>
+    <h4 id="_provider_module_methods">2.2.3. Provider Module Methods</h4>
     <div class="paragraph">
-     <p>The benefit of the provider is that it can implement custom assembly logic, which is separate from the service itself. It also allows the service it creates to be completely free from injection annotations. Still creating a provider class may be an overkill, and there is a simpler way to define small bits of assembly code - "provider methods" that are declared right in the module class:</p>
+     <p>Any method of a module class annotated with <code>@Provides</code> is treated as an object declaration. E.g.:</p>
     </div>
     <div class="listingblock">
      <div class="content">
@@ -570,13 +567,13 @@ public void configure(Binder binder) {
        </tr>
        <tr>
         <td><i class="conum" data-value="2"></i><b>2</b></td>
-        <td>"configure" method can be empty, as the service was already bound via <code>provideHello</code>. Of course, it can also contain bindings for unrelated services.</td>
+        <td><code>configure(..)</code> method can be empty, as the service was already bound via <code>provideHello</code>. Of course, it can also contain bindings for unrelated services.</td>
        </tr>
       </tbody>
      </table>
     </div>
     <div class="paragraph">
-     <p>A few notes on the <code>provideHello</code> method. What makes it a provider is the <code>@Provides</code> annotation. Its access modifier is irrelevant (can be "public", "protected", etc.). As mentioned above, this method does both assembly and binding of the "Hello" service. The return type (<code>Hello</code>) is used as the binding key. And while there is no <code>@Inject</code> annotation in use anywhere, injection in fact also happens here - all method arguments ("nameService" in this case) are injected by the DI environment.</p>
+     <p>What makes <code>provideHello</code> method a "provider" is the <code>@Provides</code> annotation. The access modifier is irrelevant (can be "public", "protected", etc.). The method does both assembly and binding of the "Hello" service. The return type (<code>Hello</code>) is used as the binding key. And while there is no <code>@Inject</code> annotation in use anywhere, injection in fact also happens here - all method arguments ("nameService" in this case) are injected by the DI environment.</p>
     </div>
    </div>
    <div class="sect3">
