@@ -22,6 +22,15 @@
     <lastmod>2016-09-16T21:02:04+03:00</lastmod>
   </url>
   <url>
+    <loc>https://bootique.io/docs/1.x/getting-started/</loc>
+  </url>
+  <url>
+    <loc>https://bootique.io/docs/2.x/migrate-from-guice/</loc>
+  </url>
+  <url>
+    <loc>https://bootique.io/docs/3.x/getting-started/</loc>
+  </url>
+  <url>
     <loc>https://bootique.io/docs/3.x/bootique-docs/</loc>
   </url>
   <url>
@@ -31,40 +40,10 @@
     <loc>https://bootique.io/docs/2.x/bootique-docs/</loc>
   </url>
   <url>
-    <loc>https://bootique.io/docs/2.x/bootique-di-docs/</loc>
-  </url>
-  <url>
-    <loc>https://bootique.io/docs/2.x/migrate-from-guice/</loc>
-  </url>
-  <url>
-    <loc>https://bootique.io/docs/1.x/bootique-logback-docs/</loc>
-  </url>
-  <url>
-    <loc>https://bootique.io/docs/2.x/bootique-logback-docs/</loc>
-  </url>
-  <url>
     <loc>https://bootique.io/docs/3.x/bootique-jdbc-docs/</loc>
   </url>
   <url>
-    <loc>https://bootique.io/docs/1.x/bootique-jdbc-docs/</loc>
-  </url>
-  <url>
-    <loc>https://bootique.io/docs/2.x/bootique-jdbc-docs/</loc>
-  </url>
-  <url>
     <loc>https://bootique.io/docs/3.x/bootique-jetty-docs/</loc>
-  </url>
-  <url>
-    <loc>https://bootique.io/docs/1.x/bootique-jetty-docs/</loc>
-  </url>
-  <url>
-    <loc>https://bootique.io/docs/2.x/bootique-jetty-docs/</loc>
-  </url>
-  <url>
-    <loc>https://bootique.io/docs/1.x/bootique-kotlin-docs/</loc>
-  </url>
-  <url>
-    <loc>https://bootique.io/docs/2.x/bootique-kotlin-docs/</loc>
   </url>
   <url>
     <loc>https://bootique.io/docs/3.x/bootique-kotlin-docs/</loc>
@@ -73,18 +52,36 @@
     <loc>https://bootique.io/docs/3.x/bootique-logback-docs/</loc>
   </url>
   <url>
-    <loc>https://bootique.io/docs/2.x/bootique-tool-docs/</loc>
+    <loc>https://bootique.io/docs/1.x/bootique-jdbc-docs/</loc>
   </url>
   <url>
-    <loc>https://bootique.io/docs/3.x/bootique-tool-docs/</loc>
+    <loc>https://bootique.io/docs/1.x/bootique-jetty-docs/</loc>
   </url>
   <url>
-    <loc>https://bootique.io/docs/1.x/getting-started/</loc>
+    <loc>https://bootique.io/docs/1.x/bootique-kotlin-docs/</loc>
+  </url>
+  <url>
+    <loc>https://bootique.io/docs/1.x/bootique-logback-docs/</loc>
+  </url>
+  <url>
+    <loc>https://bootique.io/docs/2.x/bootique-di-docs/</loc>
   </url>
   <url>
     <loc>https://bootique.io/docs/2.x/getting-started/</loc>
   </url>
   <url>
-    <loc>https://bootique.io/docs/3.x/getting-started/</loc>
+    <loc>https://bootique.io/docs/2.x/bootique-jdbc-docs/</loc>
+  </url>
+  <url>
+    <loc>https://bootique.io/docs/2.x/bootique-jetty-docs/</loc>
+  </url>
+  <url>
+    <loc>https://bootique.io/docs/2.x/bootique-kotlin-docs/</loc>
+  </url>
+  <url>
+    <loc>https://bootique.io/docs/2.x/bootique-logback-docs/</loc>
+  </url>
+  <url>
+    <loc>https://bootique.io/docs/3.x/bootique-tool-docs/</loc>
   </url>
 </urlset>
