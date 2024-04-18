@@ -114,7 +114,7 @@
     <hr/>
 
     <div class="row ">
-      <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav"><div id="toc" class="toc">
+      <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav"><div id="toc" class="toc toc-side">
  <div id="toctitle">
   Table of Contents
  </div>
@@ -154,8 +154,10 @@
   </div>
   <div class="ulist">
    <ul>
-    <li><p><a href="https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html">Tomcat JDBC</a></p></li>
-    <li><p><a href="https://github.com/brettwooldridge/HikariCP">HikariCP</a>.</p></li>
+    <li>
+     <p><a href="https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html">Tomcat JDBC</a></p></li>
+    <li>
+     <p><a href="https://github.com/brettwooldridge/HikariCP">HikariCP</a>.</p></li>
    </ul>
   </div>
   <div class="paragraph">
@@ -164,7 +166,8 @@
   <div class="paragraph">
    <p>Import one of these Bootique modules in your app, depending on your connection pool choice:</p>
   </div>
-  <details open><summary class="title">Maven</summary>
+  <details open>
+   <summary class="title">Maven</summary>
    <div class="content">
     <div class="listingblock">
      <div class="content">
@@ -186,7 +189,8 @@
     </div>
    </div>
   </details>
-  <details><summary class="title">Gradle</summary>
+  <details>
+   <summary class="title">Gradle</summary>
    <div class="content">
     <div class="listingblock">
      <div class="content">
@@ -254,7 +258,8 @@ try (Connection connection = dataSource.getConnection()) {
   <div class="paragraph">
    <p>You may use the "instrumented" version of one of the <code>bootique-jdbc-*</code> connection pools, that will expose a number of metrics and health checks:</p>
   </div>
-  <details open><summary class="title">Maven</summary>
+  <details open>
+   <summary class="title">Maven</summary>
    <div class="content">
     <div class="listingblock">
      <div class="content">
@@ -276,7 +281,8 @@ try (Connection connection = dataSource.getConnection()) {
     </div>
    </div>
   </details>
-  <details><summary class="title">Gradle</summary>
+  <details>
+   <summary class="title">Gradle</summary>
    <div class="content">
     <div class="listingblock">
      <div class="content">
@@ -322,7 +328,8 @@ try (Connection connection = dataSource.getConnection()) {
    <div class="paragraph">
     <p>Testing with an in-memory DB has the advantage of speed, and a disadvantage of being only an approximation of the production DB. If you decide to go this way, start by including the following dependency:</p>
    </div>
-   <details open><summary class="title">Maven</summary>
+   <details open>
+    <summary class="title">Maven</summary>
     <div class="content">
      <div class="listingblock">
       <div class="content">
@@ -335,7 +342,8 @@ try (Connection connection = dataSource.getConnection()) {
      </div>
     </div>
    </details>
-   <details><summary class="title">Gradle</summary>
+   <details>
+    <summary class="title">Gradle</summary>
     <div class="content">
      <div class="listingblock">
       <div class="content">
@@ -379,7 +387,8 @@ public class DerbyTest {
    <div class="paragraph">
     <p>If you need a real database environment that is as close as possible to your production, you need to include a different dependency plus a few third-party libraries:</p>
    </div>
-   <details open><summary class="title">Maven</summary>
+   <details open>
+    <summary class="title">Maven</summary>
     <div class="content">
      <div class="listingblock">
       <div class="content">
@@ -406,7 +415,8 @@ public class DerbyTest {
      </div>
     </div>
    </details>
-   <details><summary class="title">Gradle</summary>
+   <details>
+    <summary class="title">Gradle</summary>
     <div class="content">
      <div class="listingblock">
       <div class="content">
@@ -684,59 +694,75 @@ myTable.matcher().eq("c1", "x1").assertOneMatch();</code></pre>
     </thead>
     <tbody>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>type</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Can be omitted if <code>bootique-jdbc-tomcat</code> is the only DataSourceFactory implementation in the app dependencies. In rare cases when there is more than one implementation, set to <code>tomcat</code>.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Can be omitted if <code>bootique-jdbc-tomcat</code> is the only DataSourceFactory implementation in the app dependencies. In rare cases when there is more than one implementation, set to <code>tomcat</code>.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>defaultAutoCommit</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>initialSize</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxActive</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>defaultAutoCommit</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIdle</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>initialSize</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxWait</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>maxActive</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>minIdle</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>maxIdle</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>maxWait</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Database user password</p></td>
+      <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>url</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>minIdle</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Database URL. Required.</p></td>
+      <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>username</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>password</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Database user name.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Database user password</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>validationQuery</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>url</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">The query that will be executed just before a connection is given to the app from the pool to validate that the connection to the database is still alive.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Database URL. Required.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>username</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Database user name.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>validationQuery</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">The query that will be executed just before a connection is given to the app from the pool to validate that the connection to the database is still alive.</p></td>
      </tr>
     </tbody>
    </table>
@@ -758,172 +784,206 @@ myTable.matcher().eq("c1", "x1").assertOneMatch();</code></pre>
     </thead>
     <tbody>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>abandonWhenPercentageFull</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>abandonWhenPercentageFull</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>alternateUsernameAllowed</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>alternateUsernameAllowed</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>commitOnReturn</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>commitOnReturn</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dataSourceJNDI</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>dataSourceJNDI</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>defaultCatalog</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>defaultCatalog</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>defaultReadOnly</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>defaultReadOnly</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>defaultTransactionIsolation</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>defaultTransactionIsolation</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>driverClassName</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>driverClassName</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>fairQueue</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>fairQueue</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ignoreExceptionOnPreLoad</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>ignoreExceptionOnPreLoad</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>initSQL</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>initSQL</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>jdbcInterceptors</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>jdbcInterceptors</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>jmxEnabled</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>jmxEnabled</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>jmxObjectName</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>jmxObjectName</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>logAbandoned</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>logAbandoned</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>logValidationErrors</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>logValidationErrors</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxAge</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>maxAge</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>minEvictableIdleTimeMillis</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>minEvictableIdleTimeMillis</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>numTestsPerEvictionRun</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>numTestsPerEvictionRun</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>propagateInterruptState</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>propagateInterruptState</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>removeAbandoned</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>removeAbandoned</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>removeAbandonedTimeout</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>removeAbandonedTimeout</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>rollbackOnReturn</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>rollbackOnReturn</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>testOnBorrow</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>testOnBorrow</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>testOnReturn</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>testOnReturn</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>testWhileIdle</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>testWhileIdle</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>testOnConnect</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>testOnConnect</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>timeBetweenEvictionRunsMillis</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>timeBetweenEvictionRunsMillis</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>useDisposableConnectionFacade</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>useDisposableConnectionFacade</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>useEquals</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>useEquals</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>useLock</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>useLock</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>validationQueryTimeout</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>validationQueryTimeout</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>validatorClassName</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>validatorClassName</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>validationInterval</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>validationInterval</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
       <td class="tableblock halign-left valign-top"></td>
      </tr>
@@ -962,54 +1022,79 @@ myTable.matcher().eq("c1", "x1").assertOneMatch();</code></pre>
     </thead>
     <tbody>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>type</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Can be omitted if <code>bootique-jdbc-hikaricp</code> is the only DataSourceFactory implementation in the app dependencies. In rare cases when there is more than one implementation, set to either <code>hikari</code> or <code>hikari-instrumented</code>.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Can be omitted if <code>bootique-jdbc-hikaricp</code> is the only DataSourceFactory implementation in the app dependencies. In rare cases when there is more than one implementation, set to either <code>hikari</code> or <code>hikari-instrumented</code>.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>autoCommit</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Controls the default auto-commit behavior of connections returned from the pool.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>autoCommit</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>true</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Controls the default auto-commit behavior of connections returned from the pool.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>connectionTestQuery</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>connectionTestQuery</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">The query that will be executed just before a connection is given to the app from the pool to validate that the connection to the database is still alive. This is for "legacy" drivers that do not support the JDBC4 <code>Connection.isValid()</code> API.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">The query that will be executed just before a connection is given to the app from the pool to validate that the connection to the database is still alive. This is for "legacy" drivers that do not support the JDBC4 <code>Connection.isValid()</code> API.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>connectionTimeout</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">30000</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Long value representing milliseconds. Controls the maximum number of milliseconds that the app will wait for a connection from the pool. If this time is exceeded without a connection becoming available, a SQLException will be thrown. Lowest acceptable connection timeout is 250 ms.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>connectionTimeout</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">30000</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Long value representing milliseconds. Controls the maximum number of milliseconds that the app will wait for a connection from the pool. If this time is exceeded without a connection becoming available, a SQLException will be thrown. Lowest acceptable connection timeout is 250 ms.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>idleTimeout</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">600000</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Long value representing milliseconds. Controls the maximum amount of time that a connection is allowed to sit idle in the pool. This setting only applies when <code>minimumIdle</code> is defined to be less than <code>maximumPoolSize</code>. Idle connections will not be retired once the pool reaches <code>minimumIdle</code> connections. Whether a connection is retired as idle or not is subject to a maximum variation of +30 seconds, and average variation of +15 seconds. A connection will never be retired as idle before this timeout. A value of 0 means that idle connections are never removed from the pool. The minimum allowed value is 10000ms (10 seconds).</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>idleTimeout</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">600000</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Long value representing milliseconds. Controls the maximum amount of time that a connection is allowed to sit idle in the pool. This setting only applies when <code>minimumIdle</code> is defined to be less than <code>maximumPoolSize</code>. Idle connections will not be retired once the pool reaches <code>minimumIdle</code> connections. Whether a connection is retired as idle or not is subject to a maximum variation of +30 seconds, and average variation of +15 seconds. A connection will never be retired as idle before this timeout. A value of 0 means that idle connections are never removed from the pool. The minimum allowed value is 10000ms (10 seconds).</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>jdbcUrl</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>jdbcUrl</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Database URL. Required for "DriverManager-based" configuration. (The alternative is "DataSource-based" config).</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Database URL. Required for "DriverManager-based" configuration. (The alternative is "DataSource-based" config).</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maximumPoolSize</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Controls the maximum size that the pool is allowed to reach, including both idle and in-use connections. This value will determine the maximum number of actual connections to the database backend. When the pool reaches this size, and no idle connections are available, calls to <code>getConnection()</code> will block for up to <code>connectionTimeout</code> milliseconds before timing out.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>maximumPoolSize</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">10</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Controls the maximum size that the pool is allowed to reach, including both idle and in-use connections. This value will determine the maximum number of actual connections to the database backend. When the pool reaches this size, and no idle connections are available, calls to <code>getConnection()</code> will block for up to <code>connectionTimeout</code> milliseconds before timing out.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>minimumIdle</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">same as <code>maximumPoolSize</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Controls the minimum number of idle connections that HikariCP tries to maintain in the pool. If the idle connections dip below this value and total connections in the pool are less than <code>maximumPoolSize</code>, HikariCP will make a best effort to add additional connections quickly and efficiently. However, for maximum performance and responsiveness to spike demands, it is recommended not setting this value and instead allowing HikariCP to act as a fixed size connection pool.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>minimumIdle</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">same as <code>maximumPoolSize</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Controls the minimum number of idle connections that HikariCP tries to maintain in the pool. If the idle connections dip below this value and total connections in the pool are less than <code>maximumPoolSize</code>, HikariCP will make a best effort to add additional connections quickly and efficiently. However, for maximum performance and responsiveness to spike demands, it is recommended not setting this value and instead allowing HikariCP to act as a fixed size connection pool.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>password</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Database user password</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Database user password</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>username</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>username</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Database user name.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Database user name.</p></td>
      </tr>
     </tbody>
    </table>
@@ -1031,84 +1116,127 @@ myTable.matcher().eq("c1", "x1").assertOneMatch();</code></pre>
     </thead>
     <tbody>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>allowPoolSuspension</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Controls whether the pool can be suspended and resumed through JMX</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>allowPoolSuspension</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>false</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Controls whether the pool can be suspended and resumed through JMX</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>catalog</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">driver default</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">The default catalog for databases that support the concept of catalogs. If this property is not specified, the default catalog defined by the JDBC driver is used.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>catalog</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">driver default</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">The default catalog for databases that support the concept of catalogs. If this property is not specified, the default catalog defined by the JDBC driver is used.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>connectionInitSql</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>connectionInitSql</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">A SQL statement that will be executed after every new connection creation before adding it to the pool. If this SQL is not valid or throws an exception, it will be treated as a connection failure and the standard retry logic will be followed.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A SQL statement that will be executed after every new connection creation before adding it to the pool. If this SQL is not valid or throws an exception, it will be treated as a connection failure and the standard retry logic will be followed.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dataSourceClassName</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>dataSourceClassName</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">The name of the DataSource class provided by the JDBC driver. Consult the documentation for your specific JDBC driver to get this class name. XA data sources are not supported. XA requires a real transaction manager. You do not need this property if you are using <code>jdbcUrl</code> for "old-school" DriverManager-based JDBC driver configuration.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">The name of the DataSource class provided by the JDBC driver. Consult the documentation for your specific JDBC driver to get this class name. XA data sources are not supported. XA requires a real transaction manager. You do not need this property if you are using <code>jdbcUrl</code> for "old-school" DriverManager-based JDBC driver configuration.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dataSourceJNDI</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>dataSourceJNDI</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">JNDI name to use for DataSource lookup. JNDI is a rather foreign concept to Bootique, so this is rarely used if ever.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">JNDI name to use for DataSource lookup. JNDI is a rather foreign concept to Bootique, so this is rarely used if ever.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dataSourceProperties</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>dataSourceProperties</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">A map of properties passed the DataSource created for <code>dataSourceClassName</code> property. Ignored if <code>dataSourceClassName</code> is not in use and <code>jdbcUrl</code> is used.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A map of properties passed the DataSource created for <code>dataSourceClassName</code> property. Ignored if <code>dataSourceClassName</code> is not in use and <code>jdbcUrl</code> is used.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>driverClassName</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>driverClassName</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Used to load a specific driver class via DriverManager. Usually cab be omitted, as the driver can be resolved from <code>jdbcUrl</code>.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Used to load a specific driver class via DriverManager. Usually cab be omitted, as the driver can be resolved from <code>jdbcUrl</code>.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>initializationFailTimeout</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Controls whether the pool will "fail fast" if the pool cannot be seeded with an initial connection successfully. Any positive number is taken to be the number of milliseconds to attempt to acquire an initial connection; the application thread will be blocked during this period. If a connection cannot be acquired before this timeout occurs, an exception will be thrown. This timeout is applied after the <code>connectionTimeout</code> period. If the value is zero, HikariCP will attempt to obtain and validate a connection. If a connection is obtained, but fails validation, an exception will be thrown and the pool not started. However, if a connection cannot be obtained, the pool will start, but later efforts to obtain a connection may fail. A value less than zero will bypass any initial connection attempt, and the pool will start immediately while trying to obtain connections in the background. Consequently, later efforts to obtain a connection may fail.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>initializationFailTimeout</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">1</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Controls whether the pool will "fail fast" if the pool cannot be seeded with an initial connection successfully. Any positive number is taken to be the number of milliseconds to attempt to acquire an initial connection; the application thread will be blocked during this period. If a connection cannot be acquired before this timeout occurs, an exception will be thrown. This timeout is applied after the <code>connectionTimeout</code> period. If the value is zero, HikariCP will attempt to obtain and validate a connection. If a connection is obtained, but fails validation, an exception will be thrown and the pool not started. However, if a connection cannot be obtained, the pool will start, but later efforts to obtain a connection may fail. A value less than zero will bypass any initial connection attempt, and the pool will start immediately while trying to obtain connections in the background. Consequently, later efforts to obtain a connection may fail.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>isolateInternalQueries</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Determines whether HikariCP isolates internal pool queries, such as the connection alive test, in their own transaction. Since these are typically read-only queries, it is rarely necessary to encapsulate them in their own transaction. This property only applies if <code>autoCommit</code> is disabled.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>isolateInternalQueries</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">false</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Determines whether HikariCP isolates internal pool queries, such as the connection alive test, in their own transaction. Since these are typically read-only queries, it is rarely necessary to encapsulate them in their own transaction. This property only applies if <code>autoCommit</code> is disabled.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>leakDetectionThreshold</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Long value representing milliseconds. Controls the amount of time that a connection can be out of the pool before a message is logged indicating a possible connection leak. A value of 0 means leak detection is disabled. Lowest acceptable value for enabling leak detection is 2000 (2 seconds).</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>leakDetectionThreshold</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">0</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Long value representing milliseconds. Controls the amount of time that a connection can be out of the pool before a message is logged indicating a possible connection leak. A value of 0 means leak detection is disabled. Lowest acceptable value for enabling leak detection is 2000 (2 seconds).</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxLifetime</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">1800000 (30 minutes)</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Long value representing milliseconds. Controls the maximum lifetime of a connection in the pool. An in-use connection will never be retired, only when it is closed will it then be removed. On a connection-by-connection basis, minor negative attenuation is applied to avoid mass-extinction in the pool. We strongly recommend setting this value, and it should be several seconds shorter than any database or infrastructure imposed connection time limit. A value of 0 indicates no maximum lifetime (infinite lifetime), subject of course to the idleTimeout setting. The minimum allowed value is 30000ms (30 seconds).</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>maxLifetime</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">1800000 (30 minutes)</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Long value representing milliseconds. Controls the maximum lifetime of a connection in the pool. An in-use connection will never be retired, only when it is closed will it then be removed. On a connection-by-connection basis, minor negative attenuation is applied to avoid mass-extinction in the pool. We strongly recommend setting this value, and it should be several seconds shorter than any database or infrastructure imposed connection time limit. A value of 0 indicates no maximum lifetime (infinite lifetime), subject of course to the idleTimeout setting. The minimum allowed value is 30000ms (30 seconds).</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>readOnly</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean. Controls whether Connections obtained from the pool are in read-only mode by default. Some databases do not support the concept of read-only mode, while others provide query optimizations when the Connection is set to read-only. Whether you need this property or not will depend largely on your application and database.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>readOnly</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">false</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Boolean. Controls whether Connections obtained from the pool are in read-only mode by default. Some databases do not support the concept of read-only mode, while others provide query optimizations when the Connection is set to read-only. Whether you need this property or not will depend largely on your application and database.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>registerMbeans</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Boolean. Controls whether or not JMX Management Beans ("MBeans") are registered or not.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>registerMbeans</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">false</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Boolean. Controls whether or not JMX Management Beans ("MBeans") are registered or not.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>schema</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">driver default</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Default schema for databases that support the concept of schemas. If not specified, the default schema defined by the JDBC driver is used.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>schema</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">driver default</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Default schema for databases that support the concept of schemas. If not specified, the default schema defined by the JDBC driver is used.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>transactionIsolation</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">driver default</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Controls the default transaction isolation level of connections returned from the pool. If not specified, the default transaction isolation level defined by the JDBC driver is used. Only use this property if you have specific isolation requirements that are common for all queries. The value of this property is the constant name from the Connection class such as TRANSACTION_READ_COMMITTED, TRANSACTION_REPEATABLE_READ, etc.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>transactionIsolation</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">driver default</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Controls the default transaction isolation level of connections returned from the pool. If not specified, the default transaction isolation level defined by the JDBC driver is used. Only use this property if you have specific isolation requirements that are common for all queries. The value of this property is the constant name from the Connection class such as TRANSACTION_READ_COMMITTED, TRANSACTION_REPEATABLE_READ, etc.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>validationTimeout</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">5000</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Long value representing milliseconds. Controls the maximum amount of time that a connection will be tested for aliveness. This value must be less than the <code>connectionTimeout</code>. Lowest acceptable validation timeout is 250 ms.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>validationTimeout</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">5000</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Long value representing milliseconds. Controls the maximum amount of time that a connection will be tested for aliveness. This value must be less than the <code>connectionTimeout</code>. Lowest acceptable validation timeout is 250 ms.</p></td>
      </tr>
     </tbody>
    </table>
@@ -1133,14 +1261,18 @@ myTable.matcher().eq("c1", "x1").assertOneMatch();</code></pre>
     </thead>
     <tbody>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>health.connection99Percent</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>health.connection99Percent</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Represented by DurationRangeFactory object <a href="#DurationRangeFactory">documented below</a>.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Represented by DurationRangeFactory object <a href="#DurationRangeFactory">documented below</a>.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>health.connectivity</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>health.connectivity</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Configures "aliveness" health check. Represented by DurationRangeFactory object <a href="#DurationRangeFactory">documented below</a>.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Configures "aliveness" health check. Represented by DurationRangeFactory object <a href="#DurationRangeFactory">documented below</a>.</p></td>
      </tr>
     </tbody>
    </table>
@@ -1162,24 +1294,33 @@ myTable.matcher().eq("c1", "x1").assertOneMatch();</code></pre>
     </thead>
     <tbody>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>critical</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">5s</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Critical threshold duration. E.g. 5ms, 2s, 1hr</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>critical</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">5s</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Critical threshold duration. E.g. 5ms, 2s, 1hr</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>max</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>max</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Max threshold duration. E.g. 5ms, 2s, 1hr</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Max threshold duration. E.g. 5ms, 2s, 1hr</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>min</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>min</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Min threshold duration. E.g. 5ms, 2s, 1hr</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Min threshold duration. E.g. 5ms, 2s, 1hr</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>warning</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>warning</code></p></td>
       <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Warning threshold duration. E.g. 5ms, 2s, 1hr</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Warning threshold duration. E.g. 5ms, 2s, 1hr</p></td>
      </tr>
     </tbody>
    </table>

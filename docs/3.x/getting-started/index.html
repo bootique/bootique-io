@@ -114,7 +114,7 @@
     <hr/>
 
     <div class="row ">
-      <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav"><div id="toc" class="toc">
+      <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav"><div id="toc" class="toc toc-side">
  <div id="toctitle">
   Table of Contents
  </div>
@@ -134,7 +134,8 @@
   <div class="paragraph">
    <p>The goal of this chapter is to write a simple REST app using Bootique. Let’s start with a new Java Maven project created in your favorite IDE. Your <code>pom.xml</code> in addition to the required project information tags will need to declare a few BOM ("Bill of Material") imports in the <code>&lt;dependencyManagement/&gt;</code> section:</p>
   </div>
-  <details open><summary class="title">Maven</summary>
+  <details open>
+   <summary class="title">Maven</summary>
    <div class="content">
     <div class="listingblock">
      <div class="content">
@@ -153,7 +154,8 @@
     </div>
    </div>
   </details>
-  <details><summary class="title">Gradle</summary>
+  <details>
+   <summary class="title">Gradle</summary>
    <div class="content">
     <div class="listingblock">
      <div class="content">
@@ -167,7 +169,8 @@
   <div class="paragraph">
    <p>This will allow <code>&lt;dependencies/&gt;</code> section that will follow shortly to include various Bootique modules and not worry about their individual versions. So let’s create this section and import a few modules:</p>
   </div>
-  <details open><summary class="title">Maven</summary>
+  <details open>
+   <summary class="title">Maven</summary>
    <div class="content">
     <div class="listingblock">
      <div class="content">
@@ -187,7 +190,8 @@
     </div>
    </div>
   </details>
-  <details><summary class="title">Gradle</summary>
+  <details>
+   <summary class="title">Gradle</summary>
    <div class="content">
     <div class="listingblock">
      <div class="content">
@@ -315,9 +319,12 @@ INFO main i.b.j.s.ServerLifecycleLogger: Started Jetty in 584 ms. Base URL: http
   </div>
   <div class="ulist">
    <ul>
-    <li><p>You start the app via <code>Bootique</code> class, that gives you a runnable "shell" of your future app in one line of code.</p></li>
-    <li><p>Declaring modules in the app dependencies and using <code>Bootique.autoLoadModules()</code> gives the app the ability to respond to commands from those modules (in our example <code>--server</code> command coming from implicit bootique-jetty module started an embedded web server ).</p></li>
-    <li><p>You can contribute your own code to modules to build an app with desired behavior.</p></li>
+    <li>
+     <p>You start the app via <code>Bootique</code> class, that gives you a runnable "shell" of your future app in one line of code.</p></li>
+    <li>
+     <p>Declaring modules in the app dependencies and using <code>Bootique.autoLoadModules()</code> gives the app the ability to respond to commands from those modules (in our example <code>--server</code> command coming from implicit bootique-jetty module started an embedded web server ).</p></li>
+    <li>
+     <p>You can contribute your own code to modules to build an app with desired behavior.</p></li>
    </ul>
   </div>
   <div class="paragraph">

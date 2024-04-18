@@ -114,7 +114,7 @@
     <hr/>
 
     <div class="row ">
-      <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav"><div id="toc" class="toc">
+      <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav"><div id="toc" class="toc toc-side">
  <div id="toctitle">
   Table of Contents
  </div>
@@ -167,7 +167,8 @@
     </tbody>
    </table>
   </div>
-  <details open><summary class="title">Maven</summary>
+  <details open>
+   <summary class="title">Maven</summary>
    <div class="content">
     <div class="listingblock">
      <div class="content">
@@ -179,7 +180,8 @@
     </div>
    </div>
   </details>
-  <details><summary class="title">Gradle</summary>
+  <details>
+   <summary class="title">Gradle</summary>
    <div class="content">
     <div class="listingblock">
      <div class="content">
@@ -402,14 +404,20 @@ public void configure(Binder binder) {
     </thead>
     <tbody>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">/abc/dir1/f1.html</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">false (default)</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;resource_base&gt;/abc/dir1/f1.html</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">/abc/dir1/f1.html</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">false (default)</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">&lt;resource_base&gt;/abc/dir1/f1.html</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">/abc/dir1/f1.html</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;resource_base&gt;/dir1/f1.html</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">/abc/dir1/f1.html</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">true</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">&lt;resource_base&gt;/dir1/f1.html</p></td>
      </tr>
     </tbody>
    </table>
@@ -450,7 +458,8 @@ private ServletEnvironment servletEnv;</code></pre>
    <div class="paragraph">
     <p>You may use an "instrumented" version <code>bootique-jetty</code>, that will extend the server with a number of metrics and health checks for your running app:</p>
    </div>
-   <details open><summary class="title">Maven</summary>
+   <details open>
+    <summary class="title">Maven</summary>
     <div class="content">
      <div class="listingblock">
       <div class="content">
@@ -462,7 +471,8 @@ private ServletEnvironment servletEnv;</code></pre>
      </div>
     </div>
    </details>
-   <details><summary class="title">Gradle</summary>
+   <details>
+    <summary class="title">Gradle</summary>
     <div class="content">
      <div class="listingblock">
       <div class="content">
@@ -479,7 +489,8 @@ private ServletEnvironment servletEnv;</code></pre>
    <div class="paragraph">
     <p>If the services running on Jetty are accessed from other domains, you may need to explicitly configure CORS rules to to prevent the browsers from blocking access. To achieve that include the following module:</p>
    </div>
-   <details open><summary class="title">Maven</summary>
+   <details open>
+    <summary class="title">Maven</summary>
     <div class="content">
      <div class="listingblock">
       <div class="content">
@@ -491,7 +502,8 @@ private ServletEnvironment servletEnv;</code></pre>
      </div>
     </div>
    </details>
-   <details><summary class="title">Gradle</summary>
+   <details>
+    <summary class="title">Gradle</summary>
     <div class="content">
      <div class="listingblock">
       <div class="content">
@@ -511,7 +523,8 @@ private ServletEnvironment servletEnv;</code></pre>
    <div class="paragraph">
     <p>If in addition to HTTP requests, you’d like your server to provide access via websockets, you need to add the following module:</p>
    </div>
-   <details open><summary class="title">Maven</summary>
+   <details open>
+    <summary class="title">Maven</summary>
     <div class="content">
      <div class="listingblock">
       <div class="content">
@@ -523,7 +536,8 @@ private ServletEnvironment servletEnv;</code></pre>
      </div>
     </div>
    </details>
-   <details><summary class="title">Gradle</summary>
+   <details>
+    <summary class="title">Gradle</summary>
     <div class="content">
      <div class="listingblock">
       <div class="content">
@@ -579,7 +593,8 @@ public void configure(Binder binder) {
   <div class="paragraph">
    <p>To use "bootique-jetty" test extensions, import the following module in the "test" scope:</p>
   </div>
-  <details open><summary class="title">Maven</summary>
+  <details open>
+   <summary class="title">Maven</summary>
    <div class="content">
     <div class="listingblock">
      <div class="content">
@@ -592,7 +607,8 @@ public void configure(Binder binder) {
     </div>
    </div>
   </details>
-  <details><summary class="title">Gradle</summary>
+  <details>
+   <summary class="title">Gradle</summary>
    <div class="content">
     <div class="listingblock">
      <div class="content">
@@ -713,69 +729,108 @@ public void test() {
     </thead>
     <tbody>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>compression</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">A boolean specifying whether gzip compression should be supported. When enabled (default), responses will be compressed if a client indicates it supports compression via <code>"Accept-Encoding: gzip"</code> header.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>compression</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>true</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A boolean specifying whether gzip compression should be supported. When enabled (default), responses will be compressed if a client indicates it supports compression via <code>"Accept-Encoding: gzip"</code> header.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>connectors</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">a single HTTP connector on port 8080</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">A list of connectors. Each connector listens on a single port. There can be HTTP or HTTPS connectors. See <code>jetty.connectors</code> below.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>connectors</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">a single HTTP connector on port 8080</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A list of connectors. Each connector listens on a single port. There can be HTTP or HTTPS connectors. See <code>jetty.connectors</code> below.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>context</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>/</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Web application context path.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>context</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>/</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Web application context path.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>idleThreadTimeout</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>60000</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">A period in milliseconds specifying how long until an idle thread is terminated.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>idleThreadTimeout</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>60000</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A period in milliseconds specifying how long until an idle thread is terminated.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>filters</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">empty map</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">A map of servlet filter configurations by filter name. See <code>jetty.filters</code> below.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>filters</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">empty map</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A map of servlet filter configurations by filter name. See <code>jetty.filters</code> below.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxThreads</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>200</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of request processing threads in the pool.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>maxThreads</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>200</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Maximum number of request processing threads in the pool.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>minThreads</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>4</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Initial number of request processing threads in the pool.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>minThreads</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>4</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Initial number of request processing threads in the pool.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxQueuedRequests</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>1024</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of requests to queue if the thread pool is busy.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>maxQueuedRequests</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>1024</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Maximum number of requests to queue if the thread pool is busy.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>params</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">empty map</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">A map of arbitrary key/value parameters that are used as "init" parameters of the ServletContext.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>params</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">empty map</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A map of arbitrary key/value parameters that are used as "init" parameters of the ServletContext.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>servlets</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">empty map</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">A map of servlet configurations by servlet name. See <code>jetty.servlets</code> below.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>servlets</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">empty map</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A map of servlet configurations by servlet name. See <code>jetty.servlets</code> below.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sessions</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">A boolean specifying whether servlet sessions should be supported by Jetty.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>sessions</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>true</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A boolean specifying whether servlet sessions should be supported by Jetty.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>staticResourceBase</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">This setting is used in conjunction with <a href="#serving-static-files">"default" servlet</a> that serves "static" resources. It defines a base location for static resources of the Jetty context. It can be a filesystem path, a URL or a special “classpath:” URL. The last option gives the ability to bundle resources in the app, not unlike a JavaEE .war file. For security reasons this property has to be set explicitly. There’s no default.</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>staticResourceBase</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">none</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">This setting is used in conjunction with <a href="#serving-static-files">"default" servlet</a> that serves "static" resources. It defines a base location for static resources of the Jetty context. It can be a filesystem path, a URL or a special “classpath:” URL. The last option gives the ability to bundle resources in the app, not unlike a JavaEE .war file. For security reasons this property has to be set explicitly. There’s no default.</p></td>
      </tr>
      <tr>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>compactPath</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
-      <td class="tableblock halign-left valign-top"><p class="tableblock">True if URLs are compacted to replace multiple '/'s with a single '/'</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>compactPath</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>false</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">True if URLs are compacted to replace multiple '/'s with a single '/'</p></td>
      </tr>
     </tbody>
    </table>
@@ -820,29 +875,44 @@ public void test() {
      </thead>
      <tbody>
       <tr>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock">N/A</p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock">Connector type. To use HTTP connector, this value must be set to "http", or omitted all together ("http" is the default).</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>type</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">N/A</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">Connector type. To use HTTP connector, this value must be set to "http", or omitted all together ("http" is the default).</p></td>
       </tr>
       <tr>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>port</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>8080</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock">A port the connector listens on.</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>port</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>8080</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">A port the connector listens on.</p></td>
       </tr>
       <tr>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>host</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock">A host the connector listens on. * to listen on all, 127.0.0.1 to listen on IPv4 localhost.</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>host</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>*</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">A host the connector listens on. * to listen on all, 127.0.0.1 to listen on IPv4 localhost.</p></td>
       </tr>
       <tr>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>requestHeaderSize</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>8192</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock">A max size in bytes of Jetty request headers and GET URLs.</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>requestHeaderSize</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>8192</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">A max size in bytes of Jetty request headers and GET URLs.</p></td>
       </tr>
       <tr>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>responseHeaderSize</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>8192</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock">A max size in bytes of Jetty response headers.</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>responseHeaderSize</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>8192</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">A max size in bytes of Jetty response headers.</p></td>
       </tr>
      </tbody>
     </table>
@@ -864,39 +934,58 @@ public void test() {
      </thead>
      <tbody>
       <tr>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock">N/A</p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock">Connector type. To use HTTPS connector, this value must be set to "https".</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>type</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">N/A</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">Connector type. To use HTTPS connector, this value must be set to "https".</p></td>
       </tr>
       <tr>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>port</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>8080</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock">A port the connector listens on.</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>port</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>8080</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">A port the connector listens on.</p></td>
       </tr>
       <tr>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>requestHeaderSize</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>8192</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock">A max size in bytes of Jetty request headers and GET URLs.</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>requestHeaderSize</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>8192</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">A max size in bytes of Jetty request headers and GET URLs.</p></td>
       </tr>
       <tr>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>responseHeaderSize</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>8192</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock">A max size in bytes of Jetty response headers.</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>responseHeaderSize</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>8192</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">A max size in bytes of Jetty response headers.</p></td>
       </tr>
       <tr>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>keyStore</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>keyStore</code></p></td>
        <td class="tableblock halign-left valign-top"></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock">Required. A resource pointing to the keystore that has server SSL certificate. Can be a "classpath:" resource, etc.</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">Required. A resource pointing to the keystore that has server SSL certificate. Can be a "classpath:" resource, etc.</p></td>
       </tr>
       <tr>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>keyStorePassword</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>changeit</code></p></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock">A password to access the keystore.</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>keyStorePassword</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>changeit</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">A password to access the keystore.</p></td>
       </tr>
       <tr>
-       <td class="tableblock halign-left valign-top"><p class="tableblock"><code>certificateAlias</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>certificateAlias</code></p></td>
        <td class="tableblock halign-left valign-top"></td>
-       <td class="tableblock halign-left valign-top"><p class="tableblock">An optional name of the certificate in the keystore, if there’s more than one certificate.</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">An optional name of the certificate in the keystore, if there’s more than one certificate.</p></td>
       </tr>
      </tbody>
     </table>

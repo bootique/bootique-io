@@ -112,24 +112,24 @@
     <hr/>
 
     <div class="row ">
-      <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav"><div id="toc" class="toc"> 
+      <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav"><div id="toc" class="toc toc-side">
  <div id="toctitle">
   Table of Contents
- </div> 
- <ul class="sectlevel1 nav"> 
-  <li><a href="#_what_is_bq" class="nav-link">1. What is bq?</a></li> 
-  <li><a href="#_installation" class="nav-link">2. Installation</a> 
-   <ul class="sectlevel2 nav"> 
-    <li><a href="#_macos" class="nav-link">2.1. MacOS</a></li> 
-    <li><a href="#_windows" class="nav-link">2.2. Windows</a></li> 
-    <li><a href="#_linux" class="nav-link">2.3. Linux</a></li> 
-   </ul> </li> 
-  <li><a href="#_usage" class="nav-link">3. Usage</a> 
-   <ul class="sectlevel2 nav"> 
-    <li><a href="#_maven" class="nav-link">3.1. Maven</a></li> 
-    <li><a href="#_gradle" class="nav-link">3.2. Gradle</a></li> 
-   </ul> </li> 
- </ul> 
+ </div>
+ <ul class="sectlevel1 nav">
+  <li><a href="#_what_is_bq" class="nav-link">1. What is bq?</a></li>
+  <li><a href="#_installation" class="nav-link">2. Installation</a>
+   <ul class="sectlevel2 nav">
+    <li><a href="#_macos" class="nav-link">2.1. MacOS</a></li>
+    <li><a href="#_windows" class="nav-link">2.2. Windows</a></li>
+    <li><a href="#_linux" class="nav-link">2.3. Linux</a></li>
+   </ul></li>
+  <li><a href="#_usage" class="nav-link">3. Usage</a>
+   <ul class="sectlevel2 nav">
+    <li><a href="#_maven" class="nav-link">3.1. Maven</a></li>
+    <li><a href="#_gradle" class="nav-link">3.2. Gradle</a></li>
+   </ul></li>
+ </ul>
 </div></div>
 
       <div class="col-12 col-lg-8 col-xl-9  py-3 pl-lg-5">
@@ -140,154 +140,161 @@
 
 
 
-<div class="sect1"> 
- <h2 id="_what_is_bq">1. What is bq?</h2> 
- <div class="sectionbody"> 
-  <div class="paragraph"> 
-   <p>bq is a command line interactive tool that allows creating and managing Bootique projects.</p> 
-  </div> 
- </div> 
-</div> 
-<div class="sect1"> 
- <h2 id="_installation">2. Installation</h2> 
- <div class="sectionbody"> 
-  <div class="sect2"> 
-   <h3 id="_macos">2.1. MacOS</h3> 
-   <div class="paragraph"> 
-    <p><code>bq</code> available via Homebrew package manager. All you need in order to install <code>bq</code> on MacOS is to run:</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
-     <pre class="highlight"><code class="language-bash bash" data-lang="bash">brew install bootique-tools/repo/bq</code></pre> 
-    </div> 
-   </div> 
-  </div> 
-  <div class="sect2"> 
-   <h3 id="_windows">2.2. Windows</h3> 
-   <div class="paragraph"> 
-    <p>Windows binary is distributed with <a href="https://chocolatey.org">Chocolatey</a> package manager. Use following command to install <code>bq.portable</code> package:</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
-     <pre class="highlight"><code class="language-bash bash" data-lang="bash">choco install bq.portable</code></pre> 
-    </div> 
-   </div> 
-   <div class="paragraph"> 
-    <p>And here is how to upgrade <code>bq</code> to the latest version:</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
-     <pre class="highlight"><code class="language-bash bash" data-lang="bash">choco upgrade bq.portable</code></pre> 
-    </div> 
-   </div> 
-  </div> 
-  <div class="sect2"> 
-   <h3 id="_linux">2.3. Linux</h3> 
-   <div class="sect3"> 
-    <h4 id="_ubuntu">2.3.1. Ubuntu</h4> 
-    <div class="ulist"> 
-     <ul> 
-      <li> <p>Download the latest release from the GitHub:</p> 
-       <div class="listingblock"> 
-        <div class="content"> 
-         <pre class="highlight"><code class="language-bash bash" data-lang="bash">wget https://github.com/bootique/bootique-tool/releases/download/v0.101/bq-0.101.deb</code></pre> 
-        </div> 
-       </div> </li> 
-      <li> <p>Install:</p> 
-       <div class="listingblock"> 
-        <div class="content"> 
-         <pre class="highlight"><code class="language-bash bash" data-lang="bash">sudo apt install ./bq-0.101.deb</code></pre> 
-        </div> 
-       </div> </li> 
-     </ul> 
-    </div> 
-   </div> 
-   <div class="sect3"> 
-    <h4 id="_centos">2.3.2. CentOS</h4> 
-    <div class="paragraph"> 
-     <p>To install <code>bq</code> on CentOS you need to</p> 
-    </div> 
-    <div class="ulist"> 
-     <ul> 
-      <li> <p>Download the latest release from the GitHub:</p> 
-       <div class="listingblock"> 
-        <div class="content"> 
-         <pre class="highlight"><code class="language-bash bash" data-lang="bash">wget https://github.com/bootique/bootique-tool/releases/download/v0.101/bq-0.101.x86_64.rpm</code></pre> 
-        </div> 
-       </div> </li> 
-      <li> <p>Install:</p> 
-       <div class="listingblock"> 
-        <div class="content"> 
+<div class="sect1">
+ <h2 id="_what_is_bq">1. What is bq?</h2>
+ <div class="sectionbody">
+  <div class="paragraph">
+   <p>bq is a command line interactive tool that allows creating and managing Bootique projects.</p>
+  </div>
+ </div>
+</div>
+<div class="sect1">
+ <h2 id="_installation">2. Installation</h2>
+ <div class="sectionbody">
+  <div class="sect2">
+   <h3 id="_macos">2.1. MacOS</h3>
+   <div class="paragraph">
+    <p><code>bq</code> available via Homebrew package manager. All you need in order to install <code>bq</code> on MacOS is to run:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-bash bash" data-lang="bash">brew install bootique-tools/repo/bq</code></pre>
+    </div>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_windows">2.2. Windows</h3>
+   <div class="paragraph">
+    <p>Windows binary is distributed with <a href="https://chocolatey.org">Chocolatey</a> package manager. Use following command to install <code>bq.portable</code> package:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-bash bash" data-lang="bash">choco install bq.portable</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p>And here is how to upgrade <code>bq</code> to the latest version:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-bash bash" data-lang="bash">choco upgrade bq.portable</code></pre>
+    </div>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_linux">2.3. Linux</h3>
+   <div class="sect3">
+    <h4 id="_ubuntu">2.3.1. Ubuntu</h4>
+    <div class="ulist">
+     <ul>
+      <li>
+       <p>Download the latest release from the GitHub:</p>
+       <div class="listingblock">
+        <div class="content">
+         <pre class="highlight"><code class="language-bash bash" data-lang="bash">wget https://github.com/bootique/bootique-tool/releases/download/v0.101/bq-0.101.deb</code></pre>
+        </div>
+       </div></li>
+      <li>
+       <p>Install:</p>
+       <div class="listingblock">
+        <div class="content">
+         <pre class="highlight"><code class="language-bash bash" data-lang="bash">sudo apt install ./bq-0.101.deb</code></pre>
+        </div>
+       </div></li>
+     </ul>
+    </div>
+   </div>
+   <div class="sect3">
+    <h4 id="_centos">2.3.2. CentOS</h4>
+    <div class="paragraph">
+     <p>To install <code>bq</code> on CentOS you need to</p>
+    </div>
+    <div class="ulist">
+     <ul>
+      <li>
+       <p>Download the latest release from the GitHub:</p>
+       <div class="listingblock">
+        <div class="content">
+         <pre class="highlight"><code class="language-bash bash" data-lang="bash">wget https://github.com/bootique/bootique-tool/releases/download/v0.101/bq-0.101.x86_64.rpm</code></pre>
+        </div>
+       </div></li>
+      <li>
+       <p>Install:</p>
+       <div class="listingblock">
+        <div class="content">
          <pre class="highlight"><code class="language-bash bash" data-lang="bash">sudo yum install bq-0.10
-1.x86_64.rpm</code></pre> 
-        </div> 
-       </div> </li> 
-     </ul> 
-    </div> 
-   </div> 
-  </div> 
- </div> 
-</div> 
-<div class="sect1"> 
- <h2 id="_usage">3. Usage</h2> 
- <div class="sectionbody"> 
-  <div class="paragraph"> 
-   <p>Running BQ in an interactive mode:</p> 
-  </div> 
-  <div class="listingblock"> 
-   <div class="content"> 
-    <pre class="highlight"><code class="language-bash bash" data-lang="bash">$ bq</code></pre> 
-   </div> 
-  </div> 
-  <div class="paragraph"> 
-   <p>If everything setup correctly you should see welcome banner with some general information about the tool. To see all available commands you could use <code>help</code> command.</p> 
-  </div> 
-  <div class="paragraph"> 
-   <p>To exit from the <code>bq</code> shell run <code>exit</code>.</p> 
-  </div> 
-  <div class="sect2"> 
-   <h3 id="_maven">3.1. Maven</h3> 
-   <div class="paragraph"> 
-    <p>Maven toolchain is set by default.</p> 
-   </div> 
-   <div class="olist arabic"> 
-    <ol class="arabic"> 
-     <li> <p>new multimodule project:</p> 
-      <div class="listingblock"> 
-       <div class="content"> 
-        <pre class="highlight"><code class="language-bash bash" data-lang="bash">new parent io.bootique.test:test:1.0</code></pre> 
-       </div> 
-      </div> </li> 
-     <li> <p>new runnable app:</p> 
-      <div class="listingblock"> 
-       <div class="content"> 
-        <pre class="highlight"><code class="language-bash bash" data-lang="bash">new app io.bootique.test:test-app:1.0</code></pre> 
-       </div> 
-      </div> </li> 
-     <li> <p>new module:</p> 
-      <div class="listingblock"> 
-       <div class="content"> 
-        <pre class="highlight"><code class="language-bash bash" data-lang="bash">new module io.bootique.test:test-module:1.0</code></pre> 
-       </div> 
-      </div> </li> 
-    </ol> 
-   </div> 
-  </div> 
-  <div class="sect2"> 
-   <h3 id="_gradle">3.2. Gradle</h3> 
-   <div class="paragraph"> 
-    <p>To use Gradle as your build tool you need to set it in <code>bq</code> config:</p> 
-   </div> 
-   <div class="listingblock"> 
-    <div class="content"> 
-     <pre class="highlight"><code class="language-bash bash" data-lang="bash">config toolchain gradle</code></pre> 
-    </div> 
-   </div> 
-   <div class="paragraph"> 
-    <p>Available commands are same as in <a href="#_maven">Maven</a> case.</p> 
-   </div> 
-  </div> 
- </div> 
+1.x86_64.rpm</code></pre>
+        </div>
+       </div></li>
+     </ul>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+<div class="sect1">
+ <h2 id="_usage">3. Usage</h2>
+ <div class="sectionbody">
+  <div class="paragraph">
+   <p>Running BQ in an interactive mode:</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
+    <pre class="highlight"><code class="language-bash bash" data-lang="bash">$ bq</code></pre>
+   </div>
+  </div>
+  <div class="paragraph">
+   <p>If everything setup correctly you should see welcome banner with some general information about the tool. To see all available commands you could use <code>help</code> command.</p>
+  </div>
+  <div class="paragraph">
+   <p>To exit from the <code>bq</code> shell run <code>exit</code>.</p>
+  </div>
+  <div class="sect2">
+   <h3 id="_maven">3.1. Maven</h3>
+   <div class="paragraph">
+    <p>Maven toolchain is set by default.</p>
+   </div>
+   <div class="olist arabic">
+    <ol class="arabic">
+     <li>
+      <p>new multimodule project:</p>
+      <div class="listingblock">
+       <div class="content">
+        <pre class="highlight"><code class="language-bash bash" data-lang="bash">new parent io.bootique.test:test:1.0</code></pre>
+       </div>
+      </div></li>
+     <li>
+      <p>new runnable app:</p>
+      <div class="listingblock">
+       <div class="content">
+        <pre class="highlight"><code class="language-bash bash" data-lang="bash">new app io.bootique.test:test-app:1.0</code></pre>
+       </div>
+      </div></li>
+     <li>
+      <p>new module:</p>
+      <div class="listingblock">
+       <div class="content">
+        <pre class="highlight"><code class="language-bash bash" data-lang="bash">new module io.bootique.test:test-module:1.0</code></pre>
+       </div>
+      </div></li>
+    </ol>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_gradle">3.2. Gradle</h3>
+   <div class="paragraph">
+    <p>To use Gradle as your build tool you need to set it in <code>bq</code> config:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-bash bash" data-lang="bash">config toolchain gradle</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p>Available commands are same as in <a href="#_maven">Maven</a> case.</p>
+   </div>
+  </div>
+ </div>
 </div>
         </article>
       </div>

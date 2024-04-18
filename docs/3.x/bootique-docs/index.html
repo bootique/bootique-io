@@ -114,7 +114,7 @@
     <hr/>
 
     <div class="row ">
-      <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav"><div id="toc" class="toc">
+      <div id="docs-nav" class="col-12 col-lg-4 col-xl-3 nav  docs-nav"><div id="toc" class="toc toc-side">
  <div id="toctitle">
   Table of Contents
  </div>
@@ -202,7 +202,7 @@
     <pre class="highlight"><code class="language-java java" data-lang="java">public class Application implements BQModule {
 
     public static void main(String[] args) {
-
+        
         BQRuntime runtime = Bootique.app(args) <i class="conum" data-value="1"></i><b>(1)</b>
                 .autoLoadModules() <i class="conum" data-value="2"></i><b>(2)</b>
                 .createRuntime(); <i class="conum" data-value="3"></i><b>(3)</b>
@@ -288,8 +288,10 @@
    </div>
    <div class="ulist">
     <ul>
-     <li><p><code>bootique-jetty</code> that integrates Jetty server into your application</p></li>
-     <li><p><code>bootique-jdbc</code> that allows to work with relational databases, and so on.</p></li>
+     <li>
+      <p><code>bootique-jetty</code> that integrates Jetty server into your application</p></li>
+     <li>
+      <p><code>bootique-jdbc</code> that allows to work with relational databases, and so on.</p></li>
     </ul>
    </div>
    <div class="paragraph">
@@ -333,8 +335,10 @@
     </div>
     <div class="ulist">
      <ul>
-      <li><p>Modules explicitly added to Bootique: <code>Bootique.app(args).module(MyModule.class)</code></p></li>
-      <li><p>"Auto-loadable" modules</p></li>
+      <li>
+       <p>Modules explicitly added to Bootique: <code>Bootique.app(args).module(MyModule.class)</code></p></li>
+      <li>
+       <p>"Auto-loadable" modules</p></li>
      </ul>
     </div>
     <div class="paragraph">
@@ -675,10 +679,14 @@ jetty:
     </div>
     <div class="ulist">
      <ul>
-      <li><p>Subclassing from <code>BaseModule</code> provides a few utilities, such as a shorter "config" method and a default configuration key ("my" in this case. See the next bullet).</p></li>
-      <li><p>Calling our module "MyModule" and extending from <code>BaseModule</code> gives it access to the protected "configPrefix" property that is initialized to the value of "my" based on the module class name. The naming convention here is to use the Module simple class name without the "Module" suffix and converted to lowercase.</p></li>
-      <li><p><code>@Provides</code> annotation is a Bootique DI way of marking a <code>BQModule</code> method as a "provider" for a certain type of injectable service. All its parameters are themselves injectable objects.</p></li>
-      <li><p><code>ConfigurationFactory</code> is the class used to bind a subtree of the app YAML configuration to a given Java object (in our case - MyFactory). The structure of MyFactory is very simple here, but it can be as complex as needed, containing nested objects, arrays, maps, etc. Internally Bootique uses <a href="https://github.com/FasterXML/jackson">Jackson framework</a> to bind YAML to a Java class, so all the features of Jackson can be used to craft configuration.</p></li>
+      <li>
+       <p>Subclassing from <code>BaseModule</code> provides a few utilities, such as a shorter "config" method and a default configuration key ("my" in this case. See the next bullet).</p></li>
+      <li>
+       <p>Calling our module "MyModule" and extending from <code>BaseModule</code> gives it access to the protected "configPrefix" property that is initialized to the value of "my" based on the module class name. The naming convention here is to use the Module simple class name without the "Module" suffix and converted to lowercase.</p></li>
+      <li>
+       <p><code>@Provides</code> annotation is a Bootique DI way of marking a <code>BQModule</code> method as a "provider" for a certain type of injectable service. All its parameters are themselves injectable objects.</p></li>
+      <li>
+       <p><code>ConfigurationFactory</code> is the class used to bind a subtree of the app YAML configuration to a given Java object (in our case - MyFactory). The structure of MyFactory is very simple here, but it can be as complex as needed, containing nested objects, arrays, maps, etc. Internally Bootique uses <a href="https://github.com/FasterXML/jackson">Jackson framework</a> to bind YAML to a Java class, so all the features of Jackson can be used to craft configuration.</p></li>
      </ul>
     </div>
    </div>
@@ -689,7 +697,8 @@ jetty:
     </div>
     <div class="ulist">
      <ul>
-      <li><p>Contributing a config file via DI:</p>
+      <li>
+       <p>Contributing a config file via DI:</p>
        <div class="listingblock">
         <div class="content">
          <pre class="highlight"><code class="language-java java" data-lang="java">BQCoreModule.extend(binder).addConfig("classpath:com/foo/default.yml");</code></pre>
@@ -698,7 +707,8 @@ jetty:
        <div class="paragraph">
         <p>A primary motivation for this style is to provide application default configuration, with YAML files often embedded in the app and read from the classpath (as suggested by the "classpath:.." URL in the example). More than one configuration can be contributed. E.g. individual modules might load their own defaults. Multiple configs are combined in a single config tree by the runtime. The order in which this combination happens is undefined, so make sure there are no conflicts between them. If there are, consider replacing multiple conflicting configs with a single config.</p>
        </div></li>
-      <li><p>Conditionally contributing a config file via DI. It is possible to make DI configuration inclusion conditional on the presence of a certain command line option:</p>
+      <li>
+       <p>Conditionally contributing a config file via DI. It is possible to make DI configuration inclusion conditional on the presence of a certain command line option:</p>
        <div class="listingblock">
         <div class="content">
          <pre class="highlight"><code class="language-java java" data-lang="java">OptionMetadata o = OptionMetadata.builder("qa")
@@ -710,8 +720,10 @@ BQCoreModule.extend(binder)
         .mapConfigResource(o.getName(), "classpath:a/b/qa.yml");</code></pre>
         </div>
        </div></li>
-      <li><p>Specifying a config file on the command line. Each Bootique app supports <code>--config</code> option that takes a configuration file as parameter. To specify more than one file, use <code>--config</code> option multiple times. Configurations will be loaded and merged together in the order of their appearance on the command line.</p></li>
-      <li><p>Specifying a single config value via a custom option:</p>
+      <li>
+       <p>Specifying a config file on the command line. Each Bootique app supports <code>--config</code> option that takes a configuration file as parameter. To specify more than one file, use <code>--config</code> option multiple times. Configurations will be loaded and merged together in the order of their appearance on the command line.</p></li>
+      <li>
+       <p>Specifying a single config value via a custom option:</p>
        <div class="listingblock">
         <div class="content">
          <pre class="highlight"><code class="language-java java" data-lang="java">OptionMetadata o1 = OptionMetadata.builder("db")
@@ -782,9 +794,12 @@ BQCoreModule.extend(binder)
     </div>
     <div class="ulist">
      <ul>
-      <li><p>They may be used to configure credentials, as unlike YAML they won’t end up in version control, and unlike Java properties, they won’t be visible in the process list.</p></li>
-      <li><p>They provide customized application environment without changing the launch script and are ideal for containerized and other virtual environments.</p></li>
-      <li><p>They are more user-friendly and appear in the app help.</p></li>
+      <li>
+       <p>They may be used to configure credentials, as unlike YAML they won’t end up in version control, and unlike Java properties, they won’t be visible in the process list.</p></li>
+      <li>
+       <p>They provide customized application environment without changing the launch script and are ideal for containerized and other virtual environments.</p></li>
+      <li>
+       <p>They are more user-friendly and appear in the app help.</p></li>
      </ul>
     </div>
     <div class="paragraph">
@@ -931,8 +946,10 @@ public BaseType provideBaseType(ConfigurationFactory configFactory) {
    </div>
    <div class="ulist">
     <ul>
-     <li><p>Use upstream services - inject objects defined in an upstream module in this module objects</p></li>
-     <li><p>Contribute extensions - inject module’s objects to collections and maps from the upstream module, thus extending upstream module behavior.</p></li>
+     <li>
+      <p>Use upstream services - inject objects defined in an upstream module in this module objects</p></li>
+     <li>
+      <p>Contribute extensions - inject module’s objects to collections and maps from the upstream module, thus extending upstream module behavior.</p></li>
     </ul>
    </div>
    <div class="paragraph">
@@ -1106,9 +1123,12 @@ public CommandOutcome run(Cli cli) {
     </div>
     <div class="ulist">
      <ul>
-      <li><p>Before starting the server, run a health check to verify that any external services the app might depend upon are alive.</p></li>
-      <li><p>Start a job scheduler in the background.</p></li>
-      <li><p>Start a monitoring "heartbeat" thread.</p></li>
+      <li>
+       <p>Before starting the server, run a health check to verify that any external services the app might depend upon are alive.</p></li>
+      <li>
+       <p>Start a job scheduler in the background.</p></li>
+      <li>
+       <p>Start a monitoring "heartbeat" thread.</p></li>
      </ul>
     </div>
     <div class="paragraph">
@@ -1168,7 +1188,8 @@ public void doSomething() {
     </div>
     <div class="olist arabic">
      <ol class="arabic">
-      <li><p>Option value sets a config property:</p>
+      <li>
+       <p>Option value sets a config property:</p>
        <div class="listingblock">
         <div class="content">
          <pre class="highlight"><code class="language-java java" data-lang="java">// Starting the app with "--my-opt=x" will set "jobs.myjob.param" value to "x"
@@ -1177,7 +1198,8 @@ BQCoreModule.extend(binder)
         .mapConfigPath("my-opt", "jobs.myjob.param");</code></pre>
         </div>
        </div></li>
-      <li><p>Option presence sets a property to a predefined value:</p>
+      <li>
+       <p>Option presence sets a property to a predefined value:</p>
        <div class="listingblock">
         <div class="content">
          <pre class="highlight"><code class="language-java java" data-lang="java">// Starting the app with "--my-opt" will set "jobs.myjob.param" value to "y"
@@ -1186,7 +1208,8 @@ BQCoreModule.extend(binder)
         .mapConfigPath("my-opt", "jobs.myjob.param");</code></pre>
         </div>
        </div></li>
-      <li><p>Option presence loads a config resource, such as a YAML file:</p>
+      <li>
+       <p>Option presence loads a config resource, such as a YAML file:</p>
        <div class="listingblock">
         <div class="content">
          <pre class="highlight"><code class="language-java java" data-lang="java">// Starting the app with "--my-opt" is equivalent to starting with "--config=classpath:xyz.yml"
@@ -1215,7 +1238,8 @@ BQCoreModule.extend(binder)
     <div class="paragraph">
      <p>For better control over logging a standard module called <code>bootique-logback</code> is available, that integrates <a href="https://logback.qos.ch/">Logback framework</a> in the app. It seamlessly bridges SLF4J (so you keep using SLF4J in the code), and allows to configure logging via YAML config file, including appenders (file, console, etc.) and per class/package log levels. Just like any other module, <code>bootique-logback</code> can be enabled by simply adding it to the pom.xml dependencies, assuming <code>autoLoadModules()</code> is in effect:</p>
     </div>
-    <details open><summary class="title">Maven</summary>
+    <details open>
+     <summary class="title">Maven</summary>
      <div class="content">
       <div class="listingblock">
        <div class="content">
@@ -1227,7 +1251,8 @@ BQCoreModule.extend(binder)
       </div>
      </div>
     </details>
-    <details><summary class="title">Gradle</summary>
+    <details>
+     <summary class="title">Gradle</summary>
      <div class="content">
       <div class="listingblock">
        <div class="content">
@@ -1277,7 +1302,8 @@ BQCoreModule.extend(binder)
    <div class="paragraph">
     <p>To start using Bootique test extensions, import the following module in the "test" scope:</p>
    </div>
-   <details open><summary class="title">Maven</summary>
+   <details open>
+    <summary class="title">Maven</summary>
     <div class="content">
      <div class="listingblock">
       <div class="content">
@@ -1290,7 +1316,8 @@ BQCoreModule.extend(binder)
      </div>
     </div>
    </details>
-   <details><summary class="title">Gradle</summary>
+   <details>
+    <summary class="title">Gradle</summary>
     <div class="content">
      <div class="listingblock">
       <div class="content">
@@ -1355,10 +1382,14 @@ final static BQRuntime app = Bootique
    </div>
    <div class="ulist">
     <ul>
-     <li><p><code>BQTestScope.TEST_CLASS</code>: A scope of a single test class. Roughly corresponds to <code>@BeforeAll</code> / <code>@AfterAll</code> from JUnit. All tools in this scope must be declared as static variables.</p></li>
-     <li><p><code>BQTestScope.TEST_METHOD</code>: A scope of a single test method. Roughly corresponds to <code>@BeforeEach</code> / <code>@AfterEach</code> from JUnit.</p></li>
-     <li><p><code>BQTestScope.GLOBAL</code>: Allows a given tool to be shared with more than one test class. JUnit has no analog of a "global" scope, but it is quite useful for expensive reusable resources (e.g. Docker containers), so Bootique supports it for all the tools.</p></li>
-     <li><p><code>BQTestScope.IMPLIED</code>: This is the default scope of <code>@BQTestTool</code>. If the field is static it is equivalent to <code>TEST_CLASS</code>, if non-static - <code>TEST_METHOD</code>. This way most of the time you don’t need to explicitly define the scope, but just need to declare your tool as static or instance variable.</p></li>
+     <li>
+      <p><code>BQTestScope.TEST_CLASS</code>: A scope of a single test class. Roughly corresponds to <code>@BeforeAll</code> / <code>@AfterAll</code> from JUnit. All tools in this scope must be declared as static variables.</p></li>
+     <li>
+      <p><code>BQTestScope.TEST_METHOD</code>: A scope of a single test method. Roughly corresponds to <code>@BeforeEach</code> / <code>@AfterEach</code> from JUnit.</p></li>
+     <li>
+      <p><code>BQTestScope.GLOBAL</code>: Allows a given tool to be shared with more than one test class. JUnit has no analog of a "global" scope, but it is quite useful for expensive reusable resources (e.g. Docker containers), so Bootique supports it for all the tools.</p></li>
+     <li>
+      <p><code>BQTestScope.IMPLIED</code>: This is the default scope of <code>@BQTestTool</code>. If the field is static it is equivalent to <code>TEST_CLASS</code>, if non-static - <code>TEST_METHOD</code>. This way most of the time you don’t need to explicitly define the scope, but just need to declare your tool as static or instance variable.</p></li>
     </ul>
    </div>
    <div class="paragraph">
@@ -1616,8 +1647,10 @@ java -jar target/myapp-1.0.jar</code></pre>
    </div>
    <div class="ulist">
     <ul>
-     <li><p>It is incompatible with Java Platform Module System (JPMS). Java allows only one <code>module-info.class</code> file per <code>.jar</code>. So if your app or its dependencies contain one or more of those module descriptors, <code>maven-shade-plugin</code> won’t be able to package them properly.</p></li>
-     <li><p>It is incompatible with <a href="https://openjdk.java.net/jeps/238">multi-release jar files</a>. Actually there’s no technical reason why <code>maven-shade-plugin</code> can’t repackage such jars correctly, but as of this writing (plugin version 3.2.1) it doesn’t, losing Java version-specific code.</p></li>
+     <li>
+      <p>It is incompatible with Java Platform Module System (JPMS). Java allows only one <code>module-info.class</code> file per <code>.jar</code>. So if your app or its dependencies contain one or more of those module descriptors, <code>maven-shade-plugin</code> won’t be able to package them properly.</p></li>
+     <li>
+      <p>It is incompatible with <a href="https://openjdk.java.net/jeps/238">multi-release jar files</a>. Actually there’s no technical reason why <code>maven-shade-plugin</code> can’t repackage such jars correctly, but as of this writing (plugin version 3.2.1) it doesn’t, losing Java version-specific code.</p></li>
     </ul>
    </div>
    <div class="paragraph">
