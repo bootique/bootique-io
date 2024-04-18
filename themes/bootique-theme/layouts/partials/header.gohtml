@@ -1,7 +1,10 @@
 <head>
   <meta charset="utf-8">
-  <title>{{ with .Title }}{{ . }}{{ else }}{{ .Site.Title }}{{ end }}</title>
-  {{ partial "meta.gohtml" . }}
+
+  <title>{{ with .Params.MetaTitle}}{{ . }}{{ else }}{{ with .Title }}{{ . }}{{ else }}{{ .Site.Title }}{{ end }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Params.MetaDescription }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
+  <meta name="keywords" content="{{ with .Keywords }}{{ . }}{{ else }}{{if .IsPage}}{{ .Params.MetaKeywords }}{{ else }}{{ with .Site.Params.keywords }}{{ . }}{{ end }}{{ end }}{{ end }}">
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ "/images/favicon/apple-touch-icon.png" | relURL }}">
   <link rel="icon" type="image/png" sizes="32x32" href="{{ "/images/favicon/favicon-32x32.png" | relURL }}">

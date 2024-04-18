@@ -30,7 +30,6 @@ docs:
         "3.x": "master"
     - url: https://github.com/bootique/bootique-tool.git
       versions:
-        "2.x": "master"
         "3.x": "master"
     - url: https://github.com/bootique/bootique-di.git
       versions:

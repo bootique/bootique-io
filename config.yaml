@@ -1,6 +1,6 @@
 baseURL: "https://bootique.io/"
 languageCode: "en-us"
-title: "Bootique: Minimally Opinionated Framework for Runnable Java"
+title: "Bootique: Flexible Java Microservices Framework"
 theme: "bootique-theme"
 
 disableKinds:
@@ -13,8 +13,8 @@ enableRobotsTXT: true
 params:
   googleAnalytics: "UA-74603008-1"
   description: >-
-      Bootique is a minimally opinionated platform for runnable Java applications.
-      Provides command-line launcher, dependency injection service, configuration and lots of extension modules.
+    Bootique is a flexible Java microservices framework, designed for simplicity and power. 
+    A minimally opinionated platform that offers a command-line launcher, configuration and lots of extension modules.
   keywords: "Bootique, Bootique project, Guice, Container-less Java, Runnable Jar, Make Jar not War, WYSIWYR"
   sitemapExcludes: ["/page/", "/docs/", "/categories/", "/tags/"]
 

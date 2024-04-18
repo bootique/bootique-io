@@ -1,8 +1,9 @@
 ---
 date: "2016-09-16T21:02:04+03:00"
 title: "Contributor License Agreement"
+metaTitle: "Bootique CLA: Join Our Java Framework Development"
 metaKeywords: "Bootique Contributor License Agreement"
-metaDescription: "Bootique: A Minimally Opinionated Framework for Runnable Java Apps - Contributor License Agreement"
+metaDescription: "Contribute to Bootique: Review our CLA to start enhancing our modular Java microservices framework. Join our developer community now."
 ---
 ## What is This About?
 
