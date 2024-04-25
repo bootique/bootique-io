@@ -129,7 +129,7 @@
   <li><a href="#_programming" class="nav-link">2. Programming</a>
    <ul class="sectlevel2 nav">
     <li><a href="#_modules" class="nav-link">2.1. Modules</a></li>
-    <li><a href="#_objects_assembly" class="nav-link">2.2. Objects "Assembly"</a></li>
+    <li><a href="#_objects_assembly" class="nav-link">2.2. Objects Assembly</a></li>
     <li><a href="#_configuration" class="nav-link">2.3. Configuration</a></li>
     <li><a href="#_commands" class="nav-link">2.4. Commands</a></li>
     <li><a href="#_options" class="nav-link">2.5. Options</a></li>
@@ -433,6 +433,7 @@
 public ModuleCrate crate() {
     return ModuleCrate.of(this)
             .description("Module that does something useful")
+            .config("mymodulewithcrate", MyConfig.class)
             .build();
 }</code></pre>
      </div>
@@ -449,7 +450,7 @@ public ModuleCrate crate() {
    </div>
   </div>
   <div class="sect2">
-   <h3 id="_objects_assembly">2.2. Objects "Assembly"</h3>
+   <h3 id="_objects_assembly">2.2. Objects Assembly</h3>
    <div class="paragraph">
     <p>As mentioned above, <code>BQRuntime</code> is a holder of all application objects, and modules are blueprints to create those objects. You’d write your own module code to define how your objects should be created and initialized. This is done via bindings and "provider" methods, and with the assistance of the dependency injection (DI) mechanism built into Bootique.</p>
    </div>
