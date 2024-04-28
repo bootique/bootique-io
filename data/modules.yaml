@@ -4,28 +4,28 @@ ByName:
     Name: bootique-agrest
     Icon: agrest.png
     Description: Integrates Agrest, a powerful model-driven REST framework
-    Example: "https://github.com/bootique-examples/bootique-agrest-demo"
+    Example: "https://github.com/bootique-examples/bootique-agrest-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   aws:
     Name: bootique-aws
     Icon: aws.png
     Description: Bootique integration with AWS Java SDK
-    Example: "https://github.com/bootique-examples/bootique-aws-demo"
+    Example: "https://github.com/bootique-examples/bootique-aws-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   cayenne:
     Name: bootique-cayenne
     Icon: cayenne.png
     Description: Integrates Apache Cayenne ORM framework, providing easy RDBMS access
-    Example: "https://github.com/bootique-examples/bootique-cayenne-demo"
+    Example: "https://github.com/bootique-examples/bootique-cayenne-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   curator:
     Name: bootique-curator
     Icon: curator.png
     Description: Integrates Apache Curator in your app, providing access to Zookeeper
-    Example: "https://github.com/bootique-examples/bootique-curator-demo"
+    Example: "https://github.com/bootique-examples/bootique-curator-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   cxf:
@@ -38,21 +38,21 @@ ByName:
     Name: bootique-docker
     Icon: docker.png
     Description: Integrates the Docker client in your app, allowing to manage external Docker containers
-    Example: "https://github.com/bootique-examples/bootique-docker-demo"
+    Example: "https://github.com/bootique-examples/bootique-docker-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   flyway:
     Name: bootique-flyway
     Icon: flyway.png
     Description: Integrates Flyway DB migrations framework in your app
-    Example: "https://github.com/bootique-examples/bootique-flyway-demo"
+    Example: "https://github.com/bootique-examples/bootique-flyway-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   jcache:
     Name: bootique-jcache
     Icon: jcache.png
     Description: "Integrates JCache API in your app, providing injectable CacheManager."
-    Example: "https://github.com/bootique-examples/bootique-jcache-demo"
+    Example: "https://github.com/bootique-examples/bootique-jcache-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   jdbc:
@@ -86,21 +86,21 @@ ByName:
     Icon: jetty.png
     Description: Integrates Jetty webserver, servlet engine, websockets, CORS
     Docs: "bootique-jetty-docs/"
-    Example: "https://github.com/bootique-examples/bootique-jetty-demo"
+    Example: "https://github.com/bootique-examples/bootique-jetty-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   job:
     Name: bootique-job
     Icon: job.png
     Description: Bootique's own provider of job scheduling and execution
-    Example: "https://github.com/bootique-examples/bootique-jobs-demo"
+    Example: "https://github.com/bootique-examples/bootique-jobs-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   jooq:
     Name: bootique-jooq
     Icon: jooq.png
     Description: Integrates JOOQ SQL generator for building type-safe SQL queries
-    Example: "https://github.com/bootique-examples/bootique-jooq-demo"
+    Example: "https://github.com/bootique-examples/bootique-jooq-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   kafka:
@@ -110,6 +110,7 @@ ByName:
     Example: "https://github.com/bootique-examples/bootique-kafka-producer"
     Versions: ["1.3", "2.0", "3.0"]
 
+  # deprecated
   kotlin:
     Name: bootique-kotlin
     Icon: kotlin.png
@@ -123,14 +124,14 @@ ByName:
     Icon: linkmove.png
     Description: Integrates LinkMove, an embeddable model-driven ETL tool that allows to synchronize data from
       various sources into your database
-    Example: "https://github.com/bootique-examples/bootique-linkmove-demo"
+    Example: "https://github.com/bootique-examples/bootique-linkmove-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   liquibase:
     Name: bootique-liquibase
     Icon: liquibase.png
     Description: Integrates Liquibase engine that helps you to evolve your database schema via migration scripts
-    Example: "https://github.com/bootique-examples/bootique-liquibase-demo"
+    Example: "https://github.com/bootique-examples/bootique-liquibase-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   logback:
@@ -138,7 +139,7 @@ ByName:
     Icon: logback.png
     Description: Integrates Logback framework to provide advanced logging facility for your app
     Docs: "bootique-logback-docs/"
-    Example: "https://github.com/bootique-examples/bootique-logback-demo"
+    Example: "https://github.com/bootique-examples/bootique-logback-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   metrics:
@@ -146,7 +147,7 @@ ByName:
     Icon: metrics-hat.png
     Description: Integrates Dropwizard Metrics framework to expose runtime information about
       your application to monitoring systems
-    Example: "https://github.com/bootique-examples/bootique-metrics-demo"
+    Example: "https://github.com/bootique-examples/bootique-metrics-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   mongo:
@@ -160,7 +161,7 @@ ByName:
     Icon: mustache.png
     Description: Integrates a REST-based MVC engine, and a simple template provider.
       Supports Mustache and Freemarker as template renderers
-    Example: "https://github.com/bootique-examples/bootique-mvc-demo"
+    Example: "https://github.com/bootique-examples/bootique-mvc-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   mybatis:
@@ -174,7 +175,7 @@ ByName:
     Name: bootique-rabbitmq
     Icon: rabbitmq-client.png
     Description: Integrates RabbitMQ Client
-    Example: "https://github.com/bootique-examples/bootique-rabbitmq-client-demo"
+    Example: "https://github.com/bootique-examples/bootique-rabbitmq-examples"
     Versions: ["2.0", "3.0"]
 
   # deprecated
@@ -182,14 +183,14 @@ ByName:
     Name: bootique-rabbitmq-client
     Icon: rabbitmq-client.png
     Description: Integrates RabbitMQ Client
-    Example: "https://github.com/bootique-examples/bootique-rabbitmq-client-demo"
+    Example: "https://github.com/bootique-examples/bootique-rabbitmq-examples"
     Versions: ["1.3"]
 
   shiro:
     Name: bootique-shiro
     Icon: shiro.png
     Description: Integrates Apache Shiro, a Java security framework
-    Example: "https://github.com/bootique-examples/bootique-shiro-demo"
+    Example: "https://github.com/bootique-examples/bootique-shiro-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   simplejavamail:
@@ -202,16 +203,17 @@ ByName:
     Name: bootique-swagger
     Icon: swagger.png
     Description: Integrates Swagger, a popular REST API documentation engine
-    Example: "https://github.com/bootique-examples/bootique-swagger-demo"
+    Example: "https://github.com/bootique-examples/bootique-swagger-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   tapestry:
     Name: bootique-tapestry
     Icon: tapestry.png
     Description: Integrates Apache Tapestry, a powerful component-based HTML generation framework
-    Example: "https://github.com/bootique-examples/bootique-tapestry-demo"
+    Example: "https://github.com/bootique-examples/bootique-tapestry-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
+  # deprecated
   undertow:
     Name: bootique-undertow
     Icon: undertow.png
