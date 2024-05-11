@@ -106,8 +106,8 @@ ByName:
   kafka:
     Name: bootique-kafka
     Icon: kafka.png
-    Description: Integrates Apache Kafka client and streams to Bootique
-    Example: "https://github.com/bootique-examples/bootique-kafka-producer"
+    Description: Integrates Apache Kafka client and streams
+    Example: "https://github.com/bootique-examples/bootique-kafka-examples"
     Versions: ["1.3", "2.0", "3.0"]
 
   # deprecated
