@@ -345,14 +345,32 @@ public void configure(Binder binder) {
      <pre class="highlight"><code class="language-java java" data-lang="java">@Override
 public void configure(Binder binder) {
     MappedServlet&lt;?&gt; s = MappedServlet
-            .ofStatic("docroot")
-            .urlPatterns("/")
-            .resourceBase("classpath:docroot")
+            .ofStatic("/") <i class="conum" data-value="1"></i><b>(1)</b>
+            .resourceBase("classpath:docroot") <i class="conum" data-value="2"></i><b>(2)</b>
+            .name("docroot") <i class="conum" data-value="3"></i><b>(3)</b>
             .build();
 
     JettyModule.extend(binder).addMappedServlet(s);
 }</code></pre>
     </div>
+   </div>
+   <div class="colist arabic">
+    <table>
+     <tbody>
+      <tr>
+       <td><i class="conum" data-value="1"></i><b>1</b></td>
+       <td>Maps a URL to a "static" servlet</td>
+      </tr>
+      <tr>
+       <td><i class="conum" data-value="2"></i><b>2</b></td>
+       <td>The location of the files served via this servlet</td>
+      </tr>
+      <tr>
+       <td><i class="conum" data-value="3"></i><b>3</b></td>
+       <td>An optional name that would allow to set servlet parameters as shown below</td>
+      </tr>
+     </tbody>
+    </table>
    </div>
    <div class="paragraph">
     <p>You can publish as many locations as needed. If a location is not known at compile time, it can alternatively be defined in the app configuration with <code>resourceBase</code> servlet parameter:</p>
@@ -374,8 +392,7 @@ public void configure(Binder binder) {
    <div class="listingblock">
     <div class="content">
      <pre class="highlight"><code class="language-java java" data-lang="java">MappedServlet&lt;?&gt; s = MappedServlet
-        .ofStatic("docroot")
-        .urlPatterns("/abc/*")
+        .ofStatic("/abc/*")
         .pathInfoOnly()
         .build();</code></pre>
     </div>
