@@ -14,7 +14,7 @@
   },
   "scripts": {
     "prebuild": "yarn install",
-    "build": "ts-node ./medium.ts && ts-node ./docs.ts && ts-node ./stars.ts",
+    "build": "ts-node ./docs.ts && ts-node ./stars.ts",
     "stars": "ts-node ./stars.ts",
     "medium": "ts-node ./medium.ts",
     "docs": "ts-node ./docs.ts"
