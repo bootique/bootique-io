@@ -594,7 +594,7 @@ public void configure(Binder binder) {
       <pre class="highlight"><code class="language-java java" data-lang="java">@Override
 public void configure(Binder binder) {
     binder.bind(Hello.class)
-            .toProvider(HelloService3Provider.class)
+            .toJakartaProvider(HelloService3Provider.class)
             .inSingletonScope();
 }</code></pre>
      </div>
@@ -1169,7 +1169,7 @@ public CommandOutcome run(Cli cli) {
    <div class="sect3">
     <h4 id="_injection_in_commands">2.4.2. Injection in Commands</h4>
     <div class="paragraph">
-     <p>Commands can inject services, just like most other classes in Bootique. There are some specifics though. Since commands are sometimes instantiated, but not executed (e.g. when <code>--help</code> is run that lists all commands), it is often desirable to avoid immediate instantiation of all dependencies of a given command. So a common pattern with commands is to inject <code>javax.inject.Provider</code> instead of direct dependency:</p>
+     <p>Commands can inject services, just like most other classes in Bootique. There are some specifics though. Since commands are sometimes instantiated, but not executed (e.g. when <code>--help</code> is run that lists all commands), it is often desirable to avoid immediate instantiation of all dependencies of a given command. So a common pattern with commands is to inject <code>jakarta.inject.Provider</code> instead of direct dependency:</p>
     </div>
     <div class="listingblock">
      <div class="content">

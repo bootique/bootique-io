@@ -256,8 +256,8 @@ OPTIONS
     <pre class="highlight"><code class="language-java java" data-lang="java">package com.foo;
 
 import io.bootique.annotation.Args;
+import jakarta.inject.Inject;
 
-import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
@@ -363,8 +363,8 @@ INFO main i.b.j.s.ServerLifecycleLogger: Started Jetty in 584 ms. Base URL: http
     <pre class="highlight"><code class="language-java java" data-lang="java">package com.foo;
 
 import io.bootique.annotation.Args;
+import jakarta.inject.Inject;
 
-import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
@@ -385,7 +385,7 @@ public class HelloResource {
    </div>
   </div>
   <div class="paragraph">
-   <p>As you see, we declared a variable of type <code>String[]</code> and annotated it with <code>@javax.inject.Inject</code> and <code>@io.bootique.annotation.Args</code>. <code>@Inject</code> ensures that the value is initialized via injection, and <code>@Args</code> tells Bootique which one of possibly many String[] instances from the DI container we are expecting here.</p>
+   <p>As you see, we declared a variable of type <code>String[]</code> and annotated it with <code>@jakarta.inject.Inject</code> and <code>@io.bootique.annotation.Args</code>. <code>@Inject</code> ensures that the value is initialized via injection, and <code>@Args</code> tells Bootique which one of possibly many String[] instances from the DI container we are expecting here.</p>
   </div>
   <div class="paragraph">
    <p>Now you can restart the app and refresh <a href="http://localhost:10001/hello">http://localhost:10001/hello</a> in the browser. The new output will be "Hello, world! The app was started with the following arguments: `--server --config=myconfig.yml`".</p>
