@@ -13,7 +13,7 @@ ByUrl:
 
   "3.x": &v3x
     URL: "3.x"
-    Name: "3.0 (alpha)"
+    Name: "3.0 (release candidate)"
     ShortName: "3.0"
 
 ByName:
