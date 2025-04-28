@@ -180,7 +180,7 @@
   <div class="sect2">
    <h3 id="_java_version">1.2. Java Version</h3>
    <div class="paragraph">
-    <p>Java 21 or newer is required.</p>
+    <p>Java 11 or newer is required.</p>
    </div>
   </div>
   <div class="sect2">
@@ -594,7 +594,7 @@ public void configure(Binder binder) {
       <pre class="highlight"><code class="language-java java" data-lang="java">@Override
 public void configure(Binder binder) {
     binder.bind(Hello.class)
-            .toProvider(HelloService3Provider.class)
+            .toJakartaProvider(HelloService3Provider.class)
             .inSingletonScope();
 }</code></pre>
      </div>

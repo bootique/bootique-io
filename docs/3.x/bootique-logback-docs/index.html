@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Bootique - v4 Logback Module Documentation</title>
-  <meta name="description" content="Maximize your application&#39;s logging capabilities with Bootique Logback - v4. Explore the latest features, configuration options, and best practices for robust logging in Java.">
-  <meta name="keywords" content="bootique, logback, slf4j, documentation, version 4.0">
+  <title>Bootique - v3 Logback Module Documentation</title>
+  <meta name="description" content="Maximize your application&#39;s logging capabilities with Bootique Logback - v3. Explore the latest features, configuration options, and best practices for robust logging in Java.">
+  <meta name="keywords" content="bootique, logback, slf4j, sentry, documentation, version 3.0">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
@@ -94,7 +94,7 @@
 <div class="documentation-page container content docbook">
   <div class="container">
     <h1>
-      Bootique Logback - v4.0
+      Bootique Logback - v3.0
     </h1>
     <div class="dropdown doc-version">
   <a class="dropdown-toggle" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-24,4">
@@ -131,6 +131,12 @@
     <li><a href="#_log_loggers" class="nav-link">2.6. log.loggers</a></li>
    </ul></li>
   <li><a href="#_logback_in_unit_tests" class="nav-link">3. Logback In Unit Tests</a></li>
+  <li><a href="#_logback_sentry_module" class="nav-link">4. Logback Sentry Module</a>
+   <ul class="sectlevel2 nav">
+    <li><a href="#_setup" class="nav-link">4.1. Setup</a></li>
+    <li><a href="#_add_bootique_logback_sentry_to_your_build_tool" class="nav-link">4.2. Add bootique-logback-sentry to your build tool:</a></li>
+    <li><a href="#_write_configuration" class="nav-link">4.3. Write Configuration</a></li>
+   </ul></li>
  </ul>
 </div></div>
 
@@ -1028,6 +1034,97 @@ static final BQRuntime app = Bootique.app()
     &lt;/root&gt;
     &lt;logger name="io.bootique.metrics.health.sink.Slf4JReportSink" level="warn"/&gt;
 &lt;/configuration&gt;</code></pre>
+   </div>
+  </div>
+ </div>
+</div>
+<div class="sect1">
+ <h2 id="_logback_sentry_module">4. Logback Sentry Module</h2>
+ <div class="sectionbody">
+  <div class="paragraph">
+   <p>Provides <a href="https://docs.sentry.io/clients/java/modules/logback/">Sentry</a> integration with <a href="https://github.com/bootique/bootique-logback">Bootique-Logback</a>.</p>
+  </div>
+  <div class="sect2">
+   <h3 id="_setup">4.1. Setup</h3>
+   <div class="paragraph">
+    <p>Get DSN (Data Source Name) from <a href="https://sentry.io/">sentry.io</a> or from your own instance of <a href="https://github.com/getsentry/sentry">Sentry</a>.</p>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_add_bootique_logback_sentry_to_your_build_tool">4.2. Add bootique-logback-sentry to your build tool:</h3>
+   <details open>
+    <summary class="title">Maven</summary>
+    <div class="content">
+     <div class="listingblock">
+      <div class="content">
+       <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.logback&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-logback-sentry&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+      </div>
+     </div>
+    </div>
+   </details>
+   <details>
+    <summary class="title">Gradle</summary>
+    <div class="content">
+     <div class="listingblock">
+      <div class="content">
+       <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">dependencies {
+    implementation "io.bootique.logback:bootique-logback-sentry"
+}</code></pre>
+      </div>
+     </div>
+    </div>
+   </details>
+   <div class="admonitionblock note">
+    <table>
+     <tbody>
+      <tr>
+       <td class="icon"><i class="fa fa-info-circle fa-2x" title="Note"></i></td>
+       <td class="content"><strong>bootique-logback-sentry</strong> is a part of <a href="https://github.com/bootique/bootique-bom">bootique-bom</a>, and version can be imported from there.</td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_write_configuration">4.3. Write Configuration</h3>
+   <div class="paragraph">
+    <p><strong>config.yml:</strong></p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">log:
+  level: warn
+  appenders:
+    - type: console
+      logFormat: '[%d{dd/MMM/yyyy:HH:mm:ss}] %t %-5p %c{1}: %m%n'
+    - type: sentry
+      dsn: 'your_dsn_here'
+      serverName: aurora
+      environment: development
+      release: 42.0
+      extra:
+        extra1: value1
+        extra2: value2
+        extra3: value3
+      minLevel: error
+      distribution: x86
+      applicationPackages:
+        - "io.bootique.logback"
+        - "com.myapp.package"
+      commonFramesEnabled: true
+      tags:
+        tag1: value1
+        tag2: value2</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p><code>SentryClientFactory</code> can be provided by overriding <code>SentryClientFactory</code> bean from <code>LogbackSentryModule</code>.</p>
+   </div>
+   <div class="paragraph">
+    <p>Also DSN can be provided via environment variable <a href="https://github.com/getsentry/raven-java/tree/master/raven-logback">SENTRY_DSN</a>.</p>
    </div>
   </div>
  </div>
