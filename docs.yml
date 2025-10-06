@@ -9,6 +9,10 @@ docs:
     - url: https://github.com/bootique/bootique-logback.git
       versions:
         "3.x": "3.x"
+    # there's no docs in metrics, but we need it as a local dependency
+    - url: https://github.com/bootique/bootique-metrics.git
+      versions:
+        "3.x": "3.x"
     - url: https://github.com/bootique/bootique-jdbc.git
       versions:
         "3.x": "3.x"
