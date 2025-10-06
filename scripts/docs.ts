@@ -48,7 +48,8 @@ docs.repos.forEach(repo => {
 
     // check 'docs' maven module exists
     const docsModule = path.join(output, `${projectName}-docs`);
-    if(mavenBuild(docsModule)) {
+    // we build a full project here, hot just the docs module
+    if(mavenBuild(output)) {
       if(copyDocs(docsModule, id, projectName)) {
         console.log(`Done ${projectName}:${id}`)
       } else {
