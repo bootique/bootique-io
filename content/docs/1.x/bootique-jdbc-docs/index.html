@@ -1,0 +1,53 @@
+---
+title: "Bootique v1 JDBC Documentation"
+metaTitle: "Bootique - v1 JDBC Module Documentation"
+metaDescription: "Explore the Bootique - v1 JDBC module for efficient database operations. Our guide provides insights on connection management, configuration, and data access in Java apps."
+metaKeywords: "bootique, jdbc, bootique-jdbc"
+---
+
+
+<div class="sect1">
+ <h2 id="jdbc-integration">1. Bootique Integration with JDBC</h2>
+ <div class="sectionbody">
+  <div class="admonitionblock note">
+   <table>
+    <tbody>
+     <tr>
+      <td class="icon"><i class="fa fa-info-circle fa-2x" title="Note"></i></td>
+      <td class="content">This is an incomplete 1.x version of the JDBC documentation. 2.x is more comprehensive.</td>
+     </tr>
+    </tbody>
+   </table>
+  </div>
+  <div class="paragraph">
+   <p>JDBC is a well-known standard Java API to access relational databases. Normally you would connect to a database via a connection pool represented by a <code>javax.sql.DataSource</code> object. <a href="https://github.com/bootique/bootique-jdbc"><code>bootique-jdbc</code></a> is a set of modules for configuring one or more DataSources in your app. It also provides advanced facilities for database testing and connection pool monitoring.</p>
+  </div>
+  <div class="paragraph">
+   <p>Out of the box Bootique supports two connection pool providers: <a href="https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html">Tomcat JDBC</a> and <a href="https://github.com/brettwooldridge/HikariCP">HikariCP</a>. Both are production-quality data sources, and you can choose either one. From the application perspective the difference is mostly in configuration and available metrics and health checks, as Bootique (and JDBC) gives you the API abstraction common to both.</p>
+  </div>
+  <div class="paragraph">
+   <p>Import one of these Bootique modules in your app, depending on your connection pool choice:</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
+    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For Tomcat DataSource --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-jdbc-tomcat&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+   </div>
+  </div>
+  <div class="listingblock">
+   <div class="content">
+    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For HikariCP --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-jdbc-hikaricp&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+   </div>
+  </div>
+  <div class="paragraph">
+   <p>Alternatively you may include an "instrumented" version of each module, that will enable a number of metrics for your running app.</p>
+  </div>
+ </div>
+</div>

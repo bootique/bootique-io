@@ -1,0 +1,538 @@
+---
+title: "Bootique v1 Jetty Documentation"
+metaTitle: "Bootique - v1 Jetty Module: Comprehensive Guide"
+metaDescription: "Learn how to seamlessly integrate Jetty server with Bootique - v1. Our documentation details the configuration and deployment of Java web applications using Bootique Jetty."
+metaKeywords: "bootique, jetty, server"
+---
+
+
+<div class="sect1">
+ <h2 id="_bootique_integration_with_jetty">1. Bootique Integration with Jetty</h2>
+ <div class="sectionbody">
+  <div class="paragraph">
+   <p><a href="https://github.com/bootique/bootique-jetty"><code>bootique-jetty</code></a> module embeds <a href="http://www.eclipse.org/jetty/">Jetty web server</a> in your application. It provides environment for running servlet specification objects (servlets, servlet filters, servlet listeners). Also you will be able to serve static files that are either packaged in the application jar or located somewhere on the filesystem. As things go with Bootique, you will be able to centrally configure both Jetty (e.g. set connector ports) as well as your apps (e.g. map servlet URL patterns and pass servlet parameters).</p>
+  </div>
+  <div class="paragraph">
+   <p><code>bootique-jetty</code> is "drag-and-drop" just like any other Bootique module. It is enabled by simply adding it to the <code>pom.xml</code> dependencies (assuming <code>autoLoadModules()</code> is in effect):</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
+    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.jetty&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-jetty&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+   </div>
+  </div>
+  <div class="paragraph">
+   <p>Alternatively you may include an "instrumented" version of <code>bootique-jetty</code> that will provide a number of metrics for your running app:</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
+    <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.jetty&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-jetty-instrumented&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+   </div>
+  </div>
+  <div class="paragraph">
+   <p>The module provides <code>--server</code> command, which starts your web server on foreground:</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
+    <pre>java -jar my.jar --server
+...
+i.b.j.s.ServerFactory - Adding listener i.b.j.s.DefaultServletEnvironment
+i.b.j.s.h.ContextHandler - Started o.e.j.s.ServletContextHandler@1e78c66e{/myapp,null,AVAILABLE}
+i.b.j.s.ServerConnector - Started ServerConnector@41ccbaa{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}
+i.b.j.s.Server - Started @490ms</pre>
+   </div>
+  </div>
+  <div class="paragraph">
+   <p>Various aspects of the Jetty container, such as listen port, thread pool size, etc. can be configured in a normal Bootique way via YAML, as detailed below in the "Configuration Reference" chapter.</p>
+  </div>
+ </div>
+</div>
+<div class="sect1">
+ <h2 id="_programming_jetty_applications">2. Programming Jetty Applications</h2>
+ <div class="sectionbody">
+  <div class="paragraph">
+   <p>You can write servlet specification objects (servlets, filters, listeners) as you’d do it under JavaEE, except that there’s no <code>.war</code> and no <code>web.xml</code>. There’s only your application, and you need to let Bootique know about your objects and how they should be mapped to request URLs. Let’s start with servlets.</p>
+  </div>
+  <div class="sect2">
+   <h3 id="_servlets">2.1. Servlets</h3>
+   <div class="paragraph">
+    <p>The easiest way to add a servlet to a Bootique app is to annotate it with <code>@WebServlet</code>, providing name and url patterns:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-java java" data-lang="java">@WebServlet(
+    name = "myservlet",
+    urlPatterns = "/b",
+    initParams = {
+        @WebInitParam(name = "p1", value = "v1"),
+        @WebInitParam(name = "p2", value = "v2")
+    }
+)
+public class AnnotatedServlet extends HttpServlet {
+    //...
+}</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p>The "name" annotation is kind of important as it would allow to override annotation values in the YAML, as described in the "Configuration Reference" chapter. A servlet created this way can inject any services it might need using normal Guice injection.</p>
+   </div>
+   <div class="paragraph">
+    <p>Next step is adding it to Bootique via <code>JettyModule</code> contribution API called from your application Module:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-java java" data-lang="java">@Override
+public void configure(Binder binder) {
+    JettyModule.extend(binder).addServlet(AnnotatedServlet.class);
+}</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p>But what if you are deploying a third-party servlet that is not annotated? Or annotation values are off in the context of your application? There are two choices. The first is to subclass such servlets and annotate the subclasses that you control.</p>
+   </div>
+   <div class="paragraph">
+    <p>The second is to wrap your servlet in a special metadata object called <code>MappedServlet</code>, providing all the mapping information in that wrapper. This is a bit too verbose, but can be a good way to define the mapping that is not otherwise available:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-java java" data-lang="java">@Override
+public void configure(Binder binder) {
+    MappedServlet mappedServlet = new MappedServlet(
+       new MyServlet(),
+       Collections.singleton("/c"),
+       "myservlet");
+
+    JettyModule.extend(binder).addMappedServlet(mappedServlet);
+}</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p>Finally if we need to use MappedServlet for mapping servlet URLs and parameters, but also need the ability to initialize the underlying servlet with environment dependencies, we can do something like this:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-java java" data-lang="java">@Singleton
+@Provides
+MappedServlet&lt;MyServlet&gt; provideMyServlet(MyService1 s1, MyService2 s2) {
+    MyServlet servlet = new MyServlet(s1, s2);
+    return new MappedServlet&lt;&gt;(servlet, Collections.singleton("/c"), "myservlet");
+}
+
+// must use TypeLiteral to contribute MappedServlet&lt;MyServlet&gt; to the servlet collection
+@Override
+public void configure(Binder binder) {
+    TypeLiteral&lt;MappedServlet&lt;Servlet2&gt;&gt; tl = new TypeLiteral&lt;MappedServlet&lt;MyServlet&gt;&gt;() {};
+    JettyModule.extend(binder).addMappedServlet(tl);
+}</code></pre>
+    </div>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_servlet_filters">2.2. Servlet Filters</h3>
+   <div class="paragraph">
+    <p>Just like servlets, you can annotate and register your filters:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-java java" data-lang="java">@WebFilter(
+    filterName = "f1",
+    urlPatterns = "/b/*",
+    initParams = {
+        @WebInitParam(name = "p1", value = "v1"),
+        @WebInitParam(name = "p2", value = "v2")
+    }
+)
+public class AnnotatedFilter implements Filter { .. }</code></pre>
+    </div>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-java java" data-lang="java">@Override
+public void configure(Binder binder) {
+    JettyModule.extend(binder).addFilter(AnnotatedFilter.class);
+}</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p>And just like with servlets you can use <code>MappedFilter</code> and <code>JettyModule.extend(..).addMappedFilter</code> to wrap a filter in app-specific metadata.</p>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_listeners">2.3. Listeners</h3>
+   <div class="paragraph">
+    <p>Listeners are simpler then servlets or filters. All you need is to create classes that implement one of servlet specification listener interfaces (<code>ServletContextListener</code>, <code>HttpSessionListener</code>, etc.) and bind them in your app:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-java java" data-lang="java">@Override
+public void configure(Binder binder) {
+    JettyModule.extend(binder).addListener(MyListener.class);
+}</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p>Listeners can rely on injection to obtain dependencies, just like servlets and filters.</p>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_serving_static_files">2.4. Serving Static Files</h3>
+   <div class="paragraph">
+    <p>TODO</p>
+   </div>
+  </div>
+ </div>
+</div>
+<div class="sect1">
+ <h2 id="_configuration_reference">3. Configuration Reference</h2>
+ <div class="sectionbody">
+  <div class="sect2">
+   <h3 id="_jetty">3.1. jetty</h3>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jetty:
+  context: "/myapp"
+  maxThreads: 100
+  params:
+    a: a1
+    b: b2</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p>"jetty" is a root element of the Jetty configuration and is bound to a <a href="https://github.com/bootique/bootique-jetty/blob/1.x/bootique-jetty/src/main/java/io/bootique/jetty/server/ServerFactory.java"><code>ServerFactory</code></a> object. It supports the following properties:</p>
+   </div>
+   <table class="tableblock frame-all grid-all stretch">
+    <caption class="title">
+     Table 1. "jetty" Element Property Reference
+    </caption>
+    <colgroup>
+     <col style="width: 33.3333%;">
+     <col style="width: 33.3333%;">
+     <col style="width: 33.3334%;">
+    </colgroup>
+    <thead>
+     <tr>
+      <th class="tableblock halign-left valign-top">Property</th>
+      <th class="tableblock halign-left valign-top">Default</th>
+      <th class="tableblock halign-left valign-top">Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>compression</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>true</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A boolean specifying whether gzip compression should be supported. When enabled (default), responses will be compressed if a client indicates it supports compression via <code>"Accept-Encoding: gzip"</code> header.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>connectors</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">a single HTTP connector on port 8080</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A list of connectors. Each connector listens on a single port. There can be HTTP or HTTPS connectors. See <code>jetty.connectors</code> below.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>context</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>/</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Web application context path.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>idleThreadTimeout</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>60000</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A period in milliseconds specifying how long until an idle thread is terminated.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>filters</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">empty map</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A map of servlet filter configurations by filter name. See <code>jetty.filters</code> below.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>maxThreads</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>1024</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Maximum number of request processing threads in the pool.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>minThreads</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>4</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Initial number of request processing threads in the pool.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>maxQueuedRequests</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>1024</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Maximum number of requests to queue if the thread pool is busy.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>params</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">empty map</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A map of arbitrary key/value parameters that are used as "init" parameters of the ServletContext.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>servlets</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">empty map</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A map of servlet configurations by servlet name. See <code>jetty.servlets</code> below.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>sessions</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>true</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A boolean specifying whether servlet sessions should be supported by Jetty.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>staticResourceBase</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">none</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Defines a base location for resources of the Jetty context. It can be a filesystem path, a URL or a special “classpath:” URL (which gives the ability to bundle resources in the app, not unlike a JavaEE .war file). + For security reasons this annotation has to be set explicitly. There’s no default. + This setting only makes sense when some form of "default" servlet is in use, that will be responsible for serving static resources. See <code>JettyModule.contributeStaticServlet(..)</code> or <code>JettyModule.contributeDefaultServlet(..)</code>. Such servlet will use the path defined here, unless overridden via servlet parameters. For the list fo servlet parameters see <a href="http://download.eclipse.org/jetty/9.3.7.v20160115/apidocs/org/eclipse/jetty/servlet/DefaultServlet.html">Jetty default servlet docs</a>.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>compactPath</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>false</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">True if URLs are compacted to replace multiple '/'s with a single '/'</p></td>
+     </tr>
+    </tbody>
+   </table>
+   <div class="sect3">
+    <h4 id="_jetty_connectors">3.1.1. jetty.connectors</h4>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jetty:
+  connectors:
+    - port: 9999
+    - port: 9998
+      type: https</code></pre>
+     </div>
+    </div>
+    <div class="paragraph">
+     <p>"jetty.connectors" element configures one or more web connectors. Each connector listens on a specified port and has an associated protocol (http or https). If no connectors are provided, Bootique will create a single HTTP connector on port 8080.</p>
+    </div>
+    <div class="paragraph">
+     <p>HTTPS connectors require an SSL certificate (real or self-signed), stored in a keystore. <a href="http://www.eclipse.org/jetty/documentation/9.4.x/configuring-ssl.html">Jetty documentaion on the subject</a> should help with generating a certificate. In its simplest form it may look like this:</p>
+    </div>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-bash bash" data-lang="bash">keytool -keystore src/main/resources/mykeystore \
+       -alias mycert -genkey -keyalg RSA -sigalg SHA256withRSA -validity 365</code></pre>
+     </div>
+    </div>
+    <table class="tableblock frame-all grid-all stretch">
+     <caption class="title">
+      Table 2. HTTP connector property reference
+     </caption>
+     <colgroup>
+      <col style="width: 33.3333%;">
+      <col style="width: 33.3333%;">
+      <col style="width: 33.3334%;">
+     </colgroup>
+     <thead>
+      <tr>
+       <th class="tableblock halign-left valign-top">Property</th>
+       <th class="tableblock halign-left valign-top">Default</th>
+       <th class="tableblock halign-left valign-top">Description</th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>type</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">N/A</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">Connector type. To use HTTP connector, this value must be set to "http", or omitted all together ("http" is the default).</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>port</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>8080</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">A port the connector listens on.</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>host</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>*</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">A host the connector listens on. * to listen on all, 127.0.0.1 to listen on IPv4 localhost.</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>requestHeaderSize</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>8192</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">A max size in bytes of Jetty request headers and GET URLs.</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>responseHeaderSize</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>8192</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">A max size in bytes of Jetty response headers.</p></td>
+      </tr>
+     </tbody>
+    </table>
+    <table class="tableblock frame-all grid-all stretch">
+     <caption class="title">
+      Table 3. HTTPS connector property reference
+     </caption>
+     <colgroup>
+      <col style="width: 33.3333%;">
+      <col style="width: 33.3333%;">
+      <col style="width: 33.3334%;">
+     </colgroup>
+     <thead>
+      <tr>
+       <th class="tableblock halign-left valign-top">Property</th>
+       <th class="tableblock halign-left valign-top">Default</th>
+       <th class="tableblock halign-left valign-top">Description</th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>type</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">N/A</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">Connector type. To use HTTPS connector, this value must be set to "https".</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>port</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>8080</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">A port the connector listens on.</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>requestHeaderSize</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>8192</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">A max size in bytes of Jetty request headers and GET URLs.</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>responseHeaderSize</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>8192</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">A max size in bytes of Jetty response headers.</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>keyStore</code></p></td>
+       <td class="tableblock halign-left valign-top"></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">Required. A resource pointing to the keystore that has server SSL certificate. Can be a "classpath:" resource, etc.</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>keyStorePassword</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>changeit</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">A password to access the keystore.</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>certificateAlias</code></p></td>
+       <td class="tableblock halign-left valign-top"></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">An optional name of the certificate in the keystore, if there’s more than one certificate.</p></td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+   <div class="sect3">
+    <h4 id="_jetty_filters">3.1.2. jetty.filters</h4>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jetty:
+  filters:
+    f1:
+      urlPatterns:
+        - '/a/*/'
+        - '/b/*'
+      params:
+        p1: v1
+        p2: v2
+    f2:
+      params:
+        p3: v3
+        p4: v4</code></pre>
+     </div>
+    </div>
+    <div class="paragraph">
+     <p>TODO</p>
+    </div>
+   </div>
+   <div class="sect3">
+    <h4 id="_jetty_servlets">3.1.3. jetty.servlets</h4>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jetty:
+  servlets:
+    s1:
+      urlPatterns:
+        - '/myservlet'
+        - '/someotherpath'
+      params:
+        p1: v1
+        p2: v2
+    s2:
+      params:
+        p3: v3
+        p4: v4
+    default:
+      params:
+        resourceBase: /var/www/html</code></pre>
+     </div>
+    </div>
+    <div class="paragraph">
+     <p>TODO</p>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>

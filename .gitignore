@@ -5,7 +5,8 @@
 
 # Docs
 /docs/
-/content/docs/
+/content/docs/3.x
+/content/docs/4.x
 
 # Dependencies
 /app/node_modules/

@@ -5,31 +5,16 @@ docs:
   repos:
     - url: https://github.com/bootique/bootique.git
       versions:
-        "1.x": "1.x"
-        "2.x": "2.x"
         "3.x": "3.x"
-    - url: https://github.com/bootique/bootique-kotlin.git
-      versions:
-        "1.x": "1.x"
-        "2.x": "2.x"
     - url: https://github.com/bootique/bootique-logback.git
       versions:
-        "1.x": "1.x"
-        "2.x": "2.x"
         "3.x": "3.x"
     - url: https://github.com/bootique/bootique-jdbc.git
       versions:
-        "1.x": "1.x"
-        "2.x": "2.x"
         "3.x": "3.x"
     - url: https://github.com/bootique/bootique-jetty.git
       versions:
-        "1.x": "1.x"
-        "2.x": "2.x"
         "3.x": "3.x"
     - url: https://github.com/bootique/bootique-tool.git
       versions:
         "3.x": "master"
-    - url: https://github.com/bootique/bootique-di.git
-      versions:
-        "2.x": "2.x"

@@ -1,0 +1,1192 @@
+---
+title: "Bootique v2 JDBC Documentation"
+metaTitle: "Bootique - v2 JDBC Module Documentation"
+metaDescription: "Master database interactions with Bootique - v2 JDBC module. Our documentation guides you through setup, configuration, and efficient data management for Java apps."
+metaKeywords: "bootique, jdbc, bootique-jdbc"
+---
+
+
+<div class="sect1">
+ <h2 id="jdbc-integration">1. Bootique Integration with JDBC</h2>
+ <div class="sectionbody">
+  <div class="paragraph">
+   <p>JDBC is a standard and well-known API to access relational databases. To connect to a database you need a connection pool (<code>javax.sql.DataSource</code>). <a href="https://github.com/bootique/bootique-jdbc"><code>bootique-jdbc</code></a> helps to configure one or more DataSources in your app. It also provides advanced APIs for connection pool monitoring and database testing. <code>bootique-jdbc</code> is used by applications directly, as well as by other Bootique modules that require database access (Cayenne, JOOQ, MyBatis, etc.).</p>
+  </div>
+  <div class="paragraph">
+   <p>Out of the box Bootique supports a choice of two connection pool providers:</p>
+  </div>
+  <div class="ulist">
+   <ul>
+    <li>
+     <p><a href="https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html">Tomcat JDBC</a></p></li>
+    <li>
+     <p><a href="https://github.com/brettwooldridge/HikariCP">HikariCP</a>.</p></li>
+   </ul>
+  </div>
+  <div class="paragraph">
+   <p>Both are production-quality. From the application perspective the difference is in configuration and available <a href="#jdbc-merics-and-healthchecks">metrics and health checks</a>. Beyond that Bootique (and JDBC) gives you the API abstraction common to both, so you can pick either one.</p>
+  </div>
+  <div class="paragraph">
+   <p>Import one of these Bootique modules in your app, depending on your connection pool choice:</p>
+  </div>
+  <details open>
+   <summary class="title">Maven</summary>
+   <div class="content">
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For Tomcat DataSource --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-jdbc-tomcat&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+     </div>
+    </div>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For HikariCP --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-jdbc-hikaricp&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+     </div>
+    </div>
+   </div>
+  </details>
+  <details>
+   <summary class="title">Gradle</summary>
+   <div class="content">
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">// For Tomcat DataSource
+{
+  implementation: 'io.bootique.jdbc:bootique-jdbc-tomcat'
+}</code></pre>
+     </div>
+    </div>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">// For HikariCP
+{
+  implementation: 'io.bootique.jdbc:bootique-jdbc-hikaricp'
+}</code></pre>
+     </div>
+    </div>
+   </div>
+  </details>
+  <div class="paragraph">
+   <p>Alternatively you may include an <a href="#jdbc-merics-and-healthchecks">"instrumented" version</a> of each module, that will enable a number of metrics for your running app.</p>
+  </div>
+  <div class="paragraph">
+   <p>You will also need to add JDBC driver jar to the app dependencies corresponding to your database.</p>
+  </div>
+ </div>
+</div>
+<div class="sect1">
+ <h2 id="jdbc-configuration">2. Programming with "bootique-jdbc"</h2>
+ <div class="sectionbody">
+  <div class="paragraph">
+   <p>To work with а database you need an instance of <code>javax.sql.DataSource</code>. <code>bootique-jdbc</code> provides a way to configure one or more named DataSource in the app. Here is a minimal configuration example using HikariCP format. Full reference for both Tomcat and HikariCP configuration is provided in <a href="#jdbc-configuration-ref">this chapter</a>. (And don’t forget that you can print full configuration docs for your version of Bootique by running your app with <code>-H</code> flag).</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
+    <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jdbc:
+  mysql:
+    jdbcUrl: "jdbc:mysql://host/db"
+    username: testuser
+    password: secret</code></pre>
+   </div>
+  </div>
+  <div class="paragraph">
+   <p>Once you have a named DataSource configured, you can inject a <code>io.bootique.jdbc.DataSourceFactory</code> and access configured DataSources by name:</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
+    <pre class="highlight"><code class="language-java java" data-lang="java">@Inject
+private DataSourceFactory dataSourceFactory;</code></pre>
+   </div>
+  </div>
+  <div class="listingblock">
+   <div class="content">
+    <pre class="highlight"><code class="language-java java" data-lang="java">DataSource dataSource = dataSourceFactory.forName("mysql");
+try (Connection connection = dataSource.getConnection()) {
+    // work with DB...
+}</code></pre>
+   </div>
+  </div>
+ </div>
+</div>
+<div class="sect1">
+ <h2 id="jdbc-merics-and-healthchecks">3. Metrics and Health Checks</h2>
+ <div class="sectionbody">
+  <div class="paragraph">
+   <p>You may use the "instrumented" version of one of the <code>bootique-jdbc-*</code> connection pools, that will expose a number of metrics and health checks:</p>
+  </div>
+  <details open>
+   <summary class="title">Maven</summary>
+   <div class="content">
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For Tomcat DataSource --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-jdbc-tomcat-instrumented&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+     </div>
+    </div>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For HikariCP --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-jdbc-hikaricp-instrumented&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+     </div>
+    </div>
+   </div>
+  </details>
+  <details>
+   <summary class="title">Gradle</summary>
+   <div class="content">
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">// For Tomcat DataSource
+{
+  implementation: 'io.bootique.jdbc:bootique-jdbc-tomcat-instrumented'
+}</code></pre>
+     </div>
+    </div>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">// For HikariCP
+{
+  implementation: 'io.bootique.jdbc:bootique-jdbc-hikaricp-instrumented'
+}</code></pre>
+     </div>
+    </div>
+   </div>
+  </details>
+ </div>
+</div>
+<div class="sect1">
+ <h2 id="jdbc-testing">4. Testing</h2>
+ <div class="sectionbody">
+  <div class="admonitionblock note">
+   <table>
+    <tbody>
+     <tr>
+      <td class="icon"><i class="fa fa-info-circle fa-2x" title="Note"></i></td>
+      <td class="content">Bootique provides integration for both JUnit 4 and JUnit 5. This chapter will focus exclusively on the latter. JUnit 5 integration is much more capable.</td>
+     </tr>
+    </tbody>
+   </table>
+  </div>
+  <div class="paragraph">
+   <p>"bootique-jdbc" test extensions provide a way to create a test database. This can be either an in-memory DB (Derby), or a real DB started via Docker / <a href="https://www.testcontainers.org/">testcontainers library</a>. The test database can be initialized with either a SQL script, Liquibase migrations, or custom code. There’s an API to create test data sets and perform assertions against DB data after the tested code is executed.</p>
+  </div>
+  <div class="paragraph">
+   <p>The main object used to control the DB in tests is <code>DbTester</code>. Depending on whether you want to use Derby or a real DB, you create it differently, as described in the following two sections.</p>
+  </div>
+  <div class="sect2">
+   <h3 id="_in_memory_derby_db">4.1. In-memory Derby DB</h3>
+   <div class="paragraph">
+    <p>Testing with an in-memory DB has the advantage of speed, and a disadvantage of being only an approximation of the production DB. If you decide to go this way, start by including the following dependency:</p>
+   </div>
+   <details open>
+    <summary class="title">Maven</summary>
+    <div class="content">
+     <div class="listingblock">
+      <div class="content">
+       <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-jdbc-junit5-derby&lt;/artifactId&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+      </div>
+     </div>
+    </div>
+   </details>
+   <details>
+    <summary class="title">Gradle</summary>
+    <div class="content">
+     <div class="listingblock">
+      <div class="content">
+       <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
+  testImplementation: 'io.bootique.jdbc:bootique-jdbc-junit5-derby'
+}</code></pre>
+      </div>
+     </div>
+    </div>
+   </details>
+   <div class="paragraph">
+    <p>Then create a <code>DbTester</code> in a desired scope:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-java java" data-lang="java">@BQTest <i class="conum" data-value="1"></i><b>(1)</b>
+public class DerbyTest {
+
+    @BQTestTool <i class="conum" data-value="2"></i><b>(2)</b>
+    static final DbTester tester = DerbyTester.db();
+}</code></pre>
+    </div>
+   </div>
+   <div class="colist arabic">
+    <table>
+     <tbody>
+      <tr>
+       <td><i class="conum" data-value="1"></i><b>1</b></td>
+       <td>DbTester requires containing test to be annotated with <code>BQTest</code>.</td>
+      </tr>
+      <tr>
+       <td><i class="conum" data-value="2"></i><b>2</b></td>
+       <td>DbTester requires <code>BQTestTool</code> annotation.</td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_dockertestcontainers_db">4.2. Docker/Testcontainers DB</h3>
+   <div class="paragraph">
+    <p>If you need a real database environment that is as close as possible to your production, you need to include a different dependency plus a few third-party libraries:</p>
+   </div>
+   <details open>
+    <summary class="title">Maven</summary>
+    <div class="content">
+     <div class="listingblock">
+      <div class="content">
+       <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
+    &lt;artifactId&gt;bootique-jdbc-junit5-testcontainers&lt;/artifactId&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+
+&lt;!-- DB-specific testcontainers module --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.testcontainers&lt;/groupId&gt;
+    &lt;artifactId&gt;mysql&lt;/artifactId&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+
+&lt;!-- JDBC driver --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;mysql&lt;/groupId&gt;
+    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+      </div>
+     </div>
+    </div>
+   </details>
+   <details>
+    <summary class="title">Gradle</summary>
+    <div class="content">
+     <div class="listingblock">
+      <div class="content">
+       <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
+    testImplementation: 'io.bootique.jdbc:bootique-jdbc-junit5-testcontainers'
+    testImplementation: 'org.testcontainers:mysql'
+    testImplementation: 'mysql:mysql-connector-java'
+}</code></pre>
+      </div>
+     </div>
+    </div>
+   </details>
+   <div class="paragraph">
+    <p>Now you can create a <code>DbTester</code> using <code>TcDbTester</code>:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-java java" data-lang="java">@BQTest
+public class PostgresTest {
+
+    @BQTestTool(BQTestScope.GLOBAL) <i class="conum" data-value="1"></i><b>(1)</b>
+    static final DbTester tester = TcDbTester.db("jdbc:tc:postgresql:11:///"); <i class="conum" data-value="2"></i><b>(2)</b>
+}</code></pre>
+    </div>
+   </div>
+   <div class="colist arabic">
+    <table>
+     <tbody>
+      <tr>
+       <td><i class="conum" data-value="1"></i><b>1</b></td>
+       <td>Often <code>TcDbTester</code> is created in the "GLOBAL" scope, as it may take a substantial time to start a database on Docker, so it makes sense to reuse it across many tests if at all possible.</td>
+      </tr>
+      <tr>
+       <td><i class="conum" data-value="2"></i><b>2</b></td>
+       <td>Pass a <a href="https://www.testcontainers.org/modules/databases/jdbc/">testcontainers JDBC URL</a> to specify the type of the DB, and the Docker container version you want to use for it. As an alternative you can pass an instance of <code>JdbcDatabaseContainer</code>, if you want to customize/manage the DB container and JDBC URL options are not sufficient for your setup.</td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="dbtester-db-initialization">4.3. DB initialization</h3>
+   <div class="paragraph">
+    <p>No matter whether your are using Derby or a Docker DB, after starting the database, you often need to initialize it with the schema and maybe some test data. <code>DbTester</code> provides a number of convenient options for this, that can be used in any combination:</p>
+   </div>
+   <div class="sect3">
+    <h4 id="_sql_script">4.3.1. SQL script</h4>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-java java" data-lang="java">@BQTestTool
+static final DbTester tester = TcDbTester
+        .db("jdbc:tc:postgresql:11:///")
+        .initDB("classpath:my/app/postgres-init.sql"); <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+     </div>
+    </div>
+    <div class="colist arabic">
+     <table>
+      <tbody>
+       <tr>
+        <td><i class="conum" data-value="1"></i><b>1</b></td>
+        <td>SQL init script. Format is Bootique "resource" URL (i.e. may start with "classpath:" prefix). The default delimiter of statements in the file is <code>;</code>. It can be changed via the <code>initDB</code> method second argument.</td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="sect3">
+    <h4 id="_custom_function">4.3.2. Custom function</h4>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-java java" data-lang="java">@BQTestTool
+static final DbTester tester = TcDbTester
+        .db("jdbc:tc:postgresql:11:///")
+        .initDB(c -&gt; initDB(c)); <i class="conum" data-value="1"></i><b>(1)</b>
+
+static void initDB(Connection connection) throws SQLException {  <i class="conum" data-value="2"></i><b>(2)</b>
+    try (Statement statement = connection.createStatement()) {
+        // do custom initialization
+        // ...
+    }
+}</code></pre>
+     </div>
+    </div>
+    <div class="colist arabic">
+     <table>
+      <tbody>
+       <tr>
+        <td><i class="conum" data-value="1"></i><b>1</b></td>
+        <td>Calling a custom init function</td>
+       </tr>
+       <tr>
+        <td><i class="conum" data-value="2"></i><b>2</b></td>
+        <td>A custom init function that takes <code>java.sql.Connection</code> as the only argument</td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="sect3">
+    <h4 id="_liquibase_migrations">4.3.3. Liquibase migrations</h4>
+    <div class="paragraph">
+     <p>This is an attractive option if you are already using Liquibase. It ensures that your test schema exactly matches your real schema at any moment:</p>
+    </div>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-java java" data-lang="java">@BQTestTool
+static final DbTester tester = TcDbTester
+        .db("jdbc:tc:postgresql:11:///")
+        .initDBWithLiquibaseChangelog("classpath:my/app/postgres-changelog.yml"); <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+     </div>
+    </div>
+    <div class="colist arabic">
+     <table>
+      <tbody>
+       <tr>
+        <td><i class="conum" data-value="1"></i><b>1</b></td>
+        <td>Liquibase changelog URL. Format is Bootique "resource" URL (i.e. may start with "classpath:" prefix).</td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_data_reset_before_each_test">4.4. Data reset before each test</h3>
+   <div class="paragraph">
+    <p>Since the DB may be setup once and reused between multiple tests, it is important to reset it to a known state before each test. The following code does it by deleting all data from the specified tables:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-java java" data-lang="java">@BQTestTool
+static final DbTester tester = TcDbTester
+        .db("jdbc:tc:postgresql:11:///")
+        .deleteBeforeEachTest("t1", "t2", "t3"); <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+    </div>
+   </div>
+   <div class="colist arabic">
+    <table>
+     <tbody>
+      <tr>
+       <td><i class="conum" data-value="1"></i><b>1</b></td>
+       <td>A vararg that lists tables whose data needs to be deleted before each test. To avoid foreign key constraint violations during delete, you must pass tables names to this method in the "insert" order (e.g. if "t2" has an FK to "t1", "t2" must go <strong>after</strong> "t1").</td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_connecting_dbtester_with_test_bqruntime">4.5. Connecting DbTester with test BQRuntime</h3>
+   <div class="paragraph">
+    <p>With DbTester you don’t need to worry about knowing your database URL and port (in fact the port is set dynamically) or write a special YAML. Instead you need to pass a "module" generated by DbTester that will (re)define a named DataSources on the fly:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-java java" data-lang="java">@BQApp
+static final BQRuntime app = Bootique.app()
+        .autoLoadModules()
+        .module(tester.moduleWithTestDataSource("mydb")) <i class="conum" data-value="1"></i><b>(1)</b>
+        .createRuntime();</code></pre>
+    </div>
+   </div>
+   <div class="colist arabic">
+    <table>
+     <tbody>
+      <tr>
+       <td><i class="conum" data-value="1"></i><b>1</b></td>
+       <td>This will create or replace Bootique configuration for "mydb" to connect to the test DB managed by DbTester.</td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+   <div class="paragraph">
+    <p>A single DbTester can be used to bootstrap multiple BQRuntimes or multiple DataSources within a given runtime.</p>
+   </div>
+  </div>
+  <div class="sect2">
+   <h3 id="_using_dbtester">4.6. Using DbTester</h3>
+   <div class="paragraph">
+    <p>In addition to bootstrapping a DB, DbTester provides rich API for managing test data sets and making assertions of the DB state. The most direct way to access the DB within a test is via a <code>DataSource</code> obtained from DbTester:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-java java" data-lang="java">@Test
+public void test1() {
+
+    DataSource dataSource = tester.getDataSource();
+
+    // ... use dataSource to connect to DB
+}</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p>The DataSource would allow you to run any operations against the DB, however normally you would use a more high-level API to work with data - a <code>Table</code> object. DbTester dynamically creates a <code>Table</code> instance for each table in the underlying DB. You can access it as follows:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-java java" data-lang="java">Table myTable = tester.getTable("my_table");</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p><code>Table</code> supports a variety of operations against a single DB table. E.g.:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-java java" data-lang="java">// delete table contents
+myTable.deleteAll();</code></pre>
+    </div>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-java java" data-lang="java">// insert test data
+myTable.insertColumns("id", "c1")
+        .values(1, "x1")
+        .values(2, "x2")
+        .exec();</code></pre>
+    </div>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-java java" data-lang="java">// check that data matches expectations
+myTable.matcher().eq("c1", "x1").assertOneMatch();</code></pre>
+    </div>
+   </div>
+   <div class="paragraph">
+    <p>Explore the <code>Table</code> class for more capabilities such as loading data from CSV, running updates, etc.</p>
+   </div>
+  </div>
+ </div>
+</div>
+<div class="sect1">
+ <h2 id="jdbc-configuration-ref">5. Configuration Reference</h2>
+ <div class="sectionbody">
+  <div class="paragraph">
+   <p><code>jdbc</code> is the root element of a configuration. It is a map of named data source configurations:</p>
+  </div>
+  <div class="listingblock">
+   <div class="content">
+    <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jdbc:
+  ds1: ...
+  ds2: ...</code></pre>
+   </div>
+  </div>
+  <div class="paragraph">
+   <p>DataSource properties depend on whether you are using Tomcat or Hikari (or your own) connection pool and are documented below.</p>
+  </div>
+  <div class="sect2">
+   <h3 id="_tomcat_jdbc">5.1. Tomcat JDBC</h3>
+   <div class="paragraph">
+    <p>Tomcat DataSource is produced by <code>io.bootique.jdbc.tomcat.TomcatManagedDataSourceFactory</code> and supports the properties listed below. A typical config might look like this:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jdbc:
+  mysql:
+    url: "jdbc:mysql://host/db"
+    username: testuser
+    password: secret</code></pre>
+    </div>
+   </div>
+   <table class="tableblock frame-all grid-all stretch">
+    <caption class="title">
+     Table 1. Tomcat DataSource Property Reference - Essential Properties
+    </caption>
+    <colgroup>
+     <col style="width: 33.3333%;">
+     <col style="width: 33.3333%;">
+     <col style="width: 33.3334%;">
+    </colgroup>
+    <thead>
+     <tr>
+      <th class="tableblock halign-left valign-top">Property</th>
+      <th class="tableblock halign-left valign-top">Default</th>
+      <th class="tableblock halign-left valign-top">Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>type</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Can be omitted if <code>bootique-jdbc-tomcat</code> is the only DataSourceFactory implementation in the app dependencies. In rare cases when there is more than one implementation, set to <code>tomcat</code>.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>defaultAutoCommit</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>initialSize</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>maxActive</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>maxIdle</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>maxWait</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>minIdle</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>password</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Database user password</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>url</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Database URL. Required.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>username</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Database user name.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>validationQuery</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">The query that will be executed just before a connection is given to the app from the pool to validate that the connection to the database is still alive.</p></td>
+     </tr>
+    </tbody>
+   </table>
+   <table class="tableblock frame-all grid-all stretch">
+    <caption class="title">
+     Table 2. Tomcat DataSource Property Reference - Other Properties
+    </caption>
+    <colgroup>
+     <col style="width: 33.3333%;">
+     <col style="width: 33.3333%;">
+     <col style="width: 33.3334%;">
+    </colgroup>
+    <thead>
+     <tr>
+      <th class="tableblock halign-left valign-top">Property</th>
+      <th class="tableblock halign-left valign-top">Default</th>
+      <th class="tableblock halign-left valign-top">Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>abandonWhenPercentageFull</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>alternateUsernameAllowed</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>commitOnReturn</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>dataSourceJNDI</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>defaultCatalog</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>defaultReadOnly</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>defaultTransactionIsolation</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>driverClassName</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>fairQueue</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>ignoreExceptionOnPreLoad</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>initSQL</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>jdbcInterceptors</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>jmxEnabled</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>jmxObjectName</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>logAbandoned</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>logValidationErrors</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>maxAge</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>minEvictableIdleTimeMillis</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>numTestsPerEvictionRun</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>propagateInterruptState</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>removeAbandoned</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>removeAbandonedTimeout</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>rollbackOnReturn</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>testOnBorrow</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>testOnReturn</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>testWhileIdle</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>testOnConnect</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>timeBetweenEvictionRunsMillis</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>useDisposableConnectionFacade</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>useEquals</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>useLock</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>validationQueryTimeout</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>validatorClassName</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>validationInterval</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top"></td>
+     </tr>
+    </tbody>
+   </table>
+  </div>
+  <div class="sect2">
+   <h3 id="_hikaricp">5.2. HikariCP</h3>
+   <div class="paragraph">
+    <p>HikariCP DataSource is produced by <code>io.bootique.jdbc.hikaricp.HikariCPManagedDataSourceFactory</code> and supports the properties listed below (mostly matching <a href="https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby">HikariCP docs</a>. In fact most of the descriptions are adopted from that document). A typical config might look like this:</p>
+   </div>
+   <div class="listingblock">
+    <div class="content">
+     <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jdbc:
+  mysql:
+    jdbcUrl: "jdbc:mysql://host/db"
+    username: testuser
+    password: secret</code></pre>
+    </div>
+   </div>
+   <table class="tableblock frame-all grid-all stretch">
+    <caption class="title">
+     Table 3. HikariCP DataSource Property Reference - Essential Properties
+    </caption>
+    <colgroup>
+     <col style="width: 33.3333%;">
+     <col style="width: 33.3333%;">
+     <col style="width: 33.3334%;">
+    </colgroup>
+    <thead>
+     <tr>
+      <th class="tableblock halign-left valign-top">Property</th>
+      <th class="tableblock halign-left valign-top">Default</th>
+      <th class="tableblock halign-left valign-top">Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>type</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Can be omitted if <code>bootique-jdbc-hikaricp</code> is the only DataSourceFactory implementation in the app dependencies. In rare cases when there is more than one implementation, set to either <code>hikari</code> or <code>hikari-instrumented</code>.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>autoCommit</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>true</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Controls the default auto-commit behavior of connections returned from the pool.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>connectionTestQuery</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">The query that will be executed just before a connection is given to the app from the pool to validate that the connection to the database is still alive. This is for "legacy" drivers that do not support the JDBC4 <code>Connection.isValid()</code> API.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>connectionTimeout</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">30000</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Long value representing milliseconds. Controls the maximum number of milliseconds that the app will wait for a connection from the pool. If this time is exceeded without a connection becoming available, a SQLException will be thrown. Lowest acceptable connection timeout is 250 ms.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>idleTimeout</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">600000</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Long value representing milliseconds. Controls the maximum amount of time that a connection is allowed to sit idle in the pool. This setting only applies when <code>minimumIdle</code> is defined to be less than <code>maximumPoolSize</code>. Idle connections will not be retired once the pool reaches <code>minimumIdle</code> connections. Whether a connection is retired as idle or not is subject to a maximum variation of +30 seconds, and average variation of +15 seconds. A connection will never be retired as idle before this timeout. A value of 0 means that idle connections are never removed from the pool. The minimum allowed value is 10000ms (10 seconds).</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>jdbcUrl</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Database URL. Required for "DriverManager-based" configuration. (The alternative is "DataSource-based" config).</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>maximumPoolSize</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">10</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Controls the maximum size that the pool is allowed to reach, including both idle and in-use connections. This value will determine the maximum number of actual connections to the database backend. When the pool reaches this size, and no idle connections are available, calls to <code>getConnection()</code> will block for up to <code>connectionTimeout</code> milliseconds before timing out.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>minimumIdle</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">same as <code>maximumPoolSize</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Controls the minimum number of idle connections that HikariCP tries to maintain in the pool. If the idle connections dip below this value and total connections in the pool are less than <code>maximumPoolSize</code>, HikariCP will make a best effort to add additional connections quickly and efficiently. However, for maximum performance and responsiveness to spike demands, it is recommended not setting this value and instead allowing HikariCP to act as a fixed size connection pool.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>password</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Database user password</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>username</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Database user name.</p></td>
+     </tr>
+    </tbody>
+   </table>
+   <table class="tableblock frame-all grid-all stretch">
+    <caption class="title">
+     Table 4. HikariCP DataSource Property Reference - Other Properties
+    </caption>
+    <colgroup>
+     <col style="width: 33.3333%;">
+     <col style="width: 33.3333%;">
+     <col style="width: 33.3334%;">
+    </colgroup>
+    <thead>
+     <tr>
+      <th class="tableblock halign-left valign-top">Property</th>
+      <th class="tableblock halign-left valign-top">Default</th>
+      <th class="tableblock halign-left valign-top">Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>allowPoolSuspension</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>false</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Controls whether the pool can be suspended and resumed through JMX</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>catalog</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">driver default</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">The default catalog for databases that support the concept of catalogs. If this property is not specified, the default catalog defined by the JDBC driver is used.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>connectionInitSql</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A SQL statement that will be executed after every new connection creation before adding it to the pool. If this SQL is not valid or throws an exception, it will be treated as a connection failure and the standard retry logic will be followed.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>dataSourceClassName</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">The name of the DataSource class provided by the JDBC driver. Consult the documentation for your specific JDBC driver to get this class name. XA data sources are not supported. XA requires a real transaction manager. You do not need this property if you are using <code>jdbcUrl</code> for "old-school" DriverManager-based JDBC driver configuration.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>dataSourceJNDI</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">JNDI name to use for DataSource lookup. JNDI is a rather foreign concept to Bootique, so this is rarely used if ever.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>dataSourceProperties</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">A map of properties passed the DataSource created for <code>dataSourceClassName</code> property. Ignored if <code>dataSourceClassName</code> is not in use and <code>jdbcUrl</code> is used.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>driverClassName</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Used to load a specific driver class via DriverManager. Usually cab be omitted, as the driver can be resolved from <code>jdbcUrl</code>.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>initializationFailTimeout</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">1</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Controls whether the pool will "fail fast" if the pool cannot be seeded with an initial connection successfully. Any positive number is taken to be the number of milliseconds to attempt to acquire an initial connection; the application thread will be blocked during this period. If a connection cannot be acquired before this timeout occurs, an exception will be thrown. This timeout is applied after the <code>connectionTimeout</code> period. If the value is zero, HikariCP will attempt to obtain and validate a connection. If a connection is obtained, but fails validation, an exception will be thrown and the pool not started. However, if a connection cannot be obtained, the pool will start, but later efforts to obtain a connection may fail. A value less than zero will bypass any initial connection attempt, and the pool will start immediately while trying to obtain connections in the background. Consequently, later efforts to obtain a connection may fail.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>isolateInternalQueries</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">false</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Determines whether HikariCP isolates internal pool queries, such as the connection alive test, in their own transaction. Since these are typically read-only queries, it is rarely necessary to encapsulate them in their own transaction. This property only applies if <code>autoCommit</code> is disabled.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>leakDetectionThreshold</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">0</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Long value representing milliseconds. Controls the amount of time that a connection can be out of the pool before a message is logged indicating a possible connection leak. A value of 0 means leak detection is disabled. Lowest acceptable value for enabling leak detection is 2000 (2 seconds).</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>maxLifetime</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">1800000 (30 minutes)</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Long value representing milliseconds. Controls the maximum lifetime of a connection in the pool. An in-use connection will never be retired, only when it is closed will it then be removed. On a connection-by-connection basis, minor negative attenuation is applied to avoid mass-extinction in the pool. We strongly recommend setting this value, and it should be several seconds shorter than any database or infrastructure imposed connection time limit. A value of 0 indicates no maximum lifetime (infinite lifetime), subject of course to the idleTimeout setting. The minimum allowed value is 30000ms (30 seconds).</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>readOnly</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">false</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Boolean. Controls whether Connections obtained from the pool are in read-only mode by default. Some databases do not support the concept of read-only mode, while others provide query optimizations when the Connection is set to read-only. Whether you need this property or not will depend largely on your application and database.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>registerMbeans</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">false</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Boolean. Controls whether or not JMX Management Beans ("MBeans") are registered or not.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>schema</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">driver default</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Default schema for databases that support the concept of schemas. If not specified, the default schema defined by the JDBC driver is used.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>transactionIsolation</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">driver default</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Controls the default transaction isolation level of connections returned from the pool. If not specified, the default transaction isolation level defined by the JDBC driver is used. Only use this property if you have specific isolation requirements that are common for all queries. The value of this property is the constant name from the Connection class such as TRANSACTION_READ_COMMITTED, TRANSACTION_REPEATABLE_READ, etc.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>validationTimeout</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">5000</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Long value representing milliseconds. Controls the maximum amount of time that a connection will be tested for aliveness. This value must be less than the <code>connectionTimeout</code>. Lowest acceptable validation timeout is 250 ms.</p></td>
+     </tr>
+    </tbody>
+   </table>
+   <div class="paragraph">
+    <p>"hikari-instrumented" inherits from "hikari" and supports an additional set of properties:</p>
+   </div>
+   <table class="tableblock frame-all grid-all stretch">
+    <caption class="title">
+     Table 5. HikariCP Instrumented Property Reference
+    </caption>
+    <colgroup>
+     <col style="width: 33.3333%;">
+     <col style="width: 33.3333%;">
+     <col style="width: 33.3334%;">
+    </colgroup>
+    <thead>
+     <tr>
+      <th class="tableblock halign-left valign-top">Property</th>
+      <th class="tableblock halign-left valign-top">Default</th>
+      <th class="tableblock halign-left valign-top">Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>health.connection99Percent</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Represented by DurationRangeFactory object <a href="#DurationRangeFactory">documented below</a>.</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>health.connectivity</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Configures "aliveness" health check. Represented by DurationRangeFactory object <a href="#DurationRangeFactory">documented below</a>.</p></td>
+     </tr>
+    </tbody>
+   </table>
+   <table id="DurationRangeFactory" class="tableblock frame-all grid-all stretch">
+    <caption class="title">
+     Table 6. DurationRangeFactory Property Reference
+    </caption>
+    <colgroup>
+     <col style="width: 33.3333%;">
+     <col style="width: 33.3333%;">
+     <col style="width: 33.3334%;">
+    </colgroup>
+    <thead>
+     <tr>
+      <th class="tableblock halign-left valign-top">Property</th>
+      <th class="tableblock halign-left valign-top">Default</th>
+      <th class="tableblock halign-left valign-top">Description</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>critical</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">5s</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Critical threshold duration. E.g. 5ms, 2s, 1hr</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>max</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Max threshold duration. E.g. 5ms, 2s, 1hr</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>min</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Min threshold duration. E.g. 5ms, 2s, 1hr</p></td>
+     </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>warning</code></p></td>
+      <td class="tableblock halign-left valign-top"></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Warning threshold duration. E.g. 5ms, 2s, 1hr</p></td>
+     </tr>
+    </tbody>
+   </table>
+  </div>
+ </div>
+</div>
