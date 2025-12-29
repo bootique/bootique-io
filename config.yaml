@@ -25,10 +25,10 @@ permalinks:
 menu:
   main:
     - name: "Get started"
-      url: "/docs/3.x/getting-started"
+      url: "/docs/3.x/getting-started/"
       weight: 1
     - name: "Documentation"
-      url: "/docs/3.x"
+      url: "/docs/3.x/"
       weight: 2
     - name: "CLA"
       url: "/cla/"
