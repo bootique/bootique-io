@@ -25,12 +25,10 @@ permalinks:
 menu:
   main:
     - name: "Get started"
-      pre: version # this means that item's URL depends on Bootique version
-      url: "/getting-started/"
+      url: "/getting-started/3.x"
       weight: 1
     - name: "Documentation"
-      pre: version
-      url: "/docs/"
+      url: "/docs/3.x"
       weight: 2
     - name: "CLA"
       url: "/cla/"
