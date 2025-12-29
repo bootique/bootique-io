@@ -1,4 +1,4 @@
-DefaultVersionUrl: "2.x"
+DefaultVersionUrl: "3.x"
 
 ByUrl:
   "1.x": &v1x
