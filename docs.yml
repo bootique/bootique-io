@@ -6,19 +6,24 @@ docs:
     - url: https://github.com/bootique/bootique.git
       versions:
         "3.x": "3.x"
+        "4.x": "master"
     - url: https://github.com/bootique/bootique-logback.git
       versions:
         "3.x": "3.x"
+        "4.x": "master"
     # there's no docs in metrics, but we need it as a local dependency
     - url: https://github.com/bootique/bootique-metrics.git
       versions:
         "3.x": "3.x"
+        "4.x": "master"
     - url: https://github.com/bootique/bootique-jdbc.git
       versions:
         "3.x": "3.x"
+        "4.x": "master"
     - url: https://github.com/bootique/bootique-jetty.git
       versions:
         "3.x": "3.x"
+        "4.x": "master"
     - url: https://github.com/bootique/bootique-tool.git
       versions:
         "3.x": "master"

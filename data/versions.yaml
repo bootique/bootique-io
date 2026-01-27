@@ -8,15 +8,21 @@ ByUrl:
 
   "2.x": &v2x
     URL: "2.x"
-    Name: "2.0 (stable)"
+    Name: "2.0 (aging)"
     ShortName: "2.0"
 
   "3.x": &v3x
     URL: "3.x"
-    Name: "3.0 (release candidate)"
+    Name: "3.0 (stable)"
     ShortName: "3.0"
+
+  "4.x": &v4x
+    URL: "4.x"
+    Name: "4.0 (preview)"
+    ShortName: "4.0"
 
 ByName:
   "1.2": *v1x
   "2.0": *v2x
   "3.0": *v3x
+  "4.0": *v4x
