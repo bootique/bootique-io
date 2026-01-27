@@ -31,7 +31,13 @@
     <loc>https://bootique.io/docs/3.x/getting-started/</loc>
   </url>
   <url>
+    <loc>https://bootique.io/docs/4.x/getting-started/</loc>
+  </url>
+  <url>
     <loc>https://bootique.io/docs/3.x/bootique-docs/</loc>
+  </url>
+  <url>
+    <loc>https://bootique.io/docs/4.x/bootique-docs/</loc>
   </url>
   <url>
     <loc>https://bootique.io/docs/1.x/bootique-docs/</loc>
@@ -43,10 +49,19 @@
     <loc>https://bootique.io/docs/3.x/bootique-jdbc-docs/</loc>
   </url>
   <url>
+    <loc>https://bootique.io/docs/4.x/bootique-jdbc-docs/</loc>
+  </url>
+  <url>
     <loc>https://bootique.io/docs/3.x/bootique-jetty-docs/</loc>
   </url>
   <url>
+    <loc>https://bootique.io/docs/4.x/bootique-jetty-docs/</loc>
+  </url>
+  <url>
     <loc>https://bootique.io/docs/3.x/bootique-logback-docs/</loc>
+  </url>
+  <url>
+    <loc>https://bootique.io/docs/4.x/bootique-logback-docs/</loc>
   </url>
   <url>
     <loc>https://bootique.io/docs/1.x/bootique-jdbc-docs/</loc>

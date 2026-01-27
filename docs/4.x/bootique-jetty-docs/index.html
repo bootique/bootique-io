@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Bootique - v3 Jetty Module: Comprehensive Guide</title>
-  <meta name="description" content="Unlock the power of Jetty within your Bootique - v3 applications. Dive into our guide on integrating Jetty for servlets, static files, websockets, and more.">
-  <meta name="keywords" content="bootique, jetty, webserver, documentation, version 3.0">
+  <title>Bootique - v4 Jetty Module: Comprehensive Guide</title>
+  <meta name="description" content="Unlock the power of Jetty within your Bootique - v4 applications. Dive into our guide on integrating Jetty for servlets, static files, websockets, and more.">
+  <meta name="keywords" content="bootique, jetty, webserver, documentation, version 4.0">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
@@ -18,7 +18,7 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
   <meta name="theme-color" content="#333333">
-  <link rel="canonical" href="https://bootique.io/docs/3.x/bootique-jetty-docs/">
+  <link rel="canonical" href="https://bootique.io/docs/4.x/bootique-jetty-docs/">
   <link href="/assets/app.css?0feb24357c49235eff59" rel="stylesheet">
 <script type="text/javascript" src="/assets/app.js?0feb24357c49235eff59"></script>
 
@@ -90,18 +90,18 @@
 <div class="documentation-page container content docbook">
   <div class="container">
     <h1>
-      Bootique Jetty - v3.0
+      Bootique Jetty - v4.0
     </h1>
     <div class="dropdown doc-version">
   <a class="dropdown-toggle" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-24,4">
-      Version 3.0
+      Version 4.0
   </a>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           
-              <a class="dropdown-item " href="/docs/4.x/bootique-jetty-docs/">Version 4.0 (preview)</a>
+              <a class="dropdown-item active" href="/docs/4.x/bootique-jetty-docs/">Version 4.0 (preview)</a>
           
           
-              <a class="dropdown-item active" href="/docs/3.x/bootique-jetty-docs/">Version 3.0 (stable)</a>
+              <a class="dropdown-item " href="/docs/3.x/bootique-jetty-docs/">Version 3.0 (stable)</a>
           
           
               <a class="dropdown-item " href="/docs/2.x/bootique-jetty-docs/">Version 2.0 (aging)</a>
@@ -815,14 +815,6 @@ public void test() {
        <p class="tableblock"><code>4</code></p></td>
       <td class="tableblock halign-left valign-top">
        <p class="tableblock">Initial number of request processing threads in the pool.</p></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>maxQueuedRequests</code></p></td>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>1024</code></p></td>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock">Maximum number of requests to queue if the thread pool is busy.</p></td>
      </tr>
      <tr>
       <td class="tableblock halign-left valign-top">
