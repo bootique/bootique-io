@@ -335,7 +335,7 @@ try (Connection connection = dataSource.getConnection()) {
       <div class="content">
        <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
-    &lt;artifactId&gt;bootique-jdbc-junit5-derby&lt;/artifactId&gt;
+    &lt;artifactId&gt;bootique-jdbc-junit-derby&lt;/artifactId&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
       </div>
@@ -348,7 +348,7 @@ try (Connection connection = dataSource.getConnection()) {
      <div class="listingblock">
       <div class="content">
        <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
-  testImplementation: 'io.bootique.jdbc:bootique-jdbc-junit5-derby'
+  testImplementation: 'io.bootique.jdbc:bootique-jdbc-junit-derby'
 }</code></pre>
       </div>
      </div>
@@ -394,14 +394,14 @@ public class DerbyTest {
       <div class="content">
        <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
-    &lt;artifactId&gt;bootique-jdbc-junit5-testcontainers&lt;/artifactId&gt;
+    &lt;artifactId&gt;bootique-jdbc-junit-testcontainers&lt;/artifactId&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;
 
 &lt;!-- DB-specific testcontainers module --&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;org.testcontainers&lt;/groupId&gt;
-    &lt;artifactId&gt;mysql&lt;/artifactId&gt;
+    &lt;artifactId&gt;testcontainers-mysql&lt;/artifactId&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;
 
@@ -421,7 +421,7 @@ public class DerbyTest {
      <div class="listingblock">
       <div class="content">
        <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
-   testImplementation: 'io.bootique.jdbc:bootique-jdbc-junit5-testcontainers'
+   testImplementation: 'io.bootique.jdbc:bootique-jdbc-junit-testcontainers'
    testImplementation: 'org.testcontainers:mysql'
    testImplementation: 'mysql:mysql-connector-java'
 }</code></pre>

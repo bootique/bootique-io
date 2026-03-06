@@ -1363,7 +1363,7 @@ BQCoreModule.extend(binder)
     <p>Bootique is uniquely suitable to be used as a test framework. Within a single test it allows you to start and stop multiple in-process runtimes, each with а distinct set of modules and configurations. Bootique test facilities are controlled with a small number of annotations: <code>@BQTest</code>, <code>@BQTestTool</code> and <code>@BQApp</code>, that will be described below.</p>
    </div>
    <div class="paragraph">
-    <p>This chapter is about the core test framework. For module-specific test APIs (e.g. <code>bootique-jdbc-junit5</code>, <code>bootique-jetty-junit5</code>), check documentation of those modules. They all follow the same base principles described here.</p>
+    <p>This chapter is about the core test framework. For module-specific test APIs (e.g. <code>bootique-jdbc-junit</code>, <code>bootique-jetty-junit</code>), check documentation of those modules. They all follow the same base principles described here.</p>
    </div>
    <div class="paragraph">
     <p>To start using Bootique test extensions, import the following module in the "test" scope:</p>
@@ -1375,7 +1375,7 @@ BQCoreModule.extend(binder)
       <div class="content">
        <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique&lt;/groupId&gt;
-    &lt;artifactId&gt;bootique-junit5&lt;/artifactId&gt;
+    &lt;artifactId&gt;bootique-junit&lt;/artifactId&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
       </div>
@@ -1388,7 +1388,7 @@ BQCoreModule.extend(binder)
      <div class="listingblock">
       <div class="content">
        <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">{
-  testImplementation: 'io.bootique:bootique-junit5'
+  testImplementation: 'io.bootique:bootique-junit'
 }</code></pre>
       </div>
      </div>
@@ -1441,7 +1441,7 @@ final static BQRuntime app = Bootique
   <div class="sect2">
    <h3 id="_test_tools_and_scopes">3.3. Test Tools and Scopes</h3>
    <div class="paragraph">
-    <p>Bootique provides a number of test tools that help you customize the apps for the test environment (e.g. <code>TcDbTester</code> tool from <code>bootique-jdbc-junit5-testcontainers</code> starts a test database and supplies a "module" to the app with DataSource configuration to access that DB; <code>JettyTester</code> from <code>bootique-jetty</code> configures HTTP connector to listen on a random unoccupied port and provides a Java client to send requests to the server, etc.).</p>
+    <p>Bootique provides a number of test tools that help you customize the apps for the test environment (e.g. <code>TcDbTester</code> tool from <code>bootique-jdbc-junit-testcontainers</code> starts a test database and supplies a "module" to the app with DataSource configuration to access that DB; <code>JettyTester</code> from <code>bootique-jetty</code> configures HTTP connector to listen on a random unoccupied port and provides a Java client to send requests to the server, etc.).</p>
    </div>
    <div class="paragraph">
     <p>Tools are declared as fields in a test class, each annotated with <code>@BQTestTool</code>. A tool can exist in a certain scope (as defined by <code>@BQTestTool(value=…​)</code>. "Scope" determines when the tool is initialized and shutdown during the test. The following scopes are available:</p>
@@ -1563,7 +1563,7 @@ public void service() {
     </div>
     <div class="listingblock">
      <div class="content">
-      <pre class="highlight"><code class="language-java java" data-lang="java">// a tool from "bootique-jetty-junit5". Doesn't require @BQTestTool,
+      <pre class="highlight"><code class="language-java java" data-lang="java">// a tool from "bootique-jetty-junit". Doesn't require @BQTestTool,
 // as it has no lifecycle of its own
 static final JettyTester jetty = JettyTester.create();
 
