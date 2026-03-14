@@ -268,7 +268,25 @@ public class HelloResource {
   </div>
   <div class="listingblock">
    <div class="content">
-    <pre class="highlight"><code class="language-java java" data-lang="java"></code></pre>
+    <pre class="highlight"><code class="language-java java" data-lang="java">import io.bootique.Bootique;
+import io.bootique.BQModule;
+import io.bootique.di.Binder;
+
+public class Application {
+
+    public static void main(String[] args) {
+
+        BQModule module = binder -&gt;
+                JerseyModule.extend(binder).addApiResource(HelloResource.class); <i class="conum" data-value="1"></i><b>(1)</b>
+
+        Bootique
+                .app(args)
+                .module(module) <i class="conum" data-value="2"></i><b>(2)</b>
+                .autoLoadModules()
+                .exec()
+                .exit();
+    }
+}</code></pre>
    </div>
   </div>
   <div class="colist arabic">
@@ -290,7 +308,7 @@ public class HelloResource {
   </div>
   <div class="listingblock">
    <div class="content">
-    <pre class="highlight"><code>INFO main i.b.j.s.ServletFactory: Adding servlet 'jersey' mapped to /*
+    <pre class="highlight"><code class="language-terminaloutput terminaloutput" data-lang="terminaloutput">INFO main i.b.j.s.ServletFactory: Adding servlet 'jersey' mapped to /*
 INFO main i.b.j.s.ServerLifecycleLogger - Starting jetty...
 INFO main o.e.j.s.Server - jetty-12.1.7; built: 2026-03-04T00:34:02.020Z; git: 8e2e9db9edceef93d37a63814ed06b921eb7f23d; jvm 21+35-LTS
 ...
