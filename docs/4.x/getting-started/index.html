@@ -286,7 +286,7 @@ public class Application {
     public static void main(String[] args) {
 
         BQModule module = binder -&gt;
-                JerseyModule.extend(binder).addResource(HelloResource.class);
+                JerseyModule.extend(binder).addApiResource(HelloResource.class);
         Bootique
                 .app(args)
                 .module(module)

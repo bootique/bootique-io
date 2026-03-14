@@ -1100,9 +1100,9 @@ OPTIONS
     </div>
    </div>
    <div class="sect3">
-    <h4 id="_writing_commands">2.4.1. Writing Commands</h4>
+    <h4 id="_custom_commands">2.4.1. Custom Commands</h4>
     <div class="paragraph">
-     <p>Most common commands are already available in various standard modules, still often you’d need to write your own. To do that, first create a command class. It should implement <code>io.bootique.command.Command</code> interface, though usually it more practical to extend <code>io.bootique.command.CommandWithMetadata</code> and provide some metadata used in help and elsewhere:</p>
+     <p>Most common commands are already available in various standard modules, still often you’d need to create your own. To do that, first create a command class. It should implement <code>io.bootique.command.Command</code> interface, though usually it more practical to extend <code>io.bootique.command.CommandWithMetadata</code> and provide some metadata used in help and elsewhere:</p>
     </div>
     <div class="listingblock">
      <div class="content">
@@ -1125,6 +1125,7 @@ OPTIONS
 
         return CommandOutcome.succeeded();
     }
+
 }</code></pre>
      </div>
     </div>
@@ -1150,17 +1151,11 @@ OPTIONS
       <pre class="highlight"><code class="language-java java" data-lang="java">@Override
 public CommandOutcome run(Cli cli) {
 
-    // ... start some process in a different thread ....
+    // 1. start some process in a different thread ...
+    // executor.submit(() -&gt; /* do something */ );
 
-    // now wait till the app is stopped from another thread
-    // or the JVM is terminated
-    try {
-        Thread.currentThread().join();
-    } catch (InterruptedException e) {
-        // ignore exception or log if needed
-    }
-
-    return CommandOutcome.succeeded();
+    // 2. Tell Bootique that the process is still running
+    return CommandOutcome.succeededAndForkedToBackground();
 }</code></pre>
      </div>
     </div>
@@ -1202,10 +1197,11 @@ public CommandOutcome run(Cli cli) {
     </div>
     <div class="listingblock">
      <div class="content">
-      <pre class="highlight"><code class="language-java java" data-lang="java">CommandDecorator extraCommands = CommandDecorator
+      <pre class="highlight"><code class="language-java java" data-lang="java">CommandDecorator extraCommands = CommandDecorator.builder()
         .beforeRun(CustomHealthcheckCommand.class)
         .alsoRun(ScheduleCommand.class)
-        .alsoRun(HeartbeatCommand.class);
+        .alsoRun(HeartbeatCommand.class)
+        .build();
 
     BQCoreModule.extend(binder).decorateCommand(ServerCommand.class, extraCommands);</code></pre>
      </div>
