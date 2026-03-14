@@ -1125,7 +1125,6 @@ OPTIONS
 
         return CommandOutcome.succeeded();
     }
-
 }</code></pre>
      </div>
     </div>
@@ -1152,7 +1151,7 @@ OPTIONS
 public CommandOutcome run(Cli cli) {
 
     // 1. start some process in a different thread ...
-    // executor.submit(() -&gt; /* do something */ );
+    executor.submit(() -&gt; { /* do something */ });
 
     // 2. Tell Bootique that the process is still running
     return CommandOutcome.succeededAndForkedToBackground();
@@ -1173,6 +1172,7 @@ private Provider&lt;SomeService&gt; provider;
 @Override
 public CommandOutcome run(Cli cli) {
     provider.get().someMethod();
+    return CommandOutcome.succeeded();
 }</code></pre>
      </div>
     </div>
@@ -1197,13 +1197,17 @@ public CommandOutcome run(Cli cli) {
     </div>
     <div class="listingblock">
      <div class="content">
-      <pre class="highlight"><code class="language-java java" data-lang="java">CommandDecorator extraCommands = CommandDecorator.builder()
-        .beforeRun(CustomHealthcheckCommand.class)
-        .alsoRun(ScheduleCommand.class)
-        .alsoRun(HeartbeatCommand.class)
-        .build();
+      <pre class="highlight"><code class="language-java java" data-lang="java">@Override
+public void configure(Binder binder) {
 
-    BQCoreModule.extend(binder).decorateCommand(ServerCommand.class, extraCommands);</code></pre>
+    CommandDecorator extraCommands = CommandDecorator.builder()
+            .beforeRun(MyHealthcheckCommand.class)
+            .alsoRun(ScheduleCommand.class)
+            .alsoRun(HeartbeatCommand.class)
+            .build();
+
+    BQCoreModule.extend(binder).decorateCommand(ServerCommand.class, extraCommands);
+}</code></pre>
      </div>
     </div>
     <div class="paragraph">
