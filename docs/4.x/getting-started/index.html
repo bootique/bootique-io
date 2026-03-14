@@ -208,9 +208,7 @@
   </div>
   <div class="listingblock">
    <div class="content">
-    <pre class="highlight"><code class="language-java java" data-lang="java">package com.foo;
-
-import io.bootique.Bootique;
+    <pre class="highlight"><code class="language-java java" data-lang="java">import io.bootique.Bootique;
 
 public class Application {
 
@@ -248,17 +246,12 @@ OPTIONS
    </div>
   </div>
   <div class="paragraph">
-   <p>So the app printed its help message telling us which commands and options it understands. <code>--server</code> option looks promising, but before we use it, let’s actually write a REST endpoint that will answer to our requests. We’ll use standard Java <a href="https://en.wikipedia.org/wiki/Java_API_for_RESTful_Web_Services">JAX-RS API</a> for that:</p>
+   <p>So the app printed its help message telling us which commands and options it understands. <code>--server</code> option looks promising, but before we use it, let’s actually write a REST endpoint that will answer to our requests. We’ll use Jakarta <a href="https://en.wikipedia.org/wiki/Jakarta_RESTful_Web_Services">JAX-RS API</a> for that:</p>
   </div>
   <div class="listingblock">
    <div class="content">
-    <pre class="highlight"><code class="language-java java" data-lang="java">package com.foo;
-
-import io.bootique.annotation.Args;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
+    <pre class="highlight"><code class="language-java java" data-lang="java">import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-
 
 @Path("/")
 public class HelloResource {
@@ -271,46 +264,39 @@ public class HelloResource {
    </div>
   </div>
   <div class="paragraph">
-   <p>Note that we could have placed this code straight in the Main class. Which makes for an effective demo (an app that can fit in one class), but not for a particularly clean design. So keeping the resource in its own class. Now let’s amend the <code>Main</code> class to tell Bootique where to find the resource:</p>
+   <p>Note that we could have placed this code straight in the <code>Application</code> class. Which makes for an effective demo (an app that can fit in one class), but not for a particularly clean design. So keeping the resource in its own class. Now let’s amend the <code>Application</code> to tell Bootique where to find the resource:</p>
   </div>
   <div class="listingblock">
    <div class="content">
-    <pre class="highlight"><code class="language-java java" data-lang="java">package com.foo;
-
-import io.bootique.Bootique;
-import io.bootique.BQModule;
-import io.bootique.jersey.JerseyModule;
-
-public class Application {
-
-    public static void main(String[] args) {
-
-        BQModule module = binder -&gt;
-                JerseyModule.extend(binder).addApiResource(HelloResource.class);
-        Bootique
-                .app(args)
-                .module(module)
-                .autoLoadModules()
-                .exec()
-                .exit();
-    }
-}</code></pre>
+    <pre class="highlight"><code class="language-java java" data-lang="java"></code></pre>
    </div>
   </div>
+  <div class="colist arabic">
+   <table>
+    <tbody>
+     <tr>
+      <td><i class="conum" data-value="1"></i><b>1</b></td>
+      <td>Here we created our own module that registers a resource with the JerseyModule.</td>
+     </tr>
+     <tr>
+      <td><i class="conum" data-value="2"></i><b>2</b></td>
+      <td>Here we registered that "inline" module with Bootique</td>
+     </tr>
+    </tbody>
+   </table>
+  </div>
   <div class="paragraph">
-   <p>Here we created our own module that "contributes" resource configuration to the JerseyModule. Now let’s try to run the app with the changes. Add <code>--server</code> to the command run parameters before doing it. Now when the app is started, you will see different output:</p>
+   <p>Now let’s try to run the app with the changes. Add <code>--server</code> to the command run parameters before doing it. Now when the app is started, you will see a different output:</p>
   </div>
   <div class="listingblock">
    <div class="content">
-    <pre class="highlight"><code>INFO main o.e.jetty.util.log: Logging initialized @1328ms
-INFO main i.b.j.s.ServerFactory: Adding listener io.bootique.jetty.servlet.DefaultServletEnvironment
-INFO main i.b.j.s.ServletFactory: Adding servlet 'jersey' mapped to /*
-INFO main i.b.j.s.ServerLifecycleLogger: Starting jetty...
-INFO main o.e.j.server.Server: jetty-9.4.19.v20190610
-INFO main o.e.j.s.h.ContextHandler: Started o.e.j.s.ServletContextHandler@27dc79f7{/,null,AVAILABLE}
-INFO main o.e.j.s.ServerConnector: Started ServerConnector@3a45c42a{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}
-INFO main o.e.j.server.Server: Started @2005ms
-INFO main i.b.j.s.ServerLifecycleLogger: Started Jetty in 584 ms. Base URL: http://127.0.0.1:8080/</code></pre>
+    <pre class="highlight"><code>INFO main i.b.j.s.ServletFactory: Adding servlet 'jersey' mapped to /*
+INFO main i.b.j.s.ServerLifecycleLogger - Starting jetty...
+INFO main o.e.j.s.Server - jetty-12.1.7; built: 2026-03-04T00:34:02.020Z; git: 8e2e9db9edceef93d37a63814ed06b921eb7f23d; jvm 21+35-LTS
+...
+INFO main o.e.j.s.AbstractConnector - Started oejs.ServerConnector@5bcb04cb{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+INFO main o.e.j.s.Server - Started oejs.Server@56ac5c80{STARTING}[12.1.7,sto=0] @26ms
+INFO main i.b.j.s.ServerLifecycleLogger - Started Jetty in 29 ms. Base URL: http://127.0.0.1:8080</code></pre>
    </div>
   </div>
   <div class="paragraph">
@@ -321,13 +307,13 @@ INFO main i.b.j.s.ServerLifecycleLogger: Started Jetty in 584 ms. Base URL: http
     <li>
      <p>You start the app via <code>Bootique</code> class, that gives you a runnable "shell" of your future app in one line of code.</p></li>
     <li>
-     <p>Declaring modules in the app dependencies and using <code>Bootique.autoLoadModules()</code> gives the app the ability to respond to commands from those modules (in our example <code>--server</code> command coming from implicit bootique-jetty module started an embedded web server ).</p></li>
+     <p>Declaring modules in the app dependencies and using <code>Bootique.autoLoadModules()</code> gives the app the ability to respond to commands from those modules (in our exampl, <code>--server</code> command coming from implicit <code>bootique-jetty</code> started an embedded web server ).</p></li>
     <li>
      <p>You can contribute your own code to modules to build an app with desired behavior.</p></li>
    </ul>
   </div>
   <div class="paragraph">
-   <p>Next we’ll talk about configuration…​</p>
+   <p>Next, we’ll talk about configuration…​</p>
   </div>
  </div>
 </div>
@@ -358,13 +344,10 @@ INFO main i.b.j.s.ServerLifecycleLogger: Started Jetty in 584 ms. Base URL: http
   </div>
   <div class="listingblock">
    <div class="content">
-    <pre class="highlight"><code class="language-java java" data-lang="java">package com.foo;
-
-import io.bootique.annotation.Args;
+    <pre class="highlight"><code class="language-java java" data-lang="java">import io.bootique.annotation.Args;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-
 
 @Path("/")
 public class HelloResource {
@@ -385,10 +368,10 @@ public class HelloResource {
    <p>As you see, we declared a variable of type <code>String[]</code> and annotated it with <code>@jakarta.inject.Inject</code> and <code>@io.bootique.annotation.Args</code>. <code>@Inject</code> ensures that the value is initialized via injection, and <code>@Args</code> tells Bootique which one of possibly many String[] instances from the DI container we are expecting here.</p>
   </div>
   <div class="paragraph">
-   <p>Now you can restart the app and refresh <a href="http://localhost:10001/hello">http://localhost:10001/hello</a> in the browser. The new output will be "Hello, world! The app was started with the following arguments: `--server --config=myconfig.yml`".</p>
+   <p>Now restart the app and refresh <a href="http://localhost:10001/hello">http://localhost:10001/hello</a> in the browser. The new output will be "Hello, world! The app was started with the following arguments: `--server --config=myconfig.yml`".</p>
   </div>
   <div class="paragraph">
-   <p>Next let’s discuss how to build and run the app outside the IDE…​</p>
+   <p>Next, let’s build and run the app outside the IDE…​</p>
   </div>
  </div>
 </div>
@@ -396,7 +379,7 @@ public class HelloResource {
  <h2 id="_packaging">4. Packaging</h2>
  <div class="sectionbody">
   <div class="paragraph">
-   <p>Till now we’ve been running our app from IDE. Now let’s package it as a runnable "fat" jar to be able to start it from command line (and potentially deploy to a remote server). This requires a bit of configuration of the Maven <code>maven-shade-plugin</code>:</p>
+   <p>Till now, we’ve been running our app from IDE. Now let’s package it as a runnable "fat" jar to be able to start it from command line (and potentially deploy to a remote server). This requires a bit of configuration of the Maven <code>maven-shade-plugin</code>:</p>
   </div>
   <div class="listingblock">
    <div class="content">
@@ -453,7 +436,7 @@ public class HelloResource {
   <div class="listingblock">
    <div class="content">
     <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;properties&gt;
-    &lt;main.class&gt;com.foo.Application&lt;/main.class&gt;
+    &lt;main.class&gt;io.bootique.getstarted.step2.Application&lt;/main.class&gt;
 &lt;/properties&gt;</code></pre>
    </div>
   </div>
