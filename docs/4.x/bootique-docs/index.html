@@ -444,14 +444,73 @@ public ModuleCrate crate() {
    <div class="sect3">
     <h4 id="_deprecating_modules">2.1.3. Deprecating Modules</h4>
     <div class="paragraph">
-     <p>TODO</p>
+     <p>Every now and then Bootique’s own or your custom module become obsolete or replaced by other modules. There are two interchangeable ways to tag them as "deprecated" to give a visual indication to the users to start looking for an alternative. The first one is the standard Java <code>@Deprecated</code> annotation:</p>
+    </div>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-java java" data-lang="java">@Deprecated(forRemoval = true)
+public class OldModule1 implements BQModule {
+    // ...
+}</code></pre>
+     </div>
+    </div>
+    <div class="paragraph">
+     <p>The second is a <code>deprecated</code> flag on the <code>ModuleCrate</code>:</p>
+    </div>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-java java" data-lang="java">public class OldModule2 implements BQModule {
+    // ...
+
+    @Override
+    public ModuleCrate crate() {
+        return ModuleCrate.of(this)
+                .deprecated(true)
+                .build();
+    }
+}</code></pre>
+     </div>
+    </div>
+    <div class="paragraph">
+     <p>Including any one of these modules in your app will result in an error message printed on startup to <code>STDERR</code>:</p>
+    </div>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-terminaloutput terminaloutput" data-lang="terminaloutput">** Deprecation alert - OldModule2.</code></pre>
+     </div>
+    </div>
+    <div class="paragraph">
+     <p>You can improve this message to provide instructions to your users on how to replace the deprecated module using <code>ModuleCrate.description(..)</code>:</p>
+    </div>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-java java" data-lang="java">public class OldModule2 implements BQModule {
+    // ...
+
+    @Override
+    public ModuleCrate crate() {
+        return ModuleCrate.of(this)
+                .deprecated(true)
+                .description("Deprecated and should be replaced with Module3.")
+                .build();
+    }
+}</code></pre>
+     </div>
+    </div>
+    <div class="paragraph">
+     <p>This will print the following:</p>
+    </div>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-terminaloutput terminaloutput" data-lang="terminaloutput">** Deprecation alert - OldModule2: Deprecated and should be replaced with Module3.</code></pre>
+     </div>
     </div>
    </div>
   </div>
   <div class="sect2">
    <h3 id="_objects_assembly">2.2. Objects Assembly</h3>
    <div class="paragraph">
-    <p>As mentioned above, <code>BQRuntime</code> is a holder of all application objects, and modules are blueprints to create those objects. You’d write your own module code to define how your objects should be created and initialized. This is done via bindings and "provider" methods, and with the assistance of the dependency injection (DI) mechanism built into Bootique.</p>
+    <p>As mentioned above, <code>BQRuntime</code> is a holder of all application objects, and modules are blueprints to create those objects. You’d write your own module code to define how your objects should be created and initialized. This is done via bindings and "provider" methods that are processed on startup by the dependency injection (DI) mechanism built into Bootique.</p>
    </div>
    <div class="sect3">
     <h4 id="_dependency_injection">2.2.1. Dependency Injection</h4>
@@ -605,13 +664,92 @@ public void configure(Binder binder) {
    <div class="sect3">
     <h4 id="_injection_in_collections">2.2.5. Injection in Collections</h4>
     <div class="paragraph">
-     <p>TODO</p>
+     <p><code>Binder</code> allows to declare injectable collections (either Sets or Maps). Say you are writing your own web server that will dispatch requests to Java servlets (of course <code>bootique-jetty</code> already provides such a server, but it is still a good example):</p>
     </div>
-   </div>
-   <div class="sect3">
-    <h4 id="_injection_and_generics">2.2.6. Injection and Generics</h4>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-java java" data-lang="java">@Override
+public void configure(Binder binder) {
+    binder.bindSet(Servlet.class) <i class="conum" data-value="1"></i><b>(1)</b>
+            .add(Servlet1.class)
+            .add(Servlet2.class); <i class="conum" data-value="2"></i><b>(2)</b>
+}</code></pre>
+     </div>
+    </div>
+    <div class="colist arabic">
+     <table>
+      <tbody>
+       <tr>
+        <td><i class="conum" data-value="1"></i><b>1</b></td>
+        <td>Starts the binding of type <code>Set&lt;Servlet&gt;</code></td>
+       </tr>
+       <tr>
+        <td><i class="conum" data-value="2"></i><b>2</b></td>
+        <td>Binds two servlets to the collection</td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
     <div class="paragraph">
-     <p>TODO</p>
+     <p>Now the <code>Set&lt;Servlet&gt;</code> can be injected to our web server object:</p>
+    </div>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-java java" data-lang="java">@Provides
+@Singleton
+Server provideServer(Set&lt;Servlet&gt; servlets) {
+    return new Server(servlets);
+}</code></pre>
+     </div>
+    </div>
+    <div class="paragraph">
+     <p>A few notes on the code above:</p>
+    </div>
+    <div class="ulist">
+     <ul>
+      <li>
+       <p>A unique signature of the Set (<code>Set&lt;Servlet&gt;</code>) is used as a key to identify it during injection. So something more generic like <code>Set&lt;String&gt;</code> has a chance of multiple conflicting sets to be present in your app. To disambiguate them, you should use <code>@Named</code> annotation.</p></li>
+      <li>
+       <p><code>Servlet1.class</code> and <code>Servlet2.class</code> are not simply classes, they are treated as DI keys to locate and inject those objects into the <code>Set</code>. E.g., a dedicated "provides" method can be defined to create <code>Servlet2</code>:</p>
+       <div class="listingblock">
+        <div class="content">
+         <pre class="highlight"><code class="language-java java" data-lang="java">@Provides
+@Singleton
+Servlet2 provideServlet2(MyService myService) {
+    return new Servlet2(myService);
+}</code></pre>
+        </div>
+       </div></li>
+     </ul>
+    </div>
+    <div class="paragraph">
+     <p><code>Binder.bindMap(..)</code> works similarly to <code>bindSet(..)</code> except, of course, it has injectable keys and values.</p>
+    </div>
+    <div class="admonitionblock note">
+     <table>
+      <tbody>
+       <tr>
+        <td class="icon"><i class="fa fa-info-circle fa-2x" title="Note"></i></td>
+        <td class="content">Collection injection may seem complicated, but it is a very powerful mechanism that turns Bootique into a <strong>plugin engine</strong>, and modules - to "plugins". It allows "upstream" modules to define specific collections, and "downstream" modules - add objects to those collections.</td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <div class="paragraph">
+     <p>In fact the real servlet server in <code>bootique-jetty</code> does just that, but with a bit of syntactic sugar to hide some of the complexity of DI collection binding:</p>
+    </div>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-java java" data-lang="java">JettyModule.extend(binder)
+   .addServlet(Servlet1.class)
+   .addServlet(Servlet2.class);</code></pre>
+     </div>
+    </div>
+    <div class="paragraph">
+     <p>The <code>addServlet(..)</code> method provides an convenient easy-to-understand API, but internally it still calls <code>binder.bindSet(Servlet.class).add(..)</code>.</p>
+    </div>
+    <div class="paragraph">
+     <p><em>TODO: collection bindings and advanced generics</em></p>
     </div>
    </div>
   </div>
