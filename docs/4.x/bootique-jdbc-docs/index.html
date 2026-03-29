@@ -133,8 +133,7 @@
    </ul></li>
   <li><a href="#jdbc-configuration-ref" class="nav-link">5. Configuration Reference</a>
    <ul class="sectlevel2 nav">
-    <li><a href="#_tomcat_jdbc" class="nav-link">5.1. Tomcat JDBC</a></li>
-    <li><a href="#_hikaricp" class="nav-link">5.2. HikariCP</a></li>
+    <li><a href="#_hikaricp" class="nav-link">5.1. HikariCP</a></li>
    </ul></li>
  </ul>
 </div></div>
@@ -150,38 +149,14 @@
    <p>JDBC is a standard and well-known API to access relational databases. To connect to a database you need a connection pool (<code>javax.sql.DataSource</code>). <a href="https://github.com/bootique/bootique-jdbc"><code>bootique-jdbc</code></a> helps to configure one or more DataSources in your app. It also provides advanced APIs for connection pool monitoring and database testing. <code>bootique-jdbc</code> is used by applications directly, as well as by other Bootique modules that require database access (Cayenne, JOOQ, MyBatis, etc.).</p>
   </div>
   <div class="paragraph">
-   <p>Out of the box Bootique supports a choice of two connection pool providers:</p>
-  </div>
-  <div class="ulist">
-   <ul>
-    <li>
-     <p><a href="https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html">Tomcat JDBC</a></p></li>
-    <li>
-     <p><a href="https://github.com/brettwooldridge/HikariCP">HikariCP</a>.</p></li>
-   </ul>
-  </div>
-  <div class="paragraph">
-   <p>Both are production-quality. From the application perspective the difference is in configuration and available <a href="#jdbc-merics-and-healthchecks">metrics and health checks</a>. Beyond that Bootique (and JDBC) gives you the API abstraction common to both, so you can pick either one.</p>
-  </div>
-  <div class="paragraph">
-   <p>Import one of these Bootique modules in your app, depending on your connection pool choice:</p>
+   <p>Out of the box Bootique supports <a href="https://github.com/brettwooldridge/HikariCP">HikariCP connection pool provider</a>: .Maven</p>
   </div>
   <details open>
-   <summary class="title">Maven</summary>
+   <summary class="title">Details</summary>
    <div class="content">
     <div class="listingblock">
      <div class="content">
-      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For Tomcat DataSource --&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
-    &lt;artifactId&gt;bootique-jdbc-tomcat&lt;/artifactId&gt;
-&lt;/dependency&gt;</code></pre>
-     </div>
-    </div>
-    <div class="listingblock">
-     <div class="content">
-      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For HikariCP --&gt;
-&lt;dependency&gt;
+      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-jdbc-hikaricp&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
@@ -194,14 +169,6 @@
    <div class="content">
     <div class="listingblock">
      <div class="content">
-      <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">// For Tomcat DataSource
-{
-  implementation: 'io.bootique.jdbc:bootique-jdbc-tomcat'
-}</code></pre>
-     </div>
-    </div>
-    <div class="listingblock">
-     <div class="content">
       <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">// For HikariCP
 {
   implementation: 'io.bootique.jdbc:bootique-jdbc-hikaricp'
@@ -211,7 +178,7 @@
    </div>
   </details>
   <div class="paragraph">
-   <p>Alternatively you may include an <a href="#jdbc-merics-and-healthchecks">"instrumented" version</a> of each module, that will enable a number of metrics for your running app.</p>
+   <p>Alternatively you may include an <a href="#jdbc-merics-and-healthchecks">"instrumented" version</a> of this module, that will enable a number of metrics for your running app.</p>
   </div>
   <div class="paragraph">
    <p>You will also need to add JDBC driver jar to the app dependencies corresponding to your database.</p>
@@ -222,7 +189,7 @@
  <h2 id="jdbc-configuration">2. Programming with "bootique-jdbc"</h2>
  <div class="sectionbody">
   <div class="paragraph">
-   <p>To work with а database you need an instance of <code>javax.sql.DataSource</code>. <code>bootique-jdbc</code> provides a way to configure one or more named DataSource in the app. Here is a minimal configuration example using HikariCP format. Full reference for both Tomcat and HikariCP configuration is provided in <a href="#jdbc-configuration-ref">this chapter</a>. (And don’t forget that you can print full configuration docs for your version of Bootique by running your app with <code>-H</code> flag).</p>
+   <p>To work with а database you need an instance of <code>javax.sql.DataSource</code>. <code>bootique-jdbc</code> provides a way to configure one or more named DataSource in the app. Here is a minimal configuration example using HikariCP format. Full reference is provided in <a href="#jdbc-configuration-ref">this chapter</a>. (And don’t forget that you can print full configuration docs for your version of Bootique by running your app with <code>-H</code> flag).</p>
   </div>
   <div class="listingblock">
    <div class="content">
@@ -256,24 +223,14 @@ try (Connection connection = dataSource.getConnection()) {
  <h2 id="jdbc-merics-and-healthchecks">3. Metrics and Health Checks</h2>
  <div class="sectionbody">
   <div class="paragraph">
-   <p>You may use the "instrumented" version of one of the <code>bootique-jdbc-*</code> connection pools, that will expose a number of metrics and health checks:</p>
+   <p>You may use the "instrumented" version of one of the <code>bootique-jdbc</code> connection pool, that will expose a number of metrics and health checks:</p>
   </div>
   <details open>
    <summary class="title">Maven</summary>
    <div class="content">
     <div class="listingblock">
      <div class="content">
-      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For Tomcat DataSource --&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
-    &lt;artifactId&gt;bootique-jdbc-tomcat-instrumented&lt;/artifactId&gt;
-&lt;/dependency&gt;</code></pre>
-     </div>
-    </div>
-    <div class="listingblock">
-     <div class="content">
-      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;!-- For HikariCP --&gt;
-&lt;dependency&gt;
+      <pre class="highlight"><code class="language-xml xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.bootique.jdbc&lt;/groupId&gt;
     &lt;artifactId&gt;bootique-jdbc-hikaricp-instrumented&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
@@ -284,14 +241,6 @@ try (Connection connection = dataSource.getConnection()) {
   <details>
    <summary class="title">Gradle</summary>
    <div class="content">
-    <div class="listingblock">
-     <div class="content">
-      <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">// For Tomcat DataSource
-{
-  implementation: 'io.bootique.jdbc:bootique-jdbc-tomcat-instrumented'
-}</code></pre>
-     </div>
-    </div>
     <div class="listingblock">
      <div class="content">
       <pre class="highlight"><code class="language-groovy groovy" data-lang="groovy">// For HikariCP
@@ -307,16 +256,6 @@ try (Connection connection = dataSource.getConnection()) {
 <div class="sect1">
  <h2 id="jdbc-testing">4. Testing</h2>
  <div class="sectionbody">
-  <div class="admonitionblock note">
-   <table>
-    <tbody>
-     <tr>
-      <td class="icon"><i class="fa fa-info-circle fa-2x" title="Note"></i></td>
-      <td class="content">Bootique provides integration for both JUnit 4 and JUnit 5. This chapter will focus exclusively on the latter. JUnit 5 integration is much more capable.</td>
-     </tr>
-    </tbody>
-   </table>
-  </div>
   <div class="paragraph">
    <p>"bootique-jdbc" test extensions provide a way to create a test database. This can be either an in-memory DB (Derby), or a real DB started via Docker / <a href="https://www.testcontainers.org/">testcontainers library</a>. The test database can be initialized with either a SQL script, Liquibase migrations, or custom code. There’s an API to create test data sets and perform assertions against DB data after the tested code is executed.</p>
   </div>
@@ -660,338 +599,10 @@ myTable.matcher().eq("c1", "x1").assertOneMatch();</code></pre>
    </div>
   </div>
   <div class="paragraph">
-   <p>DataSource properties depend on whether you are using Tomcat or Hikari (or your own) connection pool and are documented below.</p>
+   <p>DataSource properties of the default HikariCP connection pool are shown below.</p>
   </div>
   <div class="sect2">
-   <h3 id="_tomcat_jdbc">5.1. Tomcat JDBC</h3>
-   <div class="paragraph">
-    <p>Tomcat DataSource is produced by <code>io.bootique.jdbc.tomcat.TomcatManagedDataSourceFactory</code> and supports the properties listed below. A typical config might look like this:</p>
-   </div>
-   <div class="listingblock">
-    <div class="content">
-     <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jdbc:
-  mysql:
-    url: "jdbc:mysql://host/db"
-    username: testuser
-    password: secret</code></pre>
-    </div>
-   </div>
-   <table class="tableblock frame-all grid-all stretch">
-    <caption class="title">
-     Table 1. Tomcat DataSource Property Reference - Essential Properties
-    </caption>
-    <colgroup>
-     <col style="width: 33.3333%;">
-     <col style="width: 33.3333%;">
-     <col style="width: 33.3334%;">
-    </colgroup>
-    <thead>
-     <tr>
-      <th class="tableblock halign-left valign-top">Property</th>
-      <th class="tableblock halign-left valign-top">Default</th>
-      <th class="tableblock halign-left valign-top">Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>type</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock">Can be omitted if <code>bootique-jdbc-tomcat</code> is the only DataSourceFactory implementation in the app dependencies. In rare cases when there is more than one implementation, set to <code>tomcat</code>.</p></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>defaultAutoCommit</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>initialSize</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>maxActive</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>maxIdle</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>maxWait</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>minIdle</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>password</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock">Database user password</p></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>url</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock">Database URL. Required.</p></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>username</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock">Database user name.</p></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>validationQuery</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock">The query that will be executed just before a connection is given to the app from the pool to validate that the connection to the database is still alive.</p></td>
-     </tr>
-    </tbody>
-   </table>
-   <table class="tableblock frame-all grid-all stretch">
-    <caption class="title">
-     Table 2. Tomcat DataSource Property Reference - Other Properties
-    </caption>
-    <colgroup>
-     <col style="width: 33.3333%;">
-     <col style="width: 33.3333%;">
-     <col style="width: 33.3334%;">
-    </colgroup>
-    <thead>
-     <tr>
-      <th class="tableblock halign-left valign-top">Property</th>
-      <th class="tableblock halign-left valign-top">Default</th>
-      <th class="tableblock halign-left valign-top">Description</th>
-     </tr>
-    </thead>
-    <tbody>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>abandonWhenPercentageFull</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>alternateUsernameAllowed</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>commitOnReturn</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>dataSourceJNDI</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>defaultCatalog</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>defaultReadOnly</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>defaultTransactionIsolation</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>driverClassName</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>fairQueue</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>ignoreExceptionOnPreLoad</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>initSQL</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>jdbcInterceptors</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>jmxEnabled</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>jmxObjectName</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>logAbandoned</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>logValidationErrors</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>maxAge</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>minEvictableIdleTimeMillis</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>numTestsPerEvictionRun</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>propagateInterruptState</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>removeAbandoned</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>removeAbandonedTimeout</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>rollbackOnReturn</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>testOnBorrow</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>testOnReturn</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>testWhileIdle</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>testOnConnect</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>timeBetweenEvictionRunsMillis</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>useDisposableConnectionFacade</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>useEquals</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>useLock</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>validationQueryTimeout</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>validatorClassName</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-     <tr>
-      <td class="tableblock halign-left valign-top">
-       <p class="tableblock"><code>validationInterval</code></p></td>
-      <td class="tableblock halign-left valign-top"></td>
-      <td class="tableblock halign-left valign-top"></td>
-     </tr>
-    </tbody>
-   </table>
-  </div>
-  <div class="sect2">
-   <h3 id="_hikaricp">5.2. HikariCP</h3>
+   <h3 id="_hikaricp">5.1. HikariCP</h3>
    <div class="paragraph">
     <p>HikariCP DataSource is produced by <code>io.bootique.jdbc.hikaricp.HikariCPManagedDataSourceFactory</code> and supports the properties listed below (mostly matching <a href="https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby">HikariCP docs</a>. In fact most of the descriptions are adopted from that document). A typical config might look like this:</p>
    </div>
@@ -1006,7 +617,7 @@ myTable.matcher().eq("c1", "x1").assertOneMatch();</code></pre>
    </div>
    <table class="tableblock frame-all grid-all stretch">
     <caption class="title">
-     Table 3. HikariCP DataSource Property Reference - Essential Properties
+     Table 1. HikariCP DataSource Property Reference - Essential Properties
     </caption>
     <colgroup>
      <col style="width: 33.3333%;">
@@ -1100,7 +711,7 @@ myTable.matcher().eq("c1", "x1").assertOneMatch();</code></pre>
    </table>
    <table class="tableblock frame-all grid-all stretch">
     <caption class="title">
-     Table 4. HikariCP DataSource Property Reference - Other Properties
+     Table 2. HikariCP DataSource Property Reference - Other Properties
     </caption>
     <colgroup>
      <col style="width: 33.3333%;">
@@ -1245,7 +856,7 @@ myTable.matcher().eq("c1", "x1").assertOneMatch();</code></pre>
    </div>
    <table class="tableblock frame-all grid-all stretch">
     <caption class="title">
-     Table 5. HikariCP Instrumented Property Reference
+     Table 3. HikariCP Instrumented Property Reference
     </caption>
     <colgroup>
      <col style="width: 33.3333%;">
@@ -1278,7 +889,7 @@ myTable.matcher().eq("c1", "x1").assertOneMatch();</code></pre>
    </table>
    <table id="DurationRangeFactory" class="tableblock frame-all grid-all stretch">
     <caption class="title">
-     Table 6. DurationRangeFactory Property Reference
+     Table 4. DurationRangeFactory Property Reference
     </caption>
     <colgroup>
      <col style="width: 33.3333%;">
