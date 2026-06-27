@@ -138,8 +138,7 @@
   <li><a href="#jetty-configuration" class="nav-link">5. Configuration Reference</a>
    <ul class="sectlevel2 nav">
     <li><a href="#_jetty" class="nav-link">5.1. jetty</a></li>
-    <li><a href="#jettycors" class="nav-link">5.2. jettycors</a></li>
-    <li><a href="#jettywebsocket" class="nav-link">5.3. jettywebsocket</a></li>
+    <li><a href="#jettywebsocket" class="nav-link">5.2. jettywebsocket</a></li>
    </ul></li>
  </ul>
 </div></div>
@@ -856,6 +855,14 @@ public void test() {
       <td class="tableblock halign-left valign-top">
        <p class="tableblock">True if URLs are compacted to replace multiple '/'s with a single '/'</p></td>
      </tr>
+     <tr>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock"><code>cors</code></p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">none</p></td>
+      <td class="tableblock halign-left valign-top">
+       <p class="tableblock">Enables and configures CORS support. See <code>jetty.cors</code> below.</p></td>
+     </tr>
     </tbody>
    </table>
    <div class="sect3">
@@ -1063,25 +1070,119 @@ public void test() {
      <p>TODO</p>
     </div>
    </div>
-  </div>
-  <div class="sect2">
-   <h3 id="jettycors">5.2. jettycors</h3>
-   <div class="paragraph">
-    <p>"jettycors" is a root element of the Jetty CORS module configuration and is bound to a <a href="https://github.com/bootique/bootique-jetty/blob/master/bootique-jetty-cors/src/main/java/io/bootique/jetty/cors/CrossOriginFilterFactory.java"><code>CrossOriginFilterFactory</code></a> object. Example:</p>
-   </div>
-   <div class="listingblock">
-    <div class="content">
-     <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jettycors:
-  urlPatterns:
-    - "/*"
-  allowedOrigins: "https://www1.example.org,https://www2.example.org"
-  allowedMethods: "GET,OPTIONS,HEAD"
-  allowedHeaders: "*"</code></pre>
+   <div class="sect3">
+    <h4 id="jetty-cors">5.1.4. jetty.cors</h4>
+    <div class="paragraph">
+     <p>"jetty.cors" configures CORS support. CORS is only installed when this element is present, so applications that don’t use it incur no overhead. Example:</p>
     </div>
+    <div class="listingblock">
+     <div class="content">
+      <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jetty:
+  cors:
+    allowedOrigins:
+      - "https://www1.example.org"
+      - "https://www2.example.org"
+    allowedMethods:
+      - "GET"
+      - "OPTIONS"
+      - "HEAD"</code></pre>
+     </div>
+    </div>
+    <table class="tableblock frame-all grid-all stretch">
+     <caption class="title">
+      Table 4. "jetty.cors" Element Property Reference
+     </caption>
+     <colgroup>
+      <col style="width: 33.3333%;">
+      <col style="width: 33.3333%;">
+      <col style="width: 33.3334%;">
+     </colgroup>
+     <thead>
+      <tr>
+       <th class="tableblock halign-left valign-top">Property</th>
+       <th class="tableblock halign-left valign-top">Default</th>
+       <th class="tableblock halign-left valign-top">Description</th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>allowedOrigins</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>*</code> (any origin)</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">Origins allowed to make cross-origin requests, as a list of origin patterns (e.g. <code><a href="https://example.com" class="bare">https://example.com</a></code>). The default <code><strong></strong></code><strong> allows any origin; note that combining <code></code></strong> with <code>allowCredentials: true</code> is insecure.</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>allowedTimingOrigins</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>*</code> (any origin)</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">Origins allowed to receive resource timing information via the <code>Timing-Allow-Origin</code> header.</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>allowedMethods</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>GET</code>, <code>POST</code>, <code>HEAD</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">HTTP methods allowed in cross-origin requests.</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>allowedHeaders</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>X-Requested-With</code>, <code>Content-Type</code>, <code>Accept</code>, <code>Origin</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">Request headers allowed in cross-origin requests.</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>exposedHeaders</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">empty</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">Response headers exposed to the client.</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>preflightMaxAge</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>1800</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">Number of seconds a preflight response may be cached by the client.</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>allowCredentials</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>false</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">Whether the client may send credentials with cross-origin requests. Note that <code>true</code> combined with the default <code>allowedOrigins</code> of <code>*</code> is insecure; narrow <code>allowedOrigins</code> when enabling credentials.</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>chainPreflight</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>true</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">Whether preflight (OPTIONS) requests are chained to the target resource for normal handling after the CORS headers are added. When <code>false</code>, the CORS handler fully handles the preflight request.</p></td>
+      </tr>
+      <tr>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock"><code>urlPatterns</code></p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">empty (whole context)</p></td>
+       <td class="tableblock halign-left valign-top">
+        <p class="tableblock">URL patterns CORS applies to. When unset, CORS applies to the entire context. When set, CORS is only applied to matching requests.</p></td>
+      </tr>
+     </tbody>
+    </table>
    </div>
   </div>
   <div class="sect2">
-   <h3 id="jettywebsocket">5.3. jettywebsocket</h3>
+   <h3 id="jettywebsocket">5.2. jettywebsocket</h3>
    <div class="paragraph">
     <p>"jettywebsocket" is a root element of the Jetty Websocket module configuration and is bound to a <a href="https://github.com/bootique/bootique-jetty/blob/0826b9c29210db3b5a7b0941ba387147e24736a8/bootique-jetty-websocket/src/main/java/io/bootique/jetty/websocket/WebSocketPolicyFactory.java"><code>WebSocketPolicyFactory</code></a> object. Example:</p>
    </div>
