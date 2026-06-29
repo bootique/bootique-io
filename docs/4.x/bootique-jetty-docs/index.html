@@ -861,7 +861,7 @@ public void test() {
       <td class="tableblock halign-left valign-top">
        <p class="tableblock">none</p></td>
       <td class="tableblock halign-left valign-top">
-       <p class="tableblock">Enables and configures CORS support. See <code>jetty.cors</code> below.</p></td>
+       <p class="tableblock">Configures CORS support. CORS is only activated when at least one <code>cors.urlPatterns</code> entry is set. See <code>jetty.cors</code> below.</p></td>
      </tr>
     </tbody>
    </table>
@@ -1073,12 +1073,14 @@ public void test() {
    <div class="sect3">
     <h4 id="jetty-cors">5.1.4. jetty.cors</h4>
     <div class="paragraph">
-     <p>"jetty.cors" configures CORS support. CORS is only installed when this element is present, so applications that don’t use it incur no overhead. Example:</p>
+     <p>"jetty.cors" configures CORS support. CORS is only installed when at least one <code>urlPatterns</code> entry is present, so applications that don’t use it incur no overhead. To apply CORS to the entire context, set <code>urlPatterns</code> to <code>/*</code>. Example:</p>
     </div>
     <div class="listingblock">
      <div class="content">
       <pre class="highlight"><code class="language-yaml yaml" data-lang="yaml">jetty:
   cors:
+    urlPatterns:
+      - "/*"
     allowedOrigins:
       - "https://www1.example.org"
       - "https://www2.example.org"
@@ -1173,9 +1175,9 @@ public void test() {
        <td class="tableblock halign-left valign-top">
         <p class="tableblock"><code>urlPatterns</code></p></td>
        <td class="tableblock halign-left valign-top">
-        <p class="tableblock">empty (whole context)</p></td>
+        <p class="tableblock">empty (CORS disabled)</p></td>
        <td class="tableblock halign-left valign-top">
-        <p class="tableblock">URL patterns CORS applies to. When unset, CORS applies to the entire context. When set, CORS is only applied to matching requests.</p></td>
+        <p class="tableblock">URL patterns CORS applies to. At least one pattern must be set for CORS to be activated; use <code>/*</code> to apply CORS to the entire context. CORS is only applied to matching requests, and bypassed for all others.</p></td>
       </tr>
      </tbody>
     </table>
