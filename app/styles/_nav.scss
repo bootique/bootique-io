@@ -182,10 +182,6 @@
     }
   }
 
-  .fa-github {
-    display: none;
-  }
-
   .gh-stars {
     opacity: 1;
     transition: opacity .3s ease-out;
@@ -225,17 +221,7 @@
     }
   }
 
-  .github-btn {
-    &.star,
-    &.fork span {
-      display: none;
-    }
-    &.star .fa-github {
-      display: block;
-      top: -1px;
-    }
-  }
-
+  .github-btn.star > span:not(.star-counter),
   .tw-btn span {
     display: none;
   }
