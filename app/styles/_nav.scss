@@ -144,10 +144,6 @@
     margin-right: .875rem;
   }
 
-  .gh-stars {
-    margin-right: .375rem;
-  }
-
   .pure-menu-selected & {
     color: #000;
     background: rgba(0, 0, 0, .05);
@@ -176,18 +172,10 @@
 .github-btn.star {
   &:hover {
     text-decoration: none;
-
-    img {
-      opacity: .65;
-    }
   }
 
-  .gh-stars {
-    opacity: 1;
-    transition: opacity .3s ease-out;
-    max-width: 27px;
-    position: relative;
-    top: -1px;
+  .star-counter {
+    margin-left: .35em;
   }
 }
 
